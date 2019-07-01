@@ -1914,10 +1914,6 @@ namespace Test1
                     comboBox11.Items.Insert(8, "50");
                     comboBox11.Items.Insert(9, "63");
                 }
-                else
-                {
-                    radioButton2.Checked = true;
-                }
             }
             else if (comboBox12.Text == "MCCB")
             {
@@ -1957,14 +1953,6 @@ namespace Test1
                     comboBox11.Items.Insert(12, "125");
                     comboBox11.Items.Insert(13, "160");
                 }
-                else
-                {
-                    radioButton2.Checked = true;
-                }
-            }
-            else
-            {
-                radioButton2.Checked = true;
             }
         }
 
