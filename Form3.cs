@@ -197,15 +197,17 @@ namespace Test1
             dataGridView2.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(20, 25, 72);
             dataGridView2.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridView2.RowHeadersDefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
-
+            dataGridView2.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView2.Columns[0].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             for (int i = 0; i<9; i++)
             {
                 dataGridView2.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
-                dataGridView2.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             }
+            
         }
 
-        private void Button1_Click(object sender, EventArgs e)
+
+            private void Button1_Click(object sender, EventArgs e)
         {
             if (textBox3.Text != "")
             {
@@ -237,10 +239,42 @@ namespace Test1
             f4.Show();
         }
 
+        private void DataGridView2_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex == dataGridView2.Rows.Count - 1)
+            {
+                e.AdvancedBorderStyle.Bottom = dataGridView2.AdvancedCellBorderStyle.Bottom;
+            }
+            else
+            {
+                e.AdvancedBorderStyle.Bottom = DataGridViewAdvancedCellBorderStyle.None;
+            }
+            if (e.RowIndex < 1 || e.ColumnIndex < 0)
+                return;
+            if ((IsTheSameCellValue(e.ColumnIndex, e.RowIndex)) && (e.ColumnIndex < 3))
+            {
+                e.AdvancedBorderStyle.Top = DataGridViewAdvancedCellBorderStyle.None;
+            }
+            else
+            {
+                e.AdvancedBorderStyle.Top = dataGridView2.AdvancedCellBorderStyle.Top;
+            }
+        }
 
         private void Button2_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void DataGridView2_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.RowIndex == 0)
+                return;
+            if ((IsTheSameCellValue(e.ColumnIndex, e.RowIndex)) && (e.ColumnIndex < 3))
+            {
+                e.Value = "";
+                e.FormattingApplied = true;
+            }
         }
 
         private void kt_check()
@@ -254,6 +288,17 @@ namespace Test1
             {
                 textBox3.Text = "";
             }
+        }
+
+        bool IsTheSameCellValue(int column, int row)
+        {
+            DataGridViewCell cell1 = dataGridView2[column, row];
+            DataGridViewCell cell2 = dataGridView2[column, row - 1];
+            if (cell1.Value == null || cell2.Value == null)
+            {
+                return false;
+            }
+            return cell1.Value.ToString() == cell2.Value.ToString();
         }
     }
 }

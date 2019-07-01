@@ -81,7 +81,7 @@
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ClipboardCopyMode = System.Windows.Forms.DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column33,
             this.Column1,
@@ -149,7 +149,7 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Width = 47;
+            this.Column1.Width = 82;
             // 
             // Column2
             // 
@@ -197,7 +197,7 @@
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column7.Width = 58;
+            this.Column7.Width = 64;
             // 
             // Column8
             // 
@@ -205,7 +205,7 @@
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column8.Width = 64;
+            this.Column8.Width = 71;
             // 
             // Column9
             // 
@@ -221,7 +221,7 @@
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
             this.Column10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column10.Width = 62;
+            this.Column10.Width = 69;
             // 
             // Column11
             // 
@@ -229,7 +229,7 @@
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
             this.Column11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column11.Width = 75;
+            this.Column11.Width = 83;
             // 
             // Column12
             // 
@@ -237,7 +237,7 @@
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
             this.Column12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column12.Width = 41;
+            this.Column12.Width = 66;
             // 
             // Column13
             // 
@@ -245,7 +245,7 @@
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
             this.Column13.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column13.Width = 38;
+            this.Column13.Width = 63;
             // 
             // Column14
             // 
@@ -253,7 +253,7 @@
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
             this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column14.Width = 39;
+            this.Column14.Width = 64;
             // 
             // Column15
             // 
@@ -261,7 +261,7 @@
             this.Column15.Name = "Column15";
             this.Column15.ReadOnly = true;
             this.Column15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column15.Width = 50;
+            this.Column15.Width = 109;
             // 
             // Column16
             // 
@@ -269,7 +269,7 @@
             this.Column16.Name = "Column16";
             this.Column16.ReadOnly = true;
             this.Column16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column16.Width = 57;
+            this.Column16.Width = 88;
             // 
             // Column17
             // 
@@ -277,7 +277,7 @@
             this.Column17.Name = "Column17";
             this.Column17.ReadOnly = true;
             this.Column17.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column17.Width = 41;
+            this.Column17.Width = 65;
             // 
             // Column18
             // 
@@ -285,7 +285,7 @@
             this.Column18.Name = "Column18";
             this.Column18.ReadOnly = true;
             this.Column18.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column18.Width = 55;
+            this.Column18.Width = 61;
             // 
             // Column19
             // 
@@ -293,7 +293,7 @@
             this.Column19.Name = "Column19";
             this.Column19.ReadOnly = true;
             this.Column19.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column19.Width = 67;
+            this.Column19.Width = 108;
             // 
             // Column20
             // 
@@ -301,7 +301,6 @@
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
             this.Column20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column20.Width = 59;
             // 
             // Column21
             // 
@@ -309,7 +308,7 @@
             this.Column21.Name = "Column21";
             this.Column21.ReadOnly = true;
             this.Column21.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column21.Width = 46;
+            this.Column21.Width = 64;
             // 
             // Column22
             // 
@@ -317,7 +316,7 @@
             this.Column22.Name = "Column22";
             this.Column22.ReadOnly = true;
             this.Column22.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column22.Width = 87;
+            this.Column22.Width = 113;
             // 
             // Column23
             // 
@@ -325,7 +324,7 @@
             this.Column23.Name = "Column23";
             this.Column23.ReadOnly = true;
             this.Column23.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column23.Width = 54;
+            this.Column23.Width = 73;
             // 
             // Column24
             // 
@@ -333,7 +332,7 @@
             this.Column24.Name = "Column24";
             this.Column24.ReadOnly = true;
             this.Column24.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column24.Width = 79;
+            this.Column24.Width = 88;
             // 
             // Column25
             // 
@@ -341,7 +340,7 @@
             this.Column25.Name = "Column25";
             this.Column25.ReadOnly = true;
             this.Column25.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column25.Width = 57;
+            this.Column25.Width = 144;
             // 
             // Column26
             // 
@@ -349,7 +348,7 @@
             this.Column26.Name = "Column26";
             this.Column26.ReadOnly = true;
             this.Column26.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column26.Width = 57;
+            this.Column26.Width = 63;
             // 
             // Column27
             // 
@@ -357,7 +356,7 @@
             this.Column27.Name = "Column27";
             this.Column27.ReadOnly = true;
             this.Column27.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column27.Width = 50;
+            this.Column27.Width = 55;
             // 
             // Column28
             // 
@@ -365,7 +364,7 @@
             this.Column28.Name = "Column28";
             this.Column28.ReadOnly = true;
             this.Column28.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column28.Width = 28;
+            this.Column28.Width = 61;
             // 
             // Column29
             // 
@@ -373,7 +372,7 @@
             this.Column29.Name = "Column29";
             this.Column29.ReadOnly = true;
             this.Column29.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column29.Width = 32;
+            this.Column29.Width = 83;
             // 
             // Column30
             // 
@@ -381,7 +380,7 @@
             this.Column30.Name = "Column30";
             this.Column30.ReadOnly = true;
             this.Column30.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column30.Width = 47;
+            this.Column30.Width = 66;
             // 
             // Column31
             // 
@@ -389,7 +388,7 @@
             this.Column31.Name = "Column31";
             this.Column31.ReadOnly = true;
             this.Column31.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column31.Width = 47;
+            this.Column31.Width = 88;
             // 
             // Column32
             // 
@@ -397,7 +396,7 @@
             this.Column32.Name = "Column32";
             this.Column32.ReadOnly = true;
             this.Column32.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column32.Width = 77;
+            this.Column32.Width = 85;
             // 
             // button1
             // 
