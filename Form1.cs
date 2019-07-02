@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -39,7 +40,6 @@ namespace Test1
         string breakertype;
         public static string insulation, installation;
         int cores;
-        double temperature;
         double breakcurrent;
 
         public static double k1main, k2main, ktmain;
@@ -69,15 +69,15 @@ namespace Test1
         public static int j = -1;
         Form5 f5 = new Form5();
         Form6 f6 = new Form6();
+        FSettings fSettings = new FSettings();
 
         public static string[] results = new string[32];
 
-        char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-
-
+        public static char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
         public Form1()
         {
+
             InitializeComponent();
         }
 
@@ -204,11 +204,6 @@ namespace Test1
             { 300, 0.0749, 0.0886, 0.07190965, 336, 497 }
         };
 
-
-        private void GroupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
 
         private void Label3_Click(object sender, EventArgs e)
         {
@@ -562,13 +557,6 @@ namespace Test1
             enable_result_btn();
         }
 
-        private void TextBox14_Leave(object sender, EventArgs e)
-        {
-            if (textBox14.Text != "")
-            {
-                temperature = double.Parse(textBox14.Text);
-            }
-        }
 
         private void Form1_Load(object sender, EventArgs e)
         {
@@ -1730,6 +1718,16 @@ namespace Test1
         private void Button6_Click(object sender, EventArgs e)
         {
             f6.ShowDialog();
+        }
+
+        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fSettings.FormClosed += fSettings_FormClosed;
+            fSettings.ShowDialog();
+        }
+        private void fSettings_FormClosed(object sender, FormClosedEventArgs e)
+        {
+
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)
