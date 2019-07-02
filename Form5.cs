@@ -1,14 +1,15 @@
-﻿using Microsoft.Office.Interop.Excel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Test1
 {
@@ -16,8 +17,8 @@ namespace Test1
     {
         //variable
         int currentrow;
-
-
+        string savefile = "";
+       
         public Form5()
         {
             InitializeComponent();
@@ -25,7 +26,6 @@ namespace Test1
 
         private void Form5_Load(object sender, EventArgs e)
         {
-
         }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
@@ -58,35 +58,14 @@ namespace Test1
             }
         }
 
-        private void DataGridView1_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (dataGridView1.CurrentCell.Selected)
-            {
-                button1.Enabled = true;
-                currentrow = e.RowIndex;
-            }
-            else
-            {
-                button1.Enabled = false;
-            }
-            
-        }
 
         private void Button3_Click(object sender, EventArgs e)
         {
             DialogResult dialogResult = MessageBox.Show("Delete all data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
-                if (this.dataGridView1.DataSource != null)
-                {
-                    this.dataGridView1.DataSource = null;
-                }
-                else
-                {
-                    this.dataGridView1.Rows.Clear();
-                }
+                clearTable();
             }
-            Form1.j = -1;
         }
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -115,5 +94,194 @@ namespace Test1
                 Clipboard.Clear();
             }
         }
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DataTable dx = new DataTable();
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "XML|*.xml";
+            DataSet ds = new DataSet();
+
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ds.ReadXml(ofd.FileName);
+                    dx = ds.Tables[0];
+
+                    int dxcolumn = dx.Columns.Count;
+                    int dxrow = dx.Rows.Count;
+
+                    dataGridView1.Rows.Clear();
+
+                    for (int i = 0; i < dxrow; i++)
+                    {
+                        dataGridView1.RowCount++;
+                        for (int k = 0; k < dxcolumn; k++)
+                        {
+                            dataGridView1.Rows[i].Cells[k].Value = dx.Rows[i].ItemArray[k];
+                        }
+
+                    }
+                    Form1.j = dxrow - 1;
+                    savefile = ofd.FileName;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (savefile == "")
+            {
+                ExportDgvToXML();
+            }
+            else //safefile == last savepath
+            {
+                saveExportDgvToXML();
+            }
+        }
+
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExportDgvToXML();
+        }
+
+
+        private void ExportDgvToXML()
+        {
+            DataTable dt = new DataTable();
+
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                dt.Columns.Add(col.Name);
+            }
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                DataRow dRow = dt.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    dRow[cell.ColumnIndex] = cell.Value;
+                }
+                dt.Rows.Add(dRow);
+            }
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "XML|*.xml";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
+                    xmlSave.Formatting = Formatting.Indented;
+                    ds.DataSetName = "data";
+                    ds.WriteXml(xmlSave);
+                    xmlSave.Close();
+                    savefile = sfd.FileName;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+
+        private void saveExportDgvToXML()
+        {
+            DataTable dt = new DataTable();
+
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
+            {
+                dt.Columns.Add(col.Name);
+            }
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                DataRow dRow = dt.NewRow();
+                foreach (DataGridViewCell cell in row.Cells)
+                {
+                    dRow[cell.ColumnIndex] = cell.Value;
+                }
+                dt.Rows.Add(dRow);
+            }
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+            try
+            {
+                XmlTextWriter xmlSave = new XmlTextWriter(savefile, Encoding.UTF8);
+                xmlSave.Formatting = Formatting.Indented;
+                ds.DataSetName = "data";
+                ds.WriteXml(xmlSave);
+                xmlSave.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            
+        }
+
+        private void NewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if ((Form1.j > -1) && (savefile == ""))
+            {
+                DialogResult dr = MessageBox.Show("Want to save your changes?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    ExportDgvToXML();
+                    savefile = "";
+                    clearTable();
+                }
+                else if (dr == DialogResult.No)
+                {
+                    savefile = "";
+                    clearTable();
+                }
+            }
+            else if (savefile != "")
+            {
+                DialogResult dr = MessageBox.Show("Want to save your changes to " + savefile + "?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    saveExportDgvToXML();
+                    savefile = "";
+                    clearTable();
+                }
+                else if (dr == DialogResult.No)
+                {
+                    savefile = "";
+                    clearTable();
+                }
+            }
+            else
+            {
+                savefile = "";
+                clearTable();
+            }
+            
+        }
+
+        private void clearTable()
+        {
+            if (dataGridView1.DataSource != null)
+            {
+                dataGridView1.DataSource = null;
+            }
+            else
+            {
+                dataGridView1.Rows.Clear();
+            }
+            Form1.j = -1;
+        }
     }
+
 }
