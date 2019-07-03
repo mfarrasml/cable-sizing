@@ -75,6 +75,9 @@ namespace Test1
 
         public static char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
+        public static double[,] inputCableData;
+        public static int cableCount;
+
         public Form1()
         {
 
@@ -496,6 +499,8 @@ namespace Test1
                 label29.Enabled = true;
                 textBox7.Enabled = true;
                 textBox25.Enabled = true;
+                label59.Enabled = true;
+
             }
             else
             {
@@ -512,6 +517,17 @@ namespace Test1
                 label29.Enabled = false;
                 textBox7.Enabled = false;
                 textBox25.Enabled = false;
+                label59.Enabled = false;
+
+                textBox25.Text = "";
+                textBox14.Text = "";
+                textBox10.Text = "";
+                textBox11.Text = "";
+                textBox7.Text = "";
+                vdstart = 0;
+                vdstartmax = 0;
+                pfstart = 0;
+                currentstart = 0;
             }
             
             calc_current();
@@ -1097,6 +1113,72 @@ namespace Test1
                             n++;
                         }
                     }
+                    else if (radioButton3.Checked) //manual cable database input
+                    {
+                        while ((!complete) && (i < cableCount + 1))
+                        {
+                            wirearea = inputCableData[i, 0];
+
+                            if (phase == "DC")
+                            {
+                                Rdc = inputCableData[i, 1];
+
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else
+                            {
+                                Rac = inputCableData[i, 1];
+                                X = inputCableData[i, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                       (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Dynamic")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                       (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Dynamic")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+                            if (installation == "Under Ground")
+                            {
+                                Irated = inputCableData[i, 3];
+                            }
+                            else if (installation == "Above Ground")
+                            {
+                                Irated = inputCableData[i, 4];
+                            }
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+
+                            // Validasi
+                            validasi();
+
+                            i++;
+                        }
+                    }
                 }
                 if (complete)
                 {
@@ -1147,7 +1229,7 @@ namespace Test1
                 else
                 {
 
-                    readtemp = "Failed" ;
+                    readtemp = "Failed";
                     MessageBox.Show(readtemp);
 
                 }
@@ -1717,8 +1799,26 @@ namespace Test1
 
         private void Button6_Click(object sender, EventArgs e)
         {
+            f6.FormClosed += F6_FormClosed;
             f6.ShowDialog();
+
         }
+        private void F6_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (Form6.okclicked)
+            {
+
+                inputCableData = new double[cableCount + 1, 5];
+                for (int i = 0; i < cableCount + 1; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        inputCableData[i, j] = Form6.confirmedcabledata[i, j];
+                    }
+                }
+            }
+        }
+
 
         private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -2302,8 +2402,8 @@ namespace Test1
             results[15] = currentstart.ToString("0.##");
             results[16] = n.ToString("0.##");
             results[17] = wirearea.ToString("0.##");
-            results[18] = Rac.ToString("0.##");
-            results[19] = X.ToString("0.##");
+            results[18] = Rac.ToString("0.####");
+            results[19] = X.ToString("0.####");
             results[20] = Irated.ToString("0.##");
             results[21] = ktmain.ToString("0.##");
             results[22] = iderated.ToString("0.##");
