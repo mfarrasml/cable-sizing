@@ -46,7 +46,7 @@ namespace Test1
         public static double k1main, k2main, ktmain;
         public static bool ok_clicked;
 
-        bool complete;
+        bool complete, inputValid;
         int i= 0;
 
         string readtemp;
@@ -65,6 +65,7 @@ namespace Test1
         double lmax;
         double smin;
         double cablesizemin;
+        
 
 
         public static int j = -1;
@@ -692,555 +693,562 @@ namespace Test1
 
         public void area_calc()
         {
-            if (breakcurrent < current)
+            n = int.Parse(textBox12.Text);
+            complete = false;
+            while (!complete)
             {
-                MessageBox.Show("Breaker current value must be greater than the full load current value!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                i = 0;
+                if (radioButton4.Checked)
+                {
+                    if (insulation == "XLPE")
+                    {
+                        if (cores == 2)
+                        {
+                            while ((!complete) && (i < 17))
+                            {
+                                wirearea = xlpe2core[i, 0];
+                                if (phase == "DC")
+                                {
+                                    Rdc = xlpe2core[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+                                    Rac = xlpe2core[i, 1];
+                                    X = xlpe2core[i, 2];
+
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                }
+
+
+
+                                if (installation == "Under Ground")
+                                {
+                                    Irated = xlpe2core[i, 4] * n;
+                                }
+                                else //above ground
+                                {
+                                    Irated = xlpe2core[i, 5] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi();
+
+                                i++;
+                            }
+                        }
+                        else if (cores == 3)
+                        {
+                            while ((!complete) && (i < 17))
+                            {
+                                wirearea = xlpe3core[i, 0];
+                                if (phase == "DC")
+                                {
+                                    Rdc = xlpe3core[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+                                    Rac = xlpe3core[i, 1];
+                                    X = xlpe3core[i, 2];
+
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                }
+
+
+                                if (installation == "Under Ground")
+                                {
+                                    Irated = xlpe3core[i, 4] * n;
+                                }
+                                else //above ground
+                                {
+                                    Irated = xlpe3core[i, 5] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+                                cable_lte();
+
+                                // Validasi
+                                validasi();
+
+                                i++;
+                            }
+                        }
+                        else if (cores == 4)
+                        {
+                            while ((!complete) && (i < 17))
+                            {
+                                wirearea = xlpe4core[i, 0];
+                                if (phase == "DC")
+                                {
+                                    Rdc = xlpe4core[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+                                    Rac = xlpe4core[i, 1];
+                                    X = xlpe4core[i, 2];
+
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                }
+
+                                if (installation == "Under Ground")
+                                {
+                                    Irated = xlpe4core[i, 4] * n;
+                                }
+                                else //above ground
+                                {
+                                    Irated = xlpe4core[i, 5] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+                                cable_lte();
+
+                                // Validasi
+                                validasi();
+
+                                i++;
+                            }
+                        }
+                    }
+                    else if (insulation == "PVC")
+                    {
+                        if (cores == 2)
+                        {
+                            while ((!complete) && (i < 16))
+                            {
+                                wirearea = pvc2core[i, 0];
+                                if (phase == "DC")
+                                {
+                                    Rdc = pvc2core[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+                                    Rac = pvc2core[i, 1];
+                                    X = pvc2core[i, 2];
+
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                }
+
+                                if (installation == "Under Ground")
+                                {
+                                    Irated = pvc2core[i, 4] * n;
+                                }
+                                else //above ground
+                                {
+                                    Irated = pvc2core[i, 5] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+                                cable_lte();
+
+                                // Validasi
+                                validasi();
+
+                                i++;
+                            }
+                        }
+                        else if (cores == 3)
+                        {
+                            while ((!complete) && (i < 16))
+                            {
+                                wirearea = pvc3core[i, 0];
+                                if (phase == "DC")
+                                {
+                                    Rdc = pvc3core[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+                                    Rac = pvc3core[i, 1];
+                                    X = pvc3core[i, 2];
+
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                }
+
+                                if (installation == "Under Ground")
+                                {
+                                    Irated = pvc3core[i, 4] * n;
+                                }
+                                else //above ground
+                                {
+                                    Irated = pvc3core[i, 5] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+                                cable_lte();
+
+                                // Validasi
+                                validasi();
+
+                                i++;
+                            }
+                        }
+                        else if (cores == 4)
+                        {
+                            while ((!complete) && (i < 16))
+                            {
+                                wirearea = pvc4core[i, 0];
+                                if (phase == "DC")
+                                {
+                                    Rdc = pvc4core[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+                                    Rac = pvc4core[i, 1];
+                                    X = pvc4core[i, 2];
+
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+
+                                        if (loadtype == "Dynamic")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                }
+
+                                if (installation == "Under Ground")
+                                {
+                                    Irated = pvc4core[i, 4] * n;
+                                }
+                                else //above ground
+                                {
+                                    Irated = pvc4core[i, 5] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+                                cable_lte();
+
+                                // Validasi
+                                validasi();
+
+                                i++;
+                            }
+                        }
+                    }
+                    if (!complete)
+                    {
+                        solvableOrNPlus();
+                    }
+                }
+                else if (radioButton3.Checked) //manual cable database input
+                {
+                    while ((!complete) && (i < cableCount))
+                    {
+                        wirearea = inputCableData[i, 0];
+
+                        if (phase == "DC")
+                        {
+                            Rdc = inputCableData[i, 1];
+
+                            vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                        }
+                        else
+                        {
+                            Rac = inputCableData[i, 1];
+                            X = inputCableData[i, 2];
+
+                            if (phase == "Single-Phase AC")
+                            {
+                                vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if (loadtype == "Dynamic")
+                                {
+                                    vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                            }
+                            else if (phase == "Three-Phase AC")
+                            {
+                                vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if (loadtype == "Dynamic")
+                                {
+                                    vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                            }
+                        }
+
+                        if (installation == "Under Ground")
+                        {
+                            Irated = inputCableData[i, 3];
+                        }
+                        else if (installation == "Above Ground")
+                        {
+                            Irated = inputCableData[i, 4];
+                        }
+
+                        iderated = Irated * ktmain;
+                        cable_lte();
+
+                        // Validasi
+                        validasi();
+
+                        i++;
+                    }
+                    if (!complete)
+                    {
+                        solvableOrNPlus();
+                    }
+                }
+                    
             }
-            else if ((radioButton2.Enabled) && (cablesizemin >= 300) && (insulation == "PVC"))
+            if (inputValid)
             {
-                MessageBox.Show("Minimum cable size due to short circuit current must be <300 with PVC insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if ((radioButton2.Enabled) && (cablesizemin >= 400) && (insulation == "XLPE"))
-            {
-                MessageBox.Show("Minimum cable size due to short circuit current must be <400 with XLPE insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox12.Text = n.ToString();
+                textBox8.Text = vdrun.ToString("0.##");
+                textBox29.Text = lmax.ToString("0.##");
+
+                if (material == "Copper")
+                {
+                    materialname = "Cu";
+                }
+
+                if (loadtype == "Dynamic")
+                {
+                    textBox10.Text = vdstart.ToString("0.##");
+                }
+
+                readtemp = "";
+                    
+                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() + 
+                    " mm²    0,6/1kV / " + materialname + " / " + insulation;
+
+                if (armour != "Non Armoured")
+                {
+                    readtemp += " / " + armour;
+                }
+
+                readtemp += " / " + outersheath;
+
+                tbResult.Text = readtemp;
+                cable_lte();
+                save_result();
+                enable_save();
+                if (phase == "DC")
+                {
+                    textBox34.Text = Rdc.ToString("0.####");
+                    textBox33.Text = "";
+                }
+                else //AC
+                {
+                    textBox34.Text = Rac.ToString("0.####");
+                    textBox33.Text = X.ToString("0.####");
+                }
+                textBox32.Text = Irated.ToString("0.##");
             }
             else
             {
-                n = int.Parse(textBox12.Text);
-                complete = false;
-                while (!complete)
-                {
-                    i = 0;
-                    if (radioButton4.Checked)
-                    {
-                        if (insulation == "XLPE")
-                        {
-                            if (cores == 2)
-                            {
-                                while ((!complete) && (i < 17))
-                                {
-                                    wirearea = xlpe2core[i, 0];
-                                    if (phase == "DC")
-                                    {
-                                        Rdc = xlpe2core[i, 3];
-                                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                                    }
-                                    else //AC
-                                    {
-                                        Rac = xlpe2core[i, 1];
-                                        X = xlpe2core[i, 2];
 
-                                        if (phase == "Single-Phase AC")
-                                        {
-                                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                        else if (phase == "Three-Phase AC")
-                                        {
-                                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                                (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                    }
-
-
-
-                                    if (installation == "Under Ground")
-                                    {
-                                        Irated = xlpe2core[i, 4] * n;
-                                    }
-                                    else //above ground
-                                    {
-                                        Irated = xlpe2core[i, 5] * n;
-                                    }
-
-                                    iderated = Irated * ktmain;
-
-                                    cable_lte();
-
-                                    // Validasi
-                                    validasi();
-
-                                    i++;
-                                }
-                            }
-                            else if (cores == 3)
-                            {
-                                while ((!complete) && (i < 17))
-                                {
-                                    wirearea = xlpe3core[i, 0];
-                                    if (phase == "DC")
-                                    {
-                                        Rdc = xlpe3core[i, 3];
-                                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                                    }
-                                    else //AC
-                                    {
-                                        Rac = xlpe3core[i, 1];
-                                        X = xlpe3core[i, 2];
-
-                                        if (phase == "Single-Phase AC")
-                                        {
-                                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                        else if (phase == "Three-Phase AC")
-                                        {
-                                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                    }
-
-
-                                    if (installation == "Under Ground")
-                                    {
-                                        Irated = xlpe3core[i, 4] * n;
-                                    }
-                                    else //above ground
-                                    {
-                                        Irated = xlpe3core[i, 5] * n;
-                                    }
-
-                                    iderated = Irated * ktmain;
-                                    cable_lte();
-
-                                    // Validasi
-                                    validasi();
-
-                                    i++;
-                                }
-                            }
-                            else if (cores == 4)
-                            {
-                                while ((!complete) && (i < 17))
-                                {
-                                    wirearea = xlpe4core[i, 0];
-                                    if (phase == "DC")
-                                    {
-                                        Rdc = xlpe4core[i, 3];
-                                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                                    }
-                                    else //AC
-                                    {
-                                        Rac = xlpe4core[i, 1];
-                                        X = xlpe4core[i, 2];
-
-                                        if (phase == "Single-Phase AC")
-                                        {
-                                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                        else if (phase == "Three-Phase AC")
-                                        {
-                                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                    }
-
-                                    if (installation == "Under Ground")
-                                    {
-                                        Irated = xlpe4core[i, 4] * n;
-                                    }
-                                    else //above ground
-                                    {
-                                        Irated = xlpe4core[i, 5] * n;
-                                    }
-
-                                    iderated = Irated * ktmain;
-                                    cable_lte();
-
-                                    // Validasi
-                                    validasi();
-
-                                    i++;
-                                }
-                            }
-                        }
-                        else if (insulation == "PVC")
-                        {
-                            if (cores == 2)
-                            {
-                                while ((!complete) && (i < 16))
-                                {
-                                    wirearea = pvc2core[i, 0];
-                                    if (phase == "DC")
-                                    {
-                                        Rdc = pvc2core[i, 3];
-                                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                                    }
-                                    else //AC
-                                    {
-                                        Rac = pvc2core[i, 1];
-                                        X = pvc2core[i, 2];
-
-                                        if (phase == "Single-Phase AC")
-                                        {
-                                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                        else if (phase == "Three-Phase AC")
-                                        {
-                                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                    }
-
-                                    if (installation == "Under Ground")
-                                    {
-                                        Irated = pvc2core[i, 4] * n;
-                                    }
-                                    else //above ground
-                                    {
-                                        Irated = pvc2core[i, 5] * n;
-                                    }
-
-                                    iderated = Irated * ktmain;
-                                    cable_lte();
-
-                                    // Validasi
-                                    validasi();
-
-                                    i++;
-                                }
-                            }
-                            else if (cores == 3)
-                            {
-                                while ((!complete) && (i < 16))
-                                {
-                                    wirearea = pvc3core[i, 0];
-                                    if (phase == "DC")
-                                    {
-                                        Rdc = pvc3core[i, 3];
-                                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                                    }
-                                    else //AC
-                                    {
-                                        Rac = pvc3core[i, 1];
-                                        X = pvc3core[i, 2];
-
-                                        if (phase == "Single-Phase AC")
-                                        {
-                                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                        else if (phase == "Three-Phase AC")
-                                        {
-                                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                    }
-
-                                    if (installation == "Under Ground")
-                                    {
-                                        Irated = pvc3core[i, 4] * n;
-                                    }
-                                    else //above ground
-                                    {
-                                        Irated = pvc3core[i, 5] * n;
-                                    }
-
-                                    iderated = Irated * ktmain;
-                                    cable_lte();
-
-                                    // Validasi
-                                    validasi();
-
-                                    i++;
-                                }
-                            }
-                            else if (cores == 4)
-                            {
-                                while ((!complete) && (i < 16))
-                                {
-                                    wirearea = pvc4core[i, 0];
-                                    if (phase == "DC")
-                                    {
-                                        Rdc = pvc4core[i, 3];
-                                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-
-                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                                    }
-                                    else //AC
-                                    {
-                                        Rac = pvc4core[i, 1];
-                                        X = pvc4core[i, 2];
-
-                                        if (phase == "Single-Phase AC")
-                                        {
-                                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                        else if (phase == "Three-Phase AC")
-                                        {
-                                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                            / (n * 1000 * voltage);
-
-                                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                               (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-
-                                            if (loadtype == "Dynamic")
-                                            {
-                                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                                / (n * 1000 * voltage);
-                                            }
-                                        }
-                                    }
-
-                                    if (installation == "Under Ground")
-                                    {
-                                        Irated = pvc4core[i, 4] * n;
-                                    }
-                                    else //above ground
-                                    {
-                                        Irated = pvc4core[i, 5] * n;
-                                    }
-
-                                    iderated = Irated * ktmain;
-                                    cable_lte();
-
-                                    // Validasi
-                                    validasi();
-
-                                    i++;
-                                }
-                            }
-                        }
-                        if (!complete)
-                        {
-                            n++;
-                        }
-                    }
-                    else if (radioButton3.Checked) //manual cable database input
-                    {
-                        while ((!complete) && (i < cableCount))
-                        {
-                            wirearea = inputCableData[i, 0];
-
-                            if (phase == "DC")
-                            {
-                                Rdc = inputCableData[i, 1];
-
-                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                            }
-                            else
-                            {
-                                Rac = inputCableData[i, 1];
-                                X = inputCableData[i, 2];
-
-                                if (phase == "Single-Phase AC")
-                                {
-                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                    / (n * 1000 * voltage);
-
-                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                       (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                    if (loadtype == "Dynamic")
-                                    {
-                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                        / (n * 1000 * voltage);
-                                    }
-                                }
-                                else if (phase == "Three-Phase AC")
-                                {
-                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                    / (n * 1000 * voltage);
-
-                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                       (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                    if (loadtype == "Dynamic")
-                                    {
-                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                        / (n * 1000 * voltage);
-                                    }
-                                }
-                            }
-
-                            if (installation == "Under Ground")
-                            {
-                                Irated = inputCableData[i, 3];
-                            }
-                            else if (installation == "Above Ground")
-                            {
-                                Irated = inputCableData[i, 4];
-                            }
-
-                            iderated = Irated * ktmain;
-                            cable_lte();
-
-                            // Validasi
-                            validasi();
-
-                            i++;
-                        }
-                        if (!complete)
-                        {
-                            n++;
-                        }
-                    }
-                }
-                if (complete)
-                {
-                    textBox12.Text = n.ToString();
-                    textBox8.Text = vdrun.ToString("0.##");
-                    textBox29.Text = lmax.ToString("0.##");
-
-                    if (material == "Copper")
-                    {
-                        materialname = "Cu";
-                    }
-
-                    if (loadtype == "Dynamic")
-                    {
-                        textBox10.Text = vdstart.ToString("0.##");
-                    }
-
-                    readtemp = "";
-                    
-                    readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() + 
-                        " mm²    0,6/1kV / " + materialname + " / " + insulation;
-
-                    if (armour != "Non Armoured")
-                    {
-                        readtemp += " / " + armour;
-                    }
-
-                    readtemp += " / " + outersheath;
-
-                    tbResult.Text = readtemp;
-                    cable_lte();
-                    save_result();
-                    enable_save();
-                    if (phase == "DC")
-                    {
-                        textBox34.Text = Rdc.ToString("0.####");
-                        textBox33.Text = "";
-                    }
-                    else //AC
-                    {
-                        textBox34.Text = Rac.ToString("0.####");
-                        textBox33.Text = X.ToString("0.####");
-                    }
-                    textBox32.Text = Irated.ToString("0.##");
-                    
-
-                }
-                else
-                {
-
-                    readtemp = "Failed";
-                    MessageBox.Show(readtemp);
-
-                }
             }
         }
 
+
+        private void solvableOrNPlus()
+        {
+            if (breakcurrent < current)
+            {
+                MessageBox.Show("Breaker current value must be greater than the full load current value!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                complete = true;
+                inputValid = false;
+            }
+            else if ((radioButton2.Enabled) && (cablesizemin >= iderated) && (insulation == "PVC"))
+            {
+                MessageBox.Show("Minimum cable size due to short circuit current must be <300 with PVC insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                complete = true;
+                inputValid = false;
+            }
+            else if ((radioButton2.Enabled) && (cablesizemin >= iderated) && (insulation == "XLPE"))
+            {
+                MessageBox.Show("Minimum cable size due to short circuit current must be <400 with XLPE insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                complete = true;
+                inputValid = false;
+            }
+            else
+            {
+                n++;
+            }
+        }
 
         private void validasi()
         {
@@ -1252,22 +1260,26 @@ namespace Test1
                     if (vdstart < vdstartmax)
                     {
                         complete = true;
+                        inputValid = true;
 
                     }
                     else
                     {
                         complete = false;
+                        inputValid = false;
                     }
                 }
                 else
                 {
                     complete = true;
+                    inputValid = true;
                 }
 
             }
             else
             {
                 complete = false;
+                inputValid = false;
             }
         }
         
@@ -2454,6 +2466,11 @@ namespace Test1
         private void enable_save()
         {
             button4.Enabled = true;
+        }
+
+        private void textSeparatorChange()
+        {
+            
         }
     }
 }

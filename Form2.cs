@@ -24,6 +24,7 @@ namespace Test1
             string insul = Form1.insulation;
             string install = Form1.installation;
 
+            //table 1 data
             if (insul == "XLPE")
             {
                 DataTable agdt = new DataTable();
@@ -32,21 +33,21 @@ namespace Test1
                 agdt.Columns.Add("Ground Temperature");
                 agdt.Columns.Add("XLPE Insulation Correction Factor (Kg1)");
 
-                agdt.Rows.Add("10", "1,07");
-                agdt.Rows.Add("15", "1,04");
-                agdt.Rows.Add("20", "1");
-                agdt.Rows.Add("25", "0,96");
-                agdt.Rows.Add("30", "0,93");
-                agdt.Rows.Add("35", "0,89");
-                agdt.Rows.Add("40", "0,85");
-                agdt.Rows.Add("45", "0,80");
-                agdt.Rows.Add("50", "0,76");
-                agdt.Rows.Add("55", "0,71");
-                agdt.Rows.Add("60", "0,65");
-                agdt.Rows.Add("65", "0,60");
-                agdt.Rows.Add("70", "0,53");
-                agdt.Rows.Add("75", "0,46");
-                agdt.Rows.Add("80", "0,38");
+                agdt.Rows.Add(10, 1.07);
+                agdt.Rows.Add(15, 1.04);
+                agdt.Rows.Add(20, 1);
+                agdt.Rows.Add(25, 0.96);
+                agdt.Rows.Add(30, 0.93);
+                agdt.Rows.Add(35, 0.89);
+                agdt.Rows.Add(40, 0.85);
+                agdt.Rows.Add(45, 0.80);
+                agdt.Rows.Add(50, 0.76);
+                agdt.Rows.Add(55, 0.71);
+                agdt.Rows.Add(60, 0.65);
+                agdt.Rows.Add(65, 0.60);
+                agdt.Rows.Add(70, 0.53);
+                agdt.Rows.Add(75, 0.46);
+                agdt.Rows.Add(80, 0.38);
 
                 dataGridView1.DataSource = agdt;
             }
@@ -57,17 +58,17 @@ namespace Test1
 
                 agdt.Columns.Add("Ground Temperature");
                 agdt.Columns.Add("PVC Insulation Correction Factor (Kg1)");
-                agdt.Rows.Add("10", "1,1");
-                agdt.Rows.Add("15", "1,05");
-                agdt.Rows.Add("20", "1");
-                agdt.Rows.Add("25", "0,95");
-                agdt.Rows.Add("30", "0,89");
-                agdt.Rows.Add("35", "0,84");
-                agdt.Rows.Add("40", "0,77");
-                agdt.Rows.Add("45", "0,71");
-                agdt.Rows.Add("50", "0,63");
-                agdt.Rows.Add("55", "0,55");
-                agdt.Rows.Add("60", "0,45");
+                agdt.Rows.Add(10, 1.1);
+                agdt.Rows.Add(15, 1.05);
+                agdt.Rows.Add(20, 1);
+                agdt.Rows.Add(25, 0.95);
+                agdt.Rows.Add(30, 0.89);
+                agdt.Rows.Add(35, 0.84);
+                agdt.Rows.Add(40, 0.77);
+                agdt.Rows.Add(45, 0.71);
+                agdt.Rows.Add(50, 0.63);
+                agdt.Rows.Add(55, 0.55);
+                agdt.Rows.Add(60, 0.45);
 
                 dataGridView1.DataSource = agdt;
             }
@@ -79,21 +80,22 @@ namespace Test1
             kg2dt.Columns.Add("Number of Circuits");
             kg2dt.Columns.Add("Cable Touching Correction Factor (Kg2)");
 
-            kg2dt.Rows.Add("1", "1");
-            kg2dt.Rows.Add("2", "0,75");
-            kg2dt.Rows.Add("3", "0,65");
-            kg2dt.Rows.Add("4", "0,6");
-            kg2dt.Rows.Add("5", "0,55");
-            kg2dt.Rows.Add("6", "0,5");
-            kg2dt.Rows.Add("7", "0,45");
-            kg2dt.Rows.Add("8", "0,43");
-            kg2dt.Rows.Add("9", "0,41");
-            kg2dt.Rows.Add("12", "0,36");
-            kg2dt.Rows.Add("16", "0,32");
-            kg2dt.Rows.Add("20", "0,29");
+            kg2dt.Rows.Add(1, 1);
+            kg2dt.Rows.Add(2, 0.75);
+            kg2dt.Rows.Add(3, 0.65);
+            kg2dt.Rows.Add(4, 0.6);
+            kg2dt.Rows.Add(5, 0.55);
+            kg2dt.Rows.Add(6, 0.5);
+            kg2dt.Rows.Add(7, 0.45);
+            kg2dt.Rows.Add(8, 0.43);
+            kg2dt.Rows.Add(9, 0.41);
+            kg2dt.Rows.Add(12, 0.36);
+            kg2dt.Rows.Add(16, 0.32);
+            kg2dt.Rows.Add(20, 0.29);
 
             dataGridView2.DataSource = kg2dt;
 
+            // table layout
             // properties table 1
             dataGridView1.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(238, 239, 249);
             dataGridView1.DefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
@@ -151,7 +153,7 @@ namespace Test1
             if (e.RowIndex != -1)
             {
                 dataGridView1.CurrentRow.Selected = true;
-                textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[1].FormattedValue.ToString();
+                textBox1.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 k1 = double.Parse(textBox1.Text);
 
                 kt_check();
@@ -182,7 +184,7 @@ namespace Test1
             if ((dataGridView1.CurrentRow != null) && (dataGridView1.CurrentRow.Selected))
             {
                 dataGridView1.CurrentRow.Selected = true;
-                textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[1].FormattedValue.ToString();
+                textBox1.Text = dataGridView1.Rows[dataGridView1.CurrentCell.RowIndex].Cells[1].Value.ToString();
                 k1 = double.Parse(textBox1.Text);
 
                 kt_check();
@@ -194,7 +196,7 @@ namespace Test1
             if ((dataGridView2.CurrentRow != null) && (dataGridView2.CurrentRow.Selected))
             {
                 dataGridView2.CurrentRow.Selected = true;
-                textBox2.Text = dataGridView2.Rows[dataGridView2.CurrentCell.RowIndex].Cells[1].FormattedValue.ToString();
+                textBox2.Text = dataGridView2.Rows[dataGridView2.CurrentCell.RowIndex].Cells[1].Value.ToString();
                 k2 = double.Parse(textBox2.Text);
 
                 kt_check();
@@ -206,7 +208,7 @@ namespace Test1
             if (e.RowIndex != -1)
             {
                 dataGridView2.CurrentRow.Selected = true;
-                textBox2.Text = dataGridView2.Rows[e.RowIndex].Cells[1].FormattedValue.ToString();
+                textBox2.Text = dataGridView2.Rows[e.RowIndex].Cells[1].Value.ToString();
                 k2 = double.Parse(textBox2.Text);
 
                 kt_check();
