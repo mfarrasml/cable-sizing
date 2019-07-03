@@ -38,6 +38,7 @@ namespace Test1
         string tagno, from, to, fromdesc, todesc;
         string material, armour, innersheath, outersheath;
         string breakertype;
+        string remarks;
         public static string insulation, installation;
         int cores;
         double breakcurrent;
@@ -71,7 +72,7 @@ namespace Test1
         Form6 f6 = new Form6();
         FSettings fSettings = new FSettings();
 
-        public static string[] results = new string[32];
+        public static string[] results = new string[33];
 
         public static char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
@@ -577,7 +578,7 @@ namespace Test1
         private void Form1_Load(object sender, EventArgs e)
         {
             cbPower.Text = "kW";
-            for(int z = 0; z < 32; z++)
+            for(int z = 0; z < 33; z++)
             {
                 results[z] = "-";
             }
@@ -1115,7 +1116,7 @@ namespace Test1
                     }
                     else if (radioButton3.Checked) //manual cable database input
                     {
-                        while ((!complete) && (i < cableCount + 1))
+                        while ((!complete) && (i < cableCount))
                         {
                             wirearea = inputCableData[i, 0];
 
@@ -1177,6 +1178,10 @@ namespace Test1
                             validasi();
 
                             i++;
+                        }
+                        if (!complete)
+                        {
+                            n++;
                         }
                     }
                 }
@@ -1721,7 +1726,7 @@ namespace Test1
             f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
             if (!f5.Visible)
             {
-                for (int k = 0; k <32; k ++)
+                for (int k = 0; k <33; k ++)
                 {
                     f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
                     f5.Show();
@@ -1729,7 +1734,7 @@ namespace Test1
             }
             else
             {
-                for (int k = 0; k < 32; k++)
+                for (int k = 0; k < 33; k++)
                 {
                     f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
                 }
@@ -1749,6 +1754,11 @@ namespace Test1
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             Application.Exit();
+            if (Form5.cancelexit)
+            {
+                e.Cancel = true;
+                Form5.cancelexit = false;
+            }
         }
 
         private void TextBox31_TextChanged(object sender, EventArgs e)
@@ -1781,6 +1791,7 @@ namespace Test1
                 button6.Enabled = true;
                 label78.Enabled = true;
             }
+            enable_result_btn();
         }
 
         private void RadioButton3_CheckedChanged(object sender, EventArgs e)
@@ -1795,6 +1806,7 @@ namespace Test1
                 button6.Enabled = false;
                 label78.Enabled = false;
             }
+            enable_result_btn();
         }
 
         private void Button6_Click(object sender, EventArgs e)
@@ -1807,13 +1819,13 @@ namespace Test1
         {
             if (Form6.okclicked)
             {
-
-                inputCableData = new double[cableCount + 1, 5];
-                for (int i = 0; i < cableCount + 1; i++)
+                enable_result_btn();
+                inputCableData = new double[cableCount, 5];
+                for (int i = 0; i < cableCount; i++)
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int q = 0; q < 5; q++)
                     {
-                        inputCableData[i, j] = Form6.confirmedcabledata[i, j];
+                        inputCableData[i, q] = Form6.confirmedcabledata[i, q];
                     }
                 }
             }
@@ -1828,6 +1840,11 @@ namespace Test1
         private void fSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
 
+        }
+
+        private void TextBox35_TextChanged(object sender, EventArgs e)
+        {
+            remarks = textBox35.Text; 
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)
@@ -1984,45 +2001,52 @@ namespace Test1
                 (textBox18.Text != "") && (textBox19.Text != "") && (comboBox11.Text != "") && (comboBox4.Text != "") && 
                 (comboBox7.Text != "") && (comboBox8.Text != "") && (comboBox10.Text != "") && (comboBox12.Text != ""))
                 {
-                    if (radioButton2.Checked)
+                    if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                     {
-                        if((textBox23.Text != "") && (textBox28.Text != ""))
+                        if (radioButton2.Checked)
                         {
-                            if (loadtype == "Dynamic")
+                            if ((textBox23.Text != "") && (textBox28.Text != ""))
                             {
-                                if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
+                                if (loadtype == "Dynamic")
                                 {
-                                    button2.Enabled = true;
+                                    if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
+                                    {
+                                        button2.Enabled = true;
+                                    }
+                                    else
+                                    {
+                                        button2.Enabled = false;
+                                    }
                                 }
                                 else
                                 {
-                                    button2.Enabled = false;
+                                    button2.Enabled = true;
                                 }
                             }
                             else
                             {
+                                button2.Enabled = false;
+                            }
+                        }
+                        else if (loadtype == "Dynamic")
+                        {
+                            if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
+                            {
                                 button2.Enabled = true;
+                            }
+                            else
+                            {
+                                button2.Enabled = false;
                             }
                         }
                         else
                         {
-                            button2.Enabled = false;
-                        }
-                    }
-                    else if(loadtype == "Dynamic")
-                    {
-                        if((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
-                        {
                             button2.Enabled = true;
-                        }
-                        else
-                        {
-                            button2.Enabled = false;
                         }
                     }
                     else
                     {
-                        button2.Enabled = true;
+                        button2.Enabled = false;
                     }
                 }
                 else
@@ -2416,8 +2440,9 @@ namespace Test1
             results[29] = vdstart.ToString("0.##");
             results[30] = vdstartmax.ToString("0.##");
             results[31] = readtemp;
+            results[32] = remarks;
 
-            for(int i = 0; i <32; i++)
+            for(int i = 0; i <33; i++)
             {
                 if (results[i] == "0")
                 {

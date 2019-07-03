@@ -49,7 +49,9 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(594, 749);
             this.Controls.Add(this.pictureBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form4";
             this.Text = "Table B.52.20";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

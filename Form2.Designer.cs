@@ -179,8 +179,9 @@
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.dataGridView1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Form2";
             this.ShowIcon = false;
             this.Text = "Derating Factor Table";

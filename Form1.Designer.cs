@@ -170,6 +170,8 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label78 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label79 = new System.Windows.Forms.Label();
+            this.textBox35 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -239,7 +241,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
@@ -1647,6 +1649,8 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.textBox35);
+            this.panel2.Controls.Add(this.label79);
             this.panel2.Controls.Add(this.label78);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.button6);
@@ -1782,6 +1786,26 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1145, 501);
             this.panel2.TabIndex = 131;
+            // 
+            // label79
+            // 
+            this.label79.AutoSize = true;
+            this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label79.Location = new System.Drawing.Point(872, 246);
+            this.label79.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.label79.Name = "label79";
+            this.label79.Size = new System.Drawing.Size(63, 16);
+            this.label79.TabIndex = 144;
+            this.label79.Text = "Remarks";
+            // 
+            // textBox35
+            // 
+            this.textBox35.Location = new System.Drawing.Point(988, 246);
+            this.textBox35.Multiline = true;
+            this.textBox35.Name = "textBox35";
+            this.textBox35.Size = new System.Drawing.Size(119, 116);
+            this.textBox35.TabIndex = 145;
+            this.textBox35.TextChanged += new System.EventHandler(this.TextBox35_TextChanged);
             // 
             // Form1
             // 
@@ -1956,6 +1980,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.TextBox textBox35;
+        private System.Windows.Forms.Label label79;
     }
 }
 

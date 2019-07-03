@@ -17,7 +17,9 @@ namespace Test1
     {
         //variable
         int currentrow;
-        string savefile = "";
+        public static bool cancelexit;
+
+        public static string savefile = "";
        
         public Form5()
         {
@@ -35,6 +37,53 @@ namespace Test1
             {
                 e.Cancel = true;
                 Hide();
+            }
+            else
+            {
+                if ((Form1.j > -1) && (savefile == ""))
+                {
+                    DialogResult dr = MessageBox.Show("Want to save your changes?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (dr == DialogResult.Yes)
+                    {
+                        ExportDgvToXML();
+                        savefile = "";
+                        clearTable();
+                    }
+                    else if (dr == DialogResult.No)
+                    {
+                        savefile = "";
+                        clearTable();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        cancelexit = true;
+                    }
+                }
+                else if (savefile != "")
+                {
+                    DialogResult dr = MessageBox.Show("Want to save your changes to " + savefile + "?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                    if (dr == DialogResult.Yes)
+                    {
+                        saveExportDgvToXML();
+                        savefile = "";
+                        clearTable();
+                    }
+                    else if (dr == DialogResult.No)
+                    {
+                        savefile = "";
+                        clearTable();
+                    }
+                    else
+                    {
+                        e.Cancel = true;
+                        cancelexit = true;
+                    }
+                }
+                else
+                {
+                    this.Close();
+                }
             }
         }
 
@@ -153,7 +202,7 @@ namespace Test1
         }
 
 
-        private void ExportDgvToXML()
+        public void ExportDgvToXML()
         {
             DataTable dt = new DataTable();
 
@@ -195,7 +244,7 @@ namespace Test1
             }
         }
 
-        private void saveExportDgvToXML()
+        public void saveExportDgvToXML()
         {
             DataTable dt = new DataTable();
 

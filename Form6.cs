@@ -13,11 +13,10 @@ namespace Test1
     public partial class Form6 : Form
     {
         public static double[,] cabledata = new double[17, 5];
-        public static double[,] confirmedcabledata;
+        public static double[,] confirmedcabledata = new double[17, 5];
         int cablecount;
         bool[] datAvailable = new bool[17]; 
         int nMax = 17;
-        int nValid = 0;
         bool inValid;
         public static bool okclicked = false;
 
@@ -28,7 +27,6 @@ namespace Test1
 
         private void Form6_Load(object sender, EventArgs e)
         {
-            int nValid = 0;
             okclicked = false;
 
             cabledata[0, 0] = 1.5;
@@ -49,9 +47,10 @@ namespace Test1
             cabledata[15, 0] = 300;
             cabledata[16, 0] = 400;
 
+            dataGridView1.RowCount = 17;
+
             for (int i = 0; i <17; i++)
             {
-                dataGridView1.RowCount++;
                 dataGridView1.Rows[i].Cells[0].Value = cabledata[i, 0];
                 dataGridView1.Rows[i].Cells[0].ReadOnly = true;
             }
@@ -73,15 +72,18 @@ namespace Test1
 
         private void DataGridView1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
+            if (dataGridView1.CurrentCell.ColumnIndex > 0)
             {
-                e.Handled = true;
-            }
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
+                {
+                    e.Handled = true;
+                }
 
-            // only allow one decimal point
-            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
-            {
-                e.Handled = true;
+                // only allow one decimal point
+                if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
+                {
+                    e.Handled = true;
+                }
             }
         }
 
@@ -91,9 +93,10 @@ namespace Test1
             inValid = cekValidasiTable();
             if (!inValid)
             {
+                finalCableData();
                 Form1.cableCount = cablecount;
                 okclicked = true;
-                this.Hide();
+                this.Close();
             }
             else
             {
@@ -112,7 +115,7 @@ namespace Test1
             bool terisi;
             for (int i = 0; i < nMax; i++)
             {
-                int j = 1;
+                int j = 0;
                 terisi = true;
                 while (j < 5)
                 {
@@ -169,12 +172,12 @@ namespace Test1
                 {
                     for (int j = 0; j < 5; j++)
                     {
-                        confirmedcabledata = new double[17, 5];
                         confirmedcabledata[cablecount, j] = cabledata[i, j];
-                        cablecount++;
                     }
+                    cablecount++;
                 }
             }
+                
         }
     }
 }
