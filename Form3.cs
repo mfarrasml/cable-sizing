@@ -79,12 +79,12 @@ namespace Test1
             string insul = Form1.insulation;
             string install = Form1.installation;
 
-            if (insul == "XLPE")
+            if ((insul == "XLPE") || (insul == "EPR"))
             {
                 DataTable agdt = new DataTable();
                 agdt.Clear();
 
-                agdt.Columns.Add("Ground Temperature");
+                agdt.Columns.Add("Ambient Air Temperature");
                 agdt.Columns.Add("XLPE Insulation Correction Factor (Ka1)");
 
                 agdt.Rows.Add(10, 1.15);

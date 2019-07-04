@@ -30,6 +30,7 @@ namespace Test1
         double sccurrent;
         double cplxpower;
         string materialname;
+        double initialTemp, finalTemp;
 
         double vdrunmax, vdstartmax, vdrun, vdstart;
         double length;
@@ -43,8 +44,8 @@ namespace Test1
         int cores;
         double breakcurrent;
 
-        public static double k1main, k2main, ktmain;
-        public static bool ok_clicked;
+        public static double k1main, k2main, k3main, ktmain;
+        public static bool ok_clicked, okSetClicked;
 
         bool complete, inputValid;
         int i= 0;
@@ -65,8 +66,8 @@ namespace Test1
         double lmax;
         double smin;
         double cablesizemin;
-        
 
+        string voltageLv;
 
         public static int j = -1;
         Form5 f5 = new Form5();
@@ -76,6 +77,7 @@ namespace Test1
         public static string[] results = new string[33];
 
         public static char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+        public static bool decimalSeparatorChanged = false;
 
         public static double[,] inputCableData;
         public static int cableCount;
@@ -607,13 +609,13 @@ namespace Test1
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if (comboBox9.Text == "Under Ground")
+            if ((comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)"))
             {
                 Form2 f2 = new Form2();
                 f2.FormClosed += F2_FormClosed;
                 f2.ShowDialog();
             }
-            else if (comboBox9.Text == "Above Ground")
+            else if (comboBox9.Text == "E (Above Ground)")
             {
                 Form3 f3 = new Form3();
                 f3.FormClosed += F3_FormClosed;
@@ -627,6 +629,7 @@ namespace Test1
             {
                 textBox17.Text = k1main.ToString("R");
                 textBox18.Text = k2main.ToString("R");
+                textBox36.Text = k3main.ToString("R");
                 textBox19.Text = ktmain.ToString("0.##");
             }
             ok_clicked = false;
@@ -646,6 +649,7 @@ namespace Test1
         private void ComboBox4_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             material = comboBox4.Text;
+            Calc_k();
             enable_result_btn();
         }
 
@@ -656,13 +660,11 @@ namespace Test1
             {
                 textBox15.Text = "70";
                 textBox24.Text = "160";
-                textBox21.Text = "115";
             }
-            else if (insulation == "XLPE")
+            else if ((insulation == "XLPE") || (insulation == "EPR"))
             {
                 textBox15.Text = "90";
                 textBox24.Text = "250";
-                textBox21.Text = "143";
             }
             else
             {
@@ -685,6 +687,16 @@ namespace Test1
         private void ComboBox9_SelectedIndexChanged(object sender, EventArgs e)
         {
             installation = comboBox9.Text;
+            if (installation == "E (Above Ground)")
+            {
+                textBox36.Enabled = false;
+                label80.Enabled = false;
+            }
+            else
+            {
+                textBox36.Enabled = true;
+                label80.Enabled = true;
+            }
 
             reset_correction();
             enable_correction();
@@ -750,7 +762,7 @@ namespace Test1
 
 
 
-                                if (installation == "Under Ground")
+                                if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = xlpe2core[i, 4] * n;
                                 }
@@ -816,7 +828,7 @@ namespace Test1
                                 }
 
 
-                                if (installation == "Under Ground")
+                                if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = xlpe3core[i, 4] * n;
                                 }
@@ -880,7 +892,7 @@ namespace Test1
                                     }
                                 }
 
-                                if (installation == "Under Ground")
+                                if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = xlpe4core[i, 4] * n;
                                 }
@@ -947,7 +959,7 @@ namespace Test1
                                     }
                                 }
 
-                                if (installation == "Under Ground")
+                                if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = pvc2core[i, 4] * n;
                                 }
@@ -1011,7 +1023,7 @@ namespace Test1
                                     }
                                 }
 
-                                if (installation == "Under Ground")
+                                if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = pvc3core[i, 4] * n;
                                 }
@@ -1077,7 +1089,7 @@ namespace Test1
                                     }
                                 }
 
-                                if (installation == "Under Ground")
+                                if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = pvc4core[i, 4] * n;
                                 }
@@ -1096,6 +1108,12 @@ namespace Test1
                             }
                         }
                     }
+                    else if (insulation == "EPR")
+                    {
+                        MessageBox.Show("Vendor data cable specification for EPR insulation doesn't exist at the time, please insert cable specification data manually!",
+                            "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        complete = true;
+                    }
                     if (!complete)
                     {
                         solvableOrNPlus();
@@ -1110,6 +1128,7 @@ namespace Test1
                         if (phase == "DC")
                         {
                             Rdc = inputCableData[i, 1];
+                            Rac = 0;
 
                             vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
@@ -1117,6 +1136,7 @@ namespace Test1
                         else
                         {
                             Rac = inputCableData[i, 1];
+                            Rdc = 0;
                             X = inputCableData[i, 2];
 
                             if (phase == "Single-Phase AC")
@@ -1149,11 +1169,11 @@ namespace Test1
                             }
                         }
 
-                        if (installation == "Under Ground")
+                        if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                         {
                             Irated = inputCableData[i, 3];
                         }
-                        else if (installation == "Above Ground")
+                        else if (installation == "E (Above Ground)")
                         {
                             Irated = inputCableData[i, 4];
                         }
@@ -1238,7 +1258,7 @@ namespace Test1
                 complete = true;
                 inputValid = false;
             }
-            else if ((radioButton2.Enabled) && (cablesizemin >= iderated) && (insulation == "XLPE"))
+            else if ((radioButton2.Enabled) && (cablesizemin >= iderated) && ((insulation == "XLPE") || (insulation == "EPR")))
             {
                 MessageBox.Show("Minimum cable size due to short circuit current must be <400 with XLPE insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
@@ -1253,7 +1273,7 @@ namespace Test1
         private void validasi()
         {
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
-                (((radioButton1.Checked) && (cLTE > bLTE)) ||((radioButton2.Checked) && (wirearea > smin))))
+                (((!radioButton2.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (wirearea > smin))))
             {
                 if (loadtype == "Dynamic")
                 {
@@ -1418,7 +1438,7 @@ namespace Test1
 
         private void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton2.Checked)
+            if ((radioButton2.Checked) && (!radioButton1.Checked))
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
@@ -1430,14 +1450,23 @@ namespace Test1
                 label67.Enabled = true;
                 label68.Enabled = true;
                 textBox30.Enabled = true;
-                label48.Enabled = false;
-                label49.Enabled = false;
-                label69.Enabled = false;
-                label70.Enabled = false;
-                textBox20.Enabled = false;
-                textBox22.Enabled = false;
+                textBox20.ReadOnly = true;
             }
-            else //(!radioButton2.Checked)
+            else if ((radioButton1.Checked) && (!radioButton2.Checked))
+            {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
+                label53.Enabled = false;
+                label54.Enabled = false;
+                textBox23.Enabled = false;
+                textBox28.Enabled = false;
+                label63.Enabled = false;
+                label64.Enabled = false;
+                label67.Enabled = false;
+                label68.Enabled = false;
+                textBox30.Enabled = false;
+                textBox20.ReadOnly = false;
+            }
+            else
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
                 label53.Enabled = false;
@@ -1449,21 +1478,16 @@ namespace Test1
                 label67.Enabled = false;
                 label68.Enabled = false;
                 textBox30.Enabled = false;
-                label48.Enabled = true;
-                label49.Enabled = true;
-                label69.Enabled = true;
-                label70.Enabled = true;
-                textBox20.Enabled = true;
-                textBox22.Enabled = true;
+                textBox20.ReadOnly = true;
             }
             break_lte();
         }
 
         private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if ((radioButton1.Checked) && (!radioButton2.Checked))
             {
-                comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = false;
                 label54.Enabled = false;
                 textBox23.Enabled = false;
@@ -1473,14 +1497,9 @@ namespace Test1
                 label67.Enabled = false;
                 label68.Enabled = false;
                 textBox30.Enabled = false;
-                label48.Enabled = true;
-                label49.Enabled = true;
-                label69.Enabled = true;
-                label70.Enabled = true;
-                textBox20.Enabled = true;
-                textBox22.Enabled = true;
+                textBox20.ReadOnly = false;
             }
-            else //(!radioButton1.Checked)
+            else if ((radioButton2.Checked) && (!radioButton1.Checked))
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
@@ -1492,12 +1511,21 @@ namespace Test1
                 label67.Enabled = true;
                 label68.Enabled = true;
                 textBox30.Enabled = true;
-                label48.Enabled = false;
-                label49.Enabled = false;
-                label69.Enabled = false;
-                label70.Enabled = false;
-                textBox20.Enabled = false;
-                textBox22.Enabled = false;
+                textBox20.ReadOnly = true;
+            }
+            else //auto, both button unchecked
+            {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                label53.Enabled = false;
+                label54.Enabled = false;
+                textBox23.Enabled = false;
+                textBox28.Enabled = false;
+                label63.Enabled = false;
+                label64.Enabled = false;
+                label67.Enabled = false;
+                label68.Enabled = false;
+                textBox30.Enabled = false;
+                textBox20.ReadOnly = true;
             }
             break_lte();
         }
@@ -1612,6 +1640,7 @@ namespace Test1
             textBox15.Text = "";
             textBox24.Text = "";
             textBox17.Text = "";
+            textBox36.Text = "";
             textBox18.Text = "";
             textBox19.Text = "";
             textBox23.Text = "";
@@ -1628,6 +1657,11 @@ namespace Test1
             textBox30.Text = "";
             textBox16.Text = "";
             textBox31.Text = "";
+            textBox32.Text = "";
+            textBox33.Text = "";
+            textBox34.Text = "";
+            textBox35.Text = "";
+            textBox20.Text = "";
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = -1;
@@ -1851,12 +1885,250 @@ namespace Test1
         }
         private void fSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
+            if (decimalSeparatorChanged && okSetClicked)
+            {
+                refreshInputData();
+                decimalSeparatorChanged = false;
+                okSetClicked = false;
+            }
+        }
 
+        private void refreshInputData()
+        {
+            if (power != 0)
+            {
+                TextBox1.Text = power.ToString();
+            }
+            if (voltage != 0)
+            {
+                textBox2.Text = voltage.ToString();
+            }
+            if (multiplier != 0)
+            {
+                textBox25.Text = multiplier.ToString();
+            }
+            if(eff != 0)
+            {
+                textBox5.Text = eff.ToString();
+            }
+            if (pf != 0)
+            {
+                textBox4.Text = pf.ToString();
+            }
+            if (pfstart != 0)
+            {
+                textBox14.Text = pfstart.ToString();
+            }
+            if (k1main != 0)
+            {
+                textBox17.Text = k1main.ToString();
+            }
+            if (k2main != 0)
+            {
+                textBox18.Text = k2main.ToString();
+            }
+            if (k3main != 0)
+            {
+                textBox36.Text = k3main.ToString();
+            }
+            if (ktmain != 0)
+            {
+                textBox19.Text = ktmain.ToString();
+            }
+            if (sccurrent != 0)
+            {
+                textBox28.Text = sccurrent.ToString();
+            }
+            if (tbreaker != 0)
+            {
+                textBox23.Text = tbreaker.ToString();
+            }
+            if (cablesizemin != 0)
+            {
+                textBox30.Text = cablesizemin.ToString("0.##");
+            }
+            if (vdrun != 0)
+            {
+                textBox8.Text = vdrun.ToString("0.##");
+            }
+            if (vdrunmax != 0)
+            {
+                textBox9.Text = vdrunmax.ToString();
+            }
+            if (vdstart != 0)
+            {
+                textBox10.Text = vdstart.ToString("0.##");
+            }
+            if(vdstartmax != 0)
+            {
+                textBox11.Text = vdstartmax.ToString();
+            }
+            if (length != 0)
+            {
+                textBox6.Text = length.ToString();
+            }
+            if (lmax != 0)
+            {
+                textBox29.Text = lmax.ToString("0.##");
+            }
+            if (initialTemp != 0)
+            {
+                textBox15.Text = initialTemp.ToString();
+            }
+            if (finalTemp != 0)
+            {
+                textBox24.Text = finalTemp.ToString();
+            }
+            if (k != 0)
+            {
+                textBox21.Text = k.ToString("0.###");
+            }
+            if (Rac != 0)
+            {
+                textBox34.Text = Rac.ToString("0.####");
+            }
+            else if (Rdc != 0)
+            {
+                textBox34.Text = Rdc.ToString("0.####");
+            }
+            if (X != 0)
+            {
+                textBox33.Text = X.ToString("0.####");
+            }
+            if (Irated != 0)
+            {
+                textBox32.Text = Irated.ToString("0.##");
+            }
+            if (bLTE != 0)
+            {
+                textBox20.Text = bLTE.ToString();
+            }
+            if (cLTE != 0)
+            {
+                textBox22.Text = cLTE.ToString("0.##");
+            }
+            if (breakcurrent != 0)
+            {
+                comboBox11.Text = breakcurrent.ToString();
+            }
         }
 
         private void TextBox35_TextChanged(object sender, EventArgs e)
         {
             remarks = textBox35.Text; 
+        }
+
+        private void RadioButton2_Click_1(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                radioButton2.Checked = false;
+            }
+            else
+            {
+                radioButton2.Checked = true;
+                radioButton1.Checked = false;
+            }
+        }
+
+        private void RadioButton1_Click_1(object sender, EventArgs e)
+        {
+            if (radioButton1.Checked)
+            {
+                radioButton1.Checked = false;
+            }
+            else
+            {
+                radioButton1.Checked = true;
+                radioButton2.Checked = false;
+            }
+        }
+
+        private void TextBox20_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox20.Text != "")
+            {
+                bLTE = double.Parse(textBox20.Text);
+            }
+        }
+
+        private void TextBox20_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            if ((textBox20.Text == "") && (e.KeyChar == decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ComboBox13_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            voltageLv = comboBox13.Text;
+        }
+
+        private void TextBox24_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox24.Text != "")
+            {
+                finalTemp = double.Parse(textBox24.Text);
+                Calc_k();
+            }
+            
+        }
+
+        private void TextBox15_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox15.Text != "")
+            {
+                initialTemp = double.Parse(textBox15.Text);
+                Calc_k();
+            }
+        }
+
+        private void TextBox24_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            if ((textBox24.Text == "") && (e.KeyChar == decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void Calc_k()
+        {
+            if (material == "Copper")
+            {
+                k = 226 * Math.Sqrt(Math.Log(1 + (finalTemp - initialTemp)/(234.5 + initialTemp)));
+            }
+            else if (material == "Alumunium")
+            {
+                k = 148 * Math.Sqrt(Math.Log(1 + (finalTemp - initialTemp) / (228 + initialTemp)));
+            }
+
+            if (k != 0)
+            {
+                textBox21.Text = k.ToString("0.###");
+            }
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)
@@ -1981,8 +2253,8 @@ namespace Test1
 
         private void enable_correction()
         {
-            if (((comboBox9.Text == "Above Ground") || (comboBox9.Text == "Under Ground")) && 
-                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE")))
+            if (((comboBox9.Text == "E (Above Ground)") || (comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)")) && 
+                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE") || (comboBox6.Text == "EPR")))
             {
                 button1.Enabled = true;
             }
@@ -1996,10 +2268,12 @@ namespace Test1
         {
             k1main = 0;
             k2main = 0;
+            k3main = 0;
             ktmain = 0;
 
             textBox17.Text = "";
             textBox18.Text = "";
+            textBox36.Text = "";
             textBox19.Text = "";
         }
 
@@ -2149,7 +2423,7 @@ namespace Test1
 
         private void break_lte()
         {
-            if ((radioButton1.Checked) && (comboBox11.Text != ""))
+            if ((!radioButton1.Checked) && (!radioButton2.Checked) && (comboBox11.Text != ""))
             {
                 if (comboBox12.Text == "MCB")
                 {
@@ -2389,24 +2663,22 @@ namespace Test1
                     textBox20.Text = "";
                 }
             }
-            else
+            else if ((!radioButton1.Checked) && (radioButton2.Checked))
             {
-                textBox20.Text = "";
+                bLTE = sccurrent * 1000 * sccurrent * 1000 * tbreaker;
+                textBox20.Text = bLTE.ToString();
+            }
+            else if ((radioButton1.Checked) && (!radioButton2.Checked))
+            {
+                textBox20.Text = bLTE.ToString();
             }
         }
 
+
         private void cable_lte()
         {
-            if (radioButton1.Checked)
-            {
-                cLTE = wirearea * wirearea * k * k;
-                textBox22.Text = cLTE.ToString("0.##");
-            }
-            else
-            {
-                textBox22.Text = "";
-            }
-            
+            cLTE = wirearea * wirearea * k * k;
+            textBox22.Text = cLTE.ToString("0.##");
         }
 
         private void calc_smin()
@@ -2468,9 +2740,5 @@ namespace Test1
             button4.Enabled = true;
         }
 
-        private void textSeparatorChange()
-        {
-            
-        }
     }
 }

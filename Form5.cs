@@ -147,6 +147,51 @@ namespace Test1
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if ((Form1.j > -1) && (savefile == ""))
+            {
+                DialogResult dr = MessageBox.Show("Want to save your changes?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    ExportDgvToXML();
+                    savefile = "";
+                    clearTable();
+                    openFile();
+                }
+                else if (dr == DialogResult.No)
+                {
+                    savefile = "";
+                    clearTable();
+                    openFile();
+                }
+            }
+            else if (savefile != "")
+            {
+                DialogResult dr = MessageBox.Show("Want to save your changes to " + savefile + "?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
+                if (dr == DialogResult.Yes)
+                {
+                    saveExportDgvToXML();
+                    savefile = "";
+                    clearTable();
+                    openFile();
+                }
+                else if (dr == DialogResult.No)
+                {
+                    savefile = "";
+                    clearTable();
+                    openFile();
+                }
+            }
+            else
+            {
+                savefile = "";
+                clearTable();
+                openFile();
+            }
+            
+        }
+
+        private void openFile()
+        {
             DataTable dx = new DataTable();
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "XML|*.xml";
@@ -317,7 +362,10 @@ namespace Test1
                 savefile = "";
                 clearTable();
             }
-            
+        }
+        private void confirmSave()
+        {
+
         }
 
         private void clearTable()

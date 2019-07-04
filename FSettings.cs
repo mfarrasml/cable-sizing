@@ -13,11 +13,11 @@ using System.Windows.Forms;
 namespace Test1
 {
 
-    
-
     public partial class FSettings : Form
     {
         CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
+        char currentDecimalSeparator;
+        int tempDecimalSeparator;
 
         public FSettings()
         {
@@ -69,5 +69,71 @@ namespace Test1
             Thread.CurrentThread.CurrentUICulture = culture;
             Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         }
+
+        private void FSettings_Load(object sender, EventArgs e)
+        {
+            currentDecimalSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            if (checkBox1.Checked)
+            {
+                tempDecimalSeparator = 0;
+            }
+            else if (radioButton1.Checked)
+            {
+                tempDecimalSeparator = 1;
+            }
+            else if (radioButton2.Checked)
+            {
+                tempDecimalSeparator = 2;
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (Form1.decimalseparator != currentDecimalSeparator)
+            {
+                Form1.decimalSeparatorChanged = true;
+            }
+            Form1.okSetClicked = true;
+            this.Close();
+        }
+
+
+        private void FSettings_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                cancelSave();
+            }
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            cancelSave();
+            this.Close();
+        }
+
+        private void cancelSave()
+        {
+            if (!Form1.okSetClicked)
+            {
+                culture.NumberFormat.NumberDecimalSeparator = currentDecimalSeparator.ToString();
+                Form1.decimalseparator = currentDecimalSeparator;
+                if (tempDecimalSeparator == 0)
+                {
+                    checkBox1.Checked = true;
+                }
+                else if (tempDecimalSeparator == 1)
+                {
+                    checkBox1.Checked = false;
+                    radioButton1.Checked = true;
+                }
+                else if (tempDecimalSeparator == 2)
+                {
+                    checkBox1.Checked = false;
+                    radioButton2.Checked = true;
+                }
+            }
+        }
+
     }
 }
