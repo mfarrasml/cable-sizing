@@ -40,6 +40,7 @@ namespace Test1
         string material, armour, innersheath, outersheath;
         string breakertype;
         string remarks;
+        string ratedvoltage;
         public static string insulation, installation;
         int cores;
         double breakcurrent;
@@ -1212,7 +1213,7 @@ namespace Test1
                 readtemp = "";
                     
                 readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() + 
-                    " mm²    0,6/1kV / " + materialname + " / " + insulation;
+                    " mm²    " + ratedvoltage +" / " + materialname + " / " + insulation;
 
                 if (armour != "Non Armoured")
                 {
@@ -1223,6 +1224,7 @@ namespace Test1
 
                 tbResult.Text = readtemp;
                 cable_lte();
+                textBox22.Text = cLTE.ToString("0.##");
                 save_result();
                 enable_save();
                 if (phase == "DC")
@@ -1239,6 +1241,12 @@ namespace Test1
             }
             else
             {
+                tbResult.Text = "Failed to get a suitable cable size";
+                button4.Enabled = false;
+                textBox8.Text = "";
+                textBox10.Text = "";
+                textBox29.Text = "";
+                textBox22.Text = "";
 
             }
         }
@@ -1248,19 +1256,26 @@ namespace Test1
         {
             if (breakcurrent < current)
             {
-                MessageBox.Show("Breaker current value must be greater than the full load current value!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to get a suitable cable size: Breaker current value must be greater than the full load current value!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
                 inputValid = false;
             }
-            else if ((radioButton2.Enabled) && (cablesizemin >= iderated) && (insulation == "PVC"))
+            else if (iderated < breakcurrent)
             {
-                MessageBox.Show("Minimum cable size due to short circuit current must be <300 with PVC insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to get a suitable cable size: Breaker current value exceeds the maximum cable derated current (Iderated) value!",
+                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
                 inputValid = false;
             }
-            else if ((radioButton2.Enabled) && (cablesizemin >= iderated) && ((insulation == "XLPE") || (insulation == "EPR")))
+            else if ((radioButton2.Enabled) && (cablesizemin > wirearea))
             {
-                MessageBox.Show("Minimum cable size due to short circuit current must be <400 with XLPE insulation!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to get a suitable cable size: Minimum cable size exceeds the maximum available cable size!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                complete = true;
+                inputValid = false;
+            }
+            else if (cLTE < bLTE)
+            {
+                MessageBox.Show("Failed to get a suitable cable size: Breaker LTE exceeds the maximum cable LTE!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
                 inputValid = false;
             }
@@ -1661,7 +1676,6 @@ namespace Test1
             textBox33.Text = "";
             textBox34.Text = "";
             textBox35.Text = "";
-            textBox20.Text = "";
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = -1;
@@ -1677,6 +1691,8 @@ namespace Test1
             comboBox11.SelectedIndex = -1;
             comboBox12.SelectedIndex = -1;
             comboBox11.Text = "";
+            comboBox13.SelectedIndex = -1;
+            comboBox14.SelectedIndex = -1;
         }
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
@@ -1775,7 +1791,14 @@ namespace Test1
                 for (int k = 0; k <33; k ++)
                 {
                     f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
-                    f5.Show();
+                    if (!f5.Visible)
+                    {
+                        f5.Show();
+                    }
+                    else
+                    {
+                        f5.BringToFront();
+                    }
                 }
             }
             else
@@ -1790,11 +1813,6 @@ namespace Test1
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
         {
             fromdesc = textBox16.Text;
-        }
-
-        private void Button5_Click(object sender, EventArgs e)
-        {
-            f5.Show();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -1822,15 +1840,31 @@ namespace Test1
 
         private void Button5_Click_1(object sender, EventArgs e)
         {
-            f5.Show();
+            if (!f5.Visible)
+            {
+                f5.Show();
+            }
+            else
+            {
+                f5.BringToFront();
+            }
         }
 
         private void RadioButton4_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton4.Checked)
             {
-                button6.Enabled = false;
-                label78.Enabled = false;
+                if (voltageLv == "MV")
+                {
+                    MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
+                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    radioButton3.Checked = true;
+                }
+                else
+                {
+                    button6.Enabled = false;
+                    label78.Enabled = false;
+                }
             }
             else
             {
@@ -2011,6 +2045,7 @@ namespace Test1
             {
                 comboBox11.Text = breakcurrent.ToString();
             }
+            
         }
 
         private void TextBox35_TextChanged(object sender, EventArgs e)
@@ -2074,6 +2109,50 @@ namespace Test1
         private void ComboBox13_SelectedIndexChanged(object sender, EventArgs e)
         {
             voltageLv = comboBox13.Text;
+            comboBox14.Items.Clear();
+            if (voltageLv ==  "MV")
+            {
+                comboBox14.Items.Insert(0, "3.6/6kV");
+                comboBox14.Items.Insert(1, "6/10kV");
+                comboBox14.Items.Insert(2, "8.7/15kV");
+                comboBox14.Items.Insert(3, "12/20kV");
+                comboBox14.Items.Insert(4, "18/30kV");
+            }
+            else if (voltageLv == "LV")
+            {
+                comboBox14.Items.Insert(0, "0.6/1kV");
+                comboBox14.Text = "0.6/1kV";
+            }
+
+            if ((radioButton4.Checked) && (voltageLv == "MV"))
+            {
+                MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                radioButton3.Checked = true;
+            }
+            enable_result_btn();
+        }
+
+        private void ComboBox14_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ratedvoltage = comboBox14.Text;
+            enable_result_btn();
+        }
+
+        private void TextBox10_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox10.Text != "")
+            {
+                vdstart = double.Parse(textBox10.Text);
+            }
+        }
+
+        private void TextBox8_TextChanged_1(object sender, EventArgs e)
+        {
+            if (textBox8.Text != "")
+            {
+                vdrun = double.Parse(textBox8.Text);
+            }
         }
 
         private void TextBox24_TextChanged(object sender, EventArgs e)
@@ -2285,33 +2364,28 @@ namespace Test1
                 (textBox5.Text != "") && (textBox9.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && 
                 (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && (textBox17.Text != "") && 
                 (textBox18.Text != "") && (textBox19.Text != "") && (comboBox11.Text != "") && (comboBox4.Text != "") && 
-                (comboBox7.Text != "") && (comboBox8.Text != "") && (comboBox10.Text != "") && (comboBox12.Text != ""))
+                (comboBox7.Text != "") && (comboBox8.Text != "") && (comboBox10.Text != "") && (comboBox12.Text != "")&&
+                (comboBox13.Text != "") && (comboBox14.Text != ""))
                 {
                     if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                     {
-                        if (radioButton2.Checked)
+                        if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "")) ||
+                                ((radioButton1.Checked) && (textBox20.Text != "")))
                         {
-                            if ((textBox23.Text != "") && (textBox28.Text != ""))
+                            if (loadtype == "Dynamic")
                             {
-                                if (loadtype == "Dynamic")
+                                if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                                 {
-                                    if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
-                                    {
-                                        button2.Enabled = true;
-                                    }
-                                    else
-                                    {
-                                        button2.Enabled = false;
-                                    }
+                                    button2.Enabled = true;
                                 }
                                 else
                                 {
-                                    button2.Enabled = true;
+                                    button2.Enabled = false;
                                 }
                             }
                             else
                             {
-                                button2.Enabled = false;
+                                button2.Enabled = true;
                             }
                         }
                         else if (loadtype == "Dynamic")
@@ -2678,7 +2752,6 @@ namespace Test1
         private void cable_lte()
         {
             cLTE = wirearea * wirearea * k * k;
-            textBox22.Text = cLTE.ToString("0.##");
         }
 
         private void calc_smin()
@@ -2728,7 +2801,7 @@ namespace Test1
 
             for(int i = 0; i <33; i++)
             {
-                if (results[i] == "0")
+                if ((results[i] == "0") || (results[i] == null))
                 {
                     results[i] = "";
                 }

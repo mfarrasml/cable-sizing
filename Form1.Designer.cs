@@ -167,16 +167,16 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label78 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.comboBox14 = new System.Windows.Forms.ComboBox();
+            this.label81 = new System.Windows.Forms.Label();
+            this.comboBox13 = new System.Windows.Forms.ComboBox();
+            this.label47 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.textBox36 = new System.Windows.Forms.TextBox();
+            this.label80 = new System.Windows.Forms.Label();
             this.textBox35 = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
-            this.label80 = new System.Windows.Forms.Label();
-            this.textBox36 = new System.Windows.Forms.TextBox();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.label47 = new System.Windows.Forms.Label();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
-            this.label81 = new System.Windows.Forms.Label();
-            this.comboBox14 = new System.Windows.Forms.ComboBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -547,6 +547,7 @@
             this.textBox8.ReadOnly = true;
             this.textBox8.Size = new System.Drawing.Size(100, 20);
             this.textBox8.TabIndex = 31;
+            this.textBox8.TextChanged += new System.EventHandler(this.TextBox8_TextChanged_1);
             this.textBox8.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox8_KeyPress);
             // 
             // textBox9
@@ -566,6 +567,7 @@
             this.textBox10.ReadOnly = true;
             this.textBox10.Size = new System.Drawing.Size(100, 20);
             this.textBox10.TabIndex = 33;
+            this.textBox10.TextChanged += new System.EventHandler(this.TextBox10_TextChanged);
             this.textBox10.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox10_KeyPress);
             // 
             // textBox11
@@ -1762,6 +1764,89 @@
             this.panel2.Size = new System.Drawing.Size(1145, 523);
             this.panel2.TabIndex = 131;
             // 
+            // comboBox14
+            // 
+            this.comboBox14.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox14.FormattingEnabled = true;
+            this.comboBox14.Items.AddRange(new object[] {
+            "LV",
+            "MV"});
+            this.comboBox14.Location = new System.Drawing.Point(129, 316);
+            this.comboBox14.Name = "comboBox14";
+            this.comboBox14.Size = new System.Drawing.Size(69, 21);
+            this.comboBox14.TabIndex = 151;
+            this.comboBox14.SelectedIndexChanged += new System.EventHandler(this.ComboBox14_SelectedIndexChanged);
+            // 
+            // label81
+            // 
+            this.label81.AutoSize = true;
+            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label81.Location = new System.Drawing.Point(28, 320);
+            this.label81.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.label81.Name = "label81";
+            this.label81.Size = new System.Drawing.Size(95, 16);
+            this.label81.TabIndex = 150;
+            this.label81.Text = "Rated Voltage";
+            // 
+            // comboBox13
+            // 
+            this.comboBox13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox13.FormattingEnabled = true;
+            this.comboBox13.Items.AddRange(new object[] {
+            "LV",
+            "MV"});
+            this.comboBox13.Location = new System.Drawing.Point(129, 290);
+            this.comboBox13.Name = "comboBox13";
+            this.comboBox13.Size = new System.Drawing.Size(69, 21);
+            this.comboBox13.TabIndex = 149;
+            this.comboBox13.SelectedIndexChanged += new System.EventHandler(this.ComboBox13_SelectedIndexChanged);
+            // 
+            // label47
+            // 
+            this.label47.AutoSize = true;
+            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label47.Location = new System.Drawing.Point(28, 294);
+            this.label47.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.label47.Name = "label47";
+            this.label47.Size = new System.Drawing.Size(91, 16);
+            this.label47.TabIndex = 148;
+            this.label47.Text = "Voltage Level";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoCheck = false;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.radioButton2.Location = new System.Drawing.Point(586, 283);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(145, 20);
+            this.radioButton2.TabIndex = 1;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "S.C. Cable Capacity";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
+            this.radioButton2.Click += new System.EventHandler(this.RadioButton2_Click_1);
+            // 
+            // textBox36
+            // 
+            this.textBox36.Location = new System.Drawing.Point(722, 109);
+            this.textBox36.Name = "textBox36";
+            this.textBox36.ReadOnly = true;
+            this.textBox36.Size = new System.Drawing.Size(100, 20);
+            this.textBox36.TabIndex = 147;
+            // 
+            // label80
+            // 
+            this.label80.AutoSize = true;
+            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label80.Location = new System.Drawing.Point(599, 113);
+            this.label80.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.label80.Name = "label80";
+            this.label80.Size = new System.Drawing.Size(23, 16);
+            this.label80.TabIndex = 146;
+            this.label80.Text = "K3";
+            // 
             // textBox35
             // 
             this.textBox35.Location = new System.Drawing.Point(988, 246);
@@ -1782,41 +1867,6 @@
             this.label79.TabIndex = 144;
             this.label79.Text = "Remarks";
             // 
-            // label80
-            // 
-            this.label80.AutoSize = true;
-            this.label80.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label80.Location = new System.Drawing.Point(599, 113);
-            this.label80.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.label80.Name = "label80";
-            this.label80.Size = new System.Drawing.Size(23, 16);
-            this.label80.TabIndex = 146;
-            this.label80.Text = "K3";
-            // 
-            // textBox36
-            // 
-            this.textBox36.Location = new System.Drawing.Point(722, 109);
-            this.textBox36.Name = "textBox36";
-            this.textBox36.ReadOnly = true;
-            this.textBox36.Size = new System.Drawing.Size(100, 20);
-            this.textBox36.TabIndex = 147;
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoCheck = false;
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Checked = true;
-            this.radioButton2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton2.Location = new System.Drawing.Point(586, 283);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(145, 20);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "S.C. Cable Capacity";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
-            this.radioButton2.Click += new System.EventHandler(this.RadioButton2_Click_1);
-            // 
             // radioButton1
             // 
             this.radioButton1.AutoCheck = false;
@@ -1830,53 +1880,6 @@
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             this.radioButton1.Click += new System.EventHandler(this.RadioButton1_Click_1);
-            // 
-            // label47
-            // 
-            this.label47.AutoSize = true;
-            this.label47.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label47.Location = new System.Drawing.Point(28, 294);
-            this.label47.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.label47.Name = "label47";
-            this.label47.Size = new System.Drawing.Size(91, 16);
-            this.label47.TabIndex = 148;
-            this.label47.Text = "Voltage Level";
-            // 
-            // comboBox13
-            // 
-            this.comboBox13.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Items.AddRange(new object[] {
-            "LV",
-            "MV"});
-            this.comboBox13.Location = new System.Drawing.Point(129, 290);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(100, 21);
-            this.comboBox13.TabIndex = 149;
-            this.comboBox13.SelectedIndexChanged += new System.EventHandler(this.ComboBox13_SelectedIndexChanged);
-            // 
-            // label81
-            // 
-            this.label81.AutoSize = true;
-            this.label81.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label81.Location = new System.Drawing.Point(28, 320);
-            this.label81.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.label81.Name = "label81";
-            this.label81.Size = new System.Drawing.Size(95, 16);
-            this.label81.TabIndex = 150;
-            this.label81.Text = "Rated Voltage";
-            // 
-            // comboBox14
-            // 
-            this.comboBox14.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox14.FormattingEnabled = true;
-            this.comboBox14.Items.AddRange(new object[] {
-            "LV",
-            "MV"});
-            this.comboBox14.Location = new System.Drawing.Point(129, 316);
-            this.comboBox14.Name = "comboBox14";
-            this.comboBox14.Size = new System.Drawing.Size(100, 21);
-            this.comboBox14.TabIndex = 151;
             // 
             // Form1
             // 

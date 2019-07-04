@@ -13,6 +13,7 @@ namespace Test1
     public partial class Form6 : Form
     {
         public static double[,] cabledata = new double[17, 5];
+        public static double[,] prevcabledata = new double[17, 5];
         public static double[,] confirmedcabledata = new double[17, 5];
         int cablecount;
         bool[] datAvailable = new bool[17]; 
@@ -96,6 +97,7 @@ namespace Test1
                 finalCableData();
                 Form1.cableCount = cablecount;
                 okclicked = true;
+                PrevCable();
                 this.Close();
             }
             else
@@ -176,8 +178,46 @@ namespace Test1
                     }
                     cablecount++;
                 }
+            } 
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void Form6_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!okclicked)
+            {
+                dataGridView1.CurrentCell.Selected = false;
+                for (int i = 0; i < nMax; i++)
+                {
+                    for (int j = 0; j < 5; j++)
+                    {
+                        if (prevcabledata[i, j] == 0)
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = "";
+                        }
+                        else
+                        {
+                            dataGridView1.Rows[i].Cells[j].Value = prevcabledata[i, j];
+                        }
+                    }
+
+                }
             }
-                
+        }
+
+        private void PrevCable()
+        {
+            for (int i = 0; i < nMax; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    prevcabledata[i, j] = cabledata[i, j];
+                }
+            }
         }
     }
 }
