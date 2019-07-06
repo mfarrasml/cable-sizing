@@ -7,9 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
+using System.Threading.Tasks;   
 using System.Windows.Forms;
 using System.Xml;
+using DGVPrinterHelper;
 
 namespace Test1
 {
@@ -20,7 +21,7 @@ namespace Test1
         public static bool cancelexit;
 
         public static string savefile = "";
-       
+
         public Form5()
         {
             InitializeComponent();
@@ -94,7 +95,7 @@ namespace Test1
                 this.dataGridView1.Rows.RemoveAt(currentrow);
                 for (int i = currentrow; i < Form1.j; i++)
                 {
-                    this.dataGridView1.Rows[i].Cells[0].Value = i+1;
+                    this.dataGridView1.Rows[i].Cells[0].Value = i + 1;
                 }
                 Form1.j--;
             }
@@ -187,7 +188,7 @@ namespace Test1
                 clearTable();
                 openFile();
             }
-            
+
         }
 
         private void openFile()
@@ -322,7 +323,7 @@ namespace Test1
             {
                 Console.WriteLine(ex);
             }
-            
+
         }
 
         private void NewToolStripMenuItem_Click(object sender, EventArgs e)
@@ -363,10 +364,6 @@ namespace Test1
                 clearTable();
             }
         }
-        private void confirmSave()
-        {
-
-        }
 
         private void clearTable()
         {
@@ -380,6 +377,33 @@ namespace Test1
             }
             Form1.j = -1;
         }
-    }
 
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            DGVPrinter printer = new DGVPrinter();
+
+            printer.Title = "Cable Sizing Result";
+
+            printer.SubTitle = "\n\n\n";
+
+            printer.SubTitleFormatFlags = StringFormatFlags.LineLimit |
+
+                                          StringFormatFlags.NoClip;
+
+            printer.PageNumbers = true;
+
+            printer.PageNumberInHeader = false;
+
+            printer.PorportionalColumns = true;
+
+            printer.HeaderCellAlignment = StringAlignment.Near;
+
+            printer.Footer = "PT. Singgar Mulia";
+
+            printer.FooterSpacing = 15;
+
+            printer.PrintPreviewDataGridView(dataGridView1);
+        }
+
+    }
 }

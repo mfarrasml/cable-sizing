@@ -1273,7 +1273,7 @@ namespace Test1
                 complete = true;
                 inputValid = false;
             }
-            else if (cLTE < bLTE)
+            else if ((radioButton1.Enabled) && (cLTE < bLTE))
             {
                 MessageBox.Show("Failed to get a suitable cable size: Breaker LTE exceeds the maximum cable LTE!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
@@ -1288,7 +1288,7 @@ namespace Test1
         private void validasi()
         {
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
-                (((!radioButton2.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (wirearea > smin))))
+                (((radioButton1.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (wirearea > smin))))
             {
                 if (loadtype == "Dynamic")
                 {
@@ -1453,7 +1453,39 @@ namespace Test1
 
         private void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
-            if ((radioButton2.Checked) && (!radioButton1.Checked))
+            if ((radioButton1.Checked))
+            {
+                label53.Enabled = false;
+                label54.Enabled = false;
+                textBox23.Enabled = false;
+                textBox28.Enabled = false;
+                label63.Enabled = false;
+                label64.Enabled = false;
+                label67.Enabled = false;
+                label68.Enabled = false;
+                textBox30.Enabled = false;
+                textBox20.ReadOnly = false;
+                label48.Enabled = true;
+                label49.Enabled = true;
+                label69.Enabled = true;
+                label70.Enabled = true;
+                textBox20.Enabled = true;
+                textBox22.Enabled = true;
+                radioButton5.Enabled = true;
+                radioButton6.Enabled = true;
+
+                if (radioButton6.Checked)
+                {
+                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                    textBox20.ReadOnly = false;
+                }
+                else if (radioButton5.Checked)
+                {
+                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                    textBox20.ReadOnly = true;
+                }
+            }
+            else if ((radioButton2.Checked))
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
@@ -1466,35 +1498,16 @@ namespace Test1
                 label68.Enabled = true;
                 textBox30.Enabled = true;
                 textBox20.ReadOnly = true;
+                label48.Enabled = false;
+                label49.Enabled = false;
+                label69.Enabled = false;
+                label70.Enabled = false;
+                textBox20.Enabled = false;
+                textBox22.Enabled = false;
+                radioButton5.Enabled = false;
+                radioButton6.Enabled = false;
             }
-            else if ((radioButton1.Checked) && (!radioButton2.Checked))
-            {
-                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
-                label53.Enabled = false;
-                label54.Enabled = false;
-                textBox23.Enabled = false;
-                textBox28.Enabled = false;
-                label63.Enabled = false;
-                label64.Enabled = false;
-                label67.Enabled = false;
-                label68.Enabled = false;
-                textBox30.Enabled = false;
-                textBox20.ReadOnly = false;
-            }
-            else
-            {
-                comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
-                label53.Enabled = false;
-                label54.Enabled = false;
-                textBox23.Enabled = false;
-                textBox28.Enabled = false;
-                label63.Enabled = false;
-                label64.Enabled = false;
-                label67.Enabled = false;
-                label68.Enabled = false;
-                textBox30.Enabled = false;
-                textBox20.ReadOnly = true;
-            }
+            
             break_lte();
         }
 
@@ -1513,8 +1526,16 @@ namespace Test1
                 label68.Enabled = false;
                 textBox30.Enabled = false;
                 textBox20.ReadOnly = false;
+                label48.Enabled = true;
+                label49.Enabled = true;
+                label69.Enabled = true;
+                label70.Enabled = true;
+                textBox20.Enabled = true;
+                textBox22.Enabled = true;
+                radioButton5.Enabled = true;
+                radioButton6.Enabled = true;
             }
-            else if ((radioButton2.Checked) && (!radioButton1.Checked))
+            else if (radioButton2.Checked)
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
@@ -1527,6 +1548,14 @@ namespace Test1
                 label68.Enabled = true;
                 textBox30.Enabled = true;
                 textBox20.ReadOnly = true;
+                label48.Enabled = false;
+                label49.Enabled = false;
+                label69.Enabled = false;
+                label70.Enabled = false;
+                textBox20.Enabled = false;
+                textBox22.Enabled = false;
+                radioButton5.Enabled = false;
+                radioButton6.Enabled = false;
             }
             else //auto, both button unchecked
             {
@@ -1541,6 +1570,14 @@ namespace Test1
                 label68.Enabled = false;
                 textBox30.Enabled = false;
                 textBox20.ReadOnly = true;
+                label48.Enabled = false;
+                label49.Enabled = false;
+                label69.Enabled = false;
+                label70.Enabled = false;
+                textBox20.Enabled = false;
+                textBox22.Enabled = false;
+                radioButton5.Enabled = false;
+                radioButton6.Enabled = false;
             }
             break_lte();
         }
@@ -1786,27 +1823,20 @@ namespace Test1
             f5.dataGridView1.RowCount++;
             j++;
             f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
+            
+            for (int k = 0; k <33; k ++)
+            {
+                f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
+                    
+            }
+
             if (!f5.Visible)
             {
-                for (int k = 0; k <33; k ++)
-                {
-                    f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
-                    if (!f5.Visible)
-                    {
-                        f5.Show();
-                    }
-                    else
-                    {
-                        f5.BringToFront();
-                    }
-                }
+                f5.Show();
             }
             else
             {
-                for (int k = 0; k < 33; k++)
-                {
-                    f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
-                }
+                f5.BringToFront();
             }
         }
 
@@ -2155,6 +2185,39 @@ namespace Test1
             }
         }
 
+        private void RadioButton5_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton5.Checked)
+            {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                textBox20.ReadOnly = true;
+            }
+            else if (radioButton6.Checked)
+            {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
+                textBox20.ReadOnly = false;
+            }
+        }
+
+        private void RadioButton6_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton5.Checked)
+            {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                textBox20.ReadOnly = true;
+            }
+            else if (radioButton6.Checked)
+            {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
+                textBox20.ReadOnly = false;
+            }
+        }
+
+        private void Panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void TextBox24_TextChanged(object sender, EventArgs e)
         {
             if (textBox24.Text != "")
@@ -2497,7 +2560,7 @@ namespace Test1
 
         private void break_lte()
         {
-            if ((!radioButton1.Checked) && (!radioButton2.Checked) && (comboBox11.Text != ""))
+            if ((radioButton1.Checked) && (radioButton5.Checked) && (comboBox11.Text != ""))
             {
                 if (comboBox12.Text == "MCB")
                 {
@@ -2737,12 +2800,7 @@ namespace Test1
                     textBox20.Text = "";
                 }
             }
-            else if ((!radioButton1.Checked) && (radioButton2.Checked))
-            {
-                bLTE = sccurrent * 1000 * sccurrent * 1000 * tbreaker;
-                textBox20.Text = bLTE.ToString();
-            }
-            else if ((radioButton1.Checked) && (!radioButton2.Checked))
+            else if ((radioButton1.Checked) && (radioButton6.Checked))
             {
                 textBox20.Text = bLTE.ToString();
             }
@@ -2801,9 +2859,9 @@ namespace Test1
 
             for(int i = 0; i <33; i++)
             {
-                if ((results[i] == "0") || (results[i] == null))
+                if ((results[i] == "0") || (results[i] == null)|| (results[i] == ""))
                 {
-                    results[i] = "";
+                    results[i] = "N/A";
                 }
             }
         }
