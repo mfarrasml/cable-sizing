@@ -167,6 +167,14 @@
             this.button6 = new System.Windows.Forms.Button();
             this.label78 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.label84 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.comboBox15 = new System.Windows.Forms.ComboBox();
+            this.label83 = new System.Windows.Forms.Label();
+            this.label82 = new System.Windows.Forms.Label();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.comboBox14 = new System.Windows.Forms.ComboBox();
             this.label81 = new System.Windows.Forms.Label();
             this.comboBox13 = new System.Windows.Forms.ComboBox();
@@ -177,14 +185,7 @@
             this.textBox35 = new System.Windows.Forms.TextBox();
             this.label79 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label82 = new System.Windows.Forms.Label();
-            this.label83 = new System.Windows.Forms.Label();
-            this.comboBox15 = new System.Windows.Forms.ComboBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.label84 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -255,7 +256,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
@@ -1636,6 +1637,7 @@
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.Controls.Add(this.checkBox1);
             this.panel2.Controls.Add(this.label84);
             this.panel2.Controls.Add(this.button7);
             this.panel2.Controls.Add(this.comboBox15);
@@ -1786,13 +1788,99 @@
             this.panel2.TabIndex = 131;
             this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel2_Paint);
             // 
+            // label84
+            // 
+            this.label84.AutoSize = true;
+            this.label84.Location = new System.Drawing.Point(804, 273);
+            this.label84.Name = "label84";
+            this.label84.Size = new System.Drawing.Size(15, 13);
+            this.label84.TabIndex = 156;
+            this.label84.Text = "m";
+            // 
+            // button7
+            // 
+            this.button7.Enabled = false;
+            this.button7.Location = new System.Drawing.Point(638, 176);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(177, 23);
+            this.button7.TabIndex = 155;
+            this.button7.Text = "Calculate Vd";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // comboBox15
+            // 
+            this.comboBox15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox15.FormattingEnabled = true;
+            this.comboBox15.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "4"});
+            this.comboBox15.Location = new System.Drawing.Point(700, 368);
+            this.comboBox15.Name = "comboBox15";
+            this.comboBox15.Size = new System.Drawing.Size(121, 21);
+            this.comboBox15.TabIndex = 154;
+            // 
+            // label83
+            // 
+            this.label83.AutoSize = true;
+            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label83.Location = new System.Drawing.Point(599, 373);
+            this.label83.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.label83.Name = "label83";
+            this.label83.Size = new System.Drawing.Size(34, 16);
+            this.label83.TabIndex = 153;
+            this.label83.Text = "Size";
+            // 
+            // label82
+            // 
+            this.label82.AutoSize = true;
+            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label82.Location = new System.Drawing.Point(584, 295);
+            this.label82.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
+            this.label82.Name = "label82";
+            this.label82.Size = new System.Drawing.Size(113, 16);
+            this.label82.TabIndex = 152;
+            this.label82.Text = "Suggested Cable";
+            // 
+            // panel3
+            // 
+            this.panel3.Controls.Add(this.radioButton5);
+            this.panel3.Controls.Add(this.radioButton6);
+            this.panel3.Location = new System.Drawing.Point(893, 285);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(189, 22);
+            this.panel3.TabIndex = 142;
+            // 
+            // radioButton5
+            // 
+            this.radioButton5.AutoSize = true;
+            this.radioButton5.Checked = true;
+            this.radioButton5.Enabled = false;
+            this.radioButton5.Location = new System.Drawing.Point(4, 3);
+            this.radioButton5.Name = "radioButton5";
+            this.radioButton5.Size = new System.Drawing.Size(59, 17);
+            this.radioButton5.TabIndex = 129;
+            this.radioButton5.TabStop = true;
+            this.radioButton5.Text = "Vendor";
+            this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.CheckedChanged += new System.EventHandler(this.RadioButton5_CheckedChanged);
+            // 
+            // radioButton6
+            // 
+            this.radioButton6.AutoSize = true;
+            this.radioButton6.Enabled = false;
+            this.radioButton6.Location = new System.Drawing.Point(95, 3);
+            this.radioButton6.Name = "radioButton6";
+            this.radioButton6.Size = new System.Drawing.Size(60, 17);
+            this.radioButton6.TabIndex = 130;
+            this.radioButton6.Text = "Manual";
+            this.radioButton6.UseVisualStyleBackColor = true;
+            this.radioButton6.CheckedChanged += new System.EventHandler(this.RadioButton6_CheckedChanged);
+            // 
             // comboBox14
             // 
             this.comboBox14.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox14.FormattingEnabled = true;
-            this.comboBox14.Items.AddRange(new object[] {
-            "LV",
-            "MV"});
             this.comboBox14.Location = new System.Drawing.Point(435, 30);
             this.comboBox14.Name = "comboBox14";
             this.comboBox14.Size = new System.Drawing.Size(69, 21);
@@ -1874,7 +1962,7 @@
             this.textBox35.Location = new System.Drawing.Point(435, 402);
             this.textBox35.Multiline = true;
             this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(119, 116);
+            this.textBox35.Size = new System.Drawing.Size(119, 81);
             this.textBox35.TabIndex = 145;
             this.textBox35.TextChanged += new System.EventHandler(this.TextBox35_TextChanged);
             // 
@@ -1903,94 +1991,18 @@
             this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             this.radioButton1.Click += new System.EventHandler(this.RadioButton1_Click_1);
             // 
-            // radioButton6
+            // checkBox1
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Enabled = false;
-            this.radioButton6.Location = new System.Drawing.Point(95, 3);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(60, 17);
-            this.radioButton6.TabIndex = 130;
-            this.radioButton6.Text = "Manual";
-            this.radioButton6.UseVisualStyleBackColor = true;
-            this.radioButton6.CheckedChanged += new System.EventHandler(this.RadioButton6_CheckedChanged);
-            // 
-            // radioButton5
-            // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Checked = true;
-            this.radioButton5.Enabled = false;
-            this.radioButton5.Location = new System.Drawing.Point(4, 3);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(59, 17);
-            this.radioButton5.TabIndex = 129;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Vendor";
-            this.radioButton5.UseVisualStyleBackColor = true;
-            this.radioButton5.CheckedChanged += new System.EventHandler(this.RadioButton5_CheckedChanged);
-            // 
-            // panel3
-            // 
-            this.panel3.Controls.Add(this.radioButton5);
-            this.panel3.Controls.Add(this.radioButton6);
-            this.panel3.Location = new System.Drawing.Point(893, 285);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(189, 22);
-            this.panel3.TabIndex = 142;
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(584, 295);
-            this.label82.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(113, 16);
-            this.label82.TabIndex = 152;
-            this.label82.Text = "Suggested Cable";
-            // 
-            // label83
-            // 
-            this.label83.AutoSize = true;
-            this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(599, 373);
-            this.label83.Margin = new System.Windows.Forms.Padding(3, 5, 3, 5);
-            this.label83.Name = "label83";
-            this.label83.Size = new System.Drawing.Size(34, 16);
-            this.label83.TabIndex = 153;
-            this.label83.Text = "Size";
-            // 
-            // comboBox15
-            // 
-            this.comboBox15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox15.FormattingEnabled = true;
-            this.comboBox15.Items.AddRange(new object[] {
-            "2",
-            "3",
-            "4"});
-            this.comboBox15.Location = new System.Drawing.Point(700, 368);
-            this.comboBox15.Name = "comboBox15";
-            this.comboBox15.Size = new System.Drawing.Size(121, 21);
-            this.comboBox15.TabIndex = 154;
-            // 
-            // button7
-            // 
-            this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(638, 176);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(177, 23);
-            this.button7.TabIndex = 155;
-            this.button7.Text = "Calculate Vd";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // label84
-            // 
-            this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(804, 273);
-            this.label84.Name = "label84";
-            this.label84.Size = new System.Drawing.Size(15, 13);
-            this.label84.TabIndex = 156;
-            this.label84.Text = "m";
+            this.checkBox1.AutoCheck = false;
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(489, 241);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(88, 17);
+            this.checkBox1.TabIndex = 157;
+            this.checkBox1.Text = "Manual Input";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.CheckBox1_CheckedChanged);
+            this.checkBox1.Click += new System.EventHandler(this.CheckBox1_Click);
             // 
             // Form1
             // 
@@ -2182,6 +2194,7 @@
         private System.Windows.Forms.Label label83;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.Label label84;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

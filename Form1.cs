@@ -2218,6 +2218,36 @@ namespace Test1
 
         }
 
+        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            enable_correction();
+
+            if (checkBox1.CheckState == CheckState.Unchecked)
+            {
+                textBox17.ReadOnly = true;
+                textBox18.ReadOnly = true;
+                textBox36.ReadOnly = true;
+            }
+            else if (checkBox1.CheckState == CheckState.Indeterminate)
+            {
+                textBox17.ReadOnly = false;
+                textBox18.ReadOnly = false;
+                textBox36.ReadOnly = false;
+            }
+        }
+
+        private void CheckBox1_Click(object sender, EventArgs e)
+        {
+            if (checkBox1.CheckState == CheckState.Unchecked)
+            {
+                checkBox1.CheckState = CheckState.Indeterminate;
+            }
+            else if (checkBox1.CheckState == CheckState.Indeterminate)
+            {
+                checkBox1.CheckState = CheckState.Unchecked;
+            }
+        }
+
         private void TextBox24_TextChanged(object sender, EventArgs e)
         {
             if (textBox24.Text != "")
@@ -2396,7 +2426,7 @@ namespace Test1
         private void enable_correction()
         {
             if (((comboBox9.Text == "E (Above Ground)") || (comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)")) && 
-                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE") || (comboBox6.Text == "EPR")))
+                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE") || (comboBox6.Text == "EPR")) && (checkBox1.CheckState == CheckState.Unchecked))
             {
                 button1.Enabled = true;
             }
