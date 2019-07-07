@@ -59,14 +59,5 @@ namespace Test1 {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to .
-        /// </summary>
-        internal static string qwq {
-            get {
-                return ResourceManager.GetString("qwq", resourceCulture);
-            }
-        }
     }
 }
