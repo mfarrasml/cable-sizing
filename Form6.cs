@@ -12,14 +12,16 @@ namespace Test1
 {
     public partial class Form6 : Form
     {
-        public static double[,] cabledata = new double[17, 5];
-        public static double[,] prevcabledata = new double[17, 5];
-        public static double[,] confirmedcabledata = new double[17, 5];
+        public static double[,] cabledata = new double[17, 6];
+        public static double[,] prevcabledata = new double[17, 6];
+        public static double[,] confirmedcabledata = new double[17, 6];
         int cablecount;
         bool[] datAvailable = new bool[17]; 
         int nMax = 17;
         bool inValid;
         public static bool okclicked = false;
+        double maxTemp;
+
 
         public Form6()
         {
@@ -119,7 +121,7 @@ namespace Test1
             {
                 int j = 0;
                 terisi = true;
-                while (j < 5)
+                while (j < 6)
                 {
                     cabledata[i, j] = Convert.ToDouble(dataGridView1.Rows[i].Cells[j].Value);
                     if (cabledata[i, j] == 0)
@@ -148,7 +150,7 @@ namespace Test1
             {
                 int j = 1;
                 count = 0;
-                while (j < 5)
+                while (j < 6)
                 {
                     if(cabledata[i, j] == 0)
                     {
@@ -156,7 +158,7 @@ namespace Test1
                     }
                     j++;
                 }
-                if ((count < 4) && (count > 0))
+                if ((count < 5) && (count > 0))
                 {
                     inVal = true;
                 }
@@ -172,7 +174,7 @@ namespace Test1
             {
                 if (datAvailable[i])
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < 6; j++)
                     {
                         confirmedcabledata[cablecount, j] = cabledata[i, j];
                     }
@@ -193,7 +195,7 @@ namespace Test1
                 dataGridView1.CurrentCell.Selected = false;
                 for (int i = 0; i < nMax; i++)
                 {
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < 6; j++)
                     {
                         if (prevcabledata[i, j] == 0)
                         {
@@ -213,9 +215,84 @@ namespace Test1
         {
             for (int i = 0; i < nMax; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < 6; j++)
                 {
                     prevcabledata[i, j] = cabledata[i, j];
+                }
+            }
+        }
+
+        private void ComboBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            if ((comboBox1.Text == "") && (e.KeyChar == Form1.decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void ComboBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != "")
+            {
+                maxTemp = double.Parse(comboBox1.Text);
+
+                for (int i = 0; i < 17; i++)
+                {
+                    if (Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) != 0)
+                    {
+                        dataGridView1.Rows[i].Cells[2].Value = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) * (1 + (0.00393 * (maxTemp - 20)));
+                    }
+                    else
+                    {
+                        dataGridView1.Rows[i].Cells[2].Value = null;
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 17; i++)
+                {
+                    dataGridView1.Rows[i].Cells[2].Value = null;
+                }
+            }
+        }
+
+        private void DataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != "")
+            {
+                maxTemp = double.Parse(comboBox1.Text);
+
+                for (int i = 0; i < 17; i++)
+                {
+                    if (Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) != 0)
+                    {
+                        dataGridView1.Rows[i].Cells[2].Value = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) * (1 + (0.00393 * (maxTemp - 20)));
+                    }
+                    else
+                    {
+                       
+                        dataGridView1.Rows[i].Cells[2].Value = null;
+                        
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 17; i++)
+                {
+                    dataGridView1.Rows[i].Cells[2].Value = null;
                 }
             }
         }

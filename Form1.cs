@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -68,6 +69,8 @@ namespace Test1
         double smin;
         double cablesizemin;
 
+        int m;
+
         string voltageLv;
 
         public static int j = -1;
@@ -75,13 +78,16 @@ namespace Test1
         Form6 f6 = new Form6();
         FSettings fSettings = new FSettings();
 
-        public static string[] results = new string[33];
+        public static string[] results = new string[38];
 
         public static char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         public static bool decimalSeparatorChanged = false;
 
         public static double[,] inputCableData;
         public static int cableCount;
+
+        
+
 
         public Form1()
         {
@@ -411,7 +417,17 @@ namespace Test1
                 {
                     power = double.Parse(TextBox1.Text);
                 }
+                panel14.BackColor = Color.Transparent;
             }
+            else if ((TextBox1.Text == "") && (!radioButton8.Checked))
+            {
+                panel14.BackColor = Color.Red;
+            }
+            else
+            {
+                panel14.BackColor = Color.Transparent;
+            }
+
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -425,7 +441,7 @@ namespace Test1
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((comboBox3.Text == "DC") && (comboBox2.Text == "Static"))
+            if ((comboBox3.Text == "DC") && (comboBox2.Text == "Feeder"))
             {
                 pf = 1;
                 textBox4.Text = pf.ToString("R");
@@ -439,6 +455,11 @@ namespace Test1
             if (comboBox3.Text != "")
             {
                 phase = comboBox3.Text;
+                panel17.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel17.BackColor = Color.Red;
             }
 
 
@@ -449,21 +470,21 @@ namespace Test1
                 comboBox5.Items.Insert(0, 3);
                 comboBox5.Items.Insert(1, 4);
 
-                comboBox2.Items.Insert(0, "Static");
-                comboBox2.Items.Insert(1, "Dynamic");
+                comboBox2.Items.Insert(0, "Feeder");
+                comboBox2.Items.Insert(1, "Motor");
             }
             else if (comboBox3.Text == "Single-Phase AC")
             {
                 comboBox5.Items.Insert(0, 2);
 
-                comboBox2.Items.Insert(0, "Static");
-                comboBox2.Items.Insert(1, "Dynamic");
+                comboBox2.Items.Insert(0, "Feeder");
+                comboBox2.Items.Insert(1, "Motor");
             }
             else if (comboBox3.Text == "DC")
             {
                 comboBox5.Items.Insert(0, 2);
 
-                comboBox2.Items.Insert(0, "Static");
+                comboBox2.Items.Insert(0, "Feeder");
             }
 
             calc_current();
@@ -473,7 +494,7 @@ namespace Test1
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if ((comboBox3.Text == "DC") && (comboBox2.Text == "Static"))
+            if ((comboBox3.Text == "DC") && (comboBox2.Text == "Feeder"))
             {
                 pf = 1;
                 textBox4.Text = pf.ToString("R");
@@ -487,11 +508,39 @@ namespace Test1
             if(comboBox2.Text != "")
             {
                 loadtype = comboBox2.Text;
+                panel18.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel18.BackColor = Color.Red;
+            }
+
+
+            if (comboBox2.Text == "Motor")
+            {
+                if (textBox14.Text == "")
+                {
+                    panel10.BackColor = Color.Red;
+                }
+                if (textBox25.Text == "")
+                {
+                    panel12.BackColor = Color.Red;
+                }
+                if (textBox11.Text == "")
+                {
+                    panel27.BackColor = Color.Red;
+                }
+            }
+            else
+            {
+                panel10.BackColor = Color.Transparent;
+                panel12.BackColor = Color.Transparent;
+                panel27.BackColor = Color.Transparent;
             }
 
             
 
-            if (comboBox2.Text == "Dynamic")
+            if (comboBox2.Text == "Motor")
             {
                 label18.Enabled = true;
                 label19.Enabled = true;
@@ -558,6 +607,11 @@ namespace Test1
             if (textBox6.Text != "")
             {
                 length = double.Parse(textBox6.Text);
+                panel25.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel25.BackColor = Color.Red;
             }
             enable_vd_btn();
             enable_result_btn();
@@ -568,6 +622,11 @@ namespace Test1
             if (textBox12.Text != "")
             {
                 n = int.Parse(textBox12.Text);
+                panel31.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel31.BackColor = Color.Red;
             }
             enable_vd_btn();
             enable_result_btn();
@@ -578,6 +637,11 @@ namespace Test1
             if (comboBox5.Text != "")
             {
                 cores = int.Parse(comboBox5.Text);
+                panel30.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel30.BackColor = Color.Red;
             }
 
             enable_vd_btn();
@@ -587,6 +651,9 @@ namespace Test1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+
+
             cbPower.Text = "kW";
             for(int z = 0; z < 33; z++)
             {
@@ -656,6 +723,14 @@ namespace Test1
         private void ComboBox4_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             material = comboBox4.Text;
+            if (comboBox4.Text != "")
+            {
+                panel19.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel19.BackColor = Color.Red;
+            }
             Calc_k();
             enable_vd_btn();
             enable_result_btn();
@@ -668,17 +743,20 @@ namespace Test1
             {
                 textBox15.Text = "70";
                 textBox24.Text = "160";
+                panel20.BackColor = Color.Transparent;
             }
             else if ((insulation == "XLPE") || (insulation == "EPR"))
             {
                 textBox15.Text = "90";
                 textBox24.Text = "250";
+                panel20.BackColor = Color.Transparent;
             }
             else
             {
                 textBox15.Text = "";
                 textBox24.Text = "";
                 textBox21.Text = "";
+                panel20.BackColor = Color.Red;
             }
 
             reset_correction();
@@ -690,6 +768,14 @@ namespace Test1
         private void ComboBox7_SelectedIndexChanged(object sender, EventArgs e)
         {
             armour = comboBox7.Text;
+            if (comboBox7.Text != "")
+            {
+                panel21.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel21.BackColor = Color.Red;
+            }
             enable_vd_btn();
             enable_result_btn();
         }
@@ -707,6 +793,14 @@ namespace Test1
                 textBox36.Enabled = true;
                 label80.Enabled = true;
             }
+            if (comboBox9.Text != "")
+            {
+                panel22.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel22.BackColor = Color.Red;
+            }
 
             reset_correction();
             enable_correction();
@@ -714,6 +808,7 @@ namespace Test1
             enable_result_btn();
         }
 
+        // calculate wire size based on vd and fl current
         private void vd_size_calc()
         {
             n = int.Parse(textBox12.Text);
@@ -750,7 +845,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -764,7 +859,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -817,7 +912,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -831,7 +926,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -882,7 +977,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -896,7 +991,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -949,7 +1044,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -963,7 +1058,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1013,7 +1108,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1027,7 +1122,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1078,7 +1173,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1093,7 +1188,7 @@ namespace Test1
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1139,7 +1234,7 @@ namespace Test1
 
                         if (phase == "DC")
                         {
-                            Rdc = inputCableData[i, 1];
+                            Rdc = inputCableData[i, 2];
                             Rac = 0;
 
                             vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
@@ -1147,9 +1242,9 @@ namespace Test1
                         }
                         else
                         {
-                            Rac = inputCableData[i, 1];
+                            Rac = inputCableData[i, 2];
                             Rdc = 0;
-                            X = inputCableData[i, 2];
+                            X = inputCableData[i, 3];
 
                             if (phase == "Single-Phase AC")
                             {
@@ -1159,7 +1254,7 @@ namespace Test1
                                 lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                     (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                if (loadtype == "Dynamic")
+                                if (loadtype == "Motor")
                                 {
                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
@@ -1173,7 +1268,7 @@ namespace Test1
                                 lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                     (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                if (loadtype == "Dynamic")
+                                if (loadtype == "Motor")
                                 {
                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
@@ -1183,11 +1278,11 @@ namespace Test1
 
                         if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                         {
-                            Irated = inputCableData[i, 3];
+                            Irated = inputCableData[i, 4];
                         }
                         else if (installation == "E (Above Ground)")
                         {
-                            Irated = inputCableData[i, 4];
+                            Irated = inputCableData[i, 5];
                         }
 
                         iderated = Irated * ktmain;
@@ -1211,13 +1306,14 @@ namespace Test1
                 textBox12.Text = n.ToString();
                 textBox8.Text = vdrun.ToString("0.##");
                 textBox29.Text = lmax.ToString("0.##");
+                textBox22.Text = cLTE.ToString("0.##");
 
                 if (material == "Copper")
                 {
                     materialname = "Cu";
                 }
 
-                if (loadtype == "Dynamic")
+                if (loadtype == "Motor")
                 {
                     textBox10.Text = vdstart.ToString("0.##");
                 }
@@ -1236,91 +1332,11 @@ namespace Test1
 
                 tbResult.Text = readtemp;
 
-                save_result(); //MUNGKIN DUIBAH
+                save_vd_result(); //MUNGKIN DUIBAH
 
-                i--;
-                comboBox15.Items.Clear();
-                if (insulation == "XLPE")
-                {
-                    if (cores == 2)
-                    {
-                        comboBox15.Items.Insert(0, xlpe2core[i,0]);
-                        if (i < 16)
-                        {
-                            comboBox15.Items.Insert(1, xlpe2core[i + 1, 0]);
-                        }
-                        if (i < 15)
-                        {
-                            comboBox15.Items.Insert(2, xlpe2core[i + 2, 0]);
-                        }
-                    }
-                    else if (cores == 3)
-                    {
-                        comboBox15.Items.Insert(0, xlpe3core[i, 0]);
-                        if (i < 16)
-                        {
-                            comboBox15.Items.Insert(1, xlpe3core[i + 1, 0]);
-                        }
-                        if (i < 15)
-                        {
-                            comboBox15.Items.Insert(2, xlpe3core[i + 2, 0]);
-                        }
-                    }
-                    else if (cores == 4)
-                    {
-                        comboBox15.Items.Insert(0, xlpe4core[i, 0]);
-                        if (i < 16)
-                        {
-                            comboBox15.Items.Insert(1, xlpe4core[i + 1, 0]);
-                        }
-                        if (i < 15)
-                        {
-                            comboBox15.Items.Insert(2, xlpe4core[i + 2, 0]);
-                        }
-                    }
-                }
-                else if (insulation == "PVC")
-                {
-                    if (cores == 2)
-                    {
-                        comboBox15.Items.Insert(0, pvc2core[i, 0]);
-                        if (i < 15)
-                        {
-                            comboBox15.Items.Insert(1, pvc2core[i + 1, 0]);
-                        }
-                        if (i < 14)
-                        {
-                            comboBox15.Items.Insert(2, pvc2core[i + 2, 0]);
-                        }
-                    }
-                    else if (cores == 3)
-                    {
-                        comboBox15.Items.Insert(0, pvc3core[i, 0]);
-                        if (i < 15)
-                        {
-                            comboBox15.Items.Insert(1, pvc3core[i + 1, 0]);
-                        }
-                        if (i < 14)
-                        {
-                            comboBox15.Items.Insert(2, pvc3core[i + 2, 0]);
-                        }
-                    }
-                    else if (cores == 4)
-                    {
-                        comboBox15.Items.Insert(0, pvc3core[i, 0]);
-                        if (i < 15)
-                        {
-                            comboBox15.Items.Insert(1, pvc3core[i + 1, 0]);
-                        }
-                        if (i < 14)
-                        {
-                            comboBox15.Items.Insert(2, pvc3core[i + 2, 0]);
-                        }
-                    }
-                }
-                comboBox15.SelectedIndex = 0;
+                Update_size();
 
-                enable_save(); //MUNGKIN DUIBAH
+                enable_save();
                 if (phase == "DC")
                 {
                     textBox34.Text = Rdc.ToString("0.####");
@@ -1332,6 +1348,9 @@ namespace Test1
                     textBox33.Text = X.ToString("0.####");
                 }
                 textBox32.Text = Irated.ToString("0.##");
+
+                label86.Visible = true;
+                timer1.Enabled = true;
             }
             else
             {
@@ -1344,11 +1363,12 @@ namespace Test1
             }
         }
 
+        //validate vd and fl current
         private void validasi_vd()
         {
             if ((current < iderated) && (vdrun < vdrunmax))
             {
-                if (loadtype == "Dynamic")
+                if (loadtype == "Motor")
                 {
                     if (vdstart < vdstartmax)
                     {
@@ -1376,13 +1396,14 @@ namespace Test1
             }
         }
 
+        //calculate wire size based on all data
         public void area_calc()
         {
             n = int.Parse(textBox12.Text);
             complete = false;
             while (!complete)
             {
-                i = 0;
+                i = m;
                 if (radioButton4.Checked)
                 {
                     if (insulation == "XLPE")
@@ -1411,7 +1432,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1425,7 +1446,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1478,7 +1499,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1492,7 +1513,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1543,7 +1564,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1557,7 +1578,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1610,7 +1631,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1624,7 +1645,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1674,7 +1695,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1688,7 +1709,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1739,7 +1760,7 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1754,7 +1775,7 @@ namespace Test1
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
 
-                                        if (loadtype == "Dynamic")
+                                        if (loadtype == "Motor")
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
@@ -1800,7 +1821,7 @@ namespace Test1
 
                         if (phase == "DC")
                         {
-                            Rdc = inputCableData[i, 1];
+                            Rdc = inputCableData[i, 2];
                             Rac = 0;
 
                             vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
@@ -1808,9 +1829,9 @@ namespace Test1
                         }
                         else
                         {
-                            Rac = inputCableData[i, 1];
+                            Rac = inputCableData[i, 2];
                             Rdc = 0;
-                            X = inputCableData[i, 2];
+                            X = inputCableData[i, 3];
 
                             if (phase == "Single-Phase AC")
                             {
@@ -1820,7 +1841,7 @@ namespace Test1
                                 lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                     (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                if (loadtype == "Dynamic")
+                                if (loadtype == "Motor")
                                 {
                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
@@ -1834,7 +1855,7 @@ namespace Test1
                                 lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                     (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                if (loadtype == "Dynamic")
+                                if (loadtype == "Motor")
                                 {
                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
@@ -1844,11 +1865,11 @@ namespace Test1
 
                         if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                         {
-                            Irated = inputCableData[i, 3];
+                            Irated = inputCableData[i, 4];
                         }
                         else if (installation == "E (Above Ground)")
                         {
-                            Irated = inputCableData[i, 4];
+                            Irated = inputCableData[i, 5];
                         }
 
                         iderated = Irated * ktmain;
@@ -1877,7 +1898,7 @@ namespace Test1
                     materialname = "Cu";
                 }
 
-                if (loadtype == "Dynamic")
+                if (loadtype == "Motor")
                 {
                     textBox10.Text = vdstart.ToString("0.##");
                 }
@@ -1898,6 +1919,7 @@ namespace Test1
                 cable_lte();
                 textBox22.Text = cLTE.ToString("0.##");
                 save_result();
+                Update_size();
                 enable_save();
                 if (phase == "DC")
                 {
@@ -1910,6 +1932,11 @@ namespace Test1
                     textBox33.Text = X.ToString("0.####");
                 }
                 textBox32.Text = Irated.ToString("0.##");
+
+                label86.Visible = true;
+                timer1.Enabled = true;
+
+                
             }
             else
             {
@@ -1936,6 +1963,111 @@ namespace Test1
             {
                 n++;
             }
+        }
+
+        // show selected size + 2 size above
+        private void Update_size()
+        {
+            textBox37.Text = wirearea.ToString();
+            i--;
+            comboBox15.Items.Clear();
+            comboBox15.Items.Insert(0, "Update Size");
+            if (radioButton4.Checked)
+            {
+                if (insulation == "XLPE")
+                {
+                    if (cores == 2)
+                    {
+                        comboBox15.Items.Insert(1, xlpe2core[i, 0]);
+                        if (i < 16)
+                        {
+                            comboBox15.Items.Insert(2, xlpe2core[i + 1, 0]);
+                        }
+                        if (i < 15)
+                        {
+                            comboBox15.Items.Insert(3, xlpe2core[i + 2, 0]);
+                        }
+                    }
+                    else if (cores == 3)
+                    {
+                        comboBox15.Items.Insert(1, xlpe3core[i, 0]);
+                        if (i < 16)
+                        {
+                            comboBox15.Items.Insert(2, xlpe3core[i + 1, 0]);
+                        }
+                        if (i < 15)
+                        {
+                            comboBox15.Items.Insert(3, xlpe3core[i + 2, 0]);
+                        }
+                    }
+                    else if (cores == 4)
+                    {
+                        comboBox15.Items.Insert(1, xlpe4core[i, 0]);
+                        if (i < 16)
+                        {
+                            comboBox15.Items.Insert(2, xlpe4core[i + 1, 0]);
+                        }
+                        if (i < 15)
+                        {
+                            comboBox15.Items.Insert(3, xlpe4core[i + 2, 0]);
+                        }
+                    }
+                }
+                else if (insulation == "PVC")
+                {
+                    if (cores == 2)
+                    {
+                        comboBox15.Items.Insert(1, pvc2core[i, 0]);
+                        if (i < 15)
+                        {
+                            comboBox15.Items.Insert(2, pvc2core[i + 1, 0]);
+                        }
+                        if (i < 14)
+                        {
+                            comboBox15.Items.Insert(3, pvc2core[i + 2, 0]);
+                        }
+                    }
+                    else if (cores == 3)
+                    {
+                        comboBox15.Items.Insert(1, pvc3core[i, 0]);
+                        if (i < 15)
+                        {
+                            comboBox15.Items.Insert(2, pvc3core[i + 1, 0]);
+                        }
+                        if (i < 14)
+                        {
+                            comboBox15.Items.Insert(3, pvc3core[i + 2, 0]);
+                        }
+                    }
+                    else if (cores == 4)
+                    {
+                        comboBox15.Items.Insert(1, pvc3core[i, 0]);
+                        if (i < 15)
+                        {
+                            comboBox15.Items.Insert(2, pvc3core[i + 1, 0]);
+                        }
+                        if (i < 14)
+                        {
+                            comboBox15.Items.Insert(3, pvc3core[i + 2, 0]);
+                        }
+                    }
+                }
+            }
+            else if (radioButton3.Checked)
+            {
+                comboBox15.Items.Insert(1, inputCableData[i, 0]);
+                if (i + 1 < cableCount)
+                {
+                    comboBox15.Items.Insert(2, inputCableData[i + 1, 0]);
+
+                }
+                if (i + 2 < cableCount)
+                {
+                    comboBox15.Items.Insert(3, inputCableData[i + 2, 0]);
+                }
+            }
+            comboBox15.SelectedIndex = 0;
+            m = i;
         }
 
         private void solvableOrNPlus()
@@ -1971,12 +2103,13 @@ namespace Test1
             }
         }
 
+        //validate i fl < i break < i derated, validate vd < vdmax, validate sizemin sc < selected size, validate cLTE < bLTE
         private void validasi()
         {
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
                 (((radioButton1.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (wirearea > smin))))
             {
-                if (loadtype == "Dynamic")
+                if (loadtype == "Motor")
                 {
                     if (vdstart < vdstartmax)
                     {
@@ -2003,7 +2136,6 @@ namespace Test1
                 inputValid = false;
             }
         }
-        
 
         private void Button2_Click(object sender, EventArgs e)
         {
@@ -2020,6 +2152,11 @@ namespace Test1
             if (textBox2.Text != "")
             {
                 voltage = double.Parse(textBox2.Text);
+                panel7.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel7.BackColor = Color.Red;
             }
             breaker_fill();
             calc_current();
@@ -2032,6 +2169,11 @@ namespace Test1
             if (textBox4.Text != "")
             {
                 pf = double.Parse(textBox4.Text);
+                panel9.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel9.BackColor = Color.Red;
             }
             calc_current();
             enable_vd_btn();
@@ -2043,6 +2185,11 @@ namespace Test1
             if (textBox5.Text != "")
             {
                 eff = double.Parse(textBox5.Text);
+                panel8.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel8.BackColor = Color.Red;
             }
             calc_current();
             enable_vd_btn();
@@ -2111,8 +2258,16 @@ namespace Test1
             if (textBox14.Text != "")
             {
                 pfstart = double.Parse(textBox14.Text);
+                panel10.BackColor = Color.Transparent;
             }
-
+            else if ((textBox14.Text == "") && (comboBox2.Text == "Motor"))
+            {
+                panel10.BackColor = Color.Red;
+            }
+            else
+            {
+                panel10.BackColor = Color.Transparent;
+            }
             enable_vd_btn();
             enable_result_btn();
 
@@ -2162,8 +2317,6 @@ namespace Test1
                 label70.Enabled = true;
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
-                radioButton5.Enabled = true;
-                radioButton6.Enabled = true;
 
                 if (radioButton6.Checked)
                 {
@@ -2195,8 +2348,6 @@ namespace Test1
                 label70.Enabled = false;
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
-                radioButton5.Enabled = false;
-                radioButton6.Enabled = false;
             }
             
             break_lte();
@@ -2204,9 +2355,8 @@ namespace Test1
 
         private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if ((radioButton1.Checked) && (!radioButton2.Checked))
+            if ((radioButton1.Checked))
             {
-                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = false;
                 label54.Enabled = false;
                 textBox23.Enabled = false;
@@ -2223,10 +2373,19 @@ namespace Test1
                 label70.Enabled = true;
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
-                radioButton5.Enabled = true;
-                radioButton6.Enabled = true;
+
+                if (radioButton6.Checked)
+                {
+                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                    textBox20.ReadOnly = false;
+                }
+                else if (radioButton5.Checked)
+                {
+                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
+                    textBox20.ReadOnly = true;
+                }
             }
-            else if (radioButton2.Checked)
+            else if ((radioButton2.Checked))
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
@@ -2245,31 +2404,8 @@ namespace Test1
                 label70.Enabled = false;
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
-                radioButton5.Enabled = false;
-                radioButton6.Enabled = false;
             }
-            else //auto, both button unchecked
-            {
-                comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
-                label53.Enabled = false;
-                label54.Enabled = false;
-                textBox23.Enabled = false;
-                textBox28.Enabled = false;
-                label63.Enabled = false;
-                label64.Enabled = false;
-                label67.Enabled = false;
-                label68.Enabled = false;
-                textBox30.Enabled = false;
-                textBox20.ReadOnly = true;
-                label48.Enabled = false;
-                label49.Enabled = false;
-                label69.Enabled = false;
-                label70.Enabled = false;
-                textBox20.Enabled = false;
-                textBox22.Enabled = false;
-                radioButton5.Enabled = false;
-                radioButton6.Enabled = false;
-            }
+
             break_lte();
         }
 
@@ -2313,10 +2449,6 @@ namespace Test1
             tagno = textBox13.Text;
         }
 
-        private void TextBox8_TextChanged(object sender, EventArgs e)
-        {
-           
-        }
 
         private void ComboBox10_TextChanged(object sender, EventArgs e)
         {
@@ -2350,6 +2482,11 @@ namespace Test1
             if (textBox9.Text != "")
             {
                 vdrunmax = double.Parse(textBox9.Text);
+                panel26.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel26.BackColor = Color.Red;
             }
             enable_vd_btn();
             enable_result_btn();
@@ -2363,6 +2500,14 @@ namespace Test1
         private void ComboBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
             outersheath = comboBox8.Text;
+            if (comboBox8.Text != "")
+            {
+                panel23.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel23.BackColor = Color.Red;
+            }
             enable_vd_btn();
             enable_result_btn();
         }
@@ -2406,6 +2551,7 @@ namespace Test1
             textBox33.Text = "";
             textBox34.Text = "";
             textBox35.Text = "";
+            textBox37.Text = "";
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = -1;
@@ -2423,6 +2569,11 @@ namespace Test1
             comboBox11.Text = "";
             comboBox13.SelectedIndex = -1;
             comboBox14.SelectedIndex = -1;
+            comboBox15.SelectedIndex = -1;
+            comboBox15.Items.Clear();
+            panel4.Enabled = false;
+            panel5.Enabled = true;
+            panel6.Enabled = true;
         }
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
@@ -2430,6 +2581,15 @@ namespace Test1
             if(textBox25.Text != "")
             {
                 multiplier = double.Parse(textBox25.Text);
+                panel12.BackColor = Color.Transparent;
+            }
+            else if ((textBox25.Text == "") && (comboBox2.Text == "Motor"))
+            {
+                panel12.BackColor = Color.Red;
+            }
+            else
+            {
+                panel12.BackColor = Color.Transparent;
             }
             calc_current();
             enable_vd_btn();
@@ -2487,18 +2647,103 @@ namespace Test1
 
         private void TextBox17_TextChanged(object sender, EventArgs e)
         {
+            if ((textBox17.Text != "") && (radioButton7.Checked))
+            {
+                k1main = double.Parse(textBox17.Text);
+
+                label43.Location = label80.Location;
+                textBox19.Location = textBox36.Location;
+                textBox18.Visible = true;
+                label42.Visible = true;
+            }
+            else if ((textBox17.Text == "") && (radioButton7.Checked))
+            {
+                k1main = 0;
+                k2main = 0;
+                k3main = 0;
+                ktmain = 0;
+
+                textBox18.Text = "";
+                textBox36.Text = "";
+                textBox19.Text = "";
+
+                label43.Location = label42.Location;
+                textBox19.Location = textBox18.Location;
+                textBox18.Visible = false;
+                label42.Visible = false;
+            }
+            Updatekt();
             enable_result_btn();
         }
 
         private void TextBox18_TextChanged(object sender, EventArgs e)
         {
+            if ((textBox18.Text != "") && (radioButton7.Checked))
+            {
+                k2main = double.Parse(textBox18.Text);
+
+                textBox19.Location = new Point(kttextboxX, kttextboxY);
+                label43.Location = new Point(ktlabelX, ktlabelY);
+                textBox36.Visible = true;
+                label80.Visible = true;
+            }
+            else if ((textBox18.Text == "") && (radioButton7.Checked))
+            {
+                k2main = 0;
+                k3main = 0;
+
+                textBox36.Text = "";
+
+                label43.Location = label80.Location;
+                textBox19.Location = textBox36.Location;
+                textBox36.Visible = false;
+                label80.Visible = false;
+            }
+            Updatekt();
             enable_result_btn();
         }
 
         private void TextBox19_TextChanged(object sender, EventArgs e)
         {
+            if (textBox19.Text != "")
+            {
+                panel24.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel24.BackColor = Color.Red;
+            }
             enable_vd_btn();
             enable_result_btn();
+        }
+
+        private void Updatekt()
+        {
+            if (radioButton7.Checked)
+            {
+                if ((textBox17.Text != "") && (textBox18.Text != "") && (textBox36.Text != ""))
+                {
+                    ktmain = k1main * k2main * k3main;
+                }
+                else if ((textBox17.Text != "") && (textBox18.Text != "") && (textBox36.Text == ""))
+                {
+                    ktmain = k1main * k2main;
+                }
+                else if ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text == ""))
+                {
+                    ktmain = k1main;
+                }
+                else
+                {
+                    textBox19.Text = "";
+                }
+
+                if (ktmain != 0)
+                {
+                    textBox19.Text = ktmain.ToString("0.##");
+                }
+                
+            }
         }
 
         private void TextBox26_TextChanged(object sender, EventArgs e)
@@ -2520,7 +2765,7 @@ namespace Test1
             j++;
             f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
             
-            for (int k = 0; k <33; k ++)
+            for (int k = 0; k <38; k ++)
             {
                 f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
                     
@@ -2628,10 +2873,10 @@ namespace Test1
             if (Form6.okclicked)
             {
                 enable_result_btn();
-                inputCableData = new double[cableCount, 5];
+                inputCableData = new double[cableCount, 6];
                 for (int i = 0; i < cableCount; i++)
                 {
-                    for (int q = 0; q < 5; q++)
+                    for (int q = 0; q < 6; q++)
                     {
                         inputCableData[i, q] = Form6.confirmedcabledata[i, q];
                     }
@@ -2836,6 +3081,14 @@ namespace Test1
 
         private void ComboBox13_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox13.Text != "")
+            {
+                panel15.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel15.BackColor = Color.Red;
+            }
             voltageLv = comboBox13.Text;
             comboBox14.Items.Clear();
             if (voltageLv ==  "MV")
@@ -2865,6 +3118,14 @@ namespace Test1
         private void ComboBox14_SelectedIndexChanged(object sender, EventArgs e)
         {
             ratedvoltage = comboBox14.Text;
+            if (comboBox14.Text != "")
+            {
+                panel16.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel16.BackColor = Color.Red;
+            }
             enable_vd_btn();
             enable_result_btn();
         }
@@ -2905,48 +3166,23 @@ namespace Test1
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
                 textBox20.ReadOnly = true;
+                comboBox10.DropDownStyle = ComboBoxStyle.DropDownList;
+
             }
             else if (radioButton6.Checked)
             {
                 comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 textBox20.ReadOnly = false;
+                comboBox10.DropDownStyle = ComboBoxStyle.DropDown;
             }
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
-
+            
         }
-
-        private void CheckBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            enable_correction();
-
-            if (checkBox1.CheckState == CheckState.Unchecked)
-            {
-                textBox17.ReadOnly = true;
-                textBox18.ReadOnly = true;
-                textBox36.ReadOnly = true;
-            }
-            else if (checkBox1.CheckState == CheckState.Indeterminate)
-            {
-                textBox17.ReadOnly = false;
-                textBox18.ReadOnly = false;
-                textBox36.ReadOnly = false;
-            }
-        }
-
-        private void CheckBox1_Click(object sender, EventArgs e)
-        {
-            if (checkBox1.CheckState == CheckState.Unchecked)
-            {
-                checkBox1.CheckState = CheckState.Indeterminate;
-            }
-            else if (checkBox1.CheckState == CheckState.Indeterminate)
-            {
-                checkBox1.CheckState = CheckState.Unchecked;
-            }
-        }
+        int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
+        
 
         private void TextBox24_TextChanged(object sender, EventArgs e)
         {
@@ -2960,7 +3196,118 @@ namespace Test1
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            vd_size_calc();
+            if ((pf > 1) || (pfstart > 1) || (vdrunmax > 100) || (vdstartmax > 100))
+            {
+                string msgbox;
+                msgbox = "Invalid value on following input: ";
+                if (pf > 1)
+                {
+                    msgbox += "\n- P.F. full load";
+                }
+                if (pfstart > 1)
+                {
+                    msgbox += "\n- P.F. start";
+                }
+                if (vdrunmax > 100)
+                {
+                    msgbox += "\n- Vd Run Max";
+                }
+                if (vdstartmax > 100)
+                {
+                    msgbox += "\n- Vd Start Max";
+                }
+                MessageBox.Show(msgbox, "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                vd_size_calc();
+                panel4.Enabled = true;
+
+                // reset s.c & breaker
+                textBox28.Text = "";
+                textBox23.Text = "";
+                textBox30.Text = "";
+                textBox20.Text = "";
+
+                comboBox12.SelectedIndex = -1;
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+
+                button8.Enabled = true;
+                panel5.Enabled = false;
+                panel6.Enabled = false;
+            }
+        }
+
+        private void TextBox36_TextChanged(object sender, EventArgs e)
+        {
+            if((textBox36.Text != "") && (radioButton7.Checked))
+            {
+                k3main = double.Parse(textBox36.Text);
+            }
+             
+            Updatekt();
+            enable_result_btn();
+        }
+
+
+        private void TextBox17_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            if ((textBox17.Text == "") && (e.KeyChar == decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox18_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            if ((textBox18.Text == "") && (e.KeyChar == decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void TextBox36_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            if ((textBox36.Text == "") && (e.KeyChar == decimalseparator))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            {
+                e.Handled = true;
+            }
         }
 
         private void TextBox15_TextChanged(object sender, EventArgs e)
@@ -2969,6 +3316,705 @@ namespace Test1
             {
                 initialTemp = double.Parse(textBox15.Text);
                 Calc_k();
+            }
+        }
+
+        private void ComboBox15_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!((comboBox15.Text == "Update Size") || (comboBox15.Text == "")))
+            {
+                textBox37.Text = comboBox15.Text;
+                if (comboBox15.SelectedIndex == 1)
+                {
+                    m = i;
+                }
+                else if (comboBox15.SelectedIndex == 2)
+                {
+                    m = i + 1;
+                }
+                else if (comboBox15.SelectedIndex == 3)
+                {
+                    m = i + 2;
+                }
+            }
+
+            if (!((textBox37.Text == wirearea.ToString()) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") || 
+                (comboBox15.Text == "")))
+            {
+                if (radioButton4.Checked)
+                {
+                    if (insulation == "XLPE")
+                    {
+                        if (cores == 2)
+                        {
+                            wirearea = xlpe2core[m, 0];
+                            if (phase == "DC")
+                            {
+                                Rdc = xlpe2core[m, 3];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = xlpe2core[m, 1];
+                                X = xlpe2core[m, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+                            if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                            {
+                                Irated = xlpe2core[m, 4] * n;
+                            }
+                            else //above ground
+                            {
+                                Irated = xlpe2core[m, 5] * n;
+                            }
+
+                            iderated = Irated * ktmain;
+
+                            cable_lte();
+
+                            // Validasi
+                            validasi_vd();
+
+                        }
+                        else if (cores == 3)
+                        {
+                            
+                            wirearea = xlpe3core[m, 0];
+                            if (phase == "DC")
+                            {
+                                Rdc = xlpe3core[m, 3];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = xlpe3core[m, 1];
+                                X = xlpe3core[m, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+
+                            if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                            {
+                                Irated = xlpe3core[m, 4] * n;
+                            }
+                            else //above ground
+                            {
+                                Irated = xlpe3core[m, 5] * n;
+                            }
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+
+                            // Validasi
+                            validasi_vd();
+
+                        }
+                        else if (cores == 4)
+                        {
+                           
+                            wirearea = xlpe4core[m, 0];
+                            if (phase == "DC")
+                            {
+                                Rdc = xlpe4core[m, 3];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = xlpe4core[m, 1];
+                                X = xlpe4core[m, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+                            if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                            {
+                                Irated = xlpe4core[m, 4] * n;
+                            }
+                            else //above ground
+                            {
+                                Irated = xlpe4core[m, 5] * n;
+                            }
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+
+                            // Validasi
+                            validasi_vd();
+
+                            
+                        }
+                    }
+                    else if (insulation == "PVC")
+                    {
+                        if (cores == 2)
+                        {
+                            wirearea = pvc2core[m, 0];
+                            if (phase == "DC")
+                            {
+                                Rdc = pvc2core[m, 3];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = pvc2core[m, 1];
+                                X = pvc2core[m, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+                            if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                            {
+                                Irated = pvc2core[m, 4] * n;
+                            }
+                            else //above ground
+                            {
+                                Irated = pvc2core[m, 5] * n;
+                            }
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+
+                        }
+                        else if (cores == 3)
+                        {
+                            wirearea = pvc3core[m, 0];
+                            if (phase == "DC")
+                            {
+                                Rdc = pvc3core[m, 3];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = pvc3core[m, 1];
+                                X = pvc3core[m, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+                            if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                            {
+                                Irated = pvc3core[m, 4] * n;
+                            }
+                            else //above ground
+                            {
+                                Irated = pvc3core[m, 5] * n;
+                            }
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+                            
+                        }
+                        else if (cores == 4)
+                        {
+                            wirearea = pvc4core[m, 0];
+                            if (phase == "DC")
+                            {
+                                Rdc = pvc4core[m, 3];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = pvc4core[m, 1];
+                                X = pvc4core[m, 2];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+
+                                    if (loadtype == "Motor")
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                }
+                            }
+
+                            if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                            {
+                                Irated = pvc4core[m, 4] * n;
+                            }
+                            else //above ground
+                            {
+                                Irated = pvc4core[m, 5] * n;
+                            }
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+                            
+                        }
+                    }
+                }
+                else if (radioButton3.Checked) //manual cable database input
+                {
+                    wirearea = inputCableData[m, 0];
+
+                    if (phase == "DC")
+                    {
+                        Rdc = inputCableData[m, 2];
+                        Rac = 0;
+
+                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                    }
+                    else
+                    {
+                        Rac = inputCableData[m, 2];
+                        Rdc = 0;
+                        X = inputCableData[m, 3];
+
+                        if (phase == "Single-Phase AC")
+                        {
+                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                            / (n * 1000 * voltage);
+
+                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                            if (loadtype == "Motor")
+                            {
+                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                / (n * 1000 * voltage);
+                            }
+                        }
+                        else if (phase == "Three-Phase AC")
+                        {
+                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                            / (n * 1000 * voltage);
+
+                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                            if (loadtype == "Motor")
+                            {
+                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                / (n * 1000 * voltage);
+                            }
+                        }
+                    }
+
+                    if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
+                    {
+                        Irated = inputCableData[m, 4];
+                    }
+                    else if (installation == "E (Above Ground)")
+                    {
+                        Irated = inputCableData[m, 5];
+                    }
+
+                    iderated = Irated * ktmain;
+                    cable_lte();
+                }
+
+                textBox12.Text = n.ToString();
+                textBox8.Text = vdrun.ToString("0.##");
+                textBox29.Text = lmax.ToString("0.##");
+                textBox22.Text = cLTE.ToString("0.##");
+
+                if (material == "Copper")
+                {
+                    materialname = "Cu";
+                }
+
+                if (loadtype == "Motor")
+                {
+                    textBox10.Text = vdstart.ToString("0.##");
+                }
+
+                readtemp = "";
+
+                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() +
+                    " mm²    " + ratedvoltage + " / " + materialname + " / " + insulation;
+
+                if (armour != "Non Armoured")
+                {
+                    readtemp += " / " + armour;
+                }
+
+                readtemp += " / " + outersheath;
+
+                tbResult.Text = readtemp;
+
+                save_vd_result();
+
+                enable_save();
+                if (phase == "DC")
+                {
+                    textBox34.Text = Rdc.ToString("0.####");
+                    textBox33.Text = "";
+                }
+                else //AC
+                {
+                    textBox34.Text = Rac.ToString("0.####");
+                    textBox33.Text = X.ToString("0.####");
+                }
+                textBox32.Text = Irated.ToString("0.##");
+            }
+            
+        }
+
+        private void TextBox37_TextChanged(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void Button8_Click(object sender, EventArgs e)
+        {
+            panel6.Enabled = true;
+            panel5.Enabled = true;
+
+            textBox8.Text = "";
+            textBox10.Text = "";
+            textBox29.Text = "";
+            textBox12.Text = "1";
+            textBox37.Text = "";
+            textBox34.Text = "";
+            textBox33.Text = "";
+            textBox32.Text = "";
+            textBox28.Text = "";
+            textBox23.Text = "";
+            textBox30.Text = "";
+            textBox22.Text = "";
+            textBox20.Text = "";
+
+
+            comboBox15.SelectedIndex = -1;
+            comboBox15.Items.Clear();
+            comboBox10.SelectedIndex = -1;
+            comboBox11.SelectedIndex = -1;
+            comboBox12.SelectedIndex = -1;
+
+            panel4.Enabled = false;
+            button8.Enabled = false;
+        }
+
+        private void TextBox4_Leave_1(object sender, EventArgs e)
+        {
+            if (pf > 1)
+            {
+                MessageBox.Show("Power Factor can't be greater than 1!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+            label86.Visible = false;
+            timer1.Enabled = false;
+        }
+
+        private void RadioButton7_CheckedChanged(object sender, EventArgs e)
+        {
+            enable_correction();
+            if (!radioButton7.Checked)
+            {
+                textBox17.ReadOnly = true;
+                textBox18.ReadOnly = true;
+                textBox36.ReadOnly = true;
+
+                label42.Visible = true;
+                label80.Visible = true;
+                textBox18.Visible = true;
+                textBox36.Visible = true;
+
+                textBox19.Location = new Point(kttextboxX, kttextboxY);
+                label43.Location = new Point(ktlabelX, ktlabelY);
+            }
+            else if (radioButton7.Checked)
+            {
+                kttextboxX = textBox19.Location.X;
+                kttextboxY = textBox19.Location.Y;
+                ktlabelX = label43.Location.X;
+                ktlabelY = label43.Location.Y;
+
+                textBox17.ReadOnly = false;
+                textBox18.ReadOnly = false;
+                textBox36.ReadOnly = false;
+
+                if (textBox17.Text == "")
+                {
+                    label42.Visible = false;
+                    label80.Visible = false;
+                    textBox18.Visible = false;
+                    textBox36.Visible = false;
+                    textBox19.Location = textBox18.Location;
+                    label43.Location = label42.Location;
+
+                }
+                else if ((textBox17.Text != "") && (textBox18.Text == ""))
+                {
+                    textBox36.Visible = false;
+                    label80.Visible = false;
+
+                    textBox19.Location = textBox36.Location;
+                    label43.Location = label80.Location;
+                }
+
+            }
+        }
+
+        private void RadioButton7_Click(object sender, EventArgs e)
+        {
+            if (!radioButton7.Checked)
+            {
+                radioButton7.Checked = true;
+            }
+            else if (radioButton7.Checked)
+            {
+                radioButton7.Checked = false;
+            }
+        }
+
+        private void RadioButton8_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton8.Checked)
+            {
+                TextBox1.Text = "";
+                power = 0;
+
+                TextBox1.ReadOnly = true;
+                cbPower.Enabled = false;
+
+                textBox3.ReadOnly = false;
+                panel14.BackColor = Color.Transparent;
+                if (textBox3.Text == "")
+                {
+                    panel11.BackColor = Color.Red;
+                }
+
+            }
+            else
+            {
+                textBox3.Text = "";
+                current = 0;
+                TextBox1.ReadOnly = false;
+                cbPower.Enabled = true;
+
+                textBox3.ReadOnly = true;
+                panel11.BackColor = Color.Transparent;
+                if (textBox2.Text == "")
+                {
+                    panel14.BackColor = Color.Red;
+                }
+            }
+        }
+
+        private void RadioButton8_Click(object sender, EventArgs e)
+        {
+            if (radioButton8.Checked)
+            {
+                radioButton8.Checked = false;
+            }
+            else
+            {
+                radioButton8.Checked = true;
+            }
+        }
+
+        private void TextBox3_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox3.Text != "")
+            {
+                current = double.Parse(textBox3.Text);
+                panel11.BackColor = Color.Transparent;
+            }
+            else if ((textBox3.Text == "") && (radioButton8.Checked))
+            {
+                panel11.BackColor = Color.Red;
+            }
+
+
+            if (radioButton8.Checked)
+            {
+                enable_vd_btn();
+                enable_result_btn();
+            }
+        }
+
+
+        private void TextBox14_Leave(object sender, EventArgs e)
+        {
+            if (pfstart > 1)
+            {
+                MessageBox.Show("Starting Power Factor can't be greater than 1!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TextBox9_Leave(object sender, EventArgs e)
+        {
+            if (vdrunmax > 100)
+            {
+                MessageBox.Show("Vd run can't be greater than 100%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void TextBox11_Leave(object sender, EventArgs e)
+        {
+            if (vdstartmax > 100)
+            {
+                MessageBox.Show("Vd start can't be greater than 100%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -3026,6 +4072,7 @@ namespace Test1
                 textBox31.Enabled = false;
                 label26.Enabled = false;
                 label60.Enabled = false;
+                panel13.BackColor = Color.Red;
             }
             else
             {
@@ -3037,7 +4084,11 @@ namespace Test1
                 textBox31.Enabled = true;
                 label26.Enabled = true;
                 label60.Enabled = true;
+                panel13.BackColor = Color.Transparent;
             }
+
+            enable_vd_btn();
+            enable_result_btn();
         }
 
         private void TextBox21_TextChanged(object sender, EventArgs e)
@@ -3054,6 +4105,15 @@ namespace Test1
             if (textBox11.Text != "")
             {
                 vdstartmax = double.Parse(textBox11.Text);
+                panel27.BackColor = Color.Transparent;
+            }
+            else if ((textBox11.Text == "") && (comboBox2.Text == "Motor"))
+            {
+                panel27.BackColor = Color.Red;
+            }
+            else
+            {
+                panel27.BackColor = Color.Transparent;
             }
             enable_vd_btn();
             enable_result_btn();
@@ -3065,7 +4125,7 @@ namespace Test1
             && (comboBox2.Text != "") && (textBox4.Text != "") && (textBox5.Text != ""))
             {
 
-                if ((phase == "DC") && (loadtype == "Static"))
+                if ((phase == "DC") && (loadtype == "Feeder"))
                 {
                     current = power * 1000 / voltage;
                     textBox3.Text = current.ToString("0.##");
@@ -3084,7 +4144,7 @@ namespace Test1
                     }
                     textBox3.Text = current.ToString("0.##");
 
-                    if ((loadtype == "Dynamic") && (textBox25.Text != ""))
+                    if ((loadtype == "Motor") && (textBox25.Text != ""))
                     {
                         currentstart = current * multiplier; //6.5 mungkin (harus) diganti
                         textBox7.Text = currentstart.ToString("0.##");
@@ -3106,7 +4166,7 @@ namespace Test1
                     }
                     textBox3.Text = current.ToString("0.##");
 
-                    if ((loadtype == "Dynamic") && (textBox25.Text != ""))
+                    if ((loadtype == "Motor") && (textBox25.Text != ""))
                     {
                         currentstart = current * multiplier;
                         textBox7.Text = currentstart.ToString("0.##");
@@ -3132,7 +4192,7 @@ namespace Test1
         private void enable_correction()
         {
             if (((comboBox9.Text == "E (Above Ground)") || (comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)")) && 
-                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE") || (comboBox6.Text == "EPR")) && (checkBox1.CheckState == CheckState.Unchecked))
+                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE") || (comboBox6.Text == "EPR")) && (!radioButton7.Checked))
             {
                 button1.Enabled = true;
             }
@@ -3157,15 +4217,15 @@ namespace Test1
 
         private void enable_vd_btn()
         {
-            if ((comboBox2.Text != "") && (comboBox3.Text != "") && (comboBox13.Text != "") && (TextBox1.Text != "") && 
+            if ((comboBox2.Text != "") && (comboBox3.Text != "") && (comboBox13.Text != "")&& 
                 (textBox2.Text != "") && (textBox3.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && 
                 (comboBox6.Text != "") &&(comboBox7.Text != "") && (comboBox8.Text != "") && (textBox9.Text != "") && 
                 (comboBox14.Text != "") &&(comboBox9.Text != "") && (textBox19.Text != "") && (textBox6.Text != "") && 
-                (textBox12.Text != "") && (comboBox5.Text != "")  && (comboBox4.Text != ""))
+                (textBox12.Text != "") && (comboBox5.Text != "")  && (comboBox4.Text != "") && (textBox13.Text != ""))
             {
                 if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                 {
-                    if (loadtype == "Dynamic")
+                    if (loadtype == "Motor")
                     {
                         if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                         {
@@ -3194,20 +4254,20 @@ namespace Test1
         
         private void enable_result_btn()
         {
-            if((comboBox2.Text != "") && (comboBox3.Text != ""))
-            {
-                if ((TextBox1.Text != "") && (textBox2.Text != "") && (textBox3.Text != "") && (textBox4.Text != "") &&
+            if ((comboBox2.Text != "") && (comboBox3.Text != "")&& (textBox2.Text != "") && 
+                (textBox3.Text != "") && (textBox4.Text != "") &&
                 (textBox5.Text != "") && (textBox9.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && 
                 (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && (textBox19.Text != "") && 
                 (comboBox11.Text != "") && (comboBox4.Text != "") && (comboBox7.Text != "") && (comboBox8.Text != "") && 
-                (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && (comboBox14.Text != ""))
+                (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && (comboBox14.Text != "") && 
+                (textBox13.Text!= ""))
                 {
                     if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                     {
                         if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "")) ||
                                 ((radioButton1.Checked) && (textBox20.Text != "")))
                         {
-                            if (loadtype == "Dynamic")
+                            if (loadtype == "Motor")
                             {
                                 if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                                 {
@@ -3223,7 +4283,7 @@ namespace Test1
                                 button2.Enabled = true;
                             }
                         }
-                        else if (loadtype == "Dynamic")
+                        else if (loadtype == "Motor")
                         {
                             if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                             {
@@ -3248,11 +4308,6 @@ namespace Test1
                 {
                     button2.Enabled = false;
                 }
-            }
-            else
-            {
-                button2.Enabled = false;
-            }
         }
 
 
@@ -3593,6 +4648,56 @@ namespace Test1
             }
         }
 
+        private void save_vd_result()
+        {
+            results[0] = tagno;
+            results[1] = from;
+            results[2] = fromdesc;
+            results[3] = to;
+            results[4] = todesc;
+            results[5] = phase;
+            results[6] = loadtype;
+            results[7] = voltage.ToString("0.##");
+            results[8] = installation;
+            results[9] = power.ToString("0.##");
+            results[10] = eff.ToString("0.##");
+            results[11] = pf.ToString("0.##");
+            results[12] = Math.Sqrt(1 - pf * pf).ToString("0.##");
+            results[13] = pfstart.ToString("0.##");
+            results[14] = current.ToString("0.##");
+            results[15] = currentstart.ToString("0.##");
+            results[16] = n.ToString("0.##");
+            results[17] = wirearea.ToString("0.##");
+            results[18] = Rac.ToString("0.####");
+            results[19] = X.ToString("0.####");
+            results[20] = Irated.ToString("0.##");
+            results[21] = ktmain.ToString("0.##");
+            results[22] = iderated.ToString("0.##");
+            results[23] = "";
+            results[24] = "";
+            results[25] = length.ToString("0.##");
+            results[26] = lmax.ToString("0.##");
+            results[27] = vdrun.ToString("0.##");
+            results[28] = vdrunmax.ToString("0.##");
+            results[29] = vdstart.ToString("0.##");
+            results[30] = vdstartmax.ToString("0.##");
+            results[31] = "";
+            results[32] = "";
+            results[33] = "";
+            results[34] = "";
+            results[35] = "";
+            results[36] = readtemp;
+            results[37] = remarks;
+
+            for (int i = 0; i < 37; i++)
+            {
+                if ((results[i] == "0") || (results[i] == null) || (results[i] == ""))
+                {
+                    results[i] = "N/A";
+                }
+            }
+        }
+
         private void save_result()
         {
             results[0] = tagno;
@@ -3626,12 +4731,17 @@ namespace Test1
             results[28] = vdrunmax.ToString("0.##");
             results[29] = vdstart.ToString("0.##");
             results[30] = vdstartmax.ToString("0.##");
-            results[31] = readtemp;
-            results[32] = remarks;
+            results[31] = sccurrent.ToString("0.##");
+            results[32] = tbreaker.ToString("0.##");
+            results[33] = cablesizemin.ToString("0.##");
+            results[34] = bLTE.ToString("0.##");
+            results[35] = cLTE.ToString("0.##");
+            results[36] = readtemp;
+            results[37] = remarks;
 
-            for(int i = 0; i <33; i++)
+            for (int i = 0; i < 37; i++)
             {
-                if ((results[i] == "0") || (results[i] == null)|| (results[i] == ""))
+                if ((results[i] == "0") || (results[i] == null) || (results[i] == ""))
                 {
                     results[i] = "N/A";
                 }
