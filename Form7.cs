@@ -36,7 +36,20 @@ namespace Test1
             dataGridView1.Columns[1].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridView1.Columns[2].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
             dataGridView1.Columns[3].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+        }
 
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (Form5.summaryCount > 0)
+            {
+                dataGridView1.SelectAll();
+                DataObject dataObj = dataGridView1.GetClipboardContent();
+                Clipboard.SetDataObject(dataObj, true);
+            }
+            else
+            {
+                Clipboard.Clear();
+            }
         }
     }
 }

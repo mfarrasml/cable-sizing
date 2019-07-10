@@ -2321,12 +2321,10 @@ namespace Test1
 
                 if (radioButton6.Checked)
                 {
-                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
                     textBox20.ReadOnly = false;
                 }
                 else if (radioButton5.Checked)
                 {
-                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
                     textBox20.ReadOnly = true;
                 }
             }
@@ -2377,12 +2375,10 @@ namespace Test1
 
                 if (radioButton6.Checked)
                 {
-                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
                     textBox20.ReadOnly = false;
                 }
                 else if (radioButton5.Checked)
                 {
-                    comboBox11.DropDownStyle = ComboBoxStyle.DropDownList;
                     textBox20.ReadOnly = true;
                 }
             }
@@ -2781,6 +2777,7 @@ namespace Test1
             breaker_fill();
             break_lte();
         }
+
 
         private void Button4_Click(object sender, EventArgs e)
         {
@@ -4754,8 +4751,11 @@ namespace Test1
             }
         }
 
+        
+
         private void save_result()
         {
+
             results[0] = tagno;
             results[1] = from;
             results[2] = fromdesc;

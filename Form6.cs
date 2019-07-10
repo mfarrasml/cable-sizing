@@ -203,7 +203,7 @@ namespace Test1
                     {
                         if (prevcabledata[i, j] == 0)
                         {
-                            dataGridView1.Rows[i].Cells[j].Value = "";
+                            dataGridView1.Rows[i].Cells[j].Value =  null;
                         }
                         else
                         {
@@ -274,8 +274,17 @@ namespace Test1
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            bool rowNotEmpty = false;
+
+            for (int i = 1; i <6; i++)
+            {
+                if(dataGridView1.CurrentRow.Cells[i].Value != null)
+                {
+                    rowNotEmpty = true;
+                }
+            }
             //activate delete button
-            if ((dataGridView1.CurrentCell != null) && (dataGridView1.CurrentCell.Selected))
+            if ((rowNotEmpty) && (dataGridView1.CurrentCell.Selected))
             {
                 button4.Enabled = true;
                 currentrow = dataGridView1.CurrentCell.RowIndex;
@@ -322,7 +331,7 @@ namespace Test1
                     dataGridView1.Rows[currentrow].Cells[i].Value = null;
                 }
             }
-            button1.Enabled = false;
+            button4.Enabled = false;
         }
 
         private void Button3_Click(object sender, EventArgs e)

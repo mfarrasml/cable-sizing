@@ -162,14 +162,12 @@ namespace Test1
                 {
                     ExportDgvToXML();
                     savefile = "";
-                    clearTable();
                     openFile();
                     Update_summary();
                 }
                 else if (dr == DialogResult.No)
                 {
                     savefile = "";
-                    clearTable();
                     openFile();
                     Update_summary();
                 }
@@ -181,14 +179,12 @@ namespace Test1
                 {
                     saveExportDgvToXML();
                     savefile = "";
-                    clearTable();
                     openFile();
                     Update_summary();
                 }
                 else if (dr == DialogResult.No)
                 {
                     savefile = "";
-                    clearTable();
                     openFile();
                     Update_summary();
                 }
@@ -196,7 +192,6 @@ namespace Test1
             else
             {
                 savefile = "";
-                clearTable();
                 openFile();
                 Update_summary();
             }
@@ -265,42 +260,42 @@ namespace Test1
         {
             DataTable dt = new DataTable();
 
-            foreach (DataGridViewColumn col in dataGridView1.Columns)
-            {
-                dt.Columns.Add(col.Name);
-            }
+             foreach (DataGridViewColumn col in dataGridView1.Columns)
+             {
+                 dt.Columns.Add(col.Name);
+             }
 
-            foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                DataRow dRow = dt.NewRow();
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    dRow[cell.ColumnIndex] = cell.Value;
-                }
-                dt.Rows.Add(dRow);
-            }
+             foreach (DataGridViewRow row in dataGridView1.Rows)
+             {
+                 DataRow dRow = dt.NewRow();
+                 foreach (DataGridViewCell cell in row.Cells)
+                 {
+                     dRow[cell.ColumnIndex] = cell.Value;
+                 }
+                 dt.Rows.Add(dRow);
+             }
 
-            DataSet ds = new DataSet();
-            ds.Tables.Add(dt);
+             DataSet ds = new DataSet();
+             ds.Tables.Add(dt);
 
-            SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "XML|*.xml";
-            if (sfd.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
-                    xmlSave.Formatting = Formatting.Indented;
-                    ds.DataSetName = "data";
-                    ds.WriteXml(xmlSave);
-                    xmlSave.Close();
-                    savefile = sfd.FileName;
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                }
-            }
+             SaveFileDialog sfd = new SaveFileDialog();
+             sfd.Filter = "XML|*.xml";
+             if (sfd.ShowDialog() == DialogResult.OK)
+             {
+                 try
+                 {
+                     XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
+                     xmlSave.Formatting = Formatting.Indented;
+                     ds.DataSetName = "data";
+                     ds.WriteXml(xmlSave);
+                     xmlSave.Close();
+                     savefile = sfd.FileName;
+                 }
+                 catch (Exception ex)
+                 {
+                     Console.WriteLine(ex);
+                 }
+             }
         }
 
         public void saveExportDgvToXML()
