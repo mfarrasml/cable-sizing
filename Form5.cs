@@ -22,6 +22,11 @@ namespace Test1
 
         public static string savefile = "";
 
+        Form7 f7 = new Form7();
+
+        public static int summaryCount = 0;
+
+
         public Form5()
         {
             InitializeComponent();
@@ -107,6 +112,7 @@ namespace Test1
             {
                 button1.Enabled = false;
             }
+            Update_summary();
         }
 
 
@@ -117,6 +123,7 @@ namespace Test1
             {
                 clearTable();
             }
+            Update_summary();
         }
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
@@ -157,12 +164,14 @@ namespace Test1
                     savefile = "";
                     clearTable();
                     openFile();
+                    Update_summary();
                 }
                 else if (dr == DialogResult.No)
                 {
                     savefile = "";
                     clearTable();
                     openFile();
+                    Update_summary();
                 }
             }
             else if (savefile != "")
@@ -174,12 +183,14 @@ namespace Test1
                     savefile = "";
                     clearTable();
                     openFile();
+                    Update_summary();
                 }
                 else if (dr == DialogResult.No)
                 {
                     savefile = "";
                     clearTable();
                     openFile();
+                    Update_summary();
                 }
             }
             else
@@ -187,7 +198,9 @@ namespace Test1
                 savefile = "";
                 clearTable();
                 openFile();
+                Update_summary();
             }
+            
 
         }
 
@@ -405,5 +418,68 @@ namespace Test1
             printer.PrintPreviewDataGridView(dataGridView1);
         }
 
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            if (!f7.Visible)
+            {
+                f7.Show();
+            }
+            else
+            {
+                f7.BringToFront();
+            }
+        }
+
+
+        bool done;
+        public void Update_summary()
+        {
+            string sel_cable;
+            double cable_length;
+
+            f7.dataGridView1.Rows.Clear();
+            summaryCount = 0;
+            for (int i = 0; i < Form1.j + 1; i++)
+            {
+                sel_cable = Convert.ToString(dataGridView1.Rows[i].Cells[37].Value);
+                sel_cable = sel_cable.Replace(Convert.ToString(dataGridView1.Rows[i].Cells[17].Value) + "  ×  ", "");
+                cable_length = (Convert.ToDouble(dataGridView1.Rows[i].Cells[17].Value) * Convert.ToDouble(dataGridView1.Rows[i].Cells[26].Value));
+                done = false;
+
+                if (summaryCount == 0)
+                {
+                    f7.dataGridView1.RowCount++;
+                    f7.dataGridView1.Rows[0].Cells[0].Value = summaryCount+1;
+                    f7.dataGridView1.Rows[0].Cells[1].Value = sel_cable;
+                    f7.dataGridView1.Rows[0].Cells[2].Value = cable_length;
+                    f7.dataGridView1.Rows[0].Cells[3].Value = 1;
+                    summaryCount++;
+                }
+                else
+                {
+                    for (int k = 0; k < summaryCount; k++)
+                    {
+                        
+                        if (sel_cable == Convert.ToString(f7.dataGridView1.Rows[k].Cells[1].Value))
+                        {
+                            f7.dataGridView1.Rows[k].Cells[2].Value = Convert.ToDouble(f7.dataGridView1.Rows[k].Cells[2].Value) + cable_length;
+                            f7.dataGridView1.Rows[k].Cells[3].Value = Convert.ToInt32(f7.dataGridView1.Rows[k].Cells[3].Value) + 1;
+                            done = true;
+                            break;
+                        }
+
+                    }
+                    if (!done)
+                    {
+                        f7.dataGridView1.RowCount++;
+                        f7.dataGridView1.Rows[summaryCount].Cells[0].Value = summaryCount+1;
+                        f7.dataGridView1.Rows[summaryCount].Cells[1].Value = sel_cable;
+                        f7.dataGridView1.Rows[summaryCount].Cells[2].Value = cable_length;
+                        f7.dataGridView1.Rows[summaryCount].Cells[3].Value = 1;
+                        summaryCount++;
+                    }
+                }
+            }
+        }
     }
 }

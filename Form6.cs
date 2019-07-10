@@ -12,16 +12,20 @@ namespace Test1
 {
     public partial class Form6 : Form
     {
+        //global variables
         public static double[,] cabledata = new double[17, 6];
         public static double[,] prevcabledata = new double[17, 6];
         public static double[,] confirmedcabledata = new double[17, 6];
+        public static bool okclicked = false;
+
+        //local variables
         int cablecount;
         bool[] datAvailable = new bool[17]; 
         int nMax = 17;
         bool inValid;
-        public static bool okclicked = false;
         double maxTemp;
-
+        int currentrow;
+        
 
         public Form6()
         {
@@ -270,6 +274,18 @@ namespace Test1
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            //activate delete button
+            if ((dataGridView1.CurrentCell != null) && (dataGridView1.CurrentCell.Selected))
+            {
+                button4.Enabled = true;
+                currentrow = dataGridView1.CurrentCell.RowIndex;
+            }
+            else
+            {
+                button4.Enabled = false;
+            }
+
+            //calculate and update R at initial temperature
             if (comboBox1.Text != "")
             {
                 maxTemp = double.Parse(comboBox1.Text);
@@ -293,6 +309,33 @@ namespace Test1
                 for (int i = 0; i < 17; i++)
                 {
                     dataGridView1.Rows[i].Cells[2].Value = null;
+                }
+            }
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell.Selected)
+            {
+                for (int i = 1; i < 6; i++)
+                {
+                    dataGridView1.Rows[currentrow].Cells[i].Value = null;
+                }
+            }
+            button1.Enabled = false;
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Delete all data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                for (int i = 0; i < 17; i++)
+                {
+                    for (int k = 1; k < 6; k++)
+                    {
+                        dataGridView1.Rows[i].Cells[k].Value = null;
+                    }
                 }
             }
         }

@@ -13,9 +13,11 @@ using System.Windows.Forms;
 
 
 
+
+
 namespace Test1
 {
-    
+
     public partial class Form1 : Form
     {
         double current;
@@ -36,6 +38,7 @@ namespace Test1
         double vdrunmax, vdstartmax, vdrun, vdstart;
         double length;
 
+
         int n = 1;
         string tagno, from, to, fromdesc, todesc;
         string material, armour, innersheath, outersheath;
@@ -50,7 +53,7 @@ namespace Test1
         public static bool ok_clicked, okSetClicked;
 
         bool complete, inputValid;
-        int i= 0;
+        int i = 0;
 
         string readtemp;
         double Rac;
@@ -86,33 +89,34 @@ namespace Test1
         public static double[,] inputCableData;
         public static int cableCount;
 
-        
+
 
 
         public Form1()
         {
 
             InitializeComponent();
+
         }
 
-        double[,] xlpe2core = new double[17, 6] 
+        double[,] xlpe2core = new double[17, 6]
         {
-            { 1.5, 15.4300, 0.0999, 15.4287, 26, 26 }, 
+            { 1.5, 15.4300, 0.0999, 15.4287, 26, 26 },
             { 2.5, 9.4500, 0.0961, 9.4485, 34, 36 },
-            { 4, 5.8800, 0.0899, 5.8782, 44, 49}, 
-            { 6, 3.9300, 0.0853, 3.9273, 56, 63 }, 
+            { 4, 5.8800, 0.0899, 5.8782, 44, 49},
+            { 6, 3.9300, 0.0853, 3.9273, 56, 63 },
             { 10, 2.3400, 0.0802, 2.3334, 73, 86 },
-            { 16, 1.4700, 0.0781, 1.4664, 95, 115 }, 
-            { 25, 0.9270, 0.0779, 0.9270, 121, 149},  
+            { 16, 1.4700, 0.0781, 1.4664, 95, 115 },
+            { 25, 0.9270, 0.0779, 0.9270, 121, 149},
             { 35, 0.6690, 0.0753, 0.6682, 146, 185 },
-            { 50, 0.4940, 0.0748, 0.4935, 173, 225 }, 
-            { 70, 0.3430, 0.0734, 0.3417, 213, 289 }, 
+            { 50, 0.4940, 0.0748, 0.4935, 173, 225 },
+            { 70, 0.3430, 0.0734, 0.3417, 213, 289 },
             { 95, 0.2470, 0.0711, 0.2461, 252, 352 },
-            { 120, 0.1970, 0.0708, 0.1951, 287, 410 }, 
-            { 150, 0.1600, 0.0712, 0.1581, 324, 473 }, 
+            { 120, 0.1970, 0.0708, 0.1951, 287, 410 },
+            { 150, 0.1600, 0.0712, 0.1581, 324, 473 },
             { 185, 0.1281, 0.0720, 0.1264, 363, 542 },
-            { 240, 0.0984, 0.0711, 0.0961, 419, 641 }, 
-            { 300, 0.0799, 0.0704, 0.0766, 474, 741 }, 
+            { 240, 0.0984, 0.0711, 0.0961, 419, 641 },
+            { 300, 0.0799, 0.0704, 0.0766, 474, 741 },
             { 400, 0.0633, 0.0701, 0.0599, 555, 892 }
         };
 
@@ -402,6 +406,7 @@ namespace Test1
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {
+            
             if (TextBox1.Text != "")
             {
                 if (cbPower.Text == "HP")
@@ -433,11 +438,6 @@ namespace Test1
             enable_result_btn();
         }
 
-
-        private void TextBox2_Leave(object sender, EventArgs e)
-        {
-            calc_current();
-        }
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -653,7 +653,6 @@ namespace Test1
         {
 
 
-
             cbPower.Text = "kW";
             for(int z = 0; z < 33; z++)
             {
@@ -786,6 +785,8 @@ namespace Test1
             if (installation == "E (Above Ground)")
             {
                 textBox36.Enabled = false;
+                textBox36.Text = "";
+                k3main = 0;
                 label80.Enabled = false;
             }
             else
@@ -2567,8 +2568,8 @@ namespace Test1
             comboBox11.SelectedIndex = -1;
             comboBox12.SelectedIndex = -1;
             comboBox11.Text = "";
-            comboBox13.SelectedIndex = -1;
             comboBox14.SelectedIndex = -1;
+            comboBox13.SelectedIndex = -1;
             comboBox15.SelectedIndex = -1;
             comboBox15.Items.Clear();
             panel4.Enabled = false;
@@ -2647,16 +2648,32 @@ namespace Test1
 
         private void TextBox17_TextChanged(object sender, EventArgs e)
         {
-            if ((textBox17.Text != "") && (radioButton7.Checked))
+            if (textBox17.Text != "")
             {
                 k1main = double.Parse(textBox17.Text);
+            }
+            else
+            {
+                k1main = 0;
+            }
 
+            if ((textBox17.Text != "") && (textBox18.Text != ""))
+            {
+                textBox19.Location = new Point(kttextboxX, kttextboxY);
+                label43.Location = new Point(ktlabelX, ktlabelY);
+                panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+            }
+            else if ((textBox17.Text != "") && (radioButton7.Checked) && (k1main != 0))
+            {
                 label43.Location = label80.Location;
                 textBox19.Location = textBox36.Location;
+
+                panel24.Location = new Point(textBox36.Location.X - 4, textBox36.Location.Y);
+
                 textBox18.Visible = true;
                 label42.Visible = true;
             }
-            else if ((textBox17.Text == "") && (radioButton7.Checked))
+            else if ((k1main == 0) && (radioButton7.Checked))
             {
                 k1main = 0;
                 k2main = 0;
@@ -2669,6 +2686,8 @@ namespace Test1
 
                 label43.Location = label42.Location;
                 textBox19.Location = textBox18.Location;
+                panel24.Location = new Point(textBox18.Location.X - 4, textBox18.Location.Y);
+
                 textBox18.Visible = false;
                 label42.Visible = false;
             }
@@ -2681,11 +2700,12 @@ namespace Test1
             if ((textBox18.Text != "") && (radioButton7.Checked))
             {
                 k2main = double.Parse(textBox18.Text);
-
                 textBox19.Location = new Point(kttextboxX, kttextboxY);
                 label43.Location = new Point(ktlabelX, ktlabelY);
+
                 textBox36.Visible = true;
                 label80.Visible = true;
+
             }
             else if ((textBox18.Text == "") && (radioButton7.Checked))
             {
@@ -2696,8 +2716,11 @@ namespace Test1
 
                 label43.Location = label80.Location;
                 textBox19.Location = textBox36.Location;
+
                 textBox36.Visible = false;
                 label80.Visible = false;
+
+
             }
             Updatekt();
             enable_result_btn();
@@ -2768,7 +2791,6 @@ namespace Test1
             for (int k = 0; k <38; k ++)
             {
                 f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
-                    
             }
 
             if (!f5.Visible)
@@ -2779,6 +2801,7 @@ namespace Test1
             {
                 f5.BringToFront();
             }
+            f5.Update_summary();
         }
 
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
@@ -3058,6 +3081,7 @@ namespace Test1
             {
                 bLTE = double.Parse(textBox20.Text);
             }
+            enable_result_btn();
         }
 
         private void TextBox20_KeyPress(object sender, KeyPressEventArgs e)
@@ -3091,20 +3115,27 @@ namespace Test1
             }
             voltageLv = comboBox13.Text;
             comboBox14.Items.Clear();
-            if (voltageLv ==  "MV")
+            if (comboBox13.Text ==  "MV")
             {
                 comboBox14.Items.Insert(0, "3.6/6kV");
                 comboBox14.Items.Insert(1, "6/10kV");
                 comboBox14.Items.Insert(2, "8.7/15kV");
                 comboBox14.Items.Insert(3, "12/20kV");
                 comboBox14.Items.Insert(4, "18/30kV");
+                toolTip1.SetToolTip(comboBox14, null);
             }
-            else if (voltageLv == "LV")
+            else if (comboBox13.Text == "LV")
             {
                 comboBox14.Items.Insert(0, "0.6/1kV");
                 comboBox14.Text = "0.6/1kV";
-            }
 
+                toolTip1.SetToolTip(comboBox14, null);
+            }
+            else
+            {
+                panel14.BackColor = Color.Red;
+                toolTip1.SetToolTip(comboBox14, "Voltage system needs to be chosen first");
+            }
             if ((radioButton4.Checked) && (voltageLv == "MV"))
             {
                 MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
@@ -3117,7 +3148,6 @@ namespace Test1
 
         private void ComboBox14_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ratedvoltage = comboBox14.Text;
             if (comboBox14.Text != "")
             {
                 panel16.BackColor = Color.Transparent;
@@ -3126,6 +3156,7 @@ namespace Test1
             {
                 panel16.BackColor = Color.Red;
             }
+            ratedvoltage = comboBox14.Text;
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3868,6 +3899,7 @@ namespace Test1
         private void RadioButton7_CheckedChanged(object sender, EventArgs e)
         {
             enable_correction();
+            reset_correction();
             if (!radioButton7.Checked)
             {
                 textBox17.ReadOnly = true;
@@ -3881,6 +3913,7 @@ namespace Test1
 
                 textBox19.Location = new Point(kttextboxX, kttextboxY);
                 label43.Location = new Point(ktlabelX, ktlabelY);
+                panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
             }
             else if (radioButton7.Checked)
             {
@@ -3901,6 +3934,7 @@ namespace Test1
                     textBox36.Visible = false;
                     textBox19.Location = textBox18.Location;
                     label43.Location = label42.Location;
+                    panel24.Location = new Point(textBox18.Location.X - 4, textBox18.Location.Y);
 
                 }
                 else if ((textBox17.Text != "") && (textBox18.Text == ""))
@@ -3992,7 +4026,6 @@ namespace Test1
                 enable_result_btn();
             }
         }
-
 
         private void TextBox14_Leave(object sender, EventArgs e)
         {
@@ -4122,9 +4155,8 @@ namespace Test1
         private void calc_current()
         {
             if ((TextBox1.Text != "") && (textBox2.Text != "") && (comboBox3.Text != "")
-            && (comboBox2.Text != "") && (textBox4.Text != "") && (textBox5.Text != ""))
+            && (comboBox2.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && (!radioButton8.Checked))
             {
-
                 if ((phase == "DC") && (loadtype == "Feeder"))
                 {
                     current = power * 1000 / voltage;
@@ -4146,12 +4178,13 @@ namespace Test1
 
                     if ((loadtype == "Motor") && (textBox25.Text != ""))
                     {
-                        currentstart = current * multiplier; //6.5 mungkin (harus) diganti
+                        currentstart = current * multiplier;
                         textBox7.Text = currentstart.ToString("0.##");
                     }
                     else
                     {
                         textBox7.Text = "";
+                        currentstart = 0;
                     }
                 }
                 else if (phase == "Three-Phase AC")
@@ -4174,17 +4207,37 @@ namespace Test1
                     else
                     {
                         textBox7.Text = "";
+                        currentstart = 0;
                     }
                 }
                 else
                 {
                     textBox3.Text = "";
                     textBox7.Text = "";
+                    currentstart = 0;
                 }
             }
-            else
+            else if (!radioButton8.Checked)
             {
                 textBox3.Text = "";
+            }
+            else if (radioButton8.Checked)
+            {
+                if ((phase == "DC") && (loadtype == "Feeder"))
+                {
+                    textBox7.Text = "";
+                    currentstart = 0;
+                }
+                else if (((phase == "Single-Phase AC") || (phase == "Three-Phase AC")) && (loadtype == "Motor") && (textBox25.Text != ""))
+                {
+                    currentstart = current * multiplier;
+                    textBox7.Text = currentstart.ToString("0.##");
+                }
+                else
+                {
+                    textBox7.Text = "";
+                    currentstart = 0;
+                }
             }
             
         }
@@ -4204,15 +4257,18 @@ namespace Test1
 
         private void reset_correction()
         {
-            k1main = 0;
-            k2main = 0;
-            k3main = 0;
-            ktmain = 0;
+            if (!radioButton7.Checked)
+            {
+                k1main = 0;
+                k2main = 0;
+                k3main = 0;
+                ktmain = 0;
 
-            textBox17.Text = "";
-            textBox18.Text = "";
-            textBox36.Text = "";
-            textBox19.Text = "";
+                textBox17.Text = "";
+                textBox18.Text = "";
+                textBox36.Text = "";
+                textBox19.Text = "";
+            }
         }
 
         private void enable_vd_btn()
@@ -4739,6 +4795,7 @@ namespace Test1
             results[36] = readtemp;
             results[37] = remarks;
 
+
             for (int i = 0; i < 37; i++)
             {
                 if ((results[i] == "0") || (results[i] == null) || (results[i] == ""))
@@ -4746,6 +4803,7 @@ namespace Test1
                     results[i] = "N/A";
                 }
             }
+
         }
 
         private void enable_save()
