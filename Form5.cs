@@ -216,6 +216,7 @@ namespace Test1
 
                     int dxcolumn = dx.Columns.Count;
                     int dxrow = dx.Rows.Count;
+                    string Input;
 
                     dataGridView1.Rows.Clear();
 
@@ -224,7 +225,25 @@ namespace Test1
                         dataGridView1.RowCount++;
                         for (int k = 0; k < dxcolumn; k++)
                         {
-                            dataGridView1.Rows[i].Cells[k].Value = dx.Rows[i].ItemArray[k];
+
+                            if ((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 23)) ||
+                                ((k >= 25) && (k <= 36)))
+                            {
+                                if (Form1.decimalseparator == ',')
+                                {
+                                    Input = Convert.ToString(dx.Rows[i].ItemArray[k]).Replace('.', ',');
+                                    dataGridView1.Rows[i].Cells[k].Value = Input;
+                                }
+                                else
+                                {
+                                    Input = Convert.ToString(dx.Rows[i].ItemArray[k]).Replace(',', '.');
+                                    dataGridView1.Rows[i].Cells[k].Value = Input;
+                                }
+                            }
+                            else
+                            {
+                                dataGridView1.Rows[i].Cells[k].Value = dx.Rows[i].ItemArray[k];
+                            }
                         }
 
                     }
@@ -270,7 +289,19 @@ namespace Test1
                  DataRow dRow = dt.NewRow();
                  foreach (DataGridViewCell cell in row.Cells)
                  {
-                     dRow[cell.ColumnIndex] = cell.Value;
+                    string Input;
+                    // matching all decimal separator as '.' in xml file
+                    if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) || 
+                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
+                    {
+
+                        Input = Convert.ToString(cell.Value).Replace(',', '.');
+                        dRow[cell.ColumnIndex] = Input;
+                    }
+                    else
+                    {
+                        dRow[cell.ColumnIndex] = cell.Value;
+                    }
                  }
                  dt.Rows.Add(dRow);
              }
@@ -312,7 +343,19 @@ namespace Test1
                 DataRow dRow = dt.NewRow();
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                    dRow[cell.ColumnIndex] = cell.Value;
+                    string Input;
+                    // matching all decimal separator as '.' in xml file
+                    if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) || 
+                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
+                    {
+
+                        Input = Convert.ToString(cell.Value).Replace(',', '.');
+                        dRow[cell.ColumnIndex] = Input;
+                    }
+                    else
+                    {
+                        dRow[cell.ColumnIndex] = cell.Value;
+                    }
                 }
                 dt.Rows.Add(dRow);
             }

@@ -31,7 +31,7 @@ namespace Test1
                 agdt.Clear();
 
                 agdt.Columns.Add("Ground Temperature");
-                agdt.Columns.Add("XLPE Insulation Correction Factor (Kg1)");
+                agdt.Columns.Add("XLPE/EPR Insulation Correction Factor (Kg1)");
 
                 agdt.Rows.Add(10, 1.07);
                 agdt.Rows.Add(15, 1.04);

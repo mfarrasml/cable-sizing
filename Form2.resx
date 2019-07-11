@@ -117,4 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="label6.Text" xml:space="preserve">
+    <value>Table B.52.16  IEC 60364-5-52 - Correction factors for cables
+buried direct in the ground or in buried ducts for soill thermal 
+resistivities to be applied to the current-carrying capacities for 
+reference method D</value>
+  </data>
 </root>

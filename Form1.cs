@@ -406,7 +406,7 @@ namespace Test1
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {
-            
+
             if (TextBox1.Text != "")
             {
                 if (cbPower.Text == "HP")
@@ -505,7 +505,7 @@ namespace Test1
                 textBox4.ReadOnly = false;
             }
 
-            if(comboBox2.Text != "")
+            if (comboBox2.Text != "")
             {
                 loadtype = comboBox2.Text;
                 panel18.BackColor = Color.Transparent;
@@ -538,7 +538,7 @@ namespace Test1
                 panel27.BackColor = Color.Transparent;
             }
 
-            
+
 
             if (comboBox2.Text == "Motor")
             {
@@ -585,7 +585,7 @@ namespace Test1
                 pfstart = 0;
                 currentstart = 0;
             }
-            
+
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -654,7 +654,7 @@ namespace Test1
 
 
             cbPower.Text = "kW";
-            for(int z = 0; z < 33; z++)
+            for (int z = 0; z < 33; z++)
             {
                 results[z] = "-";
             }
@@ -685,6 +685,16 @@ namespace Test1
             if ((comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)"))
             {
                 Form2 f2 = new Form2();
+                if (comboBox9.Text == "D1 (Under Ground)")
+                {
+                    f2.label8.Visible = true;
+                    f2.label7.Visible = false;
+                }
+                else if (comboBox9.Text == "D2 (Under Ground)")
+                {
+                    f2.label8.Visible = false;
+                    f2.label7.Visible = true;
+                }
                 f2.FormClosed += F2_FormClosed;
                 f2.ShowDialog();
             }
@@ -738,7 +748,7 @@ namespace Test1
         private void ComboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
             insulation = comboBox6.Text;
-            if(insulation == "PVC")
+            if (insulation == "PVC")
             {
                 textBox15.Text = "70";
                 textBox24.Text = "160";
@@ -1886,7 +1896,7 @@ namespace Test1
                         solvableOrNPlus();
                     }
                 }
-                    
+
             }
             if (inputValid)
             {
@@ -1905,9 +1915,9 @@ namespace Test1
                 }
 
                 readtemp = "";
-                    
-                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() + 
-                    " mm²    " + ratedvoltage +" / " + materialname + " / " + insulation;
+
+                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() +
+                    " mm²    " + ratedvoltage + " / " + materialname + " / " + insulation;
 
                 if (armour != "Non Armoured")
                 {
@@ -1937,7 +1947,7 @@ namespace Test1
                 label86.Visible = true;
                 timer1.Enabled = true;
 
-                
+
             }
             else
             {
@@ -1953,10 +1963,9 @@ namespace Test1
 
         private void solvableOrNPlus_Vd()
         {
-            if (iderated < current)
+            if (n > 2147482)
             {
-                MessageBox.Show("Failed to get a suitable cable size: Full load current exceeds the maximum cable derated current (Iderated) value!", 
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to get a suitable cable: Maximum number of run exeeded (214783)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
                 inputValid = false;
             }
@@ -2079,13 +2088,6 @@ namespace Test1
                 complete = true;
                 inputValid = false;
             }
-            else if (iderated < breakcurrent)
-            {
-                MessageBox.Show("Failed to get a suitable cable size: Breaker current value exceeds the maximum cable derated current (Iderated) value!",
-                    "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                complete = true;
-                inputValid = false;
-            }
             else if ((radioButton2.Enabled) && (cablesizemin > wirearea))
             {
                 MessageBox.Show("Failed to get a suitable cable size: Minimum cable size exceeds the maximum available cable size!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -2095,6 +2097,12 @@ namespace Test1
             else if ((radioButton1.Enabled) && (cLTE < bLTE))
             {
                 MessageBox.Show("Failed to get a suitable cable size: Breaker LTE exceeds the maximum cable LTE!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                complete = true;
+                inputValid = false;
+            }
+            else if (n > 2147482)
+            {
+                MessageBox.Show("Failed to get a suitable cable: Maximum number of run exeeded (214783)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
                 inputValid = false;
             }
@@ -2253,7 +2261,7 @@ namespace Test1
                 e.Handled = true;
             }
         }
-        
+
         private void TextBox14_TextChanged(object sender, EventArgs e)
         {
             if (textBox14.Text != "")
@@ -2348,7 +2356,7 @@ namespace Test1
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
             }
-            
+
             break_lte();
         }
 
@@ -2465,7 +2473,7 @@ namespace Test1
 
         private void TextBox23_TextChanged(object sender, EventArgs e)
         {
-            if(textBox23.Text != "")
+            if (textBox23.Text != "")
             {
                 tbreaker = double.Parse(textBox23.Text);
             }
@@ -2575,7 +2583,7 @@ namespace Test1
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
         {
-            if(textBox25.Text != "")
+            if (textBox25.Text != "")
             {
                 multiplier = double.Parse(textBox25.Text);
                 panel12.BackColor = Color.Transparent;
@@ -2761,7 +2769,7 @@ namespace Test1
                 {
                     textBox19.Text = ktmain.ToString("0.##");
                 }
-                
+
             }
         }
 
@@ -2784,8 +2792,8 @@ namespace Test1
             f5.dataGridView1.RowCount++;
             j++;
             f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
-            
-            for (int k = 0; k <38; k ++)
+
+            for (int k = 0; k < 38; k++)
             {
                 f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
             }
@@ -2915,11 +2923,34 @@ namespace Test1
             if (decimalSeparatorChanged && okSetClicked)
             {
                 refreshInputData();
+                refreshDataTable();
                 decimalSeparatorChanged = false;
                 okSetClicked = false;
             }
         }
 
+        //change decimal separator of data in data table based on the new selected decimal separator
+        private void refreshDataTable()
+        {
+            for (int i = 0; i < j + 1; i++)
+            {
+                for (int k = 0; k < 39; k++)
+                    if (((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 23)) ||
+                       ((k >= 25) && (k <= 36))))
+                    {
+                        if (decimalseparator == '.')
+                        {
+                            f5.dataGridView1.Rows[i].Cells[k].Value = Convert.ToString(f5.dataGridView1.Rows[i].Cells[k].Value).Replace(',', '.');
+                        }
+                        else //decimalseparator == ','
+                        {
+                            f5.dataGridView1.Rows[i].Cells[k].Value = Convert.ToString(f5.dataGridView1.Rows[i].Cells[k].Value).Replace('.', ',');
+                        }
+                    }
+            }
+        }
+
+        //change decimal separator of data input to the new selected decimal separator
         private void refreshInputData()
         {
             if (power != 0)
@@ -2934,7 +2965,7 @@ namespace Test1
             {
                 textBox25.Text = multiplier.ToString();
             }
-            if(eff != 0)
+            if (eff != 0)
             {
                 textBox5.Text = eff.ToString();
             }
@@ -2986,7 +3017,7 @@ namespace Test1
             {
                 textBox10.Text = vdstart.ToString("0.##");
             }
-            if(vdstartmax != 0)
+            if (vdstartmax != 0)
             {
                 textBox11.Text = vdstartmax.ToString();
             }
@@ -3038,12 +3069,12 @@ namespace Test1
             {
                 comboBox11.Text = breakcurrent.ToString();
             }
-            
+
         }
 
         private void TextBox35_TextChanged(object sender, EventArgs e)
         {
-            remarks = textBox35.Text; 
+            remarks = textBox35.Text;
         }
 
         private void RadioButton2_Click_1(object sender, EventArgs e)
@@ -3112,7 +3143,7 @@ namespace Test1
             }
             voltageLv = comboBox13.Text;
             comboBox14.Items.Clear();
-            if (comboBox13.Text ==  "MV")
+            if (comboBox13.Text == "MV")
             {
                 comboBox14.Items.Insert(0, "3.6/6kV");
                 comboBox14.Items.Insert(1, "6/10kV");
@@ -3207,10 +3238,10 @@ namespace Test1
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
         {
-            
+
         }
         int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
-        
+
 
         private void TextBox24_TextChanged(object sender, EventArgs e)
         {
@@ -3219,12 +3250,13 @@ namespace Test1
                 finalTemp = double.Parse(textBox24.Text);
                 Calc_k();
             }
-            
+
         }
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            if ((pf > 1) || (pfstart > 1) || (vdrunmax > 100) || (vdstartmax > 100))
+            if ((pf > 1) || (pfstart > 1) || (vdrunmax > 100) || (vdrunmax <= 0) || 
+                ((comboBox2.Text == "Motor") && ((vdstartmax > 100) || (vdstartmax <= 0)))) 
             {
                 string msgbox;
                 msgbox = "Invalid value on following input: ";
@@ -3236,11 +3268,11 @@ namespace Test1
                 {
                     msgbox += "\n- P.F. start";
                 }
-                if (vdrunmax > 100)
+                if ((vdrunmax > 100) || (vdrunmax <= 0))
                 {
                     msgbox += "\n- Vd Run Max";
                 }
-                if (vdstartmax > 100)
+                if ((comboBox2.Text == "Motor") && ((vdstartmax > 100) || (vdstartmax <= 0)))
                 {
                     msgbox += "\n- Vd Start Max";
                 }
@@ -3266,6 +3298,10 @@ namespace Test1
                 button8.Enabled = true;
                 panel5.Enabled = false;
                 panel6.Enabled = false;
+
+                label87.Text = "Since Vd run is lower than Vd run max, therefore cable size of \n" + wirearea + " mm²  is acceptable";
+                label87.Visible = true;
+                timer2.Enabled = true;
             }
         }
 
@@ -4024,6 +4060,12 @@ namespace Test1
             }
         }
 
+        private void Timer2_Tick(object sender, EventArgs e)
+        {
+            label87.Visible = false;
+            timer2.Enabled = false;
+        }
+
         private void TextBox14_Leave(object sender, EventArgs e)
         {
             if (pfstart > 1)
@@ -4038,6 +4080,10 @@ namespace Test1
             {
                 MessageBox.Show("Vd run can't be greater than 100%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else if ((vdrunmax <= 0) && (textBox9.Text != ""))
+            {
+                MessageBox.Show("Vd run can't be 0%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void TextBox11_Leave(object sender, EventArgs e)
@@ -4045,6 +4091,10 @@ namespace Test1
             if (vdstartmax > 100)
             {
                 MessageBox.Show("Vd start can't be greater than 100%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if ((vdstartmax <= 0) && (textBox11.Text != ""))
+            {
+                MessageBox.Show("Vd start can't be 0%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
