@@ -153,15 +153,14 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGridView1.Location = new System.Drawing.Point(17, 71);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 58);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowHeadersWidth = 20;
             this.dataGridView1.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
             this.dataGridView1.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
-            this.dataGridView1.Size = new System.Drawing.Size(1033, 432);
+            this.dataGridView1.Size = new System.Drawing.Size(775, 351);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.DataGridView1_SelectionChanged);
             // 
@@ -172,7 +171,7 @@
             this.Column33.Name = "Column33";
             this.Column33.ReadOnly = true;
             this.Column33.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column33.Width = 36;
+            this.Column33.Width = 30;
             // 
             // Column1
             // 
@@ -181,7 +180,7 @@
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column1.Width = 105;
+            this.Column1.Width = 82;
             // 
             // Column2
             // 
@@ -190,7 +189,7 @@
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
             this.Column2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column2.Width = 46;
+            this.Column2.Width = 36;
             // 
             // Column3
             // 
@@ -199,7 +198,7 @@
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
             this.Column3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column3.Width = 85;
+            this.Column3.Width = 66;
             // 
             // Column4
             // 
@@ -208,7 +207,7 @@
             this.Column4.Name = "Column4";
             this.Column4.ReadOnly = true;
             this.Column4.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column4.Width = 31;
+            this.Column4.Width = 26;
             // 
             // Column5
             // 
@@ -217,7 +216,7 @@
             this.Column5.Name = "Column5";
             this.Column5.ReadOnly = true;
             this.Column5.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column5.Width = 85;
+            this.Column5.Width = 66;
             // 
             // Column6
             // 
@@ -226,7 +225,7 @@
             this.Column6.Name = "Column6";
             this.Column6.ReadOnly = true;
             this.Column6.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column6.Width = 54;
+            this.Column6.Width = 43;
             // 
             // Column7
             // 
@@ -235,7 +234,7 @@
             this.Column7.Name = "Column7";
             this.Column7.ReadOnly = true;
             this.Column7.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column7.Width = 82;
+            this.Column7.Width = 64;
             // 
             // Column8
             // 
@@ -244,7 +243,7 @@
             this.Column8.Name = "Column8";
             this.Column8.ReadOnly = true;
             this.Column8.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column8.Width = 85;
+            this.Column8.Width = 65;
             // 
             // Column9
             // 
@@ -253,7 +252,7 @@
             this.Column9.Name = "Column9";
             this.Column9.ReadOnly = true;
             this.Column9.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column9.Width = 81;
+            this.Column9.Width = 63;
             // 
             // Column10
             // 
@@ -262,7 +261,7 @@
             this.Column10.Name = "Column10";
             this.Column10.ReadOnly = true;
             this.Column10.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column10.Width = 87;
+            this.Column10.Width = 69;
             // 
             // Column11
             // 
@@ -271,7 +270,7 @@
             this.Column11.Name = "Column11";
             this.Column11.ReadOnly = true;
             this.Column11.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column11.Width = 108;
+            this.Column11.Width = 83;
             // 
             // Column12
             // 
@@ -280,7 +279,7 @@
             this.Column12.Name = "Column12";
             this.Column12.ReadOnly = true;
             this.Column12.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column12.Width = 85;
+            this.Column12.Width = 66;
             // 
             // Column13
             // 
@@ -289,7 +288,7 @@
             this.Column13.Name = "Column13";
             this.Column13.ReadOnly = true;
             this.Column13.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column13.Width = 81;
+            this.Column13.Width = 63;
             // 
             // Column14
             // 
@@ -298,7 +297,7 @@
             this.Column14.Name = "Column14";
             this.Column14.ReadOnly = true;
             this.Column14.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column14.Width = 84;
+            this.Column14.Width = 64;
             // 
             // Column15
             // 
@@ -307,7 +306,7 @@
             this.Column15.Name = "Column15";
             this.Column15.ReadOnly = true;
             this.Column15.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column15.Width = 146;
+            this.Column15.Width = 109;
             // 
             // Column16
             // 
@@ -316,7 +315,7 @@
             this.Column16.Name = "Column16";
             this.Column16.ReadOnly = true;
             this.Column16.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column16.Width = 118;
+            this.Column16.Width = 88;
             // 
             // Column17
             // 
@@ -325,7 +324,7 @@
             this.Column17.Name = "Column17";
             this.Column17.ReadOnly = true;
             this.Column17.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column17.Width = 82;
+            this.Column17.Width = 65;
             // 
             // Column18
             // 
@@ -334,7 +333,7 @@
             this.Column18.Name = "Column18";
             this.Column18.ReadOnly = true;
             this.Column18.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column18.Width = 82;
+            this.Column18.Width = 61;
             // 
             // Column19
             // 
@@ -343,7 +342,7 @@
             this.Column19.Name = "Column19";
             this.Column19.ReadOnly = true;
             this.Column19.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column19.Width = 137;
+            this.Column19.Width = 108;
             // 
             // Column20
             // 
@@ -352,7 +351,6 @@
             this.Column20.Name = "Column20";
             this.Column20.ReadOnly = true;
             this.Column20.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column20.Width = 127;
             // 
             // Column21
             // 
@@ -361,7 +359,7 @@
             this.Column21.Name = "Column21";
             this.Column21.ReadOnly = true;
             this.Column21.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column21.Width = 82;
+            this.Column21.Width = 64;
             // 
             // Column22
             // 
@@ -370,7 +368,7 @@
             this.Column22.Name = "Column22";
             this.Column22.ReadOnly = true;
             this.Column22.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column22.Width = 150;
+            this.Column22.Width = 113;
             // 
             // Column23
             // 
@@ -379,7 +377,7 @@
             this.Column23.Name = "Column23";
             this.Column23.ReadOnly = true;
             this.Column23.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column23.Width = 95;
+            this.Column23.Width = 73;
             // 
             // Column24
             // 
@@ -388,7 +386,7 @@
             this.Column24.Name = "Column24";
             this.Column24.ReadOnly = true;
             this.Column24.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column24.Width = 114;
+            this.Column24.Width = 88;
             // 
             // Column25
             // 
@@ -397,7 +395,7 @@
             this.Column25.Name = "Column25";
             this.Column25.ReadOnly = true;
             this.Column25.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column25.Width = 193;
+            this.Column25.Width = 144;
             // 
             // Column26
             // 
@@ -406,7 +404,7 @@
             this.Column26.Name = "Column26";
             this.Column26.ReadOnly = true;
             this.Column26.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column26.Width = 83;
+            this.Column26.Width = 63;
             // 
             // Column27
             // 
@@ -415,7 +413,7 @@
             this.Column27.Name = "Column27";
             this.Column27.ReadOnly = true;
             this.Column27.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column27.Width = 72;
+            this.Column27.Width = 55;
             // 
             // Column28
             // 
@@ -424,7 +422,7 @@
             this.Column28.Name = "Column28";
             this.Column28.ReadOnly = true;
             this.Column28.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column28.Width = 82;
+            this.Column28.Width = 61;
             // 
             // Column29
             // 
@@ -433,7 +431,7 @@
             this.Column29.Name = "Column29";
             this.Column29.ReadOnly = true;
             this.Column29.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column29.Width = 111;
+            this.Column29.Width = 83;
             // 
             // Column30
             // 
@@ -442,7 +440,7 @@
             this.Column30.Name = "Column30";
             this.Column30.ReadOnly = true;
             this.Column30.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column30.Width = 89;
+            this.Column30.Width = 66;
             // 
             // Column31
             // 
@@ -451,7 +449,7 @@
             this.Column31.Name = "Column31";
             this.Column31.ReadOnly = true;
             this.Column31.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column31.Width = 118;
+            this.Column31.Width = 88;
             // 
             // Column35
             // 
@@ -460,7 +458,7 @@
             this.Column35.Name = "Column35";
             this.Column35.ReadOnly = true;
             this.Column35.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column35.Width = 121;
+            this.Column35.Width = 92;
             // 
             // Column36
             // 
@@ -469,7 +467,7 @@
             this.Column36.Name = "Column36";
             this.Column36.ReadOnly = true;
             this.Column36.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column36.Width = 124;
+            this.Column36.Width = 93;
             // 
             // Column37
             // 
@@ -478,7 +476,7 @@
             this.Column37.Name = "Column37";
             this.Column37.ReadOnly = true;
             this.Column37.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column37.Width = 257;
+            this.Column37.Width = 193;
             // 
             // Column38
             // 
@@ -487,7 +485,7 @@
             this.Column38.Name = "Column38";
             this.Column38.ReadOnly = true;
             this.Column38.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column38.Width = 129;
+            this.Column38.Width = 97;
             // 
             // Column39
             // 
@@ -496,7 +494,7 @@
             this.Column39.Name = "Column39";
             this.Column39.ReadOnly = true;
             this.Column39.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column39.Width = 115;
+            this.Column39.Width = 87;
             // 
             // Column32
             // 
@@ -505,7 +503,7 @@
             this.Column32.Name = "Column32";
             this.Column32.ReadOnly = true;
             this.Column32.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column32.Width = 109;
+            this.Column32.Width = 85;
             // 
             // Column34
             // 
@@ -514,16 +512,15 @@
             this.Column34.Name = "Column34";
             this.Column34.ReadOnly = true;
             this.Column34.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Column34.Width = 70;
+            this.Column34.Width = 55;
             // 
             // button1
             // 
             this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button1.Enabled = false;
-            this.button1.Location = new System.Drawing.Point(828, 36);
-            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Location = new System.Drawing.Point(621, 29);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(100, 28);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 1;
             this.button1.Text = "Delete";
             this.button1.UseVisualStyleBackColor = true;
@@ -532,10 +529,9 @@
             // button2
             // 
             this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button2.Location = new System.Drawing.Point(917, 511);
-            this.button2.Margin = new System.Windows.Forms.Padding(4);
+            this.button2.Location = new System.Drawing.Point(688, 415);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(133, 28);
+            this.button2.Size = new System.Drawing.Size(100, 23);
             this.button2.TabIndex = 2;
             this.button2.Text = "Copy to Clipboard";
             this.button2.UseVisualStyleBackColor = true;
@@ -544,10 +540,9 @@
             // button3
             // 
             this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button3.Location = new System.Drawing.Point(951, 36);
-            this.button3.Margin = new System.Windows.Forms.Padding(4);
+            this.button3.Location = new System.Drawing.Point(713, 29);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(100, 28);
+            this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 3;
             this.button3.Text = "Delete All";
             this.button3.UseVisualStyleBackColor = true;
@@ -586,7 +581,8 @@
             this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1067, 30);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
             this.menuStrip1.TabIndex = 5;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -598,44 +594,43 @@
             this.saveToolStripMenuItem1,
             this.saveAsToolStripMenuItem1});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 26);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // newToolStripMenuItem1
             // 
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(143, 26);
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.newToolStripMenuItem1.Text = "New";
             this.newToolStripMenuItem1.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
             // openToolStripMenuItem1
             // 
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(143, 26);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(143, 26);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem1.Text = "Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // saveAsToolStripMenuItem1
             // 
             this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(143, 26);
+            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.saveAsToolStripMenuItem1.Text = "Save As";
             this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // button4
             // 
             this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button4.Location = new System.Drawing.Point(795, 511);
-            this.button4.Margin = new System.Windows.Forms.Padding(4);
+            this.button4.Location = new System.Drawing.Point(596, 415);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(100, 28);
+            this.button4.Size = new System.Drawing.Size(75, 23);
             this.button4.TabIndex = 6;
             this.button4.Text = "Print";
             this.button4.UseVisualStyleBackColor = true;
@@ -644,10 +639,9 @@
             // button5
             // 
             this.button5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button5.Location = new System.Drawing.Point(17, 513);
-            this.button5.Margin = new System.Windows.Forms.Padding(4);
+            this.button5.Location = new System.Drawing.Point(13, 417);
             this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(100, 28);
+            this.button5.Size = new System.Drawing.Size(75, 23);
             this.button5.TabIndex = 7;
             this.button5.Text = "Summary";
             this.button5.UseVisualStyleBackColor = true;
@@ -655,20 +649,24 @@
             // 
             // label1
             // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(442, 39);
+            this.label1.Location = new System.Drawing.Point(332, 32);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(182, 20);
+            this.label1.Size = new System.Drawing.Size(156, 17);
             this.label1.TabIndex = 8;
             this.label1.Text = "Selected Cable Data";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form5
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1067, 554);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -679,7 +677,6 @@
             this.Controls.Add(this.dataGridView1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form5";
             this.Text = "Selected Cable Data";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form5_FormClosing);

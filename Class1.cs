@@ -24,8 +24,17 @@ namespace Test1
                     e.Handled = true;
                 }
             }
-            
+
             base.OnKeyPress(e);
+        }
+
+        protected override void OnTextChanged(EventArgs e)
+        {
+            if (!double.TryParse(Text, out Number) )
+            {
+                Text = "";
+            }
+            base.OnTextChanged(e);
         }
 
         protected override void WndProc(ref Message m)

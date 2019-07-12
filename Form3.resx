@@ -118,7 +118,7 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label4.Text" xml:space="preserve">
-    <value>Table B.52.20 IEC 60364-5-52 - Reduction factors for group of more than one multi-core cable to be applied to reference current-carrying capacities for multi-core cables
- in free air - Method of installation E in Tables B.52.8 to B.52.13</value>
+    <value>Table B.52.20 IEC 60364-5-52 - Reduction factors for group of more than one multi-core cable to be applied to reference current-carrying 
+capacities for multi-core cables in free air - Method of installation E in Tables B.52.8 to B.52.13</value>
   </data>
 </root>

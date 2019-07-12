@@ -206,13 +206,15 @@ namespace Test1
             ofd.Filter = "XML|*.xml";
             DataSet ds = new DataSet();
 
-
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     ds.ReadXml(ofd.FileName);
                     dx = ds.Tables[0];
+
+                    Form1.dtdiameter.Clear();
+                    Form1.dtdiameter = ds.Tables[1];
 
                     int dxcolumn = dx.Columns.Count;
                     int dxrow = dx.Rows.Count;
@@ -278,8 +280,10 @@ namespace Test1
         public void ExportDgvToXML()
         {
             DataTable dt = new DataTable();
+            DataTable dd = new DataTable();
+            dd = Form1.dtdiameter.Copy();
 
-             foreach (DataGridViewColumn col in dataGridView1.Columns)
+            foreach (DataGridViewColumn col in dataGridView1.Columns)
              {
                  dt.Columns.Add(col.Name);
              }
@@ -308,6 +312,7 @@ namespace Test1
 
              DataSet ds = new DataSet();
              ds.Tables.Add(dt);
+             ds.Tables.Add(dd);
 
              SaveFileDialog sfd = new SaveFileDialog();
              sfd.Filter = "XML|*.xml";
@@ -332,6 +337,8 @@ namespace Test1
         public void saveExportDgvToXML()
         {
             DataTable dt = new DataTable();
+            DataTable dd = new DataTable();
+            dd = Form1.dtdiameter.Copy();
 
             foreach (DataGridViewColumn col in dataGridView1.Columns)
             {
@@ -362,6 +369,7 @@ namespace Test1
 
             DataSet ds = new DataSet();
             ds.Tables.Add(dt);
+            ds.Tables.Add(dd);
             try
             {
                 XmlTextWriter xmlSave = new XmlTextWriter(savefile, Encoding.UTF8);
@@ -387,11 +395,13 @@ namespace Test1
                     ExportDgvToXML();
                     savefile = "";
                     clearTable();
+                    Update_summary();
                 }
                 else if (dr == DialogResult.No)
                 {
                     savefile = "";
                     clearTable();
+                    Update_summary();
                 }
             }
             else if (savefile != "")
@@ -402,17 +412,20 @@ namespace Test1
                     saveExportDgvToXML();
                     savefile = "";
                     clearTable();
+                    Update_summary();
                 }
                 else if (dr == DialogResult.No)
                 {
                     savefile = "";
                     clearTable();
+                    Update_summary();
                 }
             }
             else
             {
                 savefile = "";
                 clearTable();
+                Update_summary();
             }
         }
 
@@ -427,6 +440,8 @@ namespace Test1
                 dataGridView1.Rows.Clear();
             }
             Form1.j = -1;
+
+            Form1.dtdiameter.Clear();
         }
 
         private void Button4_Click(object sender, EventArgs e)
@@ -435,7 +450,7 @@ namespace Test1
 
             printer.Title = "Cable Sizing Result";
 
-            printer.SubTitle = "\n\n\n";
+            printer.SubTitle = "By: Rauf Abror";
 
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit |
 
@@ -445,13 +460,25 @@ namespace Test1
 
             printer.PageNumberInHeader = false;
 
-            printer.PorportionalColumns = true;
 
             printer.HeaderCellAlignment = StringAlignment.Near;
 
-            printer.Footer = "PT. Singgar Mulia";
+            printer.Footer = "Rauf Abror";
 
             printer.FooterSpacing = 15;
+
+            for (int i = 0; i < 39; i++)
+            {
+                
+                printer.ColumnStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
+                printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
+                printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)6.5);
+                printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Alignment = DataGridViewContentAlignment.MiddleCenter;
+                printer.ColumnStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)6.5);
+                printer.ColumnStyles[dataGridView1.Columns[i].Name].Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            printer.ColumnWidth = DGVPrinter.ColumnWidthSetting.Porportional;
 
             printer.PrintPreviewDataGridView(dataGridView1);
         }
@@ -468,7 +495,6 @@ namespace Test1
             }
         }
 
-
         bool done;
         public void Update_summary()
         {
@@ -482,6 +508,7 @@ namespace Test1
                 sel_cable = Convert.ToString(dataGridView1.Rows[i].Cells[37].Value);
                 sel_cable = sel_cable.Replace(Convert.ToString(dataGridView1.Rows[i].Cells[17].Value) + "  ×  ", "");
                 cable_length = (Convert.ToDouble(dataGridView1.Rows[i].Cells[17].Value) * Convert.ToDouble(dataGridView1.Rows[i].Cells[26].Value));
+
                 done = false;
 
                 if (summaryCount == 0)
@@ -490,7 +517,9 @@ namespace Test1
                     f7.dataGridView1.Rows[0].Cells[0].Value = summaryCount+1;
                     f7.dataGridView1.Rows[0].Cells[1].Value = sel_cable;
                     f7.dataGridView1.Rows[0].Cells[2].Value = cable_length;
-                    f7.dataGridView1.Rows[0].Cells[3].Value = 1;
+                    f7.dataGridView1.Rows[0].Cells[3].Value = dataGridView1.Rows[i].Cells[17].Value;
+                    f7.dataGridView1.Rows[0].Cells[4].Value = Form1.dtdiameter.Rows[i].ItemArray[0];
+
                     summaryCount++;
                 }
                 else
@@ -501,7 +530,7 @@ namespace Test1
                         if (sel_cable == Convert.ToString(f7.dataGridView1.Rows[k].Cells[1].Value))
                         {
                             f7.dataGridView1.Rows[k].Cells[2].Value = Convert.ToDouble(f7.dataGridView1.Rows[k].Cells[2].Value) + cable_length;
-                            f7.dataGridView1.Rows[k].Cells[3].Value = Convert.ToInt32(f7.dataGridView1.Rows[k].Cells[3].Value) + 1;
+                            f7.dataGridView1.Rows[k].Cells[3].Value = Convert.ToInt32(f7.dataGridView1.Rows[k].Cells[3].Value) + Convert.ToInt32(dataGridView1.Rows[i].Cells[17].Value);
                             done = true;
                             break;
                         }
@@ -513,7 +542,9 @@ namespace Test1
                         f7.dataGridView1.Rows[summaryCount].Cells[0].Value = summaryCount+1;
                         f7.dataGridView1.Rows[summaryCount].Cells[1].Value = sel_cable;
                         f7.dataGridView1.Rows[summaryCount].Cells[2].Value = cable_length;
-                        f7.dataGridView1.Rows[summaryCount].Cells[3].Value = 1;
+                        f7.dataGridView1.Rows[summaryCount].Cells[3].Value = dataGridView1.Rows[i].Cells[17].Value;
+                        f7.dataGridView1.Rows[summaryCount].Cells[4].Value = Form1.dtdiameter.Rows[i].ItemArray[0];
+
                         summaryCount++;
                     }
                 }

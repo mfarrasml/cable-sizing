@@ -34,6 +34,7 @@ namespace Test1
         double cplxpower;
         string materialname;
         double initialTemp, finalTemp;
+        double diameter;
 
         double vdrunmax, vdstartmax, vdrun, vdstart;
         double length;
@@ -221,6 +222,129 @@ namespace Test1
             { 240, 0.0926, 0.0889, 0.0902161, 297, 430 },
             { 300, 0.0749, 0.0886, 0.07190965, 336, 497 }
         };
+
+        public static double[,] ODxlpe2core = new double[17, 4]
+        {
+            { 1.5, 10.5, 14, 13 },
+            { 2.5, 11.5, 15, 13.5 },
+            { 4, 12.5, 16, 15 },
+            { 6, 13.5, 17, 16 },
+            { 10, 15.5, 20, 18 },
+            { 16, 17, 21, 19 },
+            { 25, 20, 25, 23 },
+            { 35, 22.5, 27.5, 24.5 },
+            { 50, 25, 30, 27 },
+            { 70, 28.5, 34, 30.5 },
+            { 95, 32.5, 39, 35 },
+            { 120, 36, 42, 39.5 },
+            { 150, 39.5, 46, 43.5 },
+            { 185, 44.5, 52, 48.5 },
+            { 240, 50, 57.5, 54 },
+            { 300, 55.5, 63, 59.5 },
+            { 400, 62, 0, 0 }
+        };
+
+        public static double[,] ODxlpe3core = new double[17, 4]
+        {
+            { 1.5, 11, 14.5, 13.5 },
+            { 2.5, 12, 15.5, 14 },
+            { 4, 13.5, 17, 15.5 },
+            { 6, 14.5, 18, 16.5 },
+            { 10, 16.5, 20.5, 18.5 },
+            { 16, 18, 22, 20 },
+            { 25, 21, 26.5, 23.5 },
+            { 35, 24, 29, 26 },
+            { 50, 26.5, 31.5, 28.5 },
+            { 70, 30.5, 37, 33 },
+            { 95, 35, 41.5, 37.5 },
+            { 120, 38, 45, 42 },
+            { 150, 42.5, 50, 46.5 },
+            { 185, 47.5, 55, 51.5 },
+            { 240, 53.5, 61.5, 58 },
+            { 300, 59.5, 67.5, 64 },
+            { 400, 67, 0, 0 }
+        };
+
+        public static double[,] ODxlpe4core = new double[16, 4]
+        {
+            { 1.5, 12, 15.5, 14 },
+            { 2.5, 13, 16.5, 15 },
+            { 4, 14.5, 18, 16.5 },
+            { 6, 15.5, 19.5, 17.5 },
+            { 10, 18, 22, 20 },
+            { 16, 19.5, 23.5, 21.5 },
+            { 25, 23.5, 28.5, 25.5 },
+            { 35, 26, 31.5, 28.5 },
+            { 50, 29.5, 34.5, 31.5 },
+            { 70, 34, 40.5, 36 },
+            { 95, 38.5, 45, 42.5 },
+            { 120, 42.5, 50, 46.5 },
+            { 150, 47, 55, 51 },
+            { 185, 53, 60.5, 57 },
+            { 240, 59.5, 67.5, 64 },
+            { 300, 66.5, 74, 70.5 }
+        };
+
+        public static double[,] ODpvc2core = new double[16, 4]
+        {
+            { 1.5, 11, 14.5, 13 },
+            { 2.5, 12, 15.5, 14 },
+            { 4, 14, 17.5, 16 },
+            { 6, 15, 19, 17 },
+            { 10, 17, 21, 19 },
+            { 16, 19, 23, 21 },
+            { 25, 22, 27.5, 24.5 },
+            { 35, 24.5, 30, 27 },
+            { 50, 28.5, 34, 31 },
+            { 70, 32, 38, 34 },
+            { 95, 37, 43.5, 39 },
+            { 120, 40.5, 47, 43.5 },
+            { 150, 45, 52, 48 },
+            { 185, 49.5, 57, 52.5 },
+            { 240, 56, 63.5, 58.5 },
+            { 300, 62, 70, 64.5 }
+        };
+
+        public static double[,] ODpvc3core = new double[16, 4]
+        {
+            { 1.5, 11.5, 15, 13.5 },
+            { 2.5, 12.5, 16, 14.5 },
+            { 4, 14.5, 18.5, 16.5 },
+            { 6, 15.5, 20, 18 },
+            { 10, 18, 22, 20 },
+            { 16, 20, 24, 22 },
+            { 25, 23.5, 29, 26 },
+            { 35, 26, 31.5, 28.5 },
+            { 50, 25, 30.5, 27 },
+            { 70, 28, 34.5, 30.5 },
+            { 95, 33, 39, 36.5 },
+            { 120, 35.5, 42, 39.5 },
+            { 150, 38.5, 46, 42.5 },
+            { 185, 43.5, 51, 47.5 },
+            { 240, 49, 57, 53.5 },
+            { 300, 54, 62, 58 }
+        };
+
+        public static double[,] ODpvc4core = new double[16, 4]
+        {
+            { 1.5, 12.5, 16, 14.5 },
+            { 2.5, 13.5, 17, 15.5 },
+            { 4, 16, 20, 18 },
+            { 6, 17, 21, 19 },
+            { 10, 19.5, 23.5, 21.5 },
+            { 16, 22, 27, 24 },
+            { 25, 26, 31, 28 },
+            { 35, 29, 34, 31 },
+            { 50, 28.5, 35, 31 },
+            { 70, 32, 38.5, 36 },
+            { 95, 37.5, 44.5, 41 },
+            { 120, 41, 48.5, 44.5 },
+            { 150, 45, 52.5, 49 },
+            { 185, 50, 58, 54 },
+            { 240, 56, 63.5, 60 },
+            { 300, 62.5, 70, 66.5 }
+        };
+
 
 
         private void Label3_Click(object sender, EventArgs e)
@@ -426,10 +550,12 @@ namespace Test1
             }
             else if ((TextBox1.Text == "") && (!radioButton8.Checked))
             {
+                power = 0;
                 panel14.BackColor = Color.Red;
             }
             else
             {
+                power = 0;
                 panel14.BackColor = Color.Transparent;
             }
 
@@ -611,6 +737,7 @@ namespace Test1
             }
             else
             {
+                length = 0;
                 panel25.BackColor = Color.Red;
             }
             enable_vd_btn();
@@ -651,6 +778,8 @@ namespace Test1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            comboBox8.Text = "PVC";
+            dtdiameter.Columns.Add("Diameter");
 
 
             cbPower.Text = "kW";
@@ -878,6 +1007,18 @@ namespace Test1
                                     }
                                 }
 
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODxlpe2core[i, 3];
+                                }
 
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -945,6 +1086,18 @@ namespace Test1
                                     }
                                 }
 
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODxlpe3core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODxlpe3core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODxlpe3core[i, 3];
+                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -1009,6 +1162,20 @@ namespace Test1
                                         }
                                     }
                                 }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODxlpe4core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODxlpe4core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODxlpe4core[i, 3];
+                                }
+
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -1077,6 +1244,19 @@ namespace Test1
                                     }
                                 }
 
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODpvc2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODpvc2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODpvc2core[i, 3];
+                                }
+
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = pvc2core[i, 4] * n;
@@ -1139,6 +1319,19 @@ namespace Test1
                                             / (n * 1000 * voltage);
                                         }
                                     }
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODpvc3core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODpvc3core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODpvc3core[i, 3];
                                 }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -1205,6 +1398,19 @@ namespace Test1
                                             / (n * 1000 * voltage);
                                         }
                                     }
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODpvc4core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODpvc4core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODpvc4core[i, 3];
                                 }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -1362,6 +1568,29 @@ namespace Test1
 
                 label86.Visible = true;
                 timer1.Enabled = true;
+
+                //enable sc/lte panel
+                panel4.Enabled = true;
+
+                // reset s.c & breaker
+                textBox28.Text = "";
+                textBox23.Text = "";
+                textBox30.Text = "";
+                textBox20.Text = "";
+
+                comboBox12.SelectedIndex = -1;
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+
+                button8.Enabled = true;
+                panel5.Enabled = false;
+                panel6.Enabled = false;
+
+                label87.Text = "Since Vd run is lower than Vd run max, therefore cable size of \n" + wirearea + " mm²  is acceptable";
+                label87.Visible = true;
+                timer2.Enabled = true;
             }
             else
             {
@@ -1465,7 +1694,18 @@ namespace Test1
                                     }
                                 }
 
-
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODxlpe2core[i, 3];
+                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -1532,6 +1772,18 @@ namespace Test1
                                     }
                                 }
 
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODxlpe3core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODxlpe3core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODxlpe3core[i, 3];
+                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -1595,6 +1847,19 @@ namespace Test1
                                             / (n * 1000 * voltage);
                                         }
                                     }
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODxlpe4core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODxlpe4core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODxlpe4core[i, 3];
                                 }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -1664,6 +1929,19 @@ namespace Test1
                                     }
                                 }
 
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODpvc2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODpvc2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODpvc2core[i, 3];
+                                }
+
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
                                     Irated = pvc2core[i, 4] * n;
@@ -1726,6 +2004,19 @@ namespace Test1
                                             / (n * 1000 * voltage);
                                         }
                                     }
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODpvc3core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODpvc3core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODpvc3core[i, 3];
                                 }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -1792,6 +2083,19 @@ namespace Test1
                                             / (n * 1000 * voltage);
                                         }
                                     }
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    diameter = ODpvc4core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    diameter = ODpvc4core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    diameter = ODpvc4core[i, 3];
                                 }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -1965,7 +2269,7 @@ namespace Test1
         {
             if (n > 2147482)
             {
-                MessageBox.Show("Failed to get a suitable cable: Maximum number of run exeeded (214783)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to get a suitable cable: Maximum number of run exeeded (2147483)", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
                 inputValid = false;
             }
@@ -2149,6 +2453,18 @@ namespace Test1
         private void Button2_Click(object sender, EventArgs e)
         {
             area_calc();
+            if (radioButton1.Checked)
+            {
+                label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
+                    " therefore cable size of" + wirearea + " mm²  is acceptable";          
+            }
+            else if (radioButton2.Checked)
+            {
+                label88.Text = "Since the minimum cable size due to S.C. is lower than the \nselected cable size," +
+                    " therefore cable size of" + wirearea + " mm²  is acceptable"; 
+            }
+            label88.Visible = true;
+            timer3.Enabled = true;
         }
 
         private void TextBox5_Leave(object sender, EventArgs e)
@@ -2165,6 +2481,7 @@ namespace Test1
             }
             else
             {
+                voltage = 0;
                 panel7.BackColor = Color.Red;
             }
             breaker_fill();
@@ -2182,6 +2499,7 @@ namespace Test1
             }
             else
             {
+                pf = 0;
                 panel9.BackColor = Color.Red;
             }
             calc_current();
@@ -2198,6 +2516,7 @@ namespace Test1
             }
             else
             {
+                eff = 0;
                 panel8.BackColor = Color.Red;
             }
             calc_current();
@@ -2271,10 +2590,12 @@ namespace Test1
             }
             else if ((textBox14.Text == "") && (comboBox2.Text == "Motor"))
             {
+                pfstart = 0;
                 panel10.BackColor = Color.Red;
             }
             else
             {
+                pfstart = 0;
                 panel10.BackColor = Color.Transparent;
             }
             enable_vd_btn();
@@ -2491,16 +2812,13 @@ namespace Test1
             }
             else
             {
+                vdrunmax = 0;
                 panel26.BackColor = Color.Red;
             }
             enable_vd_btn();
             enable_result_btn();
         }
 
-        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            innersheath = comboBox1.Text;
-        }
 
         private void ComboBox8_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -2559,7 +2877,6 @@ namespace Test1
             textBox37.Text = "";
 
             cbPower.Text = "kW";
-            comboBox1.SelectedIndex = -1;
             comboBox2.SelectedIndex = -1;
             comboBox3.SelectedIndex = -1;
             comboBox4.SelectedIndex = -1;
@@ -2590,6 +2907,7 @@ namespace Test1
             }
             else if ((textBox25.Text == "") && (comboBox2.Text == "Motor"))
             {
+                multiplier = 0;
                 panel12.BackColor = Color.Red;
             }
             else
@@ -2786,9 +3104,11 @@ namespace Test1
             break_lte();
         }
 
+        public static DataTable dtdiameter = new DataTable();
 
         private void Button4_Click(object sender, EventArgs e)
         {
+            DataRow dtr = dtdiameter.NewRow();
             f5.dataGridView1.RowCount++;
             j++;
             f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
@@ -2806,6 +3126,12 @@ namespace Test1
             {
                 f5.BringToFront();
             }
+            
+
+            dtr[0] = diameter;
+
+            dtdiameter.Rows.Add(dtr);
+            
             f5.Update_summary();
         }
 
@@ -3082,6 +3408,7 @@ namespace Test1
             if (radioButton2.Checked)
             {
                 radioButton2.Checked = false;
+                radioButton1.Checked = true;
             }
             else
             {
@@ -3095,6 +3422,7 @@ namespace Test1
             if (radioButton1.Checked)
             {
                 radioButton1.Checked = false;
+                radioButton2.Checked = true;
             }
             else
             {
@@ -3255,18 +3583,43 @@ namespace Test1
 
         private void Button7_Click(object sender, EventArgs e)
         {
-            if ((pf > 1) || (pfstart > 1) || (vdrunmax > 100) || (vdrunmax <= 0) || 
-                ((comboBox2.Text == "Motor") && ((vdstartmax > 100) || (vdstartmax <= 0)))) 
+            if ((voltage == 0) || (eff == 0) || (length == 0) || ((power == 0) && (!radioButton8.Checked)) || (current == 0) ||
+                ((comboBox2.Text == "Motor") && (multiplier == 0)) || (pf > 1) || (pfstart > 1) || 
+                (vdrunmax > 100) || (vdrunmax <= 0) || ((comboBox2.Text == "Motor") && ((vdstartmax > 100) || (vdstartmax <= 0)))) 
             {
                 string msgbox;
                 msgbox = "Invalid value on following input: ";
-                if (pf > 1)
+                if (voltage == 0)
+                {
+                    msgbox += "\n- Voltage: voltage input can't be 0";
+                }
+                if (power == 0)
+                {
+                    msgbox += "\n- Power";
+                }
+                if (eff == 0)
+                {
+                    msgbox += "\n- Efficiency";
+                }
+                if (current == 0)
+                {
+                    msgbox += "\n- Full load Current";
+                }
+                if ((comboBox2.Text == "Motor") && (multiplier == 0))
+                {
+                    msgbox += "\n- Multiplier";
+                }
+                    if (pf > 1)
                 {
                     msgbox += "\n- P.F. full load";
                 }
                 if (pfstart > 1)
                 {
                     msgbox += "\n- P.F. start";
+                }
+                if (length == 0)
+                {
+                    msgbox += "\n- Length: cable length can't be 0";
                 }
                 if ((vdrunmax > 100) || (vdrunmax <= 0))
                 {
@@ -3281,27 +3634,7 @@ namespace Test1
             else
             {
                 vd_size_calc();
-                panel4.Enabled = true;
-
-                // reset s.c & breaker
-                textBox28.Text = "";
-                textBox23.Text = "";
-                textBox30.Text = "";
-                textBox20.Text = "";
-
-                comboBox12.SelectedIndex = -1;
-                comboBox10.SelectedIndex = -1;
-                comboBox11.SelectedIndex = -1;
-                comboBox10.Text = "";
-                comboBox11.Text = "";
-
-                button8.Enabled = true;
-                panel5.Enabled = false;
-                panel6.Enabled = false;
-
-                label87.Text = "Since Vd run is lower than Vd run max, therefore cable size of \n" + wirearea + " mm²  is acceptable";
-                label87.Visible = true;
-                timer2.Enabled = true;
+               
             }
         }
 
@@ -3453,6 +3786,19 @@ namespace Test1
                                 }
                             }
 
+                            if (armour == "Non Armoured")
+                            {
+                                diameter = ODxlpe2core[m, 1];
+                            }
+                            else if (armour == "SWA")
+                            {
+                                diameter = ODxlpe2core[m, 2];
+                            }
+                            else if (armour == "DSTA")
+                            {
+                                diameter = ODxlpe2core[m, 3];
+                            }
+
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
                                 Irated = xlpe2core[m, 4] * n;
@@ -3515,6 +3861,19 @@ namespace Test1
                                 }
                             }
 
+                            if (armour == "Non Armoured")
+                            {
+                                diameter = ODxlpe3core[m, 1];
+                            }
+                            else if (armour == "SWA")
+                            {
+                                diameter = ODxlpe3core[m, 2];
+                            }
+                            else if (armour == "DSTA")
+                            {
+                                diameter = ODxlpe3core[m, 3];
+                            }
+
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
@@ -3575,6 +3934,19 @@ namespace Test1
                                         / (n * 1000 * voltage);
                                     }
                                 }
+                            }
+
+                            if (armour == "Non Armoured")
+                            {
+                                diameter = ODxlpe4core[m, 1];
+                            }
+                            else if (armour == "SWA")
+                            {
+                                diameter = ODxlpe4core[m, 2];
+                            }
+                            else if (armour == "DSTA")
+                            {
+                                diameter = ODxlpe4core[m, 3];
                             }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -3641,6 +4013,19 @@ namespace Test1
                                 }
                             }
 
+                            if (armour == "Non Armoured")
+                            {
+                                diameter = ODpvc2core[m, 1];
+                            }
+                            else if (armour == "SWA")
+                            {
+                                diameter = ODpvc2core[m, 2];
+                            }
+                            else if (armour == "DSTA")
+                            {
+                                diameter = ODpvc2core[m, 3];
+                            }
+
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
                                 Irated = pvc2core[m, 4] * n;
@@ -3696,6 +4081,19 @@ namespace Test1
                                         / (n * 1000 * voltage);
                                     }
                                 }
+                            }
+
+                            if (armour == "Non Armoured")
+                            {
+                                diameter = ODpvc3core[m, 1];
+                            }
+                            else if (armour == "SWA")
+                            {
+                                diameter = ODpvc3core[m, 2];
+                            }
+                            else if (armour == "DSTA")
+                            {
+                                diameter = ODpvc3core[m, 3];
                             }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -3755,6 +4153,19 @@ namespace Test1
                                         / (n * 1000 * voltage);
                                     }
                                 }
+                            }
+
+                            if (armour == "Non Armoured")
+                            {
+                                diameter = ODpvc4core[m, 1];
+                            }
+                            else if (armour == "SWA")
+                            {
+                                diameter = ODpvc4core[m, 2];
+                            }
+                            else if (armour == "DSTA")
+                            {
+                                diameter = ODpvc4core[m, 3];
                             }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -4049,6 +4460,7 @@ namespace Test1
             }
             else if ((textBox3.Text == "") && (radioButton8.Checked))
             {
+                current = 0;
                 panel11.BackColor = Color.Red;
             }
 
@@ -4064,6 +4476,12 @@ namespace Test1
         {
             label87.Visible = false;
             timer2.Enabled = false;
+        }
+
+        private void Timer3_Tick(object sender, EventArgs e)
+        {
+            label88.Visible = false;
+            timer3.Enabled = false;
         }
 
         private void TextBox14_Leave(object sender, EventArgs e)
@@ -4189,10 +4607,12 @@ namespace Test1
             }
             else if ((textBox11.Text == "") && (comboBox2.Text == "Motor"))
             {
+                vdstartmax = 0;
                 panel27.BackColor = Color.Red;
             }
             else
             {
+                vdstartmax = 0;
                 panel27.BackColor = Color.Transparent;
             }
             enable_vd_btn();
@@ -4801,11 +5221,8 @@ namespace Test1
             }
         }
 
-        
-
         private void save_result()
         {
-
             results[0] = tagno;
             results[1] = from;
             results[2] = fromdesc;
@@ -4845,7 +5262,6 @@ namespace Test1
             results[36] = readtemp;
             results[37] = remarks;
 
-
             for (int i = 0; i < 37; i++)
             {
                 if ((results[i] == "0") || (results[i] == null) || (results[i] == ""))
@@ -4853,6 +5269,8 @@ namespace Test1
                     results[i] = "N/A";
                 }
             }
+
+            
 
         }
 
