@@ -460,25 +460,25 @@ namespace Test1
 
             printer.PageNumberInHeader = false;
 
-
             printer.HeaderCellAlignment = StringAlignment.Near;
 
             printer.Footer = "Rauf Abror";
 
             printer.FooterSpacing = 15;
 
+
             for (int i = 0; i < 39; i++)
             {
                 
                 printer.ColumnStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
                 printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
-                printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)6.5);
+                printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)4);
                 printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Alignment = DataGridViewContentAlignment.MiddleCenter;
-                printer.ColumnStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)6.5);
+                printer.ColumnStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)4);
                 printer.ColumnStyles[dataGridView1.Columns[i].Name].Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
-            printer.ColumnWidth = DGVPrinter.ColumnWidthSetting.Porportional;
+            printer.ColumnWidth = DGVPrinter.ColumnWidthSetting.DataWidth;
 
             printer.PrintPreviewDataGridView(dataGridView1);
         }
