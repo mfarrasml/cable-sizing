@@ -208,6 +208,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Iconsmind-Outline-Power-Cable.ico" />
+    <None Include="Resources\DeleteTable_16x.png" />
+    <None Include="Resources\DeleteTableRow_16x.png" />
+    <None Include="Resources\iconfinder_arrow-down-circle_3313573 %283%29.png" />
+    <None Include="Resources\iconfinder_arrow-up-circle_3313574 %284%29.png" />
+    <None Include="Resources\iconfinder_arrow-up-circle_3313574 %283%29.png" />
+    <None Include="Resources\iconfinder_arrow-down-circle_3313573 %281%29.png" />
+    <None Include="Resources\iconfinder_arrow-up-circle_3313574 %282%29.png" />
+    <None Include="Resources\iconfinder_arrow-up-circle_3313574 %281%29.png" />
+    <None Include="Resources\iconfinder_arrow-up-circle_3313574.png" />
+    <None Include="Resources\Settings_256x.png" />
+    <None Include="Resources\Settings_16x.png" />
+    <None Include="Resources\OpenFolder_256x.png" />
+    <None Include="Resources\OpenFolder_16x.png" />
+    <None Include="Resources\Save_16x.png" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Office">

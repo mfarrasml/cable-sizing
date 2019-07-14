@@ -26,6 +26,8 @@ namespace Test1
 
         public static int summaryCount = 0;
 
+        string[] arrTemp = new string[39];
+
 
         public Form5()
         {
@@ -97,20 +99,45 @@ namespace Test1
         {
             if (dataGridView1.CurrentCell.Selected)
             {
+                Form1.dtdiameter.Rows.RemoveAt(currentrow);
                 this.dataGridView1.Rows.RemoveAt(currentrow);
                 for (int i = currentrow; i < Form1.j; i++)
                 {
                     this.dataGridView1.Rows[i].Cells[0].Value = i + 1;
                 }
                 Form1.j--;
+
             }
             if ((dataGridView1.CurrentCell != null) && dataGridView1.CurrentCell.Selected)
             {
                 button1.Enabled = true;
+                btnDelete.Enabled = true;
+                //turn btnUp on/off
+                if (currentrow > 0)
+                {
+                    btnUp.Enabled = true;
+                }
+                else
+                {
+                    btnUp.Enabled = false;
+                }
+
+                //turn btnDown on/off
+                if (currentrow < Form1.j)
+                {
+                    btnDown.Enabled = true;
+                }
+                else
+                {
+                    btnDown.Enabled = false;
+                }
             }
             else
             {
                 button1.Enabled = false;
+                btnDelete.Enabled = false;
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
             }
             Update_summary();
         }
@@ -131,12 +158,38 @@ namespace Test1
             if ((dataGridView1.CurrentCell != null) && (dataGridView1.CurrentCell.Selected))
             {
                 button1.Enabled = true;
+                btnDelete.Enabled = true;
                 currentrow = dataGridView1.CurrentCell.RowIndex;
+
+                //turn btnUp on/off
+                if (currentrow > 0)
+                {
+                    btnUp.Enabled = true;
+                }
+                else
+                {
+                    btnUp.Enabled = false;
+                }
+
+                //turn btnDown on/off
+                if (currentrow < Form1.j)
+                {
+                    btnDown.Enabled = true;
+                }
+                else
+                {
+                    btnDown.Enabled = false;
+                }
             }
             else
             {
                 button1.Enabled = false;
+                btnDelete.Enabled = false;
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
             }
+
+            
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -256,6 +309,7 @@ namespace Test1
                 {
                     Console.WriteLine(ex);
                 }
+                dataGridView1.ClearSelection();
             }
         }
 
@@ -489,6 +543,10 @@ namespace Test1
             {
                 f7.Show();
             }
+            else if (f7.WindowState == FormWindowState.Minimized)
+            {
+                f7.WindowState = FormWindowState.Normal;
+            }
             else
             {
                 f7.BringToFront();
@@ -549,6 +607,146 @@ namespace Test1
                     }
                 }
             }
+        }
+
+        //temporary selection variable
+        int sel;
+
+        private void RowUp()
+        {
+            for (int i = 1; i < 39; i++)
+            {
+                arrTemp[i] = Convert.ToString(dataGridView1.Rows[currentrow - 1].Cells[i].Value);
+                dataGridView1.Rows[currentrow - 1].Cells[i].Value = dataGridView1.Rows[currentrow].Cells[i].Value;
+                dataGridView1.Rows[currentrow].Cells[i].Value = arrTemp[i];
+            }
+
+            DataRow dataRow = Form1.dtdiameter.NewRow();
+            dataRow[0] = Form1.dtdiameter.Rows[currentrow - 1].ItemArray[0];
+            Form1.dtdiameter.Rows.Remove(Form1.dtdiameter.Rows[currentrow - 1]);
+            Form1.dtdiameter.Rows.InsertAt(dataRow, currentrow);
+
+            
+            dataGridView1.CurrentCell = dataGridView1.Rows[currentrow - 1].Cells[dataGridView1.CurrentCell.ColumnIndex];
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell.Selected = true;
+        }
+
+        private void RowDown()
+        {
+            for (int i = 1; i < 39; i++)
+            {
+                arrTemp[i] = Convert.ToString(dataGridView1.Rows[currentrow + 1].Cells[i].Value);
+                dataGridView1.Rows[currentrow + 1].Cells[i].Value = dataGridView1.Rows[currentrow].Cells[i].Value;
+                dataGridView1.Rows[currentrow].Cells[i].Value = arrTemp[i];
+            }
+
+            
+            DataRow dataRow = Form1.dtdiameter.NewRow();
+            dataRow[0] = Form1.dtdiameter.Rows[currentrow + 1].ItemArray[0];
+            Form1.dtdiameter.Rows.Remove(Form1.dtdiameter.Rows[currentrow + 1]);
+            Form1.dtdiameter.Rows.InsertAt(dataRow, currentrow);
+
+            
+            dataGridView1.CurrentCell = dataGridView1.Rows[currentrow + 1].Cells[dataGridView1.CurrentCell.ColumnIndex];
+            dataGridView1.ClearSelection();
+            dataGridView1.CurrentCell.Selected = true;
+        }
+
+        private void BtnDeleteAll_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Delete all data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dialogResult == DialogResult.Yes)
+            {
+                clearTable();
+            }
+            Update_summary();
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (dataGridView1.CurrentCell.Selected)
+            {
+                Form1.dtdiameter.Rows.RemoveAt(currentrow);
+                this.dataGridView1.Rows.RemoveAt(currentrow);
+                for (int i = currentrow; i < Form1.j; i++)
+                {
+                    this.dataGridView1.Rows[i].Cells[0].Value = i + 1;
+                }
+                Form1.j--;
+                
+
+            }
+            if ((dataGridView1.CurrentCell != null) && dataGridView1.CurrentCell.Selected)
+            {
+                btnDelete.Enabled = true;
+                button1.Enabled = true;
+                //turn btnUp on/off
+                if (currentrow > 0)
+                {
+                    btnUp.Enabled = true;
+                }
+                else
+                {
+                    btnUp.Enabled = false;
+                }
+
+                //turn btnDown on/off
+                if (currentrow < Form1.j)
+                {
+                    btnDown.Enabled = true;
+                }
+                else
+                {
+                    btnDown.Enabled = false;
+                }
+            }
+            else
+            {
+                btnDelete.Enabled = false;
+                button1.Enabled = false;
+                btnUp.Enabled = false;
+                btnDown.Enabled = false;
+            }
+            Update_summary();
+        }
+
+        private void BtnUp_Click(object sender, EventArgs e)
+        {
+            if (currentrow > 0)
+            {
+                RowUp();
+            }
+
+            //turn btnUp on/off
+            if (dataGridView1.CurrentCell.RowIndex > 0)
+            {
+                btnUp.Enabled = true;
+            }
+            else
+            {
+                btnUp.Enabled = false;
+            }
+            Update_summary();
+        }
+
+        private void BtnDown_Click(object sender, EventArgs e)
+        {
+            if (currentrow < Form1.j)
+            {
+                RowDown();
+            }
+
+            //turn btnDown on/off
+            if (dataGridView1.CurrentCell.RowIndex < Form1.j)
+            {
+                btnDown.Enabled = true;
+            }
+            else
+            {
+                btnDown.Enabled = false;
+            }
+            Update_summary();
         }
     }
 }

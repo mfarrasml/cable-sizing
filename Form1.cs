@@ -265,7 +265,7 @@ namespace Test1
             { 400, 67, 0, 0 }
         };
 
-        public static double[,] ODxlpe4core = new double[16, 4]
+        public static double[,] ODxlpe4core = new double[17, 4]
         {
             { 1.5, 12, 15.5, 14 },
             { 2.5, 13, 16.5, 15 },
@@ -282,7 +282,8 @@ namespace Test1
             { 150, 47, 55, 51 },
             { 185, 53, 60.5, 57 },
             { 240, 59.5, 67.5, 64 },
-            { 300, 66.5, 74, 70.5 }
+            { 300, 66.5, 74, 70.5 },
+            { 400, 0, 0, 0 }
         };
 
         public static double[,] ODpvc2core = new double[16, 4]
@@ -3127,7 +3128,7 @@ namespace Test1
                 f5.BringToFront();
             }
             
-
+            //cable OD
             dtr[0] = diameter;
 
             dtdiameter.Rows.Add(dtr);
@@ -3168,6 +3169,10 @@ namespace Test1
             if (!f5.Visible)
             {
                 f5.Show();
+            }
+            else if (f5.WindowState == FormWindowState.Minimized)
+            {
+                f5.WindowState = FormWindowState.Normal;
             }
             else
             {
@@ -4482,6 +4487,11 @@ namespace Test1
         {
             label88.Visible = false;
             timer3.Enabled = false;
+        }
+
+        private void ExitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
 
         private void TextBox14_Leave(object sender, EventArgs e)
