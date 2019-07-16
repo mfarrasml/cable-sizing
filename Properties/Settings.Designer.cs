@@ -25,9 +25,10 @@ namespace Test1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        public char DecimalSeparator {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DecimalSeparator {
             get {
-                return ((char)(this["DecimalSeparator"]));
+                return ((int)(this["DecimalSeparator"]));
             }
             set {
                 this["DecimalSeparator"] = value;

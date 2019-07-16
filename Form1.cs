@@ -787,10 +787,10 @@ namespace Test1
         {
             comboBox8.Text = "PVC";
             dtdiameter.Columns.Add("Diameter");
-
-
             cbPower.Text = "kW";
 
+            //load saved/default settings
+            decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         }
 
         private void TextBox15_KeyPress(object sender, KeyPressEventArgs e)
@@ -3180,6 +3180,10 @@ namespace Test1
                 e.Cancel = true;
                 Form5.cancelexit = false;
             }
+            else
+            {
+                Properties.Settings.Default.Save();
+            }
         }
 
         private void TextBox31_TextChanged(object sender, EventArgs e)
@@ -4577,6 +4581,10 @@ namespace Test1
         private void CableSummaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form5.OpenSummary();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
