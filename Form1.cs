@@ -3151,9 +3151,16 @@ namespace Test1
             }
 
             OpenDataTable();
-            
+
             //cable OD
-            dtr[0] = diameter;
+            if (diameter != 0)
+            {
+                dtr[0] = diameter;
+            }
+            else
+            {
+                dtr[0] = "N/A";
+            }
 
             dtdiameter.Rows.Add(dtr);
             

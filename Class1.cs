@@ -16,13 +16,29 @@ namespace Test1
 
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
-            if ((SelectionLength > 0) && (e.KeyChar == Form1.decimalseparator))
+            if ((SelectionLength > 0) && (e.KeyChar == Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
             {
                 tempText = Text.Remove(SelectionStart, SelectionLength) + e.KeyChar;
                 if (!double.TryParse(tempText, out Number))
                 {
                     e.Handled = true;
                 }
+            }
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+                e.Handled = true;
+            }
+
+            if ((Text == "") && (e.KeyChar == Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+            {
+                e.Handled = true;
+            }
+
+            // only allow one decimal point
+            if ((e.KeyChar == Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) &&
+                (Text.IndexOf(Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator)) > -1)))
+            {
+                e.Handled = true;
             }
 
             base.OnKeyPress(e);
