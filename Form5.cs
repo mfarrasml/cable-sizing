@@ -199,7 +199,7 @@ namespace Test1
         {
             DataTable dx = new DataTable();
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "XML|*.xml";
+            ofd.Filter = "IEC|*.iec";
             DataSet ds = new DataSet();
 
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -329,7 +329,7 @@ namespace Test1
              ds.Tables.Add(dd);
 
              SaveFileDialog sfd = new SaveFileDialog();
-             sfd.Filter = "XML|*.xml";
+             sfd.Filter = "IEC|*.iec";
              if (sfd.ShowDialog() == DialogResult.OK)
              {
                  try
