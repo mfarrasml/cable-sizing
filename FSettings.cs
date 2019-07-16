@@ -28,9 +28,8 @@ namespace Test1
         {
             if (checkBox1.Checked)
             {
-                culture.NumberFormat.NumberDecimalSeparator = CultureInfo.CurrentCulture.NumberFormat.NumberDecimalSeparator;
+                culture.NumberFormat.NumberDecimalSeparator = CultureInfo.InstalledUICulture.NumberFormat.NumberDecimalSeparator;
                 Thread.CurrentThread.CurrentCulture = culture;
-                Thread.CurrentThread.CurrentUICulture = culture;
 
                 radioButton1.Enabled = false;
                 radioButton2.Enabled = false;
@@ -43,31 +42,31 @@ namespace Test1
             {
                 radioButton1.Enabled = true;
                 radioButton2.Enabled = true;
-                if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == ',')
+                if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == '.')
                 {
-                    radioButton2.Checked = true;
+                    radioButton1.Checked = true;
                 }
                 else
                 {
-                    radioButton1.Checked = true;
-
+                    radioButton2.Checked = true;
                 }
             }
         }
 
         private void RadioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            if (radioButton1.Checked)
+            if ((radioButton1.Checked) && (!checkBox1.Checked))
             {
                 culture.NumberFormat.NumberDecimalSeparator = ".";
+                Thread.CurrentThread.CurrentCulture = culture;
+                Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             }
-            else
+            else if ((radioButton2.Checked) && (!checkBox1.Checked))
             {
                 culture.NumberFormat.NumberDecimalSeparator = ",";
+                Thread.CurrentThread.CurrentCulture = culture;
+                Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             }
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
-            Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         }
 
         private void FSettings_Load(object sender, EventArgs e)
@@ -134,6 +133,5 @@ namespace Test1
                 }
             }
         }
-
     }
 }
