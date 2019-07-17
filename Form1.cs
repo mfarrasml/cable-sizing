@@ -511,25 +511,6 @@ namespace Test1
             }
         }
 
-        private void TextBox12_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void Input_Enter(object sender, EventArgs e)
-        {
-            calc_current();
-        }
-
-        private void TextBox1_Leave(object sender, EventArgs e)
-        {
-            calc_current();
-
-        }
-
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {

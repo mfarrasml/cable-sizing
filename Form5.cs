@@ -36,7 +36,7 @@ namespace Test1
 
         private void Form5_Load(object sender, EventArgs e)
         {
-
+            this.dataGridView1.DoubleBuffered(true);
         }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
@@ -336,7 +336,7 @@ namespace Test1
                  {
                      XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
                      xmlSave.Formatting = Formatting.Indented;
-                     ds.DataSetName = "data";
+                     ds.DataSetName = "IEC_Cable_Data";
                      ds.WriteXml(xmlSave);
                      xmlSave.Close();
                      savefile = sfd.FileName;
@@ -393,7 +393,7 @@ namespace Test1
             {
                 XmlTextWriter xmlSave = new XmlTextWriter(savefile, Encoding.UTF8);
                 xmlSave.Formatting = Formatting.Indented;
-                ds.DataSetName = "data";
+                ds.DataSetName = "IEC_Cable_Data";
                 ds.WriteXml(xmlSave);
                 xmlSave.Close();
             }
@@ -578,9 +578,6 @@ namespace Test1
                 }
             }
         }
-
-        //temporary selection variable
-        int sel;
 
         private void RowUp()
         {
