@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Threading;
 
 namespace Test1
 {
-    public class DoubleTextBox : TextBox
+    public class DoubleComboBox : ComboBox
     {
         string Input;
         double Number;
         string tempText;
+
 
         protected override void OnKeyPress(KeyPressEventArgs e)
         {
@@ -46,45 +47,21 @@ namespace Test1
 
         protected override void OnTextChanged(EventArgs e)
         {
-            if (!double.TryParse(Text, out Number) )
+            if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == '.')
+            {
+                Text = Text.Replace(',', '.');
+            }
+            else if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == ',')
+            {
+                Text = Text.Replace('.', ',');
+            }
+
+            if (!double.TryParse(Text, out Number))
             {
                 Text = "";
             }
             base.OnTextChanged(e);
         }
 
-        protected override void WndProc(ref Message m)
-        {
-            // Trap WM_PASTE:
-            if(m.Msg == 0x302 && Clipboard.ContainsText()) {
-
-                if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == '.')
-                {
-                    Input = Clipboard.GetText().Replace(',', '.');
-                }
-                else if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == ',')
-                {
-                    Input = Clipboard.GetText().Replace('.', ',');
-                }
-                else
-                {
-                    Input = Clipboard.GetText();
-                }
-
-                if (!double.TryParse(Input, out Number))
-                {
-                    SelectedText = "";
-                }
-                else
-                {
-                    
-                    Text = "";
-                    SelectedText = Input;
-                }
-                
-                return;
-            }
-            base.WndProc(ref m);
-        }
     }
 }

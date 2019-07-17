@@ -22,5 +22,17 @@ namespace Test1.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DecimalSeparator {
+            get {
+                return ((int)(this["DecimalSeparator"]));
+            }
+            set {
+                this["DecimalSeparator"] = value;
+            }
+        }
     }
 }

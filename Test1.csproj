@@ -83,6 +83,10 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="DGVPrinter.cs" />
+    <Compile Include="DoubleComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExtensoinMethods.cs" />
     <Compile Include="Form9.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -142,6 +146,9 @@
     </Compile>
     <Compile Include="FSettings.Designer.cs">
       <DependentUpon>FSettings.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IntegerTextBox.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

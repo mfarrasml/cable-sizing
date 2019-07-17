@@ -511,25 +511,6 @@ namespace Test1
             }
         }
 
-        private void TextBox12_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-        }
-
-        private void Input_Enter(object sender, EventArgs e)
-        {
-            calc_current();
-        }
-
-        private void TextBox1_Leave(object sender, EventArgs e)
-        {
-            calc_current();
-
-        }
-
 
         private void TextBox1_TextChanged(object sender, EventArgs e)
         {
@@ -787,10 +768,10 @@ namespace Test1
         {
             comboBox8.Text = "PVC";
             dtdiameter.Columns.Add("Diameter");
-
-
             cbPower.Text = "kW";
 
+            //load saved/default settings
+            decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
         }
 
         private void TextBox15_KeyPress(object sender, KeyPressEventArgs e)
@@ -3151,9 +3132,16 @@ namespace Test1
             }
 
             OpenDataTable();
-            
+
             //cable OD
-            dtr[0] = diameter;
+            if (diameter != 0)
+            {
+                dtr[0] = diameter;
+            }
+            else
+            {
+                dtr[0] = "N/A";
+            }
 
             dtdiameter.Rows.Add(dtr);
             
@@ -3172,6 +3160,10 @@ namespace Test1
             {
                 e.Cancel = true;
                 Form5.cancelexit = false;
+            }
+            else
+            {
+                Properties.Settings.Default.Save();
             }
         }
 
@@ -4570,6 +4562,10 @@ namespace Test1
         private void CableSummaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Form5.OpenSummary();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)

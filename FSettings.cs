@@ -17,7 +17,7 @@ namespace Test1
     {
         CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         char currentDecimalSeparator;
-        int tempDecimalSeparator;
+        public static int tempDecimalSeparator;
 
         public FSettings()
         {
@@ -28,21 +28,16 @@ namespace Test1
         {
             if (checkBox1.Checked)
             {
-                culture.NumberFormat.NumberDecimalSeparator = CultureInfo.InstalledUICulture.NumberFormat.NumberDecimalSeparator;
-                Thread.CurrentThread.CurrentCulture = culture;
-
                 radioButton1.Enabled = false;
                 radioButton2.Enabled = false;
                 radioButton2.Checked = false;
                 radioButton1.Checked = false;
-
-                Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
             }
             else
             {
                 radioButton1.Enabled = true;
                 radioButton2.Enabled = true;
-                if (Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator) == '.')
+                if (Convert.ToChar(CultureInfo.InstalledUICulture.NumberFormat.NumberDecimalSeparator) == '.')
                 {
                     radioButton1.Checked = true;
                 }
@@ -53,45 +48,65 @@ namespace Test1
             }
         }
 
-        private void RadioButton1_CheckedChanged(object sender, EventArgs e)
-        {
-            if ((radioButton1.Checked) && (!checkBox1.Checked))
-            {
-                culture.NumberFormat.NumberDecimalSeparator = ".";
-                Thread.CurrentThread.CurrentCulture = culture;
-                Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-            }
-            else if ((radioButton2.Checked) && (!checkBox1.Checked))
-            {
-                culture.NumberFormat.NumberDecimalSeparator = ",";
-                Thread.CurrentThread.CurrentCulture = culture;
-                Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-            }
-        }
-
         private void FSettings_Load(object sender, EventArgs e)
         {
             currentDecimalSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-            if (checkBox1.Checked)
+            if (tempDecimalSeparator == 0)
             {
-                tempDecimalSeparator = 0;
+                checkBox1.Checked = true;
+                radioButton1.Enabled = false;
+                radioButton2.Enabled = false;
+                radioButton2.Checked = false;
+                radioButton1.Checked = false;
             }
-            else if (radioButton1.Checked)
+            else if (tempDecimalSeparator == 1)
             {
-                tempDecimalSeparator = 1;
+                checkBox1.Checked = false;
+                radioButton1.Checked = true;
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
             }
-            else if (radioButton2.Checked)
+            else if (tempDecimalSeparator == 2)
             {
-                tempDecimalSeparator = 2;
+                checkBox1.Checked = false;
+                radioButton2.Checked = true;
+                radioButton1.Enabled = true;
+                radioButton2.Enabled = true;
             }
         }
 
         private void Button1_Click(object sender, EventArgs e)
         {
+            //update chosen decimalseparator settings
+            if (checkBox1.Checked)
+            {
+                culture.NumberFormat.NumberDecimalSeparator = CultureInfo.InstalledUICulture.NumberFormat.NumberDecimalSeparator;
+                Thread.CurrentThread.CurrentCulture = culture;
+                tempDecimalSeparator = 0;
+            }
+            else if ((radioButton1.Checked) && (!checkBox1.Checked))
+            {
+                culture.NumberFormat.NumberDecimalSeparator = ".";
+                Thread.CurrentThread.CurrentCulture = culture;
+                tempDecimalSeparator = 1;
+            }
+            else if ((radioButton2.Checked) && (!checkBox1.Checked))
+            {
+                culture.NumberFormat.NumberDecimalSeparator = ",";
+                Thread.CurrentThread.CurrentCulture = culture;
+                tempDecimalSeparator = 2;
+            }
+            Properties.Settings.Default.DecimalSeparator = tempDecimalSeparator;
+
+            // write current decimal separator to decimalseparator variable in Form1
+            Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+
             if (Form1.decimalseparator != currentDecimalSeparator)
             {
                 Form1.decimalSeparatorChanged = true;
             }
+
             Form1.okSetClicked = true;
             this.Close();
         }
@@ -115,8 +130,6 @@ namespace Test1
         {
             if (!Form1.okSetClicked)
             {
-                culture.NumberFormat.NumberDecimalSeparator = currentDecimalSeparator.ToString();
-                Form1.decimalseparator = currentDecimalSeparator;
                 if (tempDecimalSeparator == 0)
                 {
                     checkBox1.Checked = true;
