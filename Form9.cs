@@ -39,6 +39,7 @@ namespace Test1
 
         double vdrunmax, vdstartmax, vdrun, vdstart;
         double length;
+        double maxtemp;
 
 
         int n = 1;
@@ -61,6 +62,7 @@ namespace Test1
         bool complete, inputValid;
         int i = 0;
         int insulindex = 0;
+        int tempindex = 0;
 
         string readtemp;
         double Rac;
@@ -228,6 +230,20 @@ namespace Test1
             { 185, 0.1204, 0.0898, 0.11857315, 258, 364 },
             { 240, 0.0926, 0.0889, 0.0902161, 297, 430 },
             { 300, 0.0749, 0.0886, 0.07190965, 336, 497 }
+        };
+
+        double[,] correctionfactor_temperature = new double[10, 6]
+        {
+            { 1.08, 1.05, 1.04, 1.08, 1.05, 1.04 },
+            { 1, 1, 1, 1, 1, 1 },
+            { 0.91, 0.94, 0.96, 0.91, 0.94, 0.96 },
+            { 0.82, 0.88, 0.91, 0.82, 0.88, 0.91 },
+            { 0.71, 0.82, 0.87, 0.71, 0.82, 0.87 },
+            { 0.58, 0.75, 0.82, 0.58, 0.75, 0.82 },
+            { 0.41, 0.67, 0.76, 0.41, 0.67, 0.76 },
+            { 0, 0.58, 0.71, 0, 0.58, 0.71 },
+            { 0, 0.33, 0.58, 0, 0.33, 0.58 },
+            { 0, 0, 0.41, 0, 0, 0.41 }
         };
 
         public static double[,] ODxlpe2core = new double[17, 4]
@@ -759,6 +775,11 @@ namespace Test1
                 length = 0;
                 panel25.BackColor = Color.Red;
             }
+
+            Updatek3();
+
+            Updatekt();
+
             enable_vd_btn();
             enable_result_btn();
         }
@@ -829,52 +850,12 @@ namespace Test1
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            if ((comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)"))
-            {
-                Form2 f2 = new Form2();
-                if (comboBox9.Text == "D1 (Under Ground)")
-                {
-                    f2.label8.Visible = true;
-                    f2.label7.Visible = false;
-                }
-                else if (comboBox9.Text == "D2 (Under Ground)")
-                {
-                    f2.label8.Visible = false;
-                    f2.label7.Visible = true;
-                }
-                f2.FormClosed += F2_FormClosed;
-                f2.ShowDialog();
-            }
-            else if (comboBox9.Text == "E (Above Ground)")
-            {
-                Form3 f3 = new Form3();
-                f3.FormClosed += F3_FormClosed;
-                f3.ShowDialog();
-            }
+
         }
 
-        private void F2_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (ok_clicked)
-            {
-                textBox17.Text = k1main.ToString("R");
-                textBox18.Text = k2main.ToString("R");
-                textBox36.Text = k3main.ToString("R");
-                textBox19.Text = ktmain.ToString("0.##");
-            }
-            ok_clicked = false;
-        }
+        
 
-        private void F3_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            if (ok_clicked)
-            {
-                textBox17.Text = k1main.ToString("R");
-                textBox18.Text = k2main.ToString("R");
-                textBox19.Text = ktmain.ToString("0.##");
-            }
-            ok_clicked = false;
-        }
+        
 
         private void ComboBox4_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -951,10 +932,33 @@ namespace Test1
                 panel20.BackColor = Color.Red;
             }
 
-            reset_correction();
-            enable_correction();
+            maxtemp_calc();
+
+            Updatek1();
+            Updatekt();
+
             enable_vd_btn();
             enable_result_btn();
+        }
+
+        private void maxtemp_calc()
+        {
+            if (insulindex == 1)
+            {
+                maxtemp = 55;
+            }
+            else if (insulindex == 2)
+            {
+                maxtemp = 70;
+            }
+            else if (insulindex == 3)
+            {
+                maxtemp = 80;
+            }
+            else
+            {
+                maxtemp = 0;
+            }
         }
 
         private void ComboBox7_SelectedIndexChanged(object sender, EventArgs e)
@@ -975,31 +979,130 @@ namespace Test1
         private void ComboBox9_SelectedIndexChanged(object sender, EventArgs e)
         {
             installation = comboBox9.Text;
-            if (installation == "E (Above Ground)")
+
+            correctionfactor_fill();
+            Updatek1();
+            Updatekt();
+
+            enable_vd_btn();
+            enable_result_btn();
+        }
+
+        private void correctionfactor_fill()
+        {
+            if (installation == "Raceways")
             {
-                textBox36.Enabled = false;
-                textBox36.Text = "";
-                k3main = 0;
-                label80.Enabled = false;
+                comboBox18.SelectedIndex = -1;
+                comboBox19.SelectedIndex = -1;
+                comboBox20.SelectedIndex = -1;
+                comboBox18.Enabled = true;
+                comboBox19.Enabled = true;
+                comboBox20.Enabled = false;
+                label93.Text = "Ambient Temperature\nCorrection Factor";
+                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                label95.Text = "";
+                label93.Visible = true;
+                label94.Visible = true;
+                label95.Visible = false;
+                panel22.BackColor = Color.Transparent;
             }
-            else
+            else if (installation == "Cable Tray / Ladder")
             {
-                textBox36.Enabled = true;
-                label80.Enabled = true;
+                comboBox18.SelectedIndex = -1;
+                comboBox19.SelectedIndex = -1;
+                comboBox20.SelectedIndex = -1;
+                comboBox18.Enabled = true;
+                comboBox19.Enabled = false;
+                comboBox20.Enabled = true;
+                label93.Text = "Ambient Temperature\nCorrection Factor";
+                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                label95.Text = "Cable Tray/Ladder Cover\nCorrection Factor";
+                label93.Visible = true;
+                label94.Visible = true;
+                label95.Visible = true;
+                panel22.BackColor = Color.Transparent;
             }
-            if (comboBox9.Text != "")
+            else if (installation == "Earth (Direct Buried)")
             {
+                comboBox18.SelectedIndex = -1;
+                comboBox19.SelectedIndex = -1;
+                comboBox20.SelectedIndex = -1;
+                comboBox18.Enabled = true;
+                comboBox19.Enabled = false;
+                comboBox20.Enabled = false;
+                label93.Text = "Ambient Temperature\nCorrection Factor";
+                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                label95.Text = "";
+                label93.Visible = true;
+                label94.Visible = true;
+                label95.Visible = false;
+                panel22.BackColor = Color.Transparent;
+            }
+            else if (installation == "Free Air")
+            {
+                comboBox18.SelectedIndex = -1;
+                comboBox19.SelectedIndex = -1;
+                comboBox20.SelectedIndex = -1;
+                comboBox18.Enabled = true;
+                comboBox19.Enabled = false;
+                comboBox20.Enabled = false;
+                label93.Text = "Ambient Temperature\nCorrection Factor";
+                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                label95.Text = "";
+                label93.Visible = true;
+                label94.Visible = true;
+                label95.Visible = false;
                 panel22.BackColor = Color.Transparent;
             }
             else
             {
+                comboBox18.SelectedIndex = -1;
+                comboBox19.SelectedIndex = -1;
+                comboBox20.SelectedIndex = -1;
+                comboBox18.Enabled = false;
+                comboBox19.Enabled = false;
+                comboBox20.Enabled = false;
+                label93.Text = "";
+                label94.Text = "";
+                label95.Text = "";
+                label93.Visible = false;
+                label94.Visible = false;
+                label95.Visible = false;
                 panel22.BackColor = Color.Red;
             }
 
-            reset_correction();
-            enable_correction();
-            enable_vd_btn();
-            enable_result_btn();
+            if (comboBox18.Enabled == true)
+            {
+                label89.Enabled = true;
+                panel34.BackColor = Color.Red;
+            }
+            else
+            {
+                label89.Enabled = false;
+                panel34.BackColor = Color.Transparent;
+            }
+
+            if (comboBox19.Enabled == true)
+            {
+                label90.Enabled = true;
+                panel35.BackColor = Color.Red;
+            }
+            else
+            {
+                label90.Enabled = false;
+                panel35.BackColor = Color.Transparent;
+            }
+
+            if (comboBox20.Enabled == true)
+            {
+                label91.Enabled = true;
+                panel36.BackColor = Color.Red;
+            }
+            else
+            {
+                label91.Enabled = false;
+                panel36.BackColor = Color.Transparent;
+            }
         }
 
         // calculate wire size based on vd and fl current
@@ -2963,11 +3066,22 @@ namespace Test1
             comboBox15.Items.Clear();
             comboBox16.SelectedIndex = -1;
             comboBox17.SelectedIndex = -1;
+            comboBox18.SelectedIndex = -1;
+            comboBox19.SelectedIndex = -1;
+            comboBox20.SelectedIndex = -1;
 
             panel4.Enabled = false;
             panel5.Enabled = true;
             panel6.Enabled = true;
             panel30.BackColor = Color.Red;
+
+            label93.Text = "";
+            label94.Text = "";
+            label95.Text = "";
+
+            label93.Visible = false;
+            label94.Visible = false;
+            label95.Visible = false;
         }
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
@@ -3151,8 +3265,21 @@ namespace Test1
 
         private void Updatekt()
         {
+            kttextboxX = 433;
+            kttextboxY = 458;
+            ktlabelX = 310;
+            ktlabelY = 460;
+
             if (radioButton7.Checked)
             {
+                label93.Text = "";
+                label94.Text = "";
+                label95.Text = "";
+
+                label93.Visible = false;
+                label94.Visible = false;
+                label95.Visible = false;
+
                 if ((textBox17.Text != "") && (textBox18.Text != "") && (textBox36.Text != ""))
                 {
                     ktmain = k1main * k2main * k3main;
@@ -3175,6 +3302,65 @@ namespace Test1
                     textBox19.Text = ktmain.ToString("0.##");
                 }
 
+            }
+            else //radiobutton7 unchecked
+            {
+                if (installation == "Raceways")
+                {
+                    ktmain = k1main * k2main;
+                }
+                else if (installation == "Cable Tray / Ladder")
+                {
+                    ktmain = k1main * k2main * k3main;
+                }
+                else if (installation == "Earth (Direct Buried)")
+                {
+                    ktmain = k1main * k2main;
+                }
+                else if (installation == "Free Air")
+                {
+                    ktmain = k1main * k2main;
+                }
+                else
+                {
+                    ktmain = 0;
+                }
+
+                if (k1main != 0)
+                {
+                    textBox17.Text = k1main.ToString("0.##");
+                }
+                else
+                {
+                    textBox17.Text = "";
+                }
+
+                if (k2main != 0)
+                {
+                    textBox18.Text = k2main.ToString("0.##");
+                }
+                else
+                {
+                    textBox18.Text = "";
+                }
+
+                if (k3main != 0)
+                {
+                    textBox36.Text = k3main.ToString("0.##");
+                }
+                else
+                {
+                    textBox36.Text = "";
+                }
+
+                if (ktmain != 0)
+                {
+                    textBox19.Text = ktmain.ToString("0.##");
+                }
+                else
+                {
+                    textBox19.Text = "";
+                }
             }
         }
 
@@ -4372,6 +4558,10 @@ namespace Test1
                 {
                     materialname = "Cu";
                 }
+                else if (material == "Aluminium")
+                {
+                    materialname = "Al";
+                }
 
                 if (loadtype == "Motor")
                 {
@@ -4464,10 +4654,15 @@ namespace Test1
 
         private void RadioButton7_CheckedChanged(object sender, EventArgs e)
         {
-            enable_correction();
             reset_correction();
+
             if (!radioButton7.Checked)
             {
+                Updatek1();
+                Updatek2();
+                Updatek3();
+                Updatekt();
+
                 textBox17.ReadOnly = true;
                 textBox18.ReadOnly = true;
                 textBox36.ReadOnly = true;
@@ -4483,16 +4678,25 @@ namespace Test1
             }
             else if (radioButton7.Checked)
             {
-                kttextboxX = textBox19.Location.X;
-                kttextboxY = textBox19.Location.Y;
-                ktlabelX = label43.Location.X;
-                ktlabelY = label43.Location.Y;
+
+                label93.Text = "";
+                label94.Text = "";
+                label95.Text = "";
+
+                label93.Visible = false;
+                label94.Visible = false;
+                label95.Visible = false;
+
+                kttextboxX = 433;
+                kttextboxY = 458;
+                ktlabelX = 310;
+                ktlabelY = 460;
 
                 textBox17.ReadOnly = false;
                 textBox18.ReadOnly = false;
                 textBox36.ReadOnly = false;
 
-                if (textBox17.Text == "")
+                if ((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == ""))
                 {
                     label42.Visible = false;
                     label80.Visible = false;
@@ -4503,6 +4707,7 @@ namespace Test1
                     panel24.Location = new Point(textBox18.Location.X - 4, textBox18.Location.Y);
 
                 }
+                /*
                 else if ((textBox17.Text != "") && (textBox18.Text == ""))
                 {
                     textBox36.Visible = false;
@@ -4511,6 +4716,7 @@ namespace Test1
                     textBox19.Location = textBox36.Location;
                     label43.Location = label80.Location;
                 }
+                */
 
             }
         }
@@ -4639,16 +4845,23 @@ namespace Test1
 
         private void ComboBox16_SelectedIndexChanged(object sender, EventArgs e)
         {
+            tempindex = comboBox16.SelectedIndex + 1;
+
             if (comboBox16.SelectedIndex != -1)
             {
-                temperature = double.Parse(comboBox16.Text);
                 panel32.BackColor = Color.Transparent;
             }
             else
             {
-                temperature = 0;
                 panel32.BackColor = Color.Red;
             }
+
+            Updatek1();
+            Updatekt();
+
+            SCLTEchanged();
+            Calc_k();
+            enable_result_btn();
         }
 
         private void ComboBox17_TextChanged(object sender, EventArgs e)
@@ -4657,11 +4870,13 @@ namespace Test1
             {
                 initialTemp = double.Parse(comboBox17.Text);
                 panel33.BackColor = Color.Transparent;
+                comboBox16.Enabled = true;
             }
             else
             {
                 initialTemp = 0;
                 panel33.BackColor = Color.Red;
+                comboBox16.Enabled = false;
             }
             SCLTEchanged();
             Calc_k();
@@ -4675,12 +4890,31 @@ namespace Test1
             {
                 initialTemp = double.Parse(comboBox17.Text);
                 panel33.BackColor = Color.Transparent;
+                if ((insulation == "XHHW") || (insulation == "THHW"))
+                {
+                    if (initialTemp == 75)
+                    {
+                        insulindex = 2;
+                    }
+                    else if (initialTemp == 90)
+                    {
+                        insulindex = 3;
+                    }
+                }
+                comboBox16.Enabled = true;
             }
             else
             {
                 initialTemp = 0;
                 panel33.BackColor = Color.Red;
+                comboBox16.Enabled = false;
             }
+
+            maxtemp_calc();
+
+            Updatek1();
+            Updatekt();
+
             SCLTEchanged();
             Calc_k();
             enable_result_btn();
@@ -4688,7 +4922,7 @@ namespace Test1
 
         private void ComboBox18_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox18.Text != "")
+            if (comboBox18.SelectedIndex != -1)
             {
                 groupconductor = comboBox18.Text;
                 panel34.BackColor = Color.Transparent;
@@ -4697,6 +4931,152 @@ namespace Test1
             {
                 groupconductor = "";
                 panel34.BackColor = Color.Red;
+            }
+
+            Updatek2();
+
+            Updatekt();
+            
+        }
+
+        private void Updatek2()
+        {
+            if (comboBox18.SelectedIndex == 0)
+            {
+                k2main = 1;
+            }
+            else if (comboBox18.SelectedIndex == 1)
+            {
+                k2main = 0.8;
+            }
+            else if (comboBox18.SelectedIndex == 2)
+            {
+                k2main = 0.7;
+            }
+            else if (comboBox18.SelectedIndex == 3)
+            {
+                k2main = 0.5;
+            }
+            else if (comboBox18.SelectedIndex == 4)
+            {
+                k2main = 0.45;
+            }
+            else if (comboBox18.SelectedIndex == 5)
+            {
+                k2main = 0.4;
+            }
+            else if (comboBox18.SelectedIndex == 6)
+            {
+                k2main = 0.35;
+            }
+            else
+            {
+                k2main = 0;
+            }
+        }
+
+        private void ComboBox19_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Updatek1();
+            Updatekt();
+
+            if (comboBox19.SelectedIndex != -1)
+            {
+                panel35.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel35.BackColor = Color.Red;
+            }
+        }
+
+        private void Updatek1()
+        {
+            if (comboBox16.Text != "")
+            {
+                temperature = double.Parse(comboBox16.Text);
+            }
+            else
+            {
+                temperature = 0;
+            }
+
+            if (comboBox19.SelectedIndex == 0)
+            {
+                temperature = temperature + 33;
+            }
+            else if (comboBox19.SelectedIndex == 1)
+            {
+                temperature = temperature + 22;
+            }
+            else if (comboBox19.SelectedIndex == 2)
+            {
+                temperature = temperature + 17;
+            }
+            else if (comboBox19.SelectedIndex == 3)
+            {
+                temperature = temperature + 14;
+            }
+            else
+            {
+                if (comboBox16.Text != "")
+                {
+                    temperature = double.Parse(comboBox16.Text);
+                }
+                else
+                {
+                    temperature = 0;
+                }
+            }
+
+            if ((insulindex != 0) && (tempindex != 0))
+            {
+                if (temperature > maxtemp)
+                {
+                    MessageBox.Show("Temperature + added temperature can't be greater than " + maxtemp + " °C !", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    comboBox16.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    k1main = 0;
+                }
+                else
+                {
+                    k1main = correctionfactor_temperature[(tempindex - 1), (insulindex - 1)];
+                }
+            }
+        }
+
+        private void ComboBox20_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox20.SelectedIndex == 0)
+            {
+                k3main = 1;
+                panel36.BackColor = Color.Transparent;
+            }
+            else if (comboBox20.SelectedIndex == 1)
+            {
+                Updatek3();
+                panel36.BackColor = Color.Transparent;
+            }
+            else
+            {
+                k3main = 0;
+                panel36.BackColor = Color.Red;
+            }
+            Updatekt();
+        }
+
+        private void Updatek3()
+        {
+            if (comboBox20.SelectedIndex != -1)
+            {
+                if (length >= 6)
+                {
+                    k3main = 0.95;
+                }
+                else
+                {
+                    k3main = 1;
+                }
             }
         }
 
@@ -4921,18 +5301,7 @@ namespace Test1
             
         }
 
-        private void enable_correction()
-        {
-            if (((comboBox9.Text == "E (Above Ground)") || (comboBox9.Text == "D1 (Under Ground)") || (comboBox9.Text == "D2 (Under Ground)")) && 
-                ((comboBox6.Text == "PVC") || (comboBox6.Text == "XLPE") || (comboBox6.Text == "EPR")) && (!radioButton7.Checked))
-            {
-                button1.Enabled = true;
-            }
-            else
-            {
-                button1.Enabled = false;
-            }
-        }
+        
 
         private void reset_correction()
         {
