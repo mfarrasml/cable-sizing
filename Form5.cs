@@ -17,7 +17,7 @@ namespace Test1
     public partial class Form5 : Form
     {
         //variable
-        int currentrow;
+        public static int currentrow;
         public static bool cancelexit;
 
         public static string savefile = "";
@@ -28,11 +28,12 @@ namespace Test1
 
         string[] arrTemp = new string[39];
 
-
         public Form5()
         {
             InitializeComponent();
         }
+
+
 
         private void Form5_Load(object sender, EventArgs e)
         {
@@ -101,6 +102,7 @@ namespace Test1
             if ((dataGridView1.CurrentCell != null) && (dataGridView1.CurrentCell.Selected))
             {
                 btnDelete.Enabled = true;
+                editRow.Enabled = true;
                 currentrow = dataGridView1.CurrentCell.RowIndex;
 
                 //turn btnUp on/off
@@ -126,11 +128,12 @@ namespace Test1
             else
             {
                 btnDelete.Enabled = false;
+                editRow.Enabled = false;
                 btnUp.Enabled = false;
                 btnDown.Enabled = false;
             }
 
-            
+
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -139,7 +142,7 @@ namespace Test1
             {
                 dataGridView1.SelectAll();
                 dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
-                DataObject dataObj = dataGridView1.GetClipboardContent();                
+                DataObject dataObj = dataGridView1.GetClipboardContent();
                 Clipboard.SetDataObject(dataObj, true);
                 dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithAutoHeaderText;
             }
@@ -191,7 +194,7 @@ namespace Test1
                 openFile();
                 Update_summary();
             }
-            
+
 
         }
 
@@ -222,11 +225,17 @@ namespace Test1
                     {
                         if (Form1.decimalseparator == ',')
                         {
-                            row[0] = Convert.ToString(row[0]).Replace('.', ',');
+                            for (int i = 0; i < 54; i++)
+                            {
+                                row[i] = Convert.ToString(row[i]).Replace('.', ',');
+                            }
                         }
                         else
                         {
-                            row[0] = Convert.ToString(row[0]).Replace(',', '.');
+                            for (int i = 0; i < 54; i++)
+                            {
+                                row[i] = Convert.ToString(row[i]).Replace(',', '.');
+                            }
                         }
                     }
 
@@ -302,50 +311,53 @@ namespace Test1
                 DataRow dRow = dt.NewRow();
                 foreach (DataGridViewCell cell in row.Cells)
                 {
-                string Input;
-                // matching all decimal separator as '.' in xml file
-                if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) || 
-                        ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
-                {
+                    string Input;
+                    // matching all decimal separator as '.' in xml file
+                    if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) ||
+                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
+                    {
 
-                    Input = Convert.ToString(cell.Value).Replace(',', '.');
-                    dRow[cell.ColumnIndex] = Input;
-                }
-                else
-                {
-                    dRow[cell.ColumnIndex] = cell.Value;
-                }
+                        Input = Convert.ToString(cell.Value).Replace(',', '.');
+                        dRow[cell.ColumnIndex] = Input;
+                    }
+                    else
+                    {
+                        dRow[cell.ColumnIndex] = cell.Value;
+                    }
                 }
                 dt.Rows.Add(dRow);
             }
             // matching all decimal separator as '.' in xml file
             foreach (DataRow row in dd.Rows)
             {
-                row[0] = Convert.ToString(row[0]).Replace(',', '.');
+                for (int i = 0; i < 54; i++)
+                {
+                    row[i] = Convert.ToString(row[i]).Replace(',', '.');
+                }
             }
 
-             DataSet ds = new DataSet();
-             ds.Tables.Add(dt);
-             ds.Tables.Add(dd);
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+            ds.Tables.Add(dd);
 
-             SaveFileDialog sfd = new SaveFileDialog();
-             sfd.Filter = "IEC|*.iec";
-             if (sfd.ShowDialog() == DialogResult.OK)
-             {
-                 try
-                 {
-                     XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
-                     xmlSave.Formatting = Formatting.Indented;
-                     ds.DataSetName = "IEC_Cable_Data";
-                     ds.WriteXml(xmlSave);
-                     xmlSave.Close();
-                     savefile = sfd.FileName;
-                 }
-                 catch (Exception ex)
-                 {
-                     Console.WriteLine(ex);
-                 }
-             }
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "IEC|*.iec";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
+                    xmlSave.Formatting = Formatting.Indented;
+                    ds.DataSetName = "IEC_Cable_Data";
+                    ds.WriteXml(xmlSave);
+                    xmlSave.Close();
+                    savefile = sfd.FileName;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
         }
 
         public void saveExportDgvToXML()
@@ -366,7 +378,7 @@ namespace Test1
                 {
                     string Input;
                     // matching all decimal separator as '.' in xml file
-                    if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) || 
+                    if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) ||
                             ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
                     {
 
@@ -383,7 +395,10 @@ namespace Test1
             // matching all decimal separator as '.' in xml file
             foreach (DataRow row in dd.Rows)
             {
-                row[0] = Convert.ToString(row[0]).Replace(',', '.');
+                for (int i = 0; i < 54; i++)
+                {
+                    row[i] = Convert.ToString(row[i]).Replace(',', '.');
+                }
             }
 
             DataSet ds = new DataSet();
@@ -488,7 +503,7 @@ namespace Test1
 
             for (int i = 0; i < 39; i++)
             {
-                
+
                 printer.ColumnStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
                 printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
                 printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)4);
@@ -542,7 +557,7 @@ namespace Test1
                 if (summaryCount == 0)
                 {
                     f7.dataGridView1.RowCount++;
-                    f7.dataGridView1.Rows[0].Cells[0].Value = summaryCount+1;
+                    f7.dataGridView1.Rows[0].Cells[0].Value = summaryCount + 1;
                     f7.dataGridView1.Rows[0].Cells[1].Value = sel_cable;
                     f7.dataGridView1.Rows[0].Cells[2].Value = cable_length;
                     f7.dataGridView1.Rows[0].Cells[3].Value = dataGridView1.Rows[i].Cells[17].Value;
@@ -554,7 +569,7 @@ namespace Test1
                 {
                     for (int k = 0; k < summaryCount; k++)
                     {
-                        
+
                         if (sel_cable == Convert.ToString(f7.dataGridView1.Rows[k].Cells[1].Value))
                         {
                             f7.dataGridView1.Rows[k].Cells[2].Value = Convert.ToDouble(f7.dataGridView1.Rows[k].Cells[2].Value) + cable_length;
@@ -567,7 +582,7 @@ namespace Test1
                     if (!done)
                     {
                         f7.dataGridView1.RowCount++;
-                        f7.dataGridView1.Rows[summaryCount].Cells[0].Value = summaryCount+1;
+                        f7.dataGridView1.Rows[summaryCount].Cells[0].Value = summaryCount + 1;
                         f7.dataGridView1.Rows[summaryCount].Cells[1].Value = sel_cable;
                         f7.dataGridView1.Rows[summaryCount].Cells[2].Value = cable_length;
                         f7.dataGridView1.Rows[summaryCount].Cells[3].Value = dataGridView1.Rows[i].Cells[17].Value;
@@ -589,11 +604,15 @@ namespace Test1
             }
 
             DataRow dataRow = Form1.dtdiameter.NewRow();
-            dataRow[0] = Form1.dtdiameter.Rows[currentrow - 1].ItemArray[0];
+            for (int i = 0; i < 54; i++)
+            {
+                dataRow[i] = Form1.dtdiameter.Rows[currentrow - 1].ItemArray[i];
+            }
+            //dataRow[0] = Form1.dtdiameter.Rows[currentrow - 1].ItemArray[0];
             Form1.dtdiameter.Rows.Remove(Form1.dtdiameter.Rows[currentrow - 1]);
             Form1.dtdiameter.Rows.InsertAt(dataRow, currentrow);
 
-            
+
             dataGridView1.CurrentCell = dataGridView1.Rows[currentrow - 1].Cells[dataGridView1.CurrentCell.ColumnIndex];
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell.Selected = true;
@@ -608,13 +627,17 @@ namespace Test1
                 dataGridView1.Rows[currentrow].Cells[i].Value = arrTemp[i];
             }
 
-            
+
             DataRow dataRow = Form1.dtdiameter.NewRow();
-            dataRow[0] = Form1.dtdiameter.Rows[currentrow + 1].ItemArray[0];
+            for (int i = 0; i < 54; i++)
+            {
+                dataRow[i] = Form1.dtdiameter.Rows[currentrow + 1].ItemArray[i];
+                // dataRow[0] = Form1.dtdiameter.Rows[currentrow + 1].ItemArray[0];
+            }
             Form1.dtdiameter.Rows.Remove(Form1.dtdiameter.Rows[currentrow + 1]);
             Form1.dtdiameter.Rows.InsertAt(dataRow, currentrow);
 
-            
+
             dataGridView1.CurrentCell = dataGridView1.Rows[currentrow + 1].Cells[dataGridView1.CurrentCell.ColumnIndex];
             dataGridView1.ClearSelection();
             dataGridView1.CurrentCell.Selected = true;
@@ -635,13 +658,13 @@ namespace Test1
             if (dataGridView1.CurrentCell.Selected)
             {
                 Form1.dtdiameter.Rows.RemoveAt(currentrow);
-                this.dataGridView1.Rows.RemoveAt(currentrow);
+                dataGridView1.Rows.RemoveAt(currentrow);
                 for (int i = currentrow; i < Form1.j; i++)
                 {
-                    this.dataGridView1.Rows[i].Cells[0].Value = i + 1;
+                    dataGridView1.Rows[i].Cells[0].Value = i + 1;
                 }
                 Form1.j--;
-                
+
 
             }
             if ((dataGridView1.CurrentCell != null) && dataGridView1.CurrentCell.Selected)
@@ -712,6 +735,11 @@ namespace Test1
                 btnDown.Enabled = false;
             }
             Update_summary();
+        }
+
+        private void ToolStripButton1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
