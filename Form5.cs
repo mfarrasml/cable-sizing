@@ -37,12 +37,12 @@ namespace Test1
 
         private void Form5_Load(object sender, EventArgs e)
         {
-            this.dataGridView1.DoubleBuffered(true);
+            dataGridView1.DoubleBuffered(true);
         }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
+            if ((e.CloseReason == CloseReason.UserClosing) && !Form1.form1Close)
             {
                 e.Cancel = true;
                 Hide();
@@ -57,11 +57,13 @@ namespace Test1
                         ExportDgvToXML();
                         savefile = "";
                         clearTable();
+                        f7.Close();
                     }
                     else if (dr == DialogResult.No)
                     {
                         savefile = "";
                         clearTable();
+                        f7.Close();
                     }
                     else
                     {
@@ -77,11 +79,13 @@ namespace Test1
                         saveExportDgvToXML();
                         savefile = "";
                         clearTable();
+                        f7.Close();
                     }
                     else if (dr == DialogResult.No)
                     {
                         savefile = "";
                         clearTable();
+                        f7.Close();
                     }
                     else
                     {
@@ -91,7 +95,7 @@ namespace Test1
                 }
                 else
                 {
-                    Close();
+                    f7.Close();
                 }
             }
         }
@@ -524,6 +528,10 @@ namespace Test1
 
         public static void OpenSummary()
         {
+            if (f7.IsDisposed)
+            {
+                f7 = new Form7();
+            }
             if (!f7.Visible)
             {
                 f7.Show();

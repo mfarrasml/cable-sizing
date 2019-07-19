@@ -19,14 +19,10 @@ namespace Test1
 
         private void Form7_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (e.CloseReason == CloseReason.UserClosing)
+            if ((e.CloseReason == CloseReason.UserClosing) && !Form1.form1Close)
             {
                 e.Cancel = true;
                 Hide();
-            }
-            else
-            {
-                Close();
             }
         }
 

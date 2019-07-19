@@ -94,12 +94,13 @@ namespace Test1
         public static double[,] inputCableData;
         public static int cableCount;
 
-        public static DataTable dtdiameter = new DataTable();
+        public static DataTable dtdiameter;
 
         bool EditingState = false;
         int tempCurrentRow;
 
-
+        int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
+        public static bool form1Close;
         DataRow dtr;
 
         public Form1()
@@ -773,8 +774,19 @@ namespace Test1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            form1Close = false;
+
             comboBox8.Text = "PVC";
+
+            if (Form5.f7.IsDisposed)
+            {
+                Form5.f7 = new Form7();
+            }
+
+            //set new dtdiameter everytime this form is loaded
+            dtdiameter = new DataTable();
             dtdiameter.TableName = "Data";
+
             //set dtdiameter columns
             dtdiameter.Columns.Add("Diameter");
             dtdiameter.Columns.Add("TagNo");
@@ -3250,16 +3262,26 @@ namespace Test1
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            form1Close = true;
+            if (OpenForm.ReturnToTitle) //return to title menu is clicked --> return to title form (OpenForm)
+            {
+                f5.Close();
+            }
+            else //exit/close button clicked --> close Entire App
+            {
+                Application.Exit();
+            }
             if (Form5.cancelexit)
             {
                 e.Cancel = true;
                 Form5.cancelexit = false;
+                OpenForm.ReturnToTitle = false;
             }
             else
             {
                 Properties.Settings.Default.Save();
             }
+            form1Close = false;
         }
 
         private void TextBox31_TextChanged(object sender, EventArgs e)
@@ -3894,8 +3916,7 @@ namespace Test1
         {
 
         }
-        int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
-        private bool formClosed;
+        
 
         private void TextBox24_TextChanged(object sender, EventArgs e)
         {
@@ -4850,6 +4871,7 @@ namespace Test1
 
         private void ReturnToTitleToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenForm.ReturnToTitle = true;
             Close();
         }
 

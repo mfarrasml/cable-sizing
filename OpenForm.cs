@@ -10,8 +10,13 @@ using System.Windows.Forms;
 
 namespace Test1
 {
+    
+
     public partial class OpenForm : Form
     {
+
+        public static bool ReturnToTitle = false;
+
         public OpenForm()
         {
             InitializeComponent();
@@ -37,7 +42,11 @@ namespace Test1
 
         private void Form_Closed(object sender, FormClosedEventArgs e)
         {
-            Show();
+            if (ReturnToTitle)
+            {
+                Show();
+                ReturnToTitle = false;
+            }
         }
 
         private void Button3_Click(object sender, EventArgs e)
@@ -48,8 +57,5 @@ namespace Test1
             f9.Show();
         }
 
-        private void OpenForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-        }
     }
 }
