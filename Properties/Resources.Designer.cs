@@ -63,6 +63,26 @@ namespace Test1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Close_12x_16x {
+            get {
+                object obj = ResourceManager.GetObject("Close_12x_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Close_16x {
+            get {
+                object obj = ResourceManager.GetObject("Close_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap DeleteTable_16x {
             get {
                 object obj = ResourceManager.GetObject("DeleteTable_16x", resourceCulture);
@@ -76,6 +96,16 @@ namespace Test1.Properties {
         internal static System.Drawing.Bitmap DeleteTableRow_16x {
             get {
                 object obj = ResourceManager.GetObject("DeleteTableRow_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Forward_16x {
+            get {
+                object obj = ResourceManager.GetObject("Forward_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -153,9 +183,49 @@ namespace Test1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap icons8_delete_16 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-delete-16", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_delete_32 {
+            get {
+                object obj = ResourceManager.GetObject("icons8-delete-32", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap NewFile_16x {
             get {
                 object obj = ResourceManager.GetObject("NewFile_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Next_16x {
+            get {
+                object obj = ResourceManager.GetObject("Next_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Next_16x1 {
+            get {
+                object obj = ResourceManager.GetObject("Next_16x1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -176,6 +246,16 @@ namespace Test1.Properties {
         internal static System.Drawing.Bitmap OpenFolder_256x {
             get {
                 object obj = ResourceManager.GetObject("OpenFolder_256x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Return_16x {
+            get {
+                object obj = ResourceManager.GetObject("Return_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

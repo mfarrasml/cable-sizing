@@ -26,7 +26,7 @@ namespace Test1
             }
             else
             {
-                this.Close();
+                Close();
             }
         }
 
