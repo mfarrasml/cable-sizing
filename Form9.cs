@@ -52,6 +52,9 @@ namespace Test1
         string groupconductor;
         public static string insulation, installation;
         string lengthunit;
+        string conduit;
+        string wirearea_unit;
+        string wirearea_nec;
 
         int cores;
         double breakcurrent;
@@ -108,6 +111,132 @@ namespace Test1
             InitializeComponent();
 
         }
+
+        string[] data_wirearea = new string[21]
+        {
+            "14",
+            "12",
+            "10",
+            "8",
+            "6",
+            "4",
+            "3",
+            "2",
+            "1",
+            "1/0",
+            "2/0",
+            "3/0",
+            "4/0",
+            "250",
+            "300",
+            "350",
+            "400",
+            "500",
+            "600",
+            "750",
+            "1000"
+        };
+
+        string[] data_wirearea_unit = new string[21]
+        {
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil"
+        };
+
+        double[,] data_ampacity_racewaycableearth = new double[21, 6]
+        {
+            { 20, 20, 25, 0, 0, 0 },
+            { 25, 25, 30, 20, 20, 25 },
+            { 30, 35, 40, 25, 30, 35 },
+            { 40, 50, 55, 30, 40, 45 },
+            { 55, 65, 75, 40, 50, 60 },
+            { 70, 85, 95, 55, 65, 75 },
+            { 85, 100, 110, 65, 75, 85 },
+            { 95, 115, 130, 75, 90, 100 },
+            { 110, 130, 150, 85, 100, 115 },
+            { 125, 150, 170, 100, 120, 135 },
+            { 145, 175, 195, 115, 135, 150 },
+            { 165, 200, 225, 130, 155, 175 },
+            { 195, 230, 260, 150, 180, 205 },
+            { 215, 255, 290, 170, 205, 230 },
+            { 240, 285, 320, 190, 230, 255 },
+            { 260, 310, 350, 210, 250, 280 },
+            { 280, 335, 380, 225, 270, 305 },
+            { 320, 380, 430, 260, 310, 350 },
+            { 355, 420, 475, 285, 340, 385 },
+            { 400, 475, 535, 320, 385, 435 },
+            { 455, 545, 615, 375, 445, 500 }
+        };
+
+        double[,] data_ampacity_freeair = new double[21, 6]
+        {
+            { 25, 30, 35, 0, 0, 0 },
+            { 30, 35, 40, 25, 30, 35 },
+            { 40, 50, 55, 35, 40, 40 },
+            { 60, 70, 80, 45, 55, 60 },
+            { 80, 95, 105, 60, 75, 80 },
+            { 105, 125, 140, 80, 100, 110 },
+            { 120, 145, 165, 95, 115, 130 },
+            { 140, 170, 190, 110, 135, 150 },
+            { 165, 195, 220, 130, 155, 175 },
+            { 195, 230, 260, 150, 180, 205 },
+            { 225, 265, 300, 175, 210, 235 },
+            { 260, 310, 350, 200, 240, 275 },
+            { 300, 360, 405, 235, 280, 315 },
+            { 340, 405, 455, 265, 315, 355 },
+            { 375, 445, 505, 290, 350, 395 },
+            { 420, 505, 570, 330, 395, 445 },
+            { 455, 545, 615, 355, 425, 480 },
+            { 515, 620, 700, 405, 485, 545 },
+            { 575, 690, 780, 455, 540, 615 },
+            { 655, 785, 885, 515, 620, 700 },
+            { 780, 935, 1055, 625, 750, 845 }
+        };
+
+
+        double[,] data_electrical = new double[21, 14]
+        {
+            { 0.058, 0.073, 3.1, 3.1, 3.1, 0, 0, 0, 2.7, 2.7, 2.7, 0, 0, 0 },
+            { 0.054, 0.068, 2, 2, 2, 3.2, 3.2, 3.2, 1.7, 1.7, 1.7, 2.8, 2.8, 2.8 },
+            { 0.05, 0.063, 1.2, 1.2, 1.2, 2, 2, 2, 1.1, 1.1, 1.1, 1.8, 1.8, 1.8 },
+            { 0.052, 0.065, 0.78, 0.78, 0.78, 1.3, 1.3, 1.3, 0.69, 0.69, 0.7, 1.1, 1.1, 1.1 },
+            { 0.051, 0.064, 0.49, 0.49, 0.49, 0.81, 0.81, 0.81, 0.44, 0.45, 0.45, 0.71, 0.72, 0.72 },
+            { 0.048, 0.06, 0.31, 0.31, 0.31, 0.51, 0.51, 0.51, 0.29, 0.29, 0.3, 0.46, 0.46, 0.46 },
+            { 0.047, 0.059, 0.25, 0.25, 0.25, 0.4, 0.41, 0.4, 0.23, 0.24, 0.24, 0.37, 0.37, 0.37 },
+            { 0.045, 0.057, 0.19, 0.2, 0.2, 0.32, 0.32, 0.32, 0.19, 0.19, 0.2, 0.3, 0.3, 0.3 },
+            { 0.046, 0.057, 0.15, 0.16, 0.16, 0.25, 0.26, 0.25, 0.16, 0.16, 0.16, 0.24, 0.24, 0.25 },
+            { 0.044, 0.055, 0.12, 0.13, 0.12, 0.2, 0.21, 0.2, 0.13, 0.13, 0.13, 0.19, 0.2, 0.2 },
+            { 0.043, 0.054, 0.1, 0.1, 0.1, 0.16, 0.16, 0.16, 0.11, 0.11, 0.11, 0.16, 0.16, 0.16 },
+            { 0.042, 0.052, 0.077, 0.082, 0.079, 0.13, 0.13, 0.13, 0.088, 0.092, 0.094, 0.13, 0.13, 0.14 },
+            { 0.041, 0.051, 0.062, 0.067, 0.063, 0.1, 0.11, 0.1, 0.074, 0.078, 0.08, 0.11, 0.11, 0.11 },
+            { 0.041, 0.052, 0.052, 0.057, 0.054, 0.085, 0.09, 0.086, 0.066, 0.07, 0.073, 0.094, 0.098, 0.1 },
+            { 0.041, 0.051, 0.044, 0.049, 0.045, 0.071, 0.076, 0.072, 0.059, 0.063, 0.065, 0.082, 0.086, 0.088 },
+            { 0.04, 0.05, 0.038, 0.043, 0.039, 0.061, 0.066, 0.063, 0.053, 0.058, 0.06, 0.073, 0.077, 0.08 },
+            { 0.04, 0.049, 0.033, 0.038, 0.035, 0.054, 0.059, 0.055, 0.049, 0.053, 0.056, 0.066, 0.071, 0.073 },
+            { 0.039, 0.048, 0.027, 0.032, 0.029, 0.043, 0.048, 0.045, 0.043, 0.048, 0.05, 0.057, 0.061, 0.064 },
+            { 0.039, 0.048, 0.023, 0.028, 0.025, 0.036, 0.041, 0.038, 0.04, 0.044, 0.047, 0.051, 0.055, 0.058 },
+            { 0.038, 0.048, 0.019, 0.024, 0.021, 0.029, 0.034, 0.031, 0.036, 0.04, 0.043, 0.045, 0.049, 0.052 },
+            { 0.037, 0.046, 0.015, 0.019, 0.018, 0.023, 0.027, 0.025, 0.032, 0.036, 0.04, 0.039, 0.042, 0.046 }
+        };
 
         double[,] xlpe2core = new double[17, 6]
         {
@@ -876,6 +1005,11 @@ namespace Test1
         private void ComboBox6_SelectedIndexChanged(object sender, EventArgs e)
         {
             insulation = comboBox6.Text;
+            comboBox16.SelectedIndex = -1;
+            comboBox17.SelectedIndex = -1;
+            k1main = 0;
+            k2main = 0;
+            k3main = 0;
 
             if ((insulation == "TW") || (insulation == "UF"))
             {
@@ -883,8 +1017,7 @@ namespace Test1
                 comboBox17.Items.Clear();
                 comboBox17.Items.Insert(0, "60");
                 comboBox17.SelectedIndex = 0;
-                //textBox15.Text = "60";
-                //textBox24.Text = "160";
+                
                 panel20.BackColor = Color.Transparent;
             }
             else if ((insulation == "RHW") || (insulation == "THW") || (insulation == "THWN") 
@@ -894,8 +1027,7 @@ namespace Test1
                 comboBox17.Items.Clear();
                 comboBox17.Items.Insert(0, "75");
                 comboBox17.SelectedIndex = 0;
-                //textBox15.Text = "75";
-                //textBox24.Text = "160";
+                
                 panel20.BackColor = Color.Transparent;
             }
             else if ((insulation == "TBS") || (insulation == "SA") || (insulation == "SIS") || (insulation == "FEP")
@@ -908,8 +1040,7 @@ namespace Test1
                 comboBox17.Items.Clear();
                 comboBox17.Items.Insert(0, "90");
                 comboBox17.SelectedIndex = 0;
-                //textBox15.Text = "90";
-                //textBox24.Text = "250";
+                
                 panel20.BackColor = Color.Transparent;
             }
             else if ((insulation == "XHHW") || (insulation == "THHW"))
@@ -926,19 +1057,96 @@ namespace Test1
                 insulindex = 0;
                 comboBox17.SelectedIndex = -1;
                 comboBox17.Items.Clear();
-                //textBox15.Text = "";
-                //textBox24.Text = "";
+                
                 textBox21.Text = "";
                 panel20.BackColor = Color.Red;
             }
+
+            if (comboBox17.Text != "")
+            {
+                initialTemp = double.Parse(comboBox17.Text);
+            }
+            else
+            {
+                initialTemp = 0;
+            }
+
+            if (comboBox16.SelectedIndex != -1)
+            {
+                panel32.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel32.BackColor = Color.Red;
+            }
+
+            if (comboBox17.SelectedIndex != -1)
+            {
+                panel33.BackColor = Color.Transparent;
+            }
+            else
+            {
+                panel33.BackColor = Color.Red;
+            }
+
+            temp_fill();
 
             maxtemp_calc();
 
             Updatek1();
             Updatekt();
 
+            SCLTEchanged();
+            Calc_k();
+
             enable_vd_btn();
             enable_result_btn();
+        }
+
+        private void temp_fill()
+        {
+            if (insulindex == 1)
+            {
+                comboBox16.Items.Clear();
+                comboBox16.Items.Insert(0, "25");
+                comboBox16.Items.Insert(1, "30");
+                comboBox16.Items.Insert(2, "35");
+                comboBox16.Items.Insert(3, "40");
+                comboBox16.Items.Insert(4, "45");
+                comboBox16.Items.Insert(5, "50");
+                comboBox16.Items.Insert(6, "55");
+            }
+            else if (insulindex == 2)
+            {
+                comboBox16.Items.Clear();
+                comboBox16.Items.Insert(0, "25");
+                comboBox16.Items.Insert(1, "30");
+                comboBox16.Items.Insert(2, "35");
+                comboBox16.Items.Insert(3, "40");
+                comboBox16.Items.Insert(4, "45");
+                comboBox16.Items.Insert(5, "50");
+                comboBox16.Items.Insert(6, "55");
+                comboBox16.Items.Insert(7, "60");
+                comboBox16.Items.Insert(8, "70");
+            }
+            else if (insulindex == 3)
+            {
+                comboBox16.Items.Clear();
+                comboBox16.Items.Insert(0, "25");
+                comboBox16.Items.Insert(1, "30");
+                comboBox16.Items.Insert(2, "35");
+                comboBox16.Items.Insert(3, "40");
+                comboBox16.Items.Insert(4, "45");
+                comboBox16.Items.Insert(5, "50");
+                comboBox16.Items.Insert(6, "55");
+                comboBox16.Items.Insert(7, "60");
+                comboBox16.Items.Insert(8, "70");
+                comboBox16.Items.Insert(9, "80");
+            }
+            else
+            {
+                comboBox16.Items.Clear();
+            }
         }
 
         private void maxtemp_calc()
@@ -990,85 +1198,146 @@ namespace Test1
 
         private void correctionfactor_fill()
         {
-            if (installation == "Raceways")
+            if (!radioButton7.Checked)
             {
-                comboBox18.SelectedIndex = -1;
-                comboBox19.SelectedIndex = -1;
-                comboBox20.SelectedIndex = -1;
-                comboBox18.Enabled = true;
-                comboBox19.Enabled = true;
-                comboBox20.Enabled = false;
-                label93.Text = "Ambient Temperature\nCorrection Factor";
-                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
-                label95.Text = "";
-                label93.Visible = true;
-                label94.Visible = true;
-                label95.Visible = false;
-                panel22.BackColor = Color.Transparent;
+                if (installation == "Raceways")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = true;
+                    comboBox20.Enabled = false;
+                    label93.Text = "Ambient Temperature\nCorrection Factor";
+                    label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                    label95.Text = "";
+                    label93.Visible = true;
+                    label94.Visible = true;
+                    label95.Visible = false;
+                    panel22.BackColor = Color.Transparent;
+                }
+                else if (installation == "Cable Tray / Ladder")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = true;
+                    label93.Text = "Ambient Temperature\nCorrection Factor";
+                    label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                    label95.Text = "Cable Tray/Ladder Cover\nCorrection Factor";
+                    label93.Visible = true;
+                    label94.Visible = true;
+                    label95.Visible = true;
+                    panel22.BackColor = Color.Transparent;
+                }
+                else if (installation == "Earth (Direct Buried)")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = false;
+                    label93.Text = "Ambient Temperature\nCorrection Factor";
+                    label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                    label95.Text = "";
+                    label93.Visible = true;
+                    label94.Visible = true;
+                    label95.Visible = false;
+                    panel22.BackColor = Color.Transparent;
+                }
+                else if (installation == "Free Air")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = false;
+                    label93.Text = "Ambient Temperature\nCorrection Factor";
+                    label94.Text = "No. of Grouped Conductor\nCorrection Factor";
+                    label95.Text = "";
+                    label93.Visible = true;
+                    label94.Visible = true;
+                    label95.Visible = false;
+                    panel22.BackColor = Color.Transparent;
+                }
+                else
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = false;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = false;
+                    label93.Text = "";
+                    label94.Text = "";
+                    label95.Text = "";
+                    label93.Visible = false;
+                    label94.Visible = false;
+                    label95.Visible = false;
+                    panel22.BackColor = Color.Red;
+                }
             }
-            else if (installation == "Cable Tray / Ladder")
+            else if(radioButton7.Checked)
             {
-                comboBox18.SelectedIndex = -1;
-                comboBox19.SelectedIndex = -1;
-                comboBox20.SelectedIndex = -1;
-                comboBox18.Enabled = true;
-                comboBox19.Enabled = false;
-                comboBox20.Enabled = true;
-                label93.Text = "Ambient Temperature\nCorrection Factor";
-                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
-                label95.Text = "Cable Tray/Ladder Cover\nCorrection Factor";
-                label93.Visible = true;
-                label94.Visible = true;
-                label95.Visible = true;
-                panel22.BackColor = Color.Transparent;
-            }
-            else if (installation == "Earth (Direct Buried)")
-            {
-                comboBox18.SelectedIndex = -1;
-                comboBox19.SelectedIndex = -1;
-                comboBox20.SelectedIndex = -1;
-                comboBox18.Enabled = true;
-                comboBox19.Enabled = false;
-                comboBox20.Enabled = false;
-                label93.Text = "Ambient Temperature\nCorrection Factor";
-                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
-                label95.Text = "";
-                label93.Visible = true;
-                label94.Visible = true;
-                label95.Visible = false;
-                panel22.BackColor = Color.Transparent;
-            }
-            else if (installation == "Free Air")
-            {
-                comboBox18.SelectedIndex = -1;
-                comboBox19.SelectedIndex = -1;
-                comboBox20.SelectedIndex = -1;
-                comboBox18.Enabled = true;
-                comboBox19.Enabled = false;
-                comboBox20.Enabled = false;
-                label93.Text = "Ambient Temperature\nCorrection Factor";
-                label94.Text = "No. of Grouped Conductor\nCorrection Factor";
-                label95.Text = "";
-                label93.Visible = true;
-                label94.Visible = true;
-                label95.Visible = false;
-                panel22.BackColor = Color.Transparent;
-            }
-            else
-            {
-                comboBox18.SelectedIndex = -1;
-                comboBox19.SelectedIndex = -1;
-                comboBox20.SelectedIndex = -1;
-                comboBox18.Enabled = false;
-                comboBox19.Enabled = false;
-                comboBox20.Enabled = false;
-                label93.Text = "";
-                label94.Text = "";
-                label95.Text = "";
-                label93.Visible = false;
-                label94.Visible = false;
-                label95.Visible = false;
-                panel22.BackColor = Color.Red;
+                if (installation == "Raceways")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = true;
+                    comboBox20.Enabled = false;
+                    
+                    panel22.BackColor = Color.Transparent;
+                }
+                else if (installation == "Cable Tray / Ladder")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = true;
+                    
+                    panel22.BackColor = Color.Transparent;
+                }
+                else if (installation == "Earth (Direct Buried)")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = false;
+                    
+                    panel22.BackColor = Color.Transparent;
+                }
+                else if (installation == "Free Air")
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = true;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = false;
+                    
+                    panel22.BackColor = Color.Transparent;
+                }
+                else
+                {
+                    comboBox18.SelectedIndex = -1;
+                    comboBox19.SelectedIndex = -1;
+                    comboBox20.SelectedIndex = -1;
+                    comboBox18.Enabled = false;
+                    comboBox19.Enabled = false;
+                    comboBox20.Enabled = false;
+                    
+                    panel22.BackColor = Color.Red;
+                }
             }
 
             if (comboBox18.Enabled == true)
@@ -1103,6 +1372,513 @@ namespace Test1
                 label91.Enabled = false;
                 panel36.BackColor = Color.Transparent;
             }
+            
+        }
+
+        private void calc_vd()
+        {
+            n = int.Parse(textBox12.Text);
+            complete = false;
+
+            if (initialTemp == 60)
+            {
+                insulindex = 1;
+            }
+            else if (initialTemp == 75)
+            {
+                insulindex = 2;
+            }
+            else if (initialTemp == 90)
+            {
+                insulindex = 3;
+            }
+            else
+            {
+                insulindex = 0;
+            }
+
+            while (!complete)
+            {
+                i = 0;
+                if (radioButton4.Checked) //vendor data
+                {
+                    if (material == "Copper")
+                    {
+                        if (conduit == "PVC")
+                        {
+                            while ((!complete) && (i < 21))
+                            {
+                                wirearea_nec = data_wirearea[i];
+                                wirearea_unit = data_wirearea_unit[i];
+                                if (phase == "DC")
+                                {
+                                    Rdc = data_electrical[i, 2];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    //diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    //diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    //diameter = ODxlpe2core[i, 3];
+                                }
+
+                                if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
+                                {
+                                    Irated = data_ampacity_racewaycableearth[i, (insulindex - 1)] * n;
+                                }
+                                else if (installation == "Free Air")
+                                {
+                                    Irated = data_ampacity_freeair[i, (insulindex - 1)] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi_vd();
+
+                                i++;
+                            }
+                        }
+                        else if (conduit == "Aluminium")
+                        {
+                            while ((!complete) && (i < 21))
+                            {
+                                wirearea_nec = data_wirearea[i];
+                                wirearea_unit = data_wirearea_unit[i];
+                                if (phase == "DC")
+                                {
+                                    Rdc = data_electrical[i, 3];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    //diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    //diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    //diameter = ODxlpe2core[i, 3];
+                                }
+
+                                if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
+                                {
+                                    Irated = data_ampacity_racewaycableearth[i, (insulindex - 1)] * n;
+                                }
+                                else if (installation == "Free Air")
+                                {
+                                    Irated = data_ampacity_freeair[i, (insulindex - 1)] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi_vd();
+
+                                i++;
+                            }
+                        }
+                        else if (conduit == "Steel")
+                        {
+                            while ((!complete) && (i < 21))
+                            {
+                                wirearea_nec = data_wirearea[i];
+                                wirearea_unit = data_wirearea_unit[i];
+                                if (phase == "DC")
+                                {
+                                    Rdc = data_electrical[i, 4];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    //diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    //diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    //diameter = ODxlpe2core[i, 3];
+                                }
+
+                                if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
+                                {
+                                    Irated = data_ampacity_racewaycableearth[i, (insulindex - 1)] * n;
+                                }
+                                else if (installation == "Free Air")
+                                {
+                                    Irated = data_ampacity_freeair[i, (insulindex - 1)] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi_vd();
+
+                                i++;
+                            }
+                        }
+                    }
+                    else if (material == "Aluminium")
+                    {
+                        if (insulindex == 1)
+                        {
+                            insulindex = 4;
+                        }
+                        else if (insulindex == 2)
+                        {
+                            insulindex = 5;
+                        }
+                        else if (insulindex == 3)
+                        {
+                            insulindex = 6;
+                        }
+
+                        if (conduit == "PVC")
+                        {
+                            while ((!complete) && (i < 21))
+                            {
+                                wirearea_nec = data_wirearea[i];
+                                wirearea_unit = data_wirearea_unit[i];
+                                if (phase == "DC")
+                                {
+                                    Rdc = data_electrical[i, 5];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    //diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    //diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    //diameter = ODxlpe2core[i, 3];
+                                }
+
+                                if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
+                                {
+                                    Irated = data_ampacity_racewaycableearth[i, (insulindex - 1)] * n;
+                                }
+                                else if (installation == "Free Air")
+                                {
+                                    Irated = data_ampacity_freeair[i, (insulindex - 1)] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi_vd();
+
+                                i++;
+                            }
+                        }
+                        else if (conduit == "Aluminium")
+                        {
+                            while ((!complete) && (i < 21))
+                            {
+                                wirearea_nec = data_wirearea[i];
+                                wirearea_unit = data_wirearea_unit[i];
+                                if (phase == "DC")
+                                {
+                                    Rdc = data_electrical[i, 6];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    //diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    //diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    //diameter = ODxlpe2core[i, 3];
+                                }
+
+                                if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
+                                {
+                                    Irated = data_ampacity_racewaycableearth[i, (insulindex - 1)] * n;
+                                }
+                                else if (installation == "Free Air")
+                                {
+                                    Irated = data_ampacity_freeair[i, (insulindex - 1)] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi_vd();
+
+                                i++;
+                            }
+                        }
+                        else if (conduit == "Steel")
+                        {
+                            while ((!complete) && (i < 21))
+                            {
+                                wirearea_nec = data_wirearea[i];
+                                wirearea_unit = data_wirearea_unit[i];
+                                if (phase == "DC")
+                                {
+                                    Rdc = data_electrical[i, 7];
+                                    vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                                }
+                                else //AC
+                                {
+
+                                }
+
+                                if (armour == "Non Armoured")
+                                {
+                                    //diameter = ODxlpe2core[i, 1];
+                                }
+                                else if (armour == "SWA")
+                                {
+                                    //diameter = ODxlpe2core[i, 2];
+                                }
+                                else if (armour == "DSTA")
+                                {
+                                    //diameter = ODxlpe2core[i, 3];
+                                }
+
+                                if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
+                                {
+                                    Irated = data_ampacity_racewaycableearth[i, (insulindex - 1)] * n;
+                                }
+                                else if (installation == "Free Air")
+                                {
+                                    Irated = data_ampacity_freeair[i, (insulindex - 1)] * n;
+                                }
+
+                                iderated = Irated * ktmain;
+
+                                cable_lte();
+
+                                // Validasi
+                                validasi_vd();
+
+                                i++;
+                            }
+                        }
+                    }
+
+                    if (!complete)
+                    {
+                        solvableOrNPlus_Vd();
+                    }
+                }
+                else if (radioButton3.Checked) //manual data
+                {
+                    while ((!complete) && (i < cableCount))
+                    {
+                        wirearea_nec = inputCableData[i, 0].ToString();
+                        wirearea_unit = "";
+
+                        if (phase == "DC")
+                        {
+                            Rdc = inputCableData[i, 2];
+                            Rac = 0;
+
+                            vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                        }
+                        else
+                        {
+                            Rac = inputCableData[i, 2];
+                            Rdc = 0;
+                            X = inputCableData[i, 3];
+
+                            if (phase == "Single-Phase AC")
+                            {
+                                vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if (loadtype == "Motor")
+                                {
+                                    vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                            }
+                            else if (phase == "Three-Phase AC")
+                            {
+                                vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if (loadtype == "Motor")
+                                {
+                                    vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                            }
+                        }
+
+                        Irated = inputCableData[i, 4];
+                        diameter = inputCableData[i, 5];
+
+                        iderated = Irated * ktmain;
+                        cable_lte();
+
+                        // Validasi
+                        validasi_vd();
+
+                        i++;
+                    }
+                    if (!complete)
+                    {
+                        solvableOrNPlus_Vd();
+                    }
+                }
+            }
+
+            if (inputValid)
+            {
+                textBox12.Text = n.ToString();
+                textBox8.Text = vdrun.ToString("0.##");
+                textBox29.Text = lmax.ToString("0.##");
+                textBox22.Text = cLTE.ToString("0.##");
+
+                if (material == "Copper")
+                {
+                    materialname = "Cu";
+                }
+                else if (material == "Aluminium")
+                {
+                    materialname = "Al";
+                }
+
+                if (loadtype == "Motor")
+                {
+                    textBox10.Text = vdstart.ToString("0.##");
+                }
+
+                readtemp = "";
+
+                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea_nec +
+                    " " + wirearea_unit + "    " + ratedvoltage + " / " + materialname + " / " + insulation;
+
+                if (armour != "Non Armoured")
+                {
+                    readtemp += " / " + armour;
+                }
+
+                readtemp += " / " + outersheath;
+
+                tbResult.Text = readtemp;
+
+                save_vd_result(); //belum nih
+
+                Update_size();
+
+                enable_save();
+                if (phase == "DC")
+                {
+                    textBox34.Text = Rdc.ToString("0.####");
+                    textBox33.Text = "";
+                }
+                else //AC
+                {
+                    textBox34.Text = Rac.ToString("0.####");
+                    textBox33.Text = X.ToString("0.####");
+                }
+                textBox32.Text = Irated.ToString("0.##");
+
+                label86.Visible = true;
+                timer1.Enabled = true;
+
+                //enable sc/lte panel
+                panel4.Enabled = true;
+
+                // reset s.c & breaker
+                textBox28.Text = "";
+                textBox23.Text = "";
+                textBox30.Text = "";
+                textBox20.Text = "";
+
+                comboBox12.SelectedIndex = -1;
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+                comboBox5.Enabled = false;
+                textBox12.ReadOnly = true;
+
+                button8.Enabled = true;
+                panel5.Enabled = false;
+                panel6.Enabled = false;
+
+                label87.Text = "Since Vd run is lower than Vd run max, therefore cable size of \n" + wirearea_nec + " " + wirearea_unit + "  is acceptable";
+                label87.Visible = true;
+                timer2.Enabled = true;
+            }
+            else
+            {
+                tbResult.Text = "Failed to get a suitable cable size";
+                button4.Enabled = false;
+                textBox8.Text = "";
+                textBox10.Text = "";
+                textBox29.Text = "";
+                textBox22.Text = "";
+            }
         }
 
         // calculate wire size based on vd and fl current
@@ -1114,7 +1890,7 @@ namespace Test1
             while (!complete)
             {
                 i = 0;
-                if (radioButton4.Checked)
+                if (radioButton4.Checked) //vendor data
                 {
                     if (insulation == "XLPE")
                     {
@@ -1595,12 +2371,13 @@ namespace Test1
                             "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         complete = true;
                     }
+
                     if (!complete)
                     {
                         solvableOrNPlus_Vd();
                     }
                 }
-                else if (radioButton3.Checked) //manual cable database input
+                else if (radioButton3.Checked) //manual data
                 {
                     while ((!complete) && (i < cableCount))
                     {
@@ -3082,6 +3859,8 @@ namespace Test1
             label93.Visible = false;
             label94.Visible = false;
             label95.Visible = false;
+
+            radioButton7.Checked = false;
         }
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
@@ -3180,46 +3959,186 @@ namespace Test1
                 k1main = 0;
             }
 
-            if ((textBox17.Text != "") && (textBox18.Text != ""))
+            /*
+            if (radioButton7.Checked)
             {
-                textBox19.Location = new Point(kttextboxX, kttextboxY);
-                label43.Location = new Point(ktlabelX, ktlabelY);
-                panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                if ((textBox17.Text != "") && (textBox18.Text != ""))
+                {
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text != "") && (k1main != 0))
+                {
+                    label43.Location = label80.Location;
+                    textBox19.Location = textBox36.Location;
+
+                    panel24.Location = new Point(textBox36.Location.X - 4, textBox36.Location.Y);
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+                }
+                else if (k1main == 0)
+                {
+                    k1main = 0;
+                    k2main = 0;
+                    k3main = 0;
+                    ktmain = 0;
+
+                    textBox18.Text = "";
+                    textBox36.Text = "";
+                    textBox19.Text = "";
+
+                    label43.Location = label42.Location;
+                    textBox19.Location = textBox18.Location;
+                    panel24.Location = new Point(textBox18.Location.X - 4, textBox18.Location.Y);
+
+                    textBox18.Visible = false;
+                    label42.Visible = false;
+                }
             }
-            else if ((textBox17.Text != "") && (radioButton7.Checked) && (k1main != 0))
-            {
-                label43.Location = label80.Location;
-                textBox19.Location = textBox36.Location;
+            */
 
-                panel24.Location = new Point(textBox36.Location.X - 4, textBox36.Location.Y);
+            UpdatePosition();
 
-                textBox18.Visible = true;
-                label42.Visible = true;
-            }
-            else if ((k1main == 0) && (radioButton7.Checked))
-            {
-                k1main = 0;
-                k2main = 0;
-                k3main = 0;
-                ktmain = 0;
-
-                textBox18.Text = "";
-                textBox36.Text = "";
-                textBox19.Text = "";
-
-                label43.Location = label42.Location;
-                textBox19.Location = textBox18.Location;
-                panel24.Location = new Point(textBox18.Location.X - 4, textBox18.Location.Y);
-
-                textBox18.Visible = false;
-                label42.Visible = false;
-            }
             Updatekt();
             enable_result_btn();
         }
 
+        private void UpdatePosition()
+        {
+            if (radioButton7.Checked)
+            {
+                if ((textBox17.Text != "") && (textBox18.Text != "") && (textBox36.Text != ""))
+                {
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = true;
+                    label80.Visible = true;
+
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text != "") && (textBox18.Text != "") && (textBox36.Text == ""))
+                {
+                    k3main = 0;
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = true;
+                    label80.Visible = true;
+
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text != ""))
+                {
+                    k2main = 0;
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = true;
+                    label80.Visible = true;
+
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text == ""))
+                {
+                    k2main = 0;
+                    k3main = 0;
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = false;
+                    label80.Visible = false;
+
+                    textBox19.Location = textBox36.Location;
+                    label43.Location = label80.Location;
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text != "") && (textBox36.Text != ""))
+                {
+                    k1main = 0;
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = true;
+                    label80.Visible = true;
+
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text != "") && (textBox36.Text == ""))
+                {
+                    k1main = 0;
+                    k3main = 0;
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = true;
+                    label80.Visible = true;
+
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text != ""))
+                {
+                    k1main = 0;
+                    k2main = 0;
+
+                    textBox18.Visible = true;
+                    label42.Visible = true;
+
+                    textBox36.Visible = true;
+                    label80.Visible = true;
+
+                    textBox19.Location = new Point(kttextboxX, kttextboxY);
+                    label43.Location = new Point(ktlabelX, ktlabelY);
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == ""))
+                {
+                    k1main = 0;
+                    k2main = 0;
+                    k3main = 0;
+
+                    textBox18.Visible = false;
+                    label42.Visible = false;
+
+                    textBox36.Visible = false;
+                    label80.Visible = false;
+
+                    textBox19.Location = textBox18.Location;
+                    label43.Location = label42.Location;
+                    panel24.Location = new Point(textBox19.Location.X - 4, textBox19.Location.Y);
+                }
+            }
+        }
+
         private void TextBox18_TextChanged(object sender, EventArgs e)
         {
+            if (textBox18.Text != "")
+            {
+                k2main = double.Parse(textBox18.Text);
+            }
+            else
+            {
+                k2main = 0;
+            }
+
+            /*
             if ((textBox18.Text != "") && (radioButton7.Checked))
             {
                 k2main = double.Parse(textBox18.Text);
@@ -3242,9 +4161,11 @@ namespace Test1
 
                 textBox36.Visible = false;
                 label80.Visible = false;
-
-
             }
+            */
+
+            UpdatePosition();
+
             Updatekt();
             enable_result_btn();
         }
@@ -3259,6 +4180,7 @@ namespace Test1
             {
                 panel24.BackColor = Color.Red;
             }
+
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3288,22 +4210,43 @@ namespace Test1
                 {
                     ktmain = k1main * k2main;
                 }
+                else if ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text != ""))
+                {
+                    ktmain = k1main * k3main;
+                }
                 else if ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text == ""))
                 {
                     ktmain = k1main;
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text != "") && (textBox36.Text != ""))
+                {
+                    ktmain = k2main * k3main;
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text != "") && (textBox36.Text == ""))
+                {
+                    ktmain = k2main;
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text != ""))
+                {
+                    ktmain = k3main;
+                }
+                else if ((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == ""))
+                {
+                    ktmain = 0;
+                }
+
+
+                if (ktmain != 0)
+                {
+                    textBox19.Text = ktmain.ToString("0.##");
                 }
                 else
                 {
                     textBox19.Text = "";
                 }
 
-                if (ktmain != 0)
-                {
-                    textBox19.Text = ktmain.ToString("0.##");
-                }
-
             }
-            else //radiobutton7 unchecked
+            else if (!radioButton7.Checked)
             {
                 if (installation == "Raceways")
                 {
@@ -3943,11 +4886,17 @@ namespace Test1
 
         private void TextBox36_TextChanged(object sender, EventArgs e)
         {
-            if((textBox36.Text != "") && (radioButton7.Checked))
+            if (textBox36.Text != "")
             {
                 k3main = double.Parse(textBox36.Text);
             }
-             
+            else
+            {
+                k3main = 0;
+            }
+
+            UpdatePosition();
+
             Updatekt();
             enable_result_btn();
         }
@@ -4661,7 +5610,8 @@ namespace Test1
                 Updatek1();
                 Updatek2();
                 Updatek3();
-                Updatekt();
+
+                correctionfactor_fill();
 
                 textBox17.ReadOnly = true;
                 textBox18.ReadOnly = true;
@@ -4696,7 +5646,8 @@ namespace Test1
                 textBox18.ReadOnly = false;
                 textBox36.ReadOnly = false;
 
-                if ((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == ""))
+                if (((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == "")) || 
+                    ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text == "")))
                 {
                     label42.Visible = false;
                     label80.Visible = false;
@@ -4719,6 +5670,9 @@ namespace Test1
                 */
 
             }
+
+
+            Updatekt();
         }
 
         private void RadioButton7_Click(object sender, EventArgs e)
@@ -4845,7 +5799,7 @@ namespace Test1
 
         private void ComboBox16_SelectedIndexChanged(object sender, EventArgs e)
         {
-            tempindex = comboBox16.SelectedIndex + 1;
+            
 
             if (comboBox16.SelectedIndex != -1)
             {
@@ -4864,24 +5818,7 @@ namespace Test1
             enable_result_btn();
         }
 
-        private void ComboBox17_TextChanged(object sender, EventArgs e)
-        {
-            if (comboBox17.Text != "")
-            {
-                initialTemp = double.Parse(comboBox17.Text);
-                panel33.BackColor = Color.Transparent;
-                comboBox16.Enabled = true;
-            }
-            else
-            {
-                initialTemp = 0;
-                panel33.BackColor = Color.Red;
-                comboBox16.Enabled = false;
-            }
-            SCLTEchanged();
-            Calc_k();
-            enable_result_btn();
-        }
+        
 
 
         private void ComboBox17_SelectedIndexChanged(object sender, EventArgs e)
@@ -4909,6 +5846,8 @@ namespace Test1
                 panel33.BackColor = Color.Red;
                 comboBox16.Enabled = false;
             }
+
+            temp_fill();
 
             maxtemp_calc();
 
@@ -4941,45 +5880,45 @@ namespace Test1
 
         private void Updatek2()
         {
-            if (comboBox18.SelectedIndex == 0)
+            if (!radioButton7.Checked)
             {
-                k2main = 1;
-            }
-            else if (comboBox18.SelectedIndex == 1)
-            {
-                k2main = 0.8;
-            }
-            else if (comboBox18.SelectedIndex == 2)
-            {
-                k2main = 0.7;
-            }
-            else if (comboBox18.SelectedIndex == 3)
-            {
-                k2main = 0.5;
-            }
-            else if (comboBox18.SelectedIndex == 4)
-            {
-                k2main = 0.45;
-            }
-            else if (comboBox18.SelectedIndex == 5)
-            {
-                k2main = 0.4;
-            }
-            else if (comboBox18.SelectedIndex == 6)
-            {
-                k2main = 0.35;
-            }
-            else
-            {
-                k2main = 0;
+                if (comboBox18.SelectedIndex == 0)
+                {
+                    k2main = 1;
+                }
+                else if (comboBox18.SelectedIndex == 1)
+                {
+                    k2main = 0.8;
+                }
+                else if (comboBox18.SelectedIndex == 2)
+                {
+                    k2main = 0.7;
+                }
+                else if (comboBox18.SelectedIndex == 3)
+                {
+                    k2main = 0.5;
+                }
+                else if (comboBox18.SelectedIndex == 4)
+                {
+                    k2main = 0.45;
+                }
+                else if (comboBox18.SelectedIndex == 5)
+                {
+                    k2main = 0.4;
+                }
+                else if (comboBox18.SelectedIndex == 6)
+                {
+                    k2main = 0.35;
+                }
+                else
+                {
+                    k2main = 0;
+                }
             }
         }
 
         private void ComboBox19_SelectedIndexChanged(object sender, EventArgs e)
         {
-            Updatek1();
-            Updatekt();
-
             if (comboBox19.SelectedIndex != -1)
             {
                 panel35.BackColor = Color.Transparent;
@@ -4988,10 +5927,15 @@ namespace Test1
             {
                 panel35.BackColor = Color.Red;
             }
+
+            Updatek1();
+            Updatekt();
         }
 
         private void Updatek1()
         {
+            tempindex = comboBox16.SelectedIndex + 1;
+
             if (comboBox16.Text != "")
             {
                 temperature = double.Parse(comboBox16.Text);
@@ -5001,81 +5945,150 @@ namespace Test1
                 temperature = 0;
             }
 
-            if (comboBox19.SelectedIndex == 0)
+            if (!radioButton7.Checked)
             {
-                temperature = temperature + 33;
-            }
-            else if (comboBox19.SelectedIndex == 1)
-            {
-                temperature = temperature + 22;
-            }
-            else if (comboBox19.SelectedIndex == 2)
-            {
-                temperature = temperature + 17;
-            }
-            else if (comboBox19.SelectedIndex == 3)
-            {
-                temperature = temperature + 14;
-            }
-            else
-            {
-                if (comboBox16.Text != "")
+                if (comboBox16.SelectedIndex != -1)
                 {
-                    temperature = double.Parse(comboBox16.Text);
+                    if (comboBox19.SelectedIndex != -1)
+                    {
+                        if (comboBox19.SelectedIndex == 0)
+                        {
+                            temperature = temperature + 0;
+                        }
+                        else if (comboBox19.SelectedIndex == 1)
+                        {
+                            temperature = temperature + 33;
+                        }
+                        else if (comboBox19.SelectedIndex == 2)
+                        {
+                            temperature = temperature + 22;
+                        }
+                        else if (comboBox19.SelectedIndex == 3)
+                        {
+                            temperature = temperature + 17;
+                        }
+                        else if (comboBox19.SelectedIndex == 4)
+                        {
+                            temperature = temperature + 14;
+                        }
+
+                        
+                        if (temperature <= 25)
+                        {
+                            tempindex = 1;
+                        }
+                        else if (temperature <= 30)
+                        {
+                            tempindex = 2;
+                        }
+                        else if (temperature <= 35)
+                        {
+                            tempindex = 3;
+                        }
+                        else if (temperature <= 40)
+                        {
+                            tempindex = 4;
+                        }
+                        else if (temperature <= 45)
+                        {
+                            tempindex = 5;
+                        }
+                        else if (temperature <= 50)
+                        {
+                            tempindex = 6;
+                        }
+                        else if (temperature <= 55)
+                        {
+                            tempindex = 7;
+                        }
+                        else if (temperature <= 60)
+                        {
+                            tempindex = 8;
+                        }
+                        else if (temperature <= 70)
+                        {
+                            tempindex = 9;
+                        }
+                        else if (temperature <= 80)
+                        {
+                            tempindex = 10;
+                        }
+                        
+                    }
                 }
-                else
+
+                
+
+                if ((insulindex != 0) && (tempindex != 0))
                 {
-                    temperature = 0;
+                    if (temperature > maxtemp)
+                    {
+                        MessageBox.Show("Temperature + added temperature can't be greater than " + maxtemp + " °C !", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        comboBox16.SelectedIndex = -1;
+                        comboBox19.SelectedIndex = -1;
+                        k1main = 0;
+                        tempindex = comboBox16.SelectedIndex + 1;
+                    }
+                    else
+                    {
+                        k1main = correctionfactor_temperature[(tempindex - 1), (insulindex - 1)];
+                    }
                 }
             }
 
-            if ((insulindex != 0) && (tempindex != 0))
-            {
-                if (temperature > maxtemp)
-                {
-                    MessageBox.Show("Temperature + added temperature can't be greater than " + maxtemp + " °C !", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    comboBox16.SelectedIndex = -1;
-                    comboBox19.SelectedIndex = -1;
-                    k1main = 0;
-                }
-                else
-                {
-                    k1main = correctionfactor_temperature[(tempindex - 1), (insulindex - 1)];
-                }
-            }
         }
 
         private void ComboBox20_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox20.SelectedIndex == 0)
+            if (comboBox20.SelectedIndex != -1)
             {
-                k3main = 1;
-                panel36.BackColor = Color.Transparent;
-            }
-            else if (comboBox20.SelectedIndex == 1)
-            {
-                Updatek3();
                 panel36.BackColor = Color.Transparent;
             }
             else
             {
-                k3main = 0;
                 panel36.BackColor = Color.Red;
             }
+
+            Updatek3();
             Updatekt();
+        }
+
+        private void ComboBox21_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (comboBox21.SelectedIndex != -1)
+            {
+                conduit = comboBox21.Text;
+                panel37.BackColor = Color.Transparent;
+            }
+            else
+            {
+                conduit = "";
+                panel37.BackColor = Color.Red;
+            }
         }
 
         private void Updatek3()
         {
-            if (comboBox20.SelectedIndex != -1)
+            if (!radioButton7.Checked)
             {
-                if (length >= 6)
+                if (comboBox20.SelectedIndex == 0)
                 {
-                    k3main = 0.95;
+                    k3main = 1;
+                }
+                else if (comboBox20.SelectedIndex == 1)
+                {
+                    if (length >= 6)
+                    {
+                        k3main = 0.95;
+                    }
+                    else
+                    {
+                        k3main = 1;
+                    }
                 }
                 else
                 {
-                    k3main = 1;
+                    k3main = 0;
                 }
             }
         }
