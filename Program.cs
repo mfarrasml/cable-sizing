@@ -39,7 +39,7 @@ namespace Test1
                 Thread.CurrentThread.CurrentCulture = culture;
             }
 
-            Application.Run(new Form9());
+            Application.Run(new OpenForm());
 
             
         }

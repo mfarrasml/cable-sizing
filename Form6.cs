@@ -104,7 +104,7 @@ namespace Test1
                 Form1.cableCount = cablecount;
                 okclicked = true;
                 PrevCable();
-                this.Close();
+                Close();
             }
             else
             {

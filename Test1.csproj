@@ -150,6 +150,12 @@
     <Compile Include="IntegerTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="OpenForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="OpenForm.Designer.cs">
+      <DependentUpon>OpenForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource1.Designer.cs">
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FSettings.resx">
       <DependentUpon>FSettings.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="OpenForm.resx">
+      <DependentUpon>OpenForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -233,6 +242,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Iconsmind-Outline-Power-Cable.ico" />
+    <None Include="Resources\Return_16x.png" />
+    <None Include="Resources\Forward_16x.png" />
+    <None Include="Resources\Next_16x1.png" />
+    <None Include="Resources\Next_16x.png" />
+    <None Include="Resources\icons8-delete-16.png" />
+    <None Include="Resources\icons8-delete-32.png" />
+    <None Include="Resources\Close_12x_16x.png" />
+    <None Include="Resources\Close_16x.png" />
     <None Include="Resources\DeleteTable_16x.png" />
     <None Include="Resources\DeleteTableRow_16x.png" />
     <None Include="Resources\iconfinder_arrow-down-circle_3313573 %283%29.png" />
