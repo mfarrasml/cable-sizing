@@ -60,7 +60,6 @@ namespace Test1
         double breakcurrent;
 
         public static double k1main, k2main, k3main, ktmain;
-        public static bool ok_clicked, okSetClicked;
 
         bool complete, inputValid;
         int i = 0;
@@ -95,9 +94,6 @@ namespace Test1
         FSettings fSettings = new FSettings();
 
         public static string[] results = new string[38];
-
-        public static char decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
-        public static bool decimalSeparatorChanged = false;
 
         public static double[,] inputCableData;
         public static int cableCount;
@@ -947,8 +943,77 @@ namespace Test1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            OpenForm.formMainClose = false;
             comboBox8.Text = "PVC";
+            if (Form5.f7.IsDisposed)
+            {
+                Form5.f7 = new Form7();
+            }
+
+            //set new dtdiameter everytime this form is loaded
+            dtdiameter = new DataTable();
+            dtdiameter.TableName = "Data";
+
+            //set dtdiameter columns
             dtdiameter.Columns.Add("Diameter");
+            dtdiameter.Columns.Add("TagNo");
+            dtdiameter.Columns.Add("From");
+            dtdiameter.Columns.Add("FromDesc");
+            dtdiameter.Columns.Add("To");
+            dtdiameter.Columns.Add("ToDesc");
+            dtdiameter.Columns.Add("Phase");
+            dtdiameter.Columns.Add("LoadType");
+            dtdiameter.Columns.Add("VoltageSystem");
+            dtdiameter.Columns.Add("CurrentButton");
+            dtdiameter.Columns.Add("cbPower");
+            dtdiameter.Columns.Add("Power");
+            dtdiameter.Columns.Add("Current");
+            dtdiameter.Columns.Add("Voltage");
+            dtdiameter.Columns.Add("Efficiency");
+            dtdiameter.Columns.Add("PF");
+            dtdiameter.Columns.Add("PFStart");
+            dtdiameter.Columns.Add("Multiplier");
+            dtdiameter.Columns.Add("RatedVoltage");
+            dtdiameter.Columns.Add("Material");
+            dtdiameter.Columns.Add("Insulation");
+            dtdiameter.Columns.Add("Armour");
+            dtdiameter.Columns.Add("OutherSheath");
+            dtdiameter.Columns.Add("Installation");
+            dtdiameter.Columns.Add("DeratingButton");
+            dtdiameter.Columns.Add("K1");
+            dtdiameter.Columns.Add("K2");
+            dtdiameter.Columns.Add("K3");
+            dtdiameter.Columns.Add("Kt");
+            dtdiameter.Columns.Add("Length");
+            dtdiameter.Columns.Add("VdRunMax");
+            dtdiameter.Columns.Add("VdStartMax");
+            dtdiameter.Columns.Add("CablePropButton");
+            dtdiameter.Columns.Add("VdRun");
+            dtdiameter.Columns.Add("VdStart");
+            dtdiameter.Columns.Add("Lmax");
+            dtdiameter.Columns.Add("N");
+            dtdiameter.Columns.Add("Cores");
+            dtdiameter.Columns.Add("WireArea");
+            dtdiameter.Columns.Add("Rac");
+            dtdiameter.Columns.Add("X");
+            dtdiameter.Columns.Add("Irated");
+            dtdiameter.Columns.Add("Iderated");
+            dtdiameter.Columns.Add("SCOrLTE");
+            dtdiameter.Columns.Add("SCCurrent");
+            dtdiameter.Columns.Add("TBreak");
+            dtdiameter.Columns.Add("InitialTemp");
+            dtdiameter.Columns.Add("FinalTemp");
+            dtdiameter.Columns.Add("CLTE");
+            dtdiameter.Columns.Add("BreakerType");
+            dtdiameter.Columns.Add("BreakerBtn");
+            dtdiameter.Columns.Add("SCRating");
+            dtdiameter.Columns.Add("BreakNominalCurrent");
+            dtdiameter.Columns.Add("BLTE");
+            dtdiameter.Columns.Add("i");
+
+
+            //load saved/default settings
+            decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
 
             cbPower.Text = "kW";
@@ -4350,12 +4415,26 @@ namespace Test1
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            OpenForm.formMainClose = true;
+            if (OpenForm.ReturnToTitle) //return to title menu is clicked --> return to title form (OpenForm)
+            {
+                f5.Close();
+            }
+            else //exit/close button clicked --> close Entire App
+            {
+                Application.Exit();
+            }
             if (Form5.cancelexit)
             {
                 e.Cancel = true;
                 Form5.cancelexit = false;
+                OpenForm.ReturnToTitle = false;
             }
+            else
+            {
+                Properties.Settings.Default.Save();
+            }
+            OpenForm.formMainClose = false;
         }
 
         private void TextBox31_TextChanged(object sender, EventArgs e)
@@ -4467,13 +4546,13 @@ namespace Test1
         }
         private void fSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (decimalSeparatorChanged && okSetClicked)
+            if (decimalSeparatorChanged && Form1.okSetClicked)
             {
                 refreshInputData();
                 refreshDataTable();
                 decimalSeparatorChanged = false;
             }
-            okSetClicked = false;
+            Form1.okSetClicked = false;
         }
 
         //change decimal separator of data in data table based on the new selected decimal separator
@@ -6065,6 +6144,12 @@ namespace Test1
                 conduit = "";
                 panel37.BackColor = Color.Red;
             }
+        }
+
+        private void ReturnToTitleToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm.ReturnToTitle = true;
+            Close();
         }
 
         private void Updatek3()

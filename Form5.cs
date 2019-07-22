@@ -42,7 +42,7 @@ namespace Test1
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if ((e.CloseReason == CloseReason.UserClosing) && !Form1.form1Close)
+            if ((e.CloseReason == CloseReason.UserClosing) && !OpenForm.formMainClose)
             {
                 e.Cancel = true;
                 Hide();

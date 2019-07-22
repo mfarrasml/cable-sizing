@@ -123,7 +123,7 @@ namespace Test1
         private void Button2_Click(object sender, EventArgs e)
         {
             cancelSave();
-            this.Close();
+            Close();
         }
 
         private void cancelSave()

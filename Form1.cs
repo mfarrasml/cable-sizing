@@ -100,7 +100,7 @@ namespace Test1
         int tempCurrentRow;
 
         int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
-        public static bool form1Close;
+        
         DataRow dtr;
 
         public Form1()
@@ -774,7 +774,7 @@ namespace Test1
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            form1Close = false;
+            OpenForm.formMainClose = false;
 
             comboBox8.Text = "PVC";
 
@@ -3262,7 +3262,7 @@ namespace Test1
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            form1Close = true;
+            OpenForm.formMainClose = true;
             if (OpenForm.ReturnToTitle) //return to title menu is clicked --> return to title form (OpenForm)
             {
                 f5.Close();
@@ -3281,7 +3281,7 @@ namespace Test1
             {
                 Properties.Settings.Default.Save();
             }
-            form1Close = false;
+            OpenForm.formMainClose = false;
         }
 
         private void TextBox31_TextChanged(object sender, EventArgs e)

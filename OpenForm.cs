@@ -14,8 +14,10 @@ namespace Test1
 
     public partial class OpenForm : Form
     {
-
-        public static bool ReturnToTitle = false;
+        //variable to indicate if application should return to title (this OpenForm) or not
+        public static bool ReturnToTitle = false; 
+        //variable to indicate if main application (Form1 or Form9) is closed
+        public static bool formMainClose;
 
         public OpenForm()
         {
