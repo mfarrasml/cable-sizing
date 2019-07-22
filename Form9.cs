@@ -508,18 +508,18 @@ namespace Test1
 
         private void TextBox1_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((TextBox1.Text == "") && (e.KeyChar == decimalseparator))
+            if ((TextBox1.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -527,18 +527,18 @@ namespace Test1
 
         private void TextBox2_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox2.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox2.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -546,18 +546,18 @@ namespace Test1
 
         private void TextBox3_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox3.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox3.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -565,18 +565,18 @@ namespace Test1
 
         private void TextBox6_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox6.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox6.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -584,36 +584,36 @@ namespace Test1
 
         private void TextBox8_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox8.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox8.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
         }
         private void TextBox9_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox9.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox9.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -621,18 +621,18 @@ namespace Test1
 
         private void TextBox10_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox10.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox10.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -640,18 +640,18 @@ namespace Test1
 
         private void TextBox11_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox11.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox11.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -1013,7 +1013,7 @@ namespace Test1
 
 
             //load saved/default settings
-            decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
 
             cbPower.Text = "kW";
@@ -1021,26 +1021,6 @@ namespace Test1
 
         }
 
-        /*
-        private void TextBox15_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
-            {
-                e.Handled = true;
-            }
-
-            if ((textBox15.Text == "") && (e.KeyChar == decimalseparator))
-            {
-                e.Handled = true;
-            }
-
-            // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
-            {
-                e.Handled = true;
-            }
-        }
-        */
 
         private void Button1_Click(object sender, EventArgs e)
         {
@@ -3522,18 +3502,18 @@ namespace Test1
 
         private void TextBox4_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox4.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox4.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -3541,18 +3521,18 @@ namespace Test1
 
         private void TextBox14_KeyPress_1(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox14.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox14.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -3560,18 +3540,18 @@ namespace Test1
 
         private void TextBox5_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox5.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox5.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -3606,18 +3586,18 @@ namespace Test1
 
         private void TextBox23_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox23.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox23.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -3753,18 +3733,18 @@ namespace Test1
 
         private void ComboBox11_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((comboBox11.Text == "") && (e.KeyChar == decimalseparator))
+            if ((comboBox11.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as ComboBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as ComboBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -3951,18 +3931,18 @@ namespace Test1
 
         private void TextBox25_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox25.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox25.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -3996,18 +3976,18 @@ namespace Test1
 
         private void TextBox28_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox28.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox28.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -4546,11 +4526,11 @@ namespace Test1
         }
         private void fSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (decimalSeparatorChanged && Form1.okSetClicked)
+            if (Form1.decimalSeparatorChanged && Form1.okSetClicked)
             {
                 refreshInputData();
                 refreshDataTable();
-                decimalSeparatorChanged = false;
+                Form1.decimalSeparatorChanged = false;
             }
             Form1.okSetClicked = false;
         }
@@ -4565,7 +4545,7 @@ namespace Test1
                     if (((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 23)) ||
                        ((k >= 25) && (k <= 36))))
                     {
-                        if (decimalseparator == '.')
+                        if (Form1.decimalseparator == '.')
                         {
                             f5.dataGridView1.Rows[i].Cells[k].Value = Convert.ToString(f5.dataGridView1.Rows[i].Cells[k].Value).Replace(',', '.');
                         }
@@ -4579,7 +4559,7 @@ namespace Test1
 
             foreach (DataRow row in dtdiameter.Rows)
             {
-                if (decimalseparator == ',')
+                if (Form1.decimalseparator == ',')
                 {
                     row[0] = Convert.ToString(row[0]).Replace('.', ',');
                 }
@@ -4759,18 +4739,18 @@ namespace Test1
 
         private void TextBox20_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox20.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox20.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -4983,18 +4963,18 @@ namespace Test1
 
         private void TextBox17_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox17.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox17.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -5002,18 +4982,18 @@ namespace Test1
 
         private void TextBox18_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox18.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox18.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -5021,18 +5001,18 @@ namespace Test1
 
         private void TextBox36_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox36.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox36.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
@@ -6204,18 +6184,18 @@ namespace Test1
 
         private void TextBox24_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != decimalseparator))
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
-            if ((textBox24.Text == "") && (e.KeyChar == decimalseparator))
+            if ((textBox24.Text == "") && (e.KeyChar == Form1.decimalseparator))
             {
                 e.Handled = true;
             }
 
             // only allow one decimal point
-            if ((e.KeyChar == decimalseparator) && ((sender as TextBox).Text.IndexOf(decimalseparator) > -1))
+            if ((e.KeyChar == Form1.decimalseparator) && ((sender as TextBox).Text.IndexOf(Form1.decimalseparator) > -1))
             {
                 e.Handled = true;
             }
