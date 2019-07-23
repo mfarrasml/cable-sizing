@@ -28,6 +28,10 @@ namespace Test1
 
         string[] arrTemp = new string[39];
 
+        public static bool toolbarTextActivated;
+
+        FSettings fSettings = new FSettings();
+
         public Form5()
         {
             InitializeComponent();
@@ -38,6 +42,27 @@ namespace Test1
         private void Form5_Load(object sender, EventArgs e)
         {
             dataGridView1.DoubleBuffered(true);
+
+            toolbarTextActivated = Properties.Settings.Default.ToolbarTextProperties;
+            //set toolbar text status based on saved settings
+            if (toolbarTextActivated)
+            {
+                btnUp.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                btnDown.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                btnDelete.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                btnDeleteAll.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                editRow.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                clipboardCopy.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            }
+            else
+            {
+                btnUp.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                btnDown.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                btnDeleteAll.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                editRow.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                clipboardCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            }
         }
 
         private void Form5_FormClosing(object sender, FormClosingEventArgs e)
@@ -103,44 +128,63 @@ namespace Test1
 
         private void DataGridView1_SelectionChanged(object sender, EventArgs e)
         {
+            ToolsAndButtonsEnabler();
+        }
+
+        private void ToolsAndButtonsEnabler()
+        {
             if ((dataGridView1.CurrentCell != null) && (dataGridView1.CurrentCell.Selected))
             {
-                btnDelete.Enabled = true;
-                editRow.Enabled = true;
                 currentrow = dataGridView1.CurrentCell.RowIndex;
+
+                //enable row delete
+                btnDelete.Enabled = true;
+                deleteRowToolStripMenuItem.Enabled = true;
+
+                //enable row edit
+                editRow.Enabled = true;
+                editRowDataToolStripMenuItem.Enabled = true;
 
                 //turn btnUp on/off
                 if (currentrow > 0)
                 {
                     btnUp.Enabled = true;
+                    moveRowUpToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
                     btnUp.Enabled = false;
+                    moveRowUpToolStripMenuItem.Enabled = false;
                 }
 
                 //turn btnDown on/off
                 if (currentrow < Form1.j)
                 {
                     btnDown.Enabled = true;
+                    moveRowDownToolStripMenuItem.Enabled = true;
                 }
                 else
                 {
                     btnDown.Enabled = false;
+                    moveRowDownToolStripMenuItem.Enabled = false;
                 }
             }
             else
             {
                 btnDelete.Enabled = false;
+                deleteRowToolStripMenuItem.Enabled = false;
                 editRow.Enabled = false;
+                editRowDataToolStripMenuItem.Enabled = false;
                 btnUp.Enabled = false;
                 btnDown.Enabled = false;
             }
-
-
+        }
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            CopyAll();
         }
 
-        private void Button2_Click(object sender, EventArgs e)
+        private void CopyAll()
         {
             if (Form1.j > -1)
             {
@@ -155,6 +199,7 @@ namespace Test1
                 Clipboard.Clear();
             }
         }
+
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -484,6 +529,11 @@ namespace Test1
 
         private void Button4_Click(object sender, EventArgs e)
         {
+            Print_Table();
+        }
+
+        private void Print_Table()
+        {
             DGVPrinter printer = new DGVPrinter();
 
             printer.Title = "Cable Sizing Result";
@@ -653,15 +703,26 @@ namespace Test1
 
         private void BtnDeleteAll_Click(object sender, EventArgs e)
         {
+            DeleteAll();
+            Update_summary();
+        }
+
+        private void DeleteAll()
+        {
             DialogResult dialogResult = MessageBox.Show("Delete all data?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (dialogResult == DialogResult.Yes)
             {
                 clearTable();
             }
-            Update_summary();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            DeleteRow();
+            Update_summary();
+        }
+
+        private void DeleteRow()
         {
             if (dataGridView1.CurrentCell.Selected)
             {
@@ -672,61 +733,43 @@ namespace Test1
                     dataGridView1.Rows[i].Cells[0].Value = i + 1;
                 }
                 Form1.j--;
-
-
             }
-            if ((dataGridView1.CurrentCell != null) && dataGridView1.CurrentCell.Selected)
-            {
-                btnDelete.Enabled = true;
-                //turn btnUp on/off
-                if (currentrow > 0)
-                {
-                    btnUp.Enabled = true;
-                }
-                else
-                {
-                    btnUp.Enabled = false;
-                }
-
-                //turn btnDown on/off
-                if (currentrow < Form1.j)
-                {
-                    btnDown.Enabled = true;
-                }
-                else
-                {
-                    btnDown.Enabled = false;
-                }
-            }
-            else
-            {
-                btnDelete.Enabled = false;
-                btnUp.Enabled = false;
-                btnDown.Enabled = false;
-            }
-            Update_summary();
+            // revalidate buttons/toolbar menu enabled status
+            ToolsAndButtonsEnabler();
         }
 
         private void BtnUp_Click(object sender, EventArgs e)
+        {
+            EditRowUp();
+        }
+
+        private void EditRowUp()
         {
             if (currentrow > 0)
             {
                 RowUp();
             }
-
             //turn btnUp on/off
             if (dataGridView1.CurrentCell.RowIndex > 0)
             {
                 btnUp.Enabled = true;
+                moveRowUpToolStripMenuItem.Enabled = true;
             }
             else
             {
                 btnUp.Enabled = false;
+                moveRowUpToolStripMenuItem.Enabled = false;
             }
+
             Update_summary();
         }
 
         private void BtnDown_Click(object sender, EventArgs e)
+        {
+            EditRowDown();
+        }
+
+        private void EditRowDown()
         {
             if (currentrow < Form1.j)
             {
@@ -737,10 +780,12 @@ namespace Test1
             if (dataGridView1.CurrentCell.RowIndex < Form1.j)
             {
                 btnDown.Enabled = true;
+                moveRowDownToolStripMenuItem.Enabled = true;
             }
             else
             {
                 btnDown.Enabled = false;
+                moveRowDownToolStripMenuItem.Enabled = false;
             }
             Update_summary();
         }
@@ -748,6 +793,92 @@ namespace Test1
         private void SummaryToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenSummary();
+        }
+
+        private void ClipboardCopy_Click(object sender, EventArgs e)
+        {
+            CopyAll();
+        }
+
+        private void MoveRowUpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditRowUp();
+        }
+
+        private void MoveRowDownToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            EditRowDown();
+        }
+
+        private void DeleteRowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteRow();
+            Update_summary();
+        }
+
+        private void DeleteAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DeleteAll();
+            Update_summary();
+        }
+
+        private void CopyToClipboardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CopyAll();
+        }
+
+        private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (toolStrip1.Visible)
+            {
+                toolStrip1.Visible = false;
+                showToolStripMenuItem.Text = "Show Toolbar";
+            }
+            else //toolstrip1 is close (!visible)
+            {
+                toolStrip1.Visible = true;
+                showToolStripMenuItem.Text = "Hide Toolbar";
+            }
+        }
+
+        private void ToolbarMenuDescriptionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ChangeToolbarTextStatus();
+        }
+
+        private void ChangeToolbarTextStatus()
+        {
+            if (toolbarTextActivated)
+            {
+                toolbarTextActivated = false;
+                btnUp.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                btnDown.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                btnDeleteAll.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                editRow.DisplayStyle = ToolStripItemDisplayStyle.Image;
+                clipboardCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            }
+            else
+            {
+                toolbarTextActivated = true;
+                btnUp.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                btnDown.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                btnDelete.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                btnDeleteAll.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                editRow.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+                clipboardCopy.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
+            }
+            Properties.Settings.Default.ToolbarTextProperties = toolbarTextActivated;
+        }
+
+        private void PrintToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Print_Table();
+        }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

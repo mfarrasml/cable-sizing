@@ -47,5 +47,10 @@ namespace Test1
                 Clipboard.Clear();
             }
         }
+
+        private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

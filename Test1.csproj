@@ -141,6 +141,12 @@
     <Compile Include="Form9.Designer.cs">
       <DependentUpon>Form9.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAbout.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAbout.Designer.cs">
+      <DependentUpon>FormAbout.cs</DependentUpon>
+    </Compile>
     <Compile Include="FSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -192,6 +198,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form9.resx">
       <DependentUpon>Form9.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAbout.resx">
+      <DependentUpon>FormAbout.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FSettings.resx">
       <DependentUpon>FSettings.cs</DependentUpon>
@@ -245,6 +254,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Iconsmind-Outline-Power-Cable.ico" />
+    <None Include="Resources\power-vector-plug-cord-256.png" />
+    <None Include="Resources\power-vector-plug-cord-4.png" />
+    <None Include="Resources\Edit_16x.png" />
+    <None Include="Resources\Copy_16x.png" />
+    <None Include="Resources\Restart_16x.png" />
+    <None Include="Resources\Table_16x.png" />
     <None Include="Resources\Return_16x.png" />
     <None Include="Resources\Forward_16x.png" />
     <None Include="Resources\Next_16x1.png" />

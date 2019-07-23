@@ -34,5 +34,41 @@ namespace Test1.Properties {
                 this["DecimalSeparator"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToolbarTextProperties {
+            get {
+                return ((bool)(this["ToolbarTextProperties"]));
+            }
+            set {
+                this["ToolbarTextProperties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public string ToolbarTextPropertiesDefault {
+            get {
+                return ((string)(this["ToolbarTextPropertiesDefault"]));
+            }
+            set {
+                this["ToolbarTextPropertiesDefault"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int DecimalSeparatorDefault {
+            get {
+                return ((int)(this["DecimalSeparatorDefault"]));
+            }
+            set {
+                this["DecimalSeparatorDefault"] = value;
+            }
+        }
     }
 }

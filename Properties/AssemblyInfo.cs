@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Cable Sizing")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("IEC & NEC Cable Sizing Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Cable Sizing")]

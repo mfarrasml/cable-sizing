@@ -108,7 +108,7 @@ namespace Test1
             }
 
             Form1.okSetClicked = true;
-            this.Close();
+            Close();
         }
 
 

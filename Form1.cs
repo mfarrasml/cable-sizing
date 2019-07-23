@@ -84,6 +84,7 @@ namespace Test1
         public static int j = -1;
         Form5 f5 = new Form5();
         Form6 f6 = new Form6();
+        FormAbout fAbout = new FormAbout();
         FSettings fSettings = new FSettings();
 
         public static string[] results = new string[38];
@@ -2950,6 +2951,11 @@ namespace Test1
 
         private void buttonReset(object sender, EventArgs e)
         {
+            ResetData();
+        }
+
+        private void ResetData()
+        {
 
             button4.Enabled = false;
 
@@ -3348,6 +3354,7 @@ namespace Test1
         private void OpenDataTable()
         {
             f5.editRow.Click += EditRowClicked;
+            f5.editRowDataToolStripMenuItem.Click += EditRowClicked;
             if (!f5.Visible)
             {
                 f5.Show();
@@ -4901,6 +4908,16 @@ namespace Test1
         {
             OpenForm.ReturnToTitle = true;
             Close();
+        }
+
+        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetData();
+        }
+
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fAbout.ShowDialog();
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
