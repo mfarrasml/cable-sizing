@@ -37,6 +37,8 @@ namespace Test1
         double diameter;
         double temperature;
 
+        double wirearea;
+
         double vdrunmax, vdstartmax, vdrun, vdstart;
         double length;
         double maxtemp;
@@ -45,7 +47,9 @@ namespace Test1
         int n = 1;
         string volSys, powerUnit;
         string tagno, from, to, fromdesc, todesc;
-        string material, armour, innersheath, outersheath;
+        string material, innersheath;
+        string outersheath = "-";
+        string armour = "-";
         string breakertype;
         string remarks;
         string ratedvoltage;
@@ -71,7 +75,6 @@ namespace Test1
         double X;
         double Rdc;
         double Irated;
-        double wirearea;
         double iderated;
 
         double tbreaker;
@@ -131,6 +134,31 @@ namespace Test1
             "600",
             "750",
             "1000"
+        };
+
+        double[] data_wirearea_metric = new double[21]
+        {
+            2.08,
+            3.31,
+            5.26,
+            8.36,
+            13.3,
+            21.2,
+            26.7,
+            33.6,
+            42.4,
+            53.5,
+            67.4,
+            85,
+            107,
+            127,
+            152,
+            177,
+            203,
+            253,
+            304,
+            380,
+            507
         };
 
         string[] data_wirearea_unit = new string[21]
@@ -944,7 +972,6 @@ namespace Test1
         private void Form1_Load(object sender, EventArgs e)
         {
             OpenForm.formMainClose = false;
-            comboBox8.Text = "PVC";
             if (Form5.f7.IsDisposed)
             {
                 Form5.f7 = new Form7();
@@ -1022,10 +1049,6 @@ namespace Test1
         }
 
 
-        private void Button1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         
 
@@ -1214,20 +1237,6 @@ namespace Test1
             }
         }
 
-        private void ComboBox7_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            armour = comboBox7.Text;
-            if (comboBox7.Text != "")
-            {
-                panel21.BackColor = Color.Transparent;
-            }
-            else
-            {
-                panel21.BackColor = Color.Red;
-            }
-            enable_vd_btn();
-            enable_result_btn();
-        }
 
         private void ComboBox9_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1463,21 +1472,39 @@ namespace Test1
                                 }
                                 else //AC
                                 {
+                                    Rac = data_electrical[i, 2];
+                                    X = data_electrical[i, 0];
 
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    //diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    //diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    //diameter = ODxlpe2core[i, 3];
-                                }
 
                                 if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
                                 {
@@ -1512,21 +1539,39 @@ namespace Test1
                                 }
                                 else //AC
                                 {
+                                    Rac = data_electrical[i, 3];
+                                    X = data_electrical[i, 0];
 
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    //diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    //diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    //diameter = ODxlpe2core[i, 3];
-                                }
 
                                 if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
                                 {
@@ -1561,21 +1606,39 @@ namespace Test1
                                 }
                                 else //AC
                                 {
+                                    Rac = data_electrical[i, 4];
+                                    X = data_electrical[i, 1];
 
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    //diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    //diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    //diameter = ODxlpe2core[i, 3];
-                                }
 
                                 if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
                                 {
@@ -1626,21 +1689,39 @@ namespace Test1
                                 }
                                 else //AC
                                 {
+                                    Rac = data_electrical[i, 5];
+                                    X = data_electrical[i, 0];
 
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    //diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    //diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    //diameter = ODxlpe2core[i, 3];
-                                }
 
                                 if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
                                 {
@@ -1675,21 +1756,39 @@ namespace Test1
                                 }
                                 else //AC
                                 {
+                                    Rac = data_electrical[i, 6];
+                                    X = data_electrical[i, 0];
 
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    //diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    //diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    //diameter = ODxlpe2core[i, 3];
-                                }
 
                                 if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
                                 {
@@ -1724,21 +1823,39 @@ namespace Test1
                                 }
                                 else //AC
                                 {
+                                    Rac = data_electrical[i, 7];
+                                    X = data_electrical[i, 1];
 
+                                    if (phase == "Single-Phase AC")
+                                    {
+                                        vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
+                                    else if (phase == "Three-Phase AC")
+                                    {
+                                        vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                        / (n * 1000 * voltage);
+
+                                        lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                            (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                        if (loadtype == "Motor")
+                                        {
+                                            vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                            / (n * 1000 * voltage);
+                                        }
+                                    }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    //diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    //diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    //diameter = ODxlpe2core[i, 3];
-                                }
 
                                 if ((installation == "Raceways") || (installation == "Cable Tray / Ladder") || (installation == "Earth (Direct Buried)"))
                                 {
@@ -1833,6 +1950,8 @@ namespace Test1
                         solvableOrNPlus_Vd();
                     }
                 }
+
+                label85.Text = wirearea_unit;
             }
 
             if (inputValid)
@@ -1861,12 +1980,7 @@ namespace Test1
                 readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea_nec +
                     " " + wirearea_unit + "    " + ratedvoltage + " / " + materialname + " / " + insulation;
 
-                if (armour != "Non Armoured")
-                {
-                    readtemp += " / " + armour;
-                }
 
-                readtemp += " / " + outersheath;
 
                 tbResult.Text = readtemp;
 
@@ -1926,6 +2040,7 @@ namespace Test1
             }
         }
 
+        /*
         // calculate wire size based on vd and fl current
         private void vd_size_calc()
         {
@@ -1985,18 +2100,6 @@ namespace Test1
                                     }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    diameter = ODxlpe2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    diameter = ODxlpe2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    diameter = ODxlpe2core[i, 3];
-                                }
 
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -2064,18 +2167,6 @@ namespace Test1
                                     }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    diameter = ODxlpe3core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    diameter = ODxlpe3core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    diameter = ODxlpe3core[i, 3];
-                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -2141,18 +2232,6 @@ namespace Test1
                                     }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    diameter = ODxlpe4core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    diameter = ODxlpe4core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    diameter = ODxlpe4core[i, 3];
-                                }
 
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -2222,18 +2301,6 @@ namespace Test1
                                     }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    diameter = ODpvc2core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    diameter = ODpvc2core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    diameter = ODpvc2core[i, 3];
-                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -2299,18 +2366,6 @@ namespace Test1
                                     }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    diameter = ODpvc3core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    diameter = ODpvc3core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    diameter = ODpvc3core[i, 3];
-                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -2378,18 +2433,6 @@ namespace Test1
                                     }
                                 }
 
-                                if (armour == "Non Armoured")
-                                {
-                                    diameter = ODpvc4core[i, 1];
-                                }
-                                else if (armour == "SWA")
-                                {
-                                    diameter = ODpvc4core[i, 2];
-                                }
-                                else if (armour == "DSTA")
-                                {
-                                    diameter = ODpvc4core[i, 3];
-                                }
 
                                 if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                 {
@@ -2513,12 +2556,7 @@ namespace Test1
                 readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() +
                     " mm²    " + ratedvoltage + " / " + materialname + " / " + insulation;
 
-                if (armour != "Non Armoured")
-                {
-                    readtemp += " / " + armour;
-                }
 
-                readtemp += " / " + outersheath;
 
                 tbResult.Text = readtemp;
 
@@ -2577,6 +2615,7 @@ namespace Test1
                 textBox22.Text = "";
             }
         }
+        */
 
         //validate vd and fl current
         private void validasi_vd()
@@ -2676,18 +2715,6 @@ namespace Test1
                                         }
                                     }
 
-                                    if (armour == "Non Armoured")
-                                    {
-                                        diameter = ODxlpe2core[i, 1];
-                                    }
-                                    else if (armour == "SWA")
-                                    {
-                                        diameter = ODxlpe2core[i, 2];
-                                    }
-                                    else if (armour == "DSTA")
-                                    {
-                                        diameter = ODxlpe2core[i, 3];
-                                    }
 
                                     if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                     {
@@ -2754,18 +2781,6 @@ namespace Test1
                                         }
                                     }
 
-                                    if (armour == "Non Armoured")
-                                    {
-                                        diameter = ODxlpe3core[i, 1];
-                                    }
-                                    else if (armour == "SWA")
-                                    {
-                                        diameter = ODxlpe3core[i, 2];
-                                    }
-                                    else if (armour == "DSTA")
-                                    {
-                                        diameter = ODxlpe3core[i, 3];
-                                    }
 
                                     if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                     {
@@ -2831,18 +2846,6 @@ namespace Test1
                                         }
                                     }
 
-                                    if (armour == "Non Armoured")
-                                    {
-                                        diameter = ODxlpe4core[i, 1];
-                                    }
-                                    else if (armour == "SWA")
-                                    {
-                                        diameter = ODxlpe4core[i, 2];
-                                    }
-                                    else if (armour == "DSTA")
-                                    {
-                                        diameter = ODxlpe4core[i, 3];
-                                    }
 
                                     if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                     {
@@ -2911,18 +2914,6 @@ namespace Test1
                                         }
                                     }
 
-                                    if (armour == "Non Armoured")
-                                    {
-                                        diameter = ODpvc2core[i, 1];
-                                    }
-                                    else if (armour == "SWA")
-                                    {
-                                        diameter = ODpvc2core[i, 2];
-                                    }
-                                    else if (armour == "DSTA")
-                                    {
-                                        diameter = ODpvc2core[i, 3];
-                                    }
 
                                     if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                     {
@@ -2988,18 +2979,6 @@ namespace Test1
                                         }
                                     }
 
-                                    if (armour == "Non Armoured")
-                                    {
-                                        diameter = ODpvc3core[i, 1];
-                                    }
-                                    else if (armour == "SWA")
-                                    {
-                                        diameter = ODpvc3core[i, 2];
-                                    }
-                                    else if (armour == "DSTA")
-                                    {
-                                        diameter = ODpvc3core[i, 3];
-                                    }
 
                                     if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                     {
@@ -3067,18 +3046,6 @@ namespace Test1
                                         }
                                     }
 
-                                    if (armour == "Non Armoured")
-                                    {
-                                        diameter = ODpvc4core[i, 1];
-                                    }
-                                    else if (armour == "SWA")
-                                    {
-                                        diameter = ODpvc4core[i, 2];
-                                    }
-                                    else if (armour == "DSTA")
-                                    {
-                                        diameter = ODpvc4core[i, 3];
-                                    }
 
                                     if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                                     {
@@ -3197,15 +3164,10 @@ namespace Test1
 
                     readtemp = "";
 
-                    readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() +
-                        " mm²    " + ratedvoltage + " / " + materialname + " / " + insulation;
+                    readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea_nec +
+                    " " + wirearea_unit + "    " + ratedvoltage + " / " + materialname + " / " + insulation;
 
-                    if (armour != "Non Armoured")
-                    {
-                        readtemp += " / " + armour;
-                    }
 
-                    readtemp += " / " + outersheath;
 
                     tbResult.Text = readtemp;
                     cable_lte();
@@ -3270,7 +3232,7 @@ namespace Test1
         // show selected size + 2 size above
         private void Update_size()
         {
-            textBox37.Text = wirearea.ToString();
+            textBox37.Text = wirearea_nec;
             i--;
             comboBox15.Items.Clear();
             comboBox15.Items.Insert(0, "Update Size");
@@ -3380,7 +3342,7 @@ namespace Test1
                 complete = true;
                 inputValid = false;
             }
-            else if ((radioButton2.Enabled) && (cablesizemin > wirearea))
+            else if ((radioButton2.Enabled) && (cablesizemin > data_wirearea_metric[i]))
             {
                 MessageBox.Show("Failed to get a suitable cable size: Minimum cable size exceeds the maximum available cable size!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
@@ -3408,7 +3370,7 @@ namespace Test1
         private void validasi()
         {
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
-                (((radioButton1.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (wirearea > smin))))
+                (((radioButton1.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (data_wirearea_metric[i] > smin))))
             {
                 if (loadtype == "Motor")
                 {
@@ -3808,21 +3770,6 @@ namespace Test1
         }
 
 
-        private void ComboBox8_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            outersheath = comboBox8.Text;
-            if (comboBox8.Text != "")
-            {
-                panel23.BackColor = Color.Transparent;
-            }
-            else
-            {
-                panel23.BackColor = Color.Red;
-            }
-            enable_vd_btn();
-            enable_result_btn();
-        }
-
         private void buttonReset(object sender, EventArgs e)
         {
             calculated = false;
@@ -3875,8 +3822,6 @@ namespace Test1
             comboBox5.SelectedIndex = -1;
             comboBox5.Enabled = true;
             comboBox6.SelectedIndex = -1;
-            comboBox7.SelectedIndex = -1;
-            comboBox8.SelectedIndex = -1;
             comboBox9.SelectedIndex = -1;
             comboBox10.SelectedIndex = -1;
             comboBox11.SelectedIndex = -1;
@@ -3906,6 +3851,8 @@ namespace Test1
             label95.Visible = false;
 
             radioButton7.Checked = false;
+
+            insulindex = 0;
         }
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
@@ -4939,7 +4886,7 @@ namespace Test1
             }
             else
             {
-                vd_size_calc();
+                calc_vd();
             }
         }
 
@@ -5054,7 +5001,7 @@ namespace Test1
                 }
             }
 
-            if (!((textBox37.Text == wirearea.ToString()) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") || 
+            if (!((textBox37.Text == wirearea_nec) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") || 
                 (comboBox15.Text == "")))
             {
                 if (radioButton4.Checked)
@@ -5105,18 +5052,6 @@ namespace Test1
                                 }
                             }
 
-                            if (armour == "Non Armoured")
-                            {
-                                diameter = ODxlpe2core[m, 1];
-                            }
-                            else if (armour == "SWA")
-                            {
-                                diameter = ODxlpe2core[m, 2];
-                            }
-                            else if (armour == "DSTA")
-                            {
-                                diameter = ODxlpe2core[m, 3];
-                            }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
@@ -5180,18 +5115,6 @@ namespace Test1
                                 }
                             }
 
-                            if (armour == "Non Armoured")
-                            {
-                                diameter = ODxlpe3core[m, 1];
-                            }
-                            else if (armour == "SWA")
-                            {
-                                diameter = ODxlpe3core[m, 2];
-                            }
-                            else if (armour == "DSTA")
-                            {
-                                diameter = ODxlpe3core[m, 3];
-                            }
 
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
@@ -5255,18 +5178,6 @@ namespace Test1
                                 }
                             }
 
-                            if (armour == "Non Armoured")
-                            {
-                                diameter = ODxlpe4core[m, 1];
-                            }
-                            else if (armour == "SWA")
-                            {
-                                diameter = ODxlpe4core[m, 2];
-                            }
-                            else if (armour == "DSTA")
-                            {
-                                diameter = ODxlpe4core[m, 3];
-                            }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
@@ -5332,18 +5243,6 @@ namespace Test1
                                 }
                             }
 
-                            if (armour == "Non Armoured")
-                            {
-                                diameter = ODpvc2core[m, 1];
-                            }
-                            else if (armour == "SWA")
-                            {
-                                diameter = ODpvc2core[m, 2];
-                            }
-                            else if (armour == "DSTA")
-                            {
-                                diameter = ODpvc2core[m, 3];
-                            }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
@@ -5402,18 +5301,6 @@ namespace Test1
                                 }
                             }
 
-                            if (armour == "Non Armoured")
-                            {
-                                diameter = ODpvc3core[m, 1];
-                            }
-                            else if (armour == "SWA")
-                            {
-                                diameter = ODpvc3core[m, 2];
-                            }
-                            else if (armour == "DSTA")
-                            {
-                                diameter = ODpvc3core[m, 3];
-                            }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
@@ -5474,18 +5361,6 @@ namespace Test1
                                 }
                             }
 
-                            if (armour == "Non Armoured")
-                            {
-                                diameter = ODpvc4core[m, 1];
-                            }
-                            else if (armour == "SWA")
-                            {
-                                diameter = ODpvc4core[m, 2];
-                            }
-                            else if (armour == "DSTA")
-                            {
-                                diameter = ODpvc4core[m, 3];
-                            }
 
                             if ((installation == "D2 (Under Ground)") || (installation == "D1 (Under Ground)"))
                             {
@@ -5578,15 +5453,10 @@ namespace Test1
 
                 readtemp = "";
 
-                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea.ToString() +
-                    " mm²    " + ratedvoltage + " / " + materialname + " / " + insulation;
+                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea_nec +
+                    " " + wirearea_unit + "    " + ratedvoltage + " / " + materialname + " / " + insulation;
 
-                if (armour != "Non Armoured")
-                {
-                    readtemp += " / " + armour;
-                }
 
-                readtemp += " / " + outersheath;
 
                 tbResult.Text = readtemp;
 
@@ -6158,6 +6028,8 @@ namespace Test1
             }
         }
 
+        
+
         private void TextBox9_Leave(object sender, EventArgs e)
         {
             if (vdrunmax > 100)
@@ -6401,9 +6273,9 @@ namespace Test1
         {
             if ((comboBox2.Text != "") && (comboBox3.Text != "") && (comboBox13.Text != "")&& 
                 (textBox2.Text != "") && (textBox3.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && 
-                (comboBox6.Text != "") &&(comboBox7.Text != "") && (comboBox8.Text != "") && (textBox9.Text != "") && 
-                (comboBox14.Text != "") &&(comboBox9.Text != "") && (textBox19.Text != "") && (textBox6.Text != "") && 
-                (textBox12.Text != "") && (comboBox5.Text != "")  && (comboBox4.Text != "") && (textBox13.Text != ""))
+                (comboBox6.Text != "") && (textBox9.Text != "") && (comboBox14.Text != "") &&(comboBox9.Text != "") && 
+                (textBox19.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && (comboBox5.Text != "")  && 
+                (comboBox4.Text != "") && (textBox13.Text != ""))
             {
                 if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                 {
@@ -6437,12 +6309,13 @@ namespace Test1
         private void enable_result_btn()
         {
             if ((comboBox2.Text != "") && (comboBox3.Text != "")&& (textBox2.Text != "") && 
-                (textBox3.Text != "") && (textBox4.Text != "") &&
-                (textBox5.Text != "") && (textBox9.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && 
-                (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && (textBox19.Text != "") && 
-                (comboBox11.Text != "") && (comboBox4.Text != "") && (comboBox7.Text != "") && (comboBox8.Text != "") && 
-                (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && (comboBox14.Text != "") && 
-                (textBox13.Text!= "") && (comboBox17.Text != "") && (textBox24.Text != ""))
+                (textBox3.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && 
+                (textBox9.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && 
+                (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && 
+                (textBox19.Text != "") && (comboBox11.Text != "") && (comboBox4.Text != "") && 
+                (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && 
+                (comboBox14.Text != "") && (textBox13.Text!= "") && (comboBox17.Text != "") && 
+                (textBox24.Text != ""))
                 {
                     if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                     {
@@ -6822,7 +6695,7 @@ namespace Test1
 
         private void cable_lte()
         {
-            cLTE = wirearea * wirearea * k * k;
+            cLTE = data_wirearea_metric[i] * data_wirearea_metric[i] * k * k;
         }
 
         private void calc_smin()
@@ -6982,8 +6855,6 @@ namespace Test1
             dtr[16] = ratedvoltage;
             dtr[17] = material;
             dtr[18] = insulation;
-            dtr[19] = armour;
-            dtr[20] = outersheath;
             dtr[21] = installation;
             if(radioButton7.Checked)
             {
