@@ -3772,6 +3772,11 @@ namespace Test1
 
         private void buttonReset(object sender, EventArgs e)
         {
+            ResetData();
+        }
+
+        private void ResetData()
+        {
             calculated = false;
             textBox13.Text = "";
             textBox26.Text = "";
@@ -6052,6 +6057,11 @@ namespace Test1
             {
                 MessageBox.Show("Vd start can't be 0%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetData();
         }
 
         private void TextBox24_KeyPress(object sender, KeyPressEventArgs e)
