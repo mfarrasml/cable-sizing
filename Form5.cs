@@ -749,5 +749,21 @@ namespace Test1
         {
             OpenSummary();
         }
+
+        private void CopyClipBoard_Click(object sender, EventArgs e)
+        {
+            if (Form1.j > -1)
+            {
+                dataGridView1.SelectAll();
+                dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableAlwaysIncludeHeaderText;
+                DataObject dataObj = dataGridView1.GetClipboardContent();
+                Clipboard.SetDataObject(dataObj, true);
+                dataGridView1.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithAutoHeaderText;
+            }
+            else
+            {
+                Clipboard.Clear();
+            }
+        }
     }
 }
