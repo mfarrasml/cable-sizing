@@ -2950,11 +2950,7 @@ namespace Test1
 
         private void buttonReset(object sender, EventArgs e)
         {
-            ResetData();            
-        }
 
-        private void ResetData()
-        {
             button4.Enabled = false;
 
             calculated = false;
@@ -4905,11 +4901,6 @@ namespace Test1
         {
             OpenForm.ReturnToTitle = true;
             Close();
-        }
-
-        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ResetData();
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
