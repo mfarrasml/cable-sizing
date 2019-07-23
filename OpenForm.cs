@@ -12,7 +12,7 @@ namespace Test1
 {
     
 
-    public partial class OpenForm : Form
+    public partial class OpenForm : GradientForm
     {
         //variable to indicate if application should return to title (this OpenForm) or not
         public static bool ReturnToTitle = false; 
@@ -22,7 +22,6 @@ namespace Test1
         public OpenForm()
         {
             InitializeComponent();
-            BackColor = Color.FromArgb(94, 215, 255);
             button2.FlatAppearance.MouseOverBackColor = Color.FromArgb(178, 205, 247);
             button3.FlatAppearance.MouseOverBackColor = Color.FromArgb(178, 205, 247);
             button2.FlatAppearance.MouseDownBackColor = Color.FromArgb(153, 175, 209);
