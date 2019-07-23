@@ -83,16 +83,6 @@ namespace Test1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Copy_16x {
-            get {
-                object obj = ResourceManager.GetObject("Copy_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap DeleteTable_16x {
             get {
                 object obj = ResourceManager.GetObject("DeleteTable_16x", resourceCulture);
@@ -106,16 +96,6 @@ namespace Test1.Properties {
         internal static System.Drawing.Bitmap DeleteTableRow_16x {
             get {
                 object obj = ResourceManager.GetObject("DeleteTableRow_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Edit_16x {
-            get {
-                object obj = ResourceManager.GetObject("Edit_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -273,16 +253,6 @@ namespace Test1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Restart_16x {
-            get {
-                object obj = ResourceManager.GetObject("Restart_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap Return_16x {
             get {
                 object obj = ResourceManager.GetObject("Return_16x", resourceCulture);
@@ -336,26 +306,6 @@ namespace Test1.Properties {
         internal static System.Drawing.Bitmap Settings_256x {
             get {
                 object obj = ResourceManager.GetObject("Settings_256x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Table_16x {
-            get {
-                object obj = ResourceManager.GetObject("Table_16x", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap Table_32x {
-            get {
-                object obj = ResourceManager.GetObject("Table_32x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

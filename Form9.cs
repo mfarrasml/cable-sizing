@@ -1472,7 +1472,7 @@ namespace Test1
                                 }
                                 else //AC
                                 {
-                                    Rac = data_electrical[i, 2];
+                                    Rac = data_electrical[i, 2] * (234.5 + initialTemp) / (234.5 + 75);
                                     X = data_electrical[i, 0];
 
                                     if (phase == "Single-Phase AC")
@@ -1539,7 +1539,7 @@ namespace Test1
                                 }
                                 else //AC
                                 {
-                                    Rac = data_electrical[i, 3];
+                                    Rac = data_electrical[i, 3] * (234.5 + initialTemp) / (234.5 + 75);
                                     X = data_electrical[i, 0];
 
                                     if (phase == "Single-Phase AC")
@@ -1606,7 +1606,7 @@ namespace Test1
                                 }
                                 else //AC
                                 {
-                                    Rac = data_electrical[i, 4];
+                                    Rac = data_electrical[i, 4] * (234.5 + initialTemp) / (234.5 + 75);
                                     X = data_electrical[i, 1];
 
                                     if (phase == "Single-Phase AC")
@@ -1689,7 +1689,7 @@ namespace Test1
                                 }
                                 else //AC
                                 {
-                                    Rac = data_electrical[i, 5];
+                                    Rac = data_electrical[i, 5] * (228.1 + initialTemp) / (228.1 + 75);
                                     X = data_electrical[i, 0];
 
                                     if (phase == "Single-Phase AC")
@@ -1756,7 +1756,7 @@ namespace Test1
                                 }
                                 else //AC
                                 {
-                                    Rac = data_electrical[i, 6];
+                                    Rac = data_electrical[i, 6] * (228.1 + initialTemp) / (228.1 + 75);
                                     X = data_electrical[i, 0];
 
                                     if (phase == "Single-Phase AC")
@@ -1823,7 +1823,7 @@ namespace Test1
                                 }
                                 else //AC
                                 {
-                                    Rac = data_electrical[i, 7];
+                                    Rac = data_electrical[i, 7] * (228.1 + initialTemp) / (228.1 + 75);
                                     X = data_electrical[i, 1];
 
                                     if (phase == "Single-Phase AC")
@@ -2019,13 +2019,14 @@ namespace Test1
                 comboBox10.Text = "";
                 comboBox11.Text = "";
                 comboBox5.Enabled = false;
+                comboBox21.Enabled = false;
                 textBox12.ReadOnly = true;
 
                 button8.Enabled = true;
                 panel5.Enabled = false;
                 panel6.Enabled = false;
 
-                label87.Text = "Since Vd run is lower than Vd run max, therefore cable size of \n" + wirearea_nec + " " + wirearea_unit + "  is acceptable";
+                label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
                 label87.Visible = true;
                 timer2.Enabled = true;
             }
@@ -3772,11 +3773,6 @@ namespace Test1
 
         private void buttonReset(object sender, EventArgs e)
         {
-            ResetData();
-        }
-
-        private void ResetData()
-        {
             calculated = false;
             textBox13.Text = "";
             textBox26.Text = "";
@@ -3841,6 +3837,8 @@ namespace Test1
             comboBox18.SelectedIndex = -1;
             comboBox19.SelectedIndex = -1;
             comboBox20.SelectedIndex = -1;
+            comboBox21.SelectedIndex = -1;
+            comboBox21.Enabled = true;
 
             panel4.Enabled = false;
             panel5.Enabled = true;
@@ -5516,6 +5514,7 @@ namespace Test1
             comboBox10.SelectedIndex = -1;
             comboBox11.SelectedIndex = -1;
             comboBox12.SelectedIndex = -1;
+            comboBox21.Enabled = true;
 
             panel4.Enabled = false;
             button8.Enabled = false;
@@ -5749,7 +5748,7 @@ namespace Test1
 
             SCLTEchanged();
             Calc_k();
-            enable_result_btn();
+            enable_vd_btn();
         }
 
         
@@ -5781,6 +5780,27 @@ namespace Test1
                 comboBox16.Enabled = false;
             }
 
+            if (initialTemp == 60)
+            {
+                label33.Text = "at 60 ᵒC";
+                label33.Visible = true;
+            }
+            else if (initialTemp == 75)
+            {
+                label33.Text = "at 75 ᵒC";
+                label33.Visible = true;
+            }
+            else if (initialTemp == 90)
+            {
+                label33.Text = "at 90 ᵒC";
+                label33.Visible = true;
+            }
+            else
+            {
+                label33.Text = "";
+                label33.Visible = false;
+            }
+
             temp_fill();
 
             maxtemp_calc();
@@ -5790,7 +5810,7 @@ namespace Test1
 
             SCLTEchanged();
             Calc_k();
-            enable_result_btn();
+            enable_vd_btn();
         }
 
         private void ComboBox18_SelectedIndexChanged(object sender, EventArgs e)
@@ -5809,7 +5829,7 @@ namespace Test1
             Updatek2();
 
             Updatekt();
-            
+            enable_vd_btn();
         }
 
         private void Updatek2()
@@ -5864,6 +5884,7 @@ namespace Test1
 
             Updatek1();
             Updatekt();
+            enable_vd_btn();
         }
 
         private void Updatek1()
@@ -5985,6 +6006,7 @@ namespace Test1
 
             Updatek3();
             Updatekt();
+            enable_vd_btn();
         }
 
         private void ComboBox21_SelectedIndexChanged(object sender, EventArgs e)
@@ -5999,6 +6021,8 @@ namespace Test1
                 conduit = "";
                 panel37.BackColor = Color.Red;
             }
+
+            enable_vd_btn();
         }
 
         private void ReturnToTitleToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6057,11 +6081,6 @@ namespace Test1
             {
                 MessageBox.Show("Vd start can't be 0%!", "Input Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-        }
-
-        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ResetData();
         }
 
         private void TextBox24_KeyPress(object sender, KeyPressEventArgs e)
@@ -6285,7 +6304,8 @@ namespace Test1
                 (textBox2.Text != "") && (textBox3.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && 
                 (comboBox6.Text != "") && (textBox9.Text != "") && (comboBox14.Text != "") &&(comboBox9.Text != "") && 
                 (textBox19.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && (comboBox5.Text != "")  && 
-                (comboBox4.Text != "") && (textBox13.Text != ""))
+                (comboBox4.Text != "") && (textBox13.Text != "") && (comboBox17.Text != "") && (comboBox16.Text != "") &&
+                (comboBox21.Text != ""))
             {
                 if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                 {
@@ -6293,7 +6313,43 @@ namespace Test1
                     {
                         if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                         {
-                            button7.Enabled = true;
+                            if (installation == "Raceways")
+                            {
+                                if ((comboBox18.Text == "") || (comboBox19.Text == ""))
+                                {
+                                    button7.Enabled = false;
+                                }
+                                else
+                                {
+                                    button7.Enabled = true;
+                                }
+                            }
+                            else if (installation == "Cable Tray / Ladder")
+                            {
+                                if ((comboBox18.Text == "") || (comboBox20.Text == ""))
+                                {
+                                    button7.Enabled = false;
+                                }
+                                else
+                                {
+                                    button7.Enabled = true;
+                                }
+                            }
+                            else if ((installation == "Earth (Direct Buried)") || (installation == "Free Air"))
+                            {
+                                if (comboBox18.Text == "")
+                                {
+                                    button7.Enabled = false;
+                                }
+                                else
+                                {
+                                    button7.Enabled = true;
+                                }
+                            }
+                            else
+                            {
+                                button7.Enabled = false;
+                            }
                         }
                         else
                         {
@@ -6302,7 +6358,43 @@ namespace Test1
                     }
                     else
                     {
-                        button7.Enabled = true;
+                        if (installation == "Raceways")
+                        {
+                            if ((comboBox18.Text == "") || (comboBox19.Text == ""))
+                            {
+                                button7.Enabled = false;
+                            }
+                            else
+                            {
+                                button7.Enabled = true;
+                            }
+                        }
+                        else if (installation == "Cable Tray / Ladder")
+                        {
+                            if ((comboBox18.Text == "") || (comboBox20.Text == ""))
+                            {
+                                button7.Enabled = false;
+                            }
+                            else
+                            {
+                                button7.Enabled = true;
+                            }
+                        }
+                        else if ((installation == "Earth (Direct Buried)") || (installation == "Free Air"))
+                        {
+                            if (comboBox18.Text == "")
+                            {
+                                button7.Enabled = false;
+                            }
+                            else
+                            {
+                                button7.Enabled = true;
+                            }
+                        }
+                        else
+                        {
+                            button7.Enabled = false;
+                        }
                     }
                 }
                 else
@@ -6324,8 +6416,7 @@ namespace Test1
                 (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && 
                 (textBox19.Text != "") && (comboBox11.Text != "") && (comboBox4.Text != "") && 
                 (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && 
-                (comboBox14.Text != "") && (textBox13.Text!= "") && (comboBox17.Text != "") && 
-                (textBox24.Text != ""))
+                (comboBox14.Text != "") && (textBox13.Text!= "") && (textBox24.Text != ""))
                 {
                     if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                     {
