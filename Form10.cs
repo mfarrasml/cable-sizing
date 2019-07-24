@@ -16,6 +16,8 @@ namespace Test1
         public static string[,] cabledata_nec = new string[21,6];
         public static string[,] prevcabledata_nec = new string[21, 6];
         public static string[,] confirmedcabledata_nec = new string[21, 6];
+        public static double[] confirmedcabledata_nec_metric = new double[21];
+        public static string[] confirmedcabledata_nec_unit = new string[21];
 
         public static double[,] cabledata = new double[17, 6];
         public static double[,] prevcabledata = new double[17, 6];
@@ -36,6 +38,56 @@ namespace Test1
         {
             InitializeComponent();
         }
+
+        string[] cabledata_nec_unit = new string[21]
+        {
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "AWG",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil",
+            "kcmil"
+        };
+
+        double[] cabledata_nec_metric = new double[21]
+        {
+            2.08,
+            3.31,
+            5.26,
+            8.36,
+            13.3,
+            21.2,
+            26.7,
+            33.6,
+            42.4,
+            53.5,
+            67.4,
+            85,
+            107,
+            127,
+            152,
+            177,
+            203,
+            253,
+            304,
+            380,
+            507
+        };
 
         private void Form10_Load(object sender, EventArgs e)
         {
@@ -229,6 +281,8 @@ namespace Test1
                     {
                         confirmedcabledata_nec[cablecount, j] = cabledata_nec[i, j];
                     }
+                    confirmedcabledata_nec_metric[cablecount] = cabledata_nec_metric[i];
+                    confirmedcabledata_nec_unit[cablecount] = cabledata_nec_unit[i];
                     cablecount++;
                 }
             } 
