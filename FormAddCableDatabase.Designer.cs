@@ -244,7 +244,7 @@
             this.Controls.Add(this.labelName);
             this.Controls.Add(this.textBoxName);
             this.Name = "FormAddCableDatabase";
-            this.Text = "FormAddCableDatabase";
+            this.Text = "Add Cable Database";
             this.Load += new System.EventHandler(this.FormAddCableDatabase_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

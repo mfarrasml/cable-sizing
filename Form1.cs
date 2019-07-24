@@ -100,43 +100,39 @@ namespace Test1
 
         int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
         
+        //dtr is dtdiameter DataRow used to handle current input/edited data that's gonna be saved to dtdiameter
         DataRow dtr;
 
-
+        //Directory & database variables
         DirectoryInfo di;
+
+        //number of custom database found
         int IECDatabaseFiles;
+        //currently selected database file
+        string SelectedDatabase;
+        DataSet cableDS; //currently selected database data
+
+        //currently selected database data based on insulation and cores
+        DataTable dtXLPE2DB;
+        DataTable dtXLPE3DB;
+        DataTable dtXLPE4DB;
+        DataTable dtPVC2DB;
+        DataTable dtPVC3DB;
+        DataTable dtPVC4DB;
+
+        //
+        double[,] xlpe2coreDB;
+        double[,] xlpe3coreDB;
+        double[,] xlpe4coreDB;
+        double[,] pvc2coreDB;
+        double[,] pvc3coreDB;
+        double[,] pvc4coreDB;
+
 
         public Form1()
         {
 
             InitializeComponent();
-
-        }
-        [DllImport("user32.dll")]
-        static extern int ReleaseDC(IntPtr hWnd, IntPtr hDC);
-
-        [DllImport("User32.dll")]
-
-        private static extern IntPtr GetWindowDC(IntPtr hWnd);
-
-        protected override void WndProc(ref System.Windows.Forms.Message m)
-        {
-            const int WM_NCPAINT = 0x85;
-            base.WndProc(ref m);
-
-            if (m.Msg == WM_NCPAINT)
-            {
-
-                IntPtr hdc = GetWindowDC(m.HWnd);
-                if ((int)hdc != 0)
-                {
-                    Graphics g = Graphics.FromHdc(hdc);
-                    g.DrawLine(Pens.Green, 10, 10, 100, 10);
-                    g.Flush();
-                    ReleaseDC(m.HWnd, hdc);
-                }
-
-            }
 
         }
 
@@ -878,26 +874,11 @@ namespace Test1
             cbPower.Text = "kW";
 
             //load saved/default settings
+            LoadIECDatabase();
+
             decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
 
-            //read all file in database directory
-
-            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing");
-            string saveDir = (systemPath + "/Cable Sizing");
-
-            di = new DirectoryInfo(saveDir);
-            FileInfo[] files = di.GetFiles("*.xml");
-            IECDatabaseFiles = files.Length;
-            //fill vendor data from database
-            comboBoxVendor.Items.Insert(0, "Sumi Indo Cable (Default)");
-            for (int z = 0; z < IECDatabaseFiles; z++)
-            {
-                string tempstring;
-                tempstring = files[z].ToString();
-                tempstring = tempstring.Replace(".xml", "");
-                comboBoxVendor.Items.Insert(z + 1, tempstring);
-            }
+            
 
         }
 
@@ -4972,6 +4953,13 @@ namespace Test1
         private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(comboBoxVendor, comboBoxVendor.Text);
+
+            SelectedDatabase = comboBoxVendor.Text;
+            //Gather cable specification of the selected database
+            if ((SelectedDatabase != "Sumi Indo Cable (Default)") && (SelectedDatabase != ""))
+            {
+                ReadIECDatabase();
+            }
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
@@ -6042,6 +6030,94 @@ namespace Test1
         {
             button4.Enabled = false;
             toolTip1.SetToolTip(button4, null);
+        }
+
+        internal void LoadIECDatabase()
+        {
+            //read all file in database directory
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing");
+            string saveDir = (systemPath + "/Cable Sizing");
+
+            di = new DirectoryInfo(saveDir);
+            //get all file name in database directory
+            FileInfo[] files = di.GetFiles("*.xml");
+            IECDatabaseFiles = files.Length;
+            //fill vendor data from database
+            comboBoxVendor.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
+            //fill all saved database created by user
+            for (int z = 0; z < IECDatabaseFiles; z++)
+            {
+                string tempstring;
+                tempstring = files[z].ToString();
+                tempstring = tempstring.Replace(".xml", "");
+                comboBoxVendor.Items.Insert(z + 1, tempstring);
+            }
+        }
+
+        internal void ReadIECDatabase()
+        {
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing");
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing", SelectedDatabase + ".xml");
+
+            //save database to a new dataset
+            cableDS = new DataSet();
+            cableDS.ReadXml(saveDir);
+
+            //save each cable data table to their respective datatable
+            if (cableDS.Tables.Contains("XLPE_2CORE"))
+            {
+                dtXLPE2DB = cableDS.Tables["XLPE_2CORE"].Copy();
+                xlpe2coreDB = new double[dtXLPE2DB.Rows.Count, dtXLPE2DB.Columns.Count];
+                DTToArrayDouble(dtXLPE2DB, xlpe2coreDB);
+            }
+            if (cableDS.Tables.Contains("XLPE_3CORE"))
+            {
+                dtXLPE3DB = cableDS.Tables["XLPE_3CORE"].Copy();
+                xlpe3coreDB = new double[dtXLPE3DB.Rows.Count, dtXLPE3DB.Columns.Count];
+                DTToArrayDouble(dtXLPE3DB, xlpe3coreDB);
+            }
+            if (cableDS.Tables.Contains("XLPE_4CORE"))
+            {
+                dtXLPE4DB = cableDS.Tables["XLPE_4CORE"].Copy();
+                xlpe4coreDB = new double[dtXLPE4DB.Rows.Count, dtXLPE4DB.Columns.Count];
+                DTToArrayDouble(dtXLPE4DB, xlpe4coreDB);
+            }
+            if (cableDS.Tables.Contains("PVC_2CORE"))
+            {
+                dtPVC2DB = cableDS.Tables["PVC_2CORE"].Copy();
+                pvc2coreDB = new double[dtPVC2DB.Rows.Count, dtPVC2DB.Columns.Count];
+                DTToArrayDouble(dtPVC2DB,pvc3core);
+            }
+            if (cableDS.Tables.Contains("PVC_3CORE"))
+            {
+                dtPVC3DB = cableDS.Tables["PVC_3CORE"].Copy();
+                pvc3coreDB = new double[dtPVC3DB.Rows.Count, dtPVC3DB.Columns.Count];
+                DTToArrayDouble(dtPVC3DB, pvc3core);
+            }
+            if (cableDS.Tables.Contains("PVC_4CORE"))
+            {
+                dtPVC4DB = cableDS.Tables["PVC_4CORE"].Copy();
+                pvc4coreDB = new double[dtPVC4DB.Rows.Count, dtPVC4DB.Columns.Count];
+                DTToArrayDouble(dtPVC2DB, pvc4coreDB);
+            }
+        }
+
+        private void DTToArrayDouble(DataTable dt, double[,] arr)
+        {
+            int dtRow = dt.Rows.Count;
+            int dtColumn = dt.Columns.Count;
+
+            int row = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                for (int col = 0; col < dtColumn; col++)
+                {
+                    arr[row, col] = Convert.ToDouble(dr[col]);
+                }
+                row++;
+            }
         }
 
     }

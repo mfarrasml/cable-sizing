@@ -255,7 +255,7 @@ namespace Test1
                 inValid = cekValidasiTable();
                 if (!inValid)
                 {
-                    tableToArray();
+                    checkAvailability();
                     finalCableData();
                     if ((dtXLPE2final.Rows.Count > 0) || (dtXLPE3final.Rows.Count > 0) || (dtXLPE4final.Rows.Count > 0) || (dtPVC2final.Rows.Count > 0) 
                         || (dtPVC3final.Rows.Count > 0) || (dtPVC4final.Rows.Count > 0))
@@ -500,7 +500,7 @@ namespace Test1
         //variables
         bool[,] datAvailable = new bool[17, 6];
 
-        private void tableToArray()
+        private void checkAvailability()
         {
             bool terisi;
             //XLPE2CORE

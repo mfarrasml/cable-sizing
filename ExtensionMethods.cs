@@ -8,7 +8,7 @@ using System.Windows.Forms;
 
 namespace Test1
 {
-    public static class ExtensoinMethods
+    public static class ExtensionMethods
     {
         public static void DoubleBuffered(this DataGridView dgv, bool setting)
         {

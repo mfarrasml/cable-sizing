@@ -86,7 +86,7 @@
     <Compile Include="DoubleComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ExtensoinMethods.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
