@@ -36,15 +36,11 @@
             this.button5 = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.returnToTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cableDataTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cableSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -212,6 +208,12 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
+            this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cableDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.returnToTitleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cableDataTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.textBox11 = new Test1.DoubleTextBox();
             this.textBox9 = new Test1.DoubleTextBox();
             this.textBox6 = new Test1.DoubleTextBox();
@@ -235,6 +237,8 @@
             this.textBox24 = new Test1.DoubleTextBox();
             this.textBox28 = new Test1.DoubleTextBox();
             this.textBox12 = new Test1.IntegerTextBox();
+            this.comboBoxVendor = new System.Windows.Forms.ComboBox();
+            this.labelVendor = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -320,28 +324,10 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 21);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // returnToTitleToolStripMenuItem
-            // 
-            this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Return_16x;
-            this.returnToTitleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.returnToTitleToolStripMenuItem.Name = "returnToTitleToolStripMenuItem";
-            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.returnToTitleToolStripMenuItem.Text = "Return to Title";
-            this.returnToTitleToolStripMenuItem.Click += new System.EventHandler(this.ReturnToTitleToolStripMenuItem_Click);
-            // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
-            // 
-            // settingsToolStripMenuItem
-            // 
-            this.settingsToolStripMenuItem.Image = global::Test1.Properties.Resources.Settings_16x;
-            this.settingsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.settingsToolStripMenuItem.Text = "Settings";
-            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -358,19 +344,11 @@
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.resetToolStripMenuItem});
+            this.resetToolStripMenuItem,
+            this.addToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 21);
             this.editToolStripMenuItem.Text = "Edit";
-            // 
-            // resetToolStripMenuItem
-            // 
-            this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
-            this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
-            this.resetToolStripMenuItem.Text = "Reset";
-            this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -381,19 +359,10 @@
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.viewToolStripMenuItem.Text = "View";
             // 
-            // cableDataTableToolStripMenuItem
-            // 
-            this.cableDataTableToolStripMenuItem.Image = global::Test1.Properties.Resources.Table_16x;
-            this.cableDataTableToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.cableDataTableToolStripMenuItem.Name = "cableDataTableToolStripMenuItem";
-            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.cableDataTableToolStripMenuItem.Text = "Cable Data Table";
-            this.cableDataTableToolStripMenuItem.Click += new System.EventHandler(this.CableDataTableToolStripMenuItem_Click);
-            // 
             // cableSummaryToolStripMenuItem
             // 
             this.cableSummaryToolStripMenuItem.Name = "cableSummaryToolStripMenuItem";
-            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cableSummaryToolStripMenuItem.Text = "Cable Summary";
             this.cableSummaryToolStripMenuItem.Click += new System.EventHandler(this.CableSummaryToolStripMenuItem_Click);
             // 
@@ -408,7 +377,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
@@ -600,7 +569,7 @@
             // 
             this.label16.AutoSize = true;
             this.label16.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label16.Location = new System.Drawing.Point(583, 217);
+            this.label16.Location = new System.Drawing.Point(583, 233);
             this.label16.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label16.Name = "label16";
             this.label16.Size = new System.Drawing.Size(52, 16);
@@ -623,7 +592,7 @@
             this.label18.AutoSize = true;
             this.label18.Enabled = false;
             this.label18.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.Location = new System.Drawing.Point(583, 243);
+            this.label18.Location = new System.Drawing.Point(583, 259);
             this.label18.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(55, 16);
@@ -646,7 +615,7 @@
             // 
             this.label20.AutoSize = true;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(599, 321);
+            this.label20.Location = new System.Drawing.Point(599, 337);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(70, 16);
@@ -655,7 +624,7 @@
             // 
             // textBox8
             // 
-            this.textBox8.Location = new System.Drawing.Point(700, 209);
+            this.textBox8.Location = new System.Drawing.Point(700, 225);
             this.textBox8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox8.Name = "textBox8";
             this.textBox8.ReadOnly = true;
@@ -668,7 +637,7 @@
             // textBox10
             // 
             this.textBox10.Enabled = false;
-            this.textBox10.Location = new System.Drawing.Point(700, 235);
+            this.textBox10.Location = new System.Drawing.Point(700, 251);
             this.textBox10.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox10.Name = "textBox10";
             this.textBox10.ReadOnly = true;
@@ -681,7 +650,7 @@
             // label22
             // 
             this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(804, 217);
+            this.label22.Location = new System.Drawing.Point(804, 233);
             this.label22.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label22.Name = "label22";
             this.label22.Size = new System.Drawing.Size(15, 13);
@@ -702,7 +671,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.Enabled = false;
-            this.label24.Location = new System.Drawing.Point(804, 243);
+            this.label24.Location = new System.Drawing.Point(804, 259);
             this.label24.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(15, 13);
@@ -781,7 +750,7 @@
             // 
             this.label31.AutoSize = true;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(599, 347);
+            this.label31.Location = new System.Drawing.Point(599, 363);
             this.label31.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(82, 16);
@@ -796,7 +765,7 @@
             "2",
             "3",
             "4"});
-            this.comboBox5.Location = new System.Drawing.Point(700, 342);
+            this.comboBox5.Location = new System.Drawing.Point(700, 358);
             this.comboBox5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(100, 21);
@@ -1300,7 +1269,7 @@
             // 
             this.label65.AutoSize = true;
             this.label65.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label65.Location = new System.Drawing.Point(584, 269);
+            this.label65.Location = new System.Drawing.Point(584, 285);
             this.label65.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label65.Name = "label65";
             this.label65.Size = new System.Drawing.Size(40, 16);
@@ -1309,7 +1278,7 @@
             // 
             // textBox29
             // 
-            this.textBox29.Location = new System.Drawing.Point(700, 264);
+            this.textBox29.Location = new System.Drawing.Point(700, 280);
             this.textBox29.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox29.Name = "textBox29";
             this.textBox29.ReadOnly = true;
@@ -1470,7 +1439,7 @@
             // 
             this.label74.AutoSize = true;
             this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(599, 399);
+            this.label74.Location = new System.Drawing.Point(599, 415);
             this.label74.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(76, 16);
@@ -1481,7 +1450,7 @@
             // 
             this.label73.AutoSize = true;
             this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(599, 425);
+            this.label73.Location = new System.Drawing.Point(599, 441);
             this.label73.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(74, 16);
@@ -1492,7 +1461,7 @@
             // 
             this.label72.AutoSize = true;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(599, 451);
+            this.label72.Location = new System.Drawing.Point(599, 467);
             this.label72.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(97, 32);
@@ -1501,7 +1470,7 @@
             // 
             // textBox34
             // 
-            this.textBox34.Location = new System.Drawing.Point(700, 394);
+            this.textBox34.Location = new System.Drawing.Point(700, 410);
             this.textBox34.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox34.Name = "textBox34";
             this.textBox34.ReadOnly = true;
@@ -1511,7 +1480,7 @@
             // 
             // textBox33
             // 
-            this.textBox33.Location = new System.Drawing.Point(700, 420);
+            this.textBox33.Location = new System.Drawing.Point(700, 436);
             this.textBox33.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox33.Name = "textBox33";
             this.textBox33.ReadOnly = true;
@@ -1521,7 +1490,7 @@
             // 
             // textBox32
             // 
-            this.textBox32.Location = new System.Drawing.Point(700, 446);
+            this.textBox32.Location = new System.Drawing.Point(700, 462);
             this.textBox32.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox32.Name = "textBox32";
             this.textBox32.ReadOnly = true;
@@ -1532,7 +1501,7 @@
             // label75
             // 
             this.label75.AutoSize = true;
-            this.label75.Location = new System.Drawing.Point(806, 402);
+            this.label75.Location = new System.Drawing.Point(806, 418);
             this.label75.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(35, 13);
@@ -1542,7 +1511,7 @@
             // label76
             // 
             this.label76.AutoSize = true;
-            this.label76.Location = new System.Drawing.Point(806, 428);
+            this.label76.Location = new System.Drawing.Point(806, 444);
             this.label76.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(35, 13);
@@ -1552,7 +1521,7 @@
             // label77
             // 
             this.label77.AutoSize = true;
-            this.label77.Location = new System.Drawing.Point(806, 454);
+            this.label77.Location = new System.Drawing.Point(806, 470);
             this.label77.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(14, 13);
@@ -1605,6 +1574,7 @@
             this.button6.TabIndex = 142;
             this.button6.Text = "Insert";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
             this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // label78
@@ -1618,6 +1588,7 @@
             this.label78.Size = new System.Drawing.Size(111, 16);
             this.label78.TabIndex = 143;
             this.label78.Text = "Insert Cable Data";
+            this.label78.Visible = false;
             // 
             // panel2
             // 
@@ -1686,7 +1657,7 @@
             // 
             this.label87.AutoSize = true;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(586, 488);
+            this.label87.Location = new System.Drawing.Point(586, 504);
             this.label87.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(41, 13);
@@ -1696,7 +1667,7 @@
             // 
             // panel31
             // 
-            this.panel31.Location = new System.Drawing.Point(696, 316);
+            this.panel31.Location = new System.Drawing.Point(696, 332);
             this.panel31.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel31.Name = "panel31";
             this.panel31.Size = new System.Drawing.Size(4, 20);
@@ -1705,7 +1676,7 @@
             // panel30
             // 
             this.panel30.BackColor = System.Drawing.Color.Red;
-            this.panel30.Location = new System.Drawing.Point(696, 342);
+            this.panel30.Location = new System.Drawing.Point(696, 358);
             this.panel30.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel30.Name = "panel30";
             this.panel30.Size = new System.Drawing.Size(4, 22);
@@ -1713,7 +1684,7 @@
             // 
             // panel29
             // 
-            this.panel29.Location = new System.Drawing.Point(696, 316);
+            this.panel29.Location = new System.Drawing.Point(696, 332);
             this.panel29.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel29.Name = "panel29";
             this.panel29.Size = new System.Drawing.Size(4, 20);
@@ -1721,7 +1692,7 @@
             // 
             // panel28
             // 
-            this.panel28.Location = new System.Drawing.Point(696, 342);
+            this.panel28.Location = new System.Drawing.Point(696, 358);
             this.panel28.Margin = new System.Windows.Forms.Padding(2, 1, 2, 1);
             this.panel28.Name = "panel28";
             this.panel28.Size = new System.Drawing.Size(4, 20);
@@ -1730,7 +1701,7 @@
             // button8
             // 
             this.button8.Enabled = false;
-            this.button8.Location = new System.Drawing.Point(578, 176);
+            this.button8.Location = new System.Drawing.Point(578, 192);
             this.button8.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(98, 23);
@@ -1742,6 +1713,8 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.Transparent;
+            this.panel6.Controls.Add(this.labelVendor);
+            this.panel6.Controls.Add(this.comboBoxVendor);
             this.panel6.Controls.Add(this.panel27);
             this.panel6.Controls.Add(this.panel26);
             this.panel6.Controls.Add(this.panel25);
@@ -1762,7 +1735,7 @@
             this.panel6.Location = new System.Drawing.Point(578, 0);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(282, 173);
+            this.panel6.Size = new System.Drawing.Size(282, 189);
             this.panel6.TabIndex = 1;
             // 
             // panel27
@@ -2138,7 +2111,7 @@
             // 
             // textBox37
             // 
-            this.textBox37.Location = new System.Drawing.Point(700, 370);
+            this.textBox37.Location = new System.Drawing.Point(700, 386);
             this.textBox37.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox37.Name = "textBox37";
             this.textBox37.ReadOnly = true;
@@ -2150,7 +2123,7 @@
             // 
             this.label85.AutoSize = true;
             this.label85.BackColor = System.Drawing.Color.Transparent;
-            this.label85.Location = new System.Drawing.Point(734, 376);
+            this.label85.Location = new System.Drawing.Point(734, 392);
             this.label85.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(26, 13);
@@ -2269,7 +2242,7 @@
             // label84
             // 
             this.label84.AutoSize = true;
-            this.label84.Location = new System.Drawing.Point(804, 273);
+            this.label84.Location = new System.Drawing.Point(804, 289);
             this.label84.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label84.Name = "label84";
             this.label84.Size = new System.Drawing.Size(15, 13);
@@ -2279,7 +2252,7 @@
             // button7
             // 
             this.button7.Enabled = false;
-            this.button7.Location = new System.Drawing.Point(683, 176);
+            this.button7.Location = new System.Drawing.Point(683, 192);
             this.button7.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(163, 23);
@@ -2292,7 +2265,7 @@
             // 
             this.comboBox15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox15.FormattingEnabled = true;
-            this.comboBox15.Location = new System.Drawing.Point(764, 368);
+            this.comboBox15.Location = new System.Drawing.Point(764, 384);
             this.comboBox15.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox15.Name = "comboBox15";
             this.comboBox15.Size = new System.Drawing.Size(84, 21);
@@ -2304,7 +2277,7 @@
             // 
             this.label83.AutoSize = true;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(599, 373);
+            this.label83.Location = new System.Drawing.Point(599, 389);
             this.label83.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(34, 16);
@@ -2315,7 +2288,7 @@
             // 
             this.label82.AutoSize = true;
             this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(584, 295);
+            this.label82.Location = new System.Drawing.Point(584, 311);
             this.label82.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
             this.label82.Name = "label82";
             this.label82.Size = new System.Drawing.Size(113, 16);
@@ -2372,6 +2345,57 @@
             // 
             this.timer3.Interval = 5000;
             this.timer3.Tick += new System.EventHandler(this.Timer3_Tick);
+            // 
+            // addToolStripMenuItem
+            // 
+            this.addToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cableDatabaseToolStripMenuItem});
+            this.addToolStripMenuItem.Name = "addToolStripMenuItem";
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Text = "Add/Edit Data";
+            // 
+            // cableDatabaseToolStripMenuItem
+            // 
+            this.cableDatabaseToolStripMenuItem.Name = "cableDatabaseToolStripMenuItem";
+            this.cableDatabaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cableDatabaseToolStripMenuItem.Text = "Cable Database";
+            this.cableDatabaseToolStripMenuItem.Click += new System.EventHandler(this.CableDatabaseToolStripMenuItem_Click);
+            // 
+            // returnToTitleToolStripMenuItem
+            // 
+            this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Return_16x;
+            this.returnToTitleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.returnToTitleToolStripMenuItem.Name = "returnToTitleToolStripMenuItem";
+            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.returnToTitleToolStripMenuItem.Text = "Return to Title";
+            this.returnToTitleToolStripMenuItem.Click += new System.EventHandler(this.ReturnToTitleToolStripMenuItem_Click);
+            // 
+            // settingsToolStripMenuItem
+            // 
+            this.settingsToolStripMenuItem.Image = global::Test1.Properties.Resources.Settings_16x;
+            this.settingsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.settingsToolStripMenuItem.Text = "Settings";
+            this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
+            // 
+            // resetToolStripMenuItem
+            // 
+            this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
+            this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Text = "Reset";
+            this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
+            // 
+            // cableDataTableToolStripMenuItem
+            // 
+            this.cableDataTableToolStripMenuItem.Image = global::Test1.Properties.Resources.Table_16x;
+            this.cableDataTableToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.cableDataTableToolStripMenuItem.Name = "cableDataTableToolStripMenuItem";
+            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cableDataTableToolStripMenuItem.Text = "Cable Data Table";
+            this.cableDataTableToolStripMenuItem.Click += new System.EventHandler(this.CableDataTableToolStripMenuItem_Click);
             // 
             // textBox11
             // 
@@ -2618,13 +2642,34 @@
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(700, 316);
+            this.textBox12.Location = new System.Drawing.Point(700, 332);
             this.textBox12.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(100, 20);
             this.textBox12.TabIndex = 3;
             this.textBox12.Text = "1";
             this.textBox12.TextChanged += new System.EventHandler(this.TextBox12_TextChanged);
+            // 
+            // comboBoxVendor
+            // 
+            this.comboBoxVendor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVendor.FormattingEnabled = true;
+            this.comboBoxVendor.Location = new System.Drawing.Point(137, 158);
+            this.comboBoxVendor.Name = "comboBoxVendor";
+            this.comboBoxVendor.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxVendor.TabIndex = 166;
+            this.comboBoxVendor.SelectedIndexChanged += new System.EventHandler(this.ComboBoxVendor_SelectedIndexChanged);
+            // 
+            // labelVendor
+            // 
+            this.labelVendor.AutoSize = true;
+            this.labelVendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVendor.Location = new System.Drawing.Point(22, 152);
+            this.labelVendor.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.labelVendor.Name = "labelVendor";
+            this.labelVendor.Size = new System.Drawing.Size(94, 32);
+            this.labelVendor.TabIndex = 167;
+            this.labelVendor.Text = "Choose Cable\r\nDatabase";
             // 
             // Form1
             // 
@@ -2875,6 +2920,10 @@
         private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cableDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBoxVendor;
+        private System.Windows.Forms.Label labelVendor;
     }
 }
 

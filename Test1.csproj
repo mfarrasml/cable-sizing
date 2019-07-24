@@ -153,6 +153,12 @@
     <Compile Include="FormAbout.Designer.cs">
       <DependentUpon>FormAbout.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormAddCableDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormAddCableDatabase.Designer.cs">
+      <DependentUpon>FormAddCableDatabase.cs</DependentUpon>
+    </Compile>
     <Compile Include="FSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -210,6 +216,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAbout.resx">
       <DependentUpon>FormAbout.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormAddCableDatabase.resx">
+      <DependentUpon>FormAddCableDatabase.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FSettings.resx">
       <DependentUpon>FSettings.cs</DependentUpon>

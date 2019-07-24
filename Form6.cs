@@ -113,11 +113,6 @@ namespace Test1
             
         }
 
-        private void DataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            
-        }
-
         private void tableToArray()
         {
             bool terisi;

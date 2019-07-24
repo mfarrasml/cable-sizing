@@ -10,10 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
-
-
+using System.IO;
 
 namespace Test1
 {
@@ -84,8 +81,9 @@ namespace Test1
         public static int j = -1;
         Form5 f5 = new Form5();
         Form6 f6 = new Form6();
-        FormAbout fAbout = new FormAbout();
+        FormAbout fAbout;
         FSettings fSettings = new FSettings();
+        FormAddCableDatabase faddcable;
 
         public static string[] results = new string[38];
 
@@ -103,6 +101,10 @@ namespace Test1
         int kttextboxX, kttextboxY, ktlabelX, ktlabelY;
         
         DataRow dtr;
+
+
+        DirectoryInfo di;
+        int IECDatabaseFiles;
 
         public Form1()
         {
@@ -877,6 +879,26 @@ namespace Test1
 
             //load saved/default settings
             decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+            //read all file in database directory
+
+            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing");
+            string saveDir = (systemPath + "/Cable Sizing");
+
+            di = new DirectoryInfo(saveDir);
+            FileInfo[] files = di.GetFiles("*.xml");
+            IECDatabaseFiles = files.Length;
+            //fill vendor data from database
+            comboBoxVendor.Items.Insert(0, "Sumi Indo Cable (Default)");
+            for (int z = 0; z < IECDatabaseFiles; z++)
+            {
+                string tempstring;
+                tempstring = files[z].ToString();
+                tempstring = tempstring.Replace(".xml", "");
+                comboBoxVendor.Items.Insert(z + 1, tempstring);
+            }
+
         }
 
         private void TextBox15_KeyPress(object sender, KeyPressEventArgs e)
@@ -3573,12 +3595,22 @@ namespace Test1
                 {
                     button6.Enabled = false;
                     label78.Enabled = false;
+                    button6.Visible = false;
+                    label78.Visible = false;
+
+                    comboBoxVendor.Visible = true;
+                    labelVendor.Visible = true;
                 }
             }
             else
             {
                 button6.Enabled = true;
                 label78.Enabled = true;
+                button6.Visible = true;
+                label78.Visible = true;
+
+                comboBoxVendor.Visible = false;
+                labelVendor.Visible = false;
             }
             enable_vd_btn();
             enable_result_btn();
@@ -3590,11 +3622,21 @@ namespace Test1
             {
                 button6.Enabled = true;
                 label78.Enabled = true;
+                button6.Visible = true;
+                label78.Visible = true;
+
+                comboBoxVendor.Visible = false;
+                labelVendor.Visible = false;
             }
             else
             {
                 button6.Enabled = false;
                 label78.Enabled = false;
+                button6.Visible = false;
+                label78.Visible = false;
+
+                comboBoxVendor.Visible = true;
+                labelVendor.Visible = true;
             }
             enable_vd_btn();
             enable_result_btn();
@@ -4917,7 +4959,19 @@ namespace Test1
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            fAbout = new FormAbout();
             fAbout.ShowDialog();
+        }
+
+        private void CableDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            faddcable = new FormAddCableDatabase();
+            faddcable.ShowDialog();
+        }
+
+        private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(comboBoxVendor, comboBoxVendor.Text);
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
