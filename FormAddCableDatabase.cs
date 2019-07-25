@@ -77,8 +77,6 @@ namespace Test1
             cablesize[15] = 300;
             cablesize[16] = 400;
 
-            //initializing database table column
-
             //initializing XLPE2 table column
             dtXLPE2.Columns.Add("Size (mm²)");
             dtXLPE2.Columns.Add("AC Resistance at 90°C(Ω/km)");
@@ -184,6 +182,10 @@ namespace Test1
             dtPVC4.TableName = "PVC_4CORE";
 
 
+            //initializing database table column
+            LoadDataViewColumn();
+
+
             //initialize wiresizes
 
             for (int i = 0; i < 17; i++)
@@ -221,6 +223,123 @@ namespace Test1
             LoadIECDatabase();
             comboBoxDatabase.SelectedIndex = 0;
 
+        }
+
+
+        //initializing table view/edit columns
+        private void LoadDataViewColumn()
+        {
+            dtXLPE2view = new DataTable();
+            dtXLPE3view = new DataTable();
+            dtXLPE4view = new DataTable();
+            dtPVC2view = new DataTable();
+            dtPVC3view = new DataTable();
+            dtPVC4view = new DataTable();
+
+            //Initializing view/edit database columns
+            //initializing XLPE2 table column
+            dtXLPE2view.Columns.Add("Size (mm²)");
+            dtXLPE2view.Columns.Add("AC Resistance at 90°C(Ω/km)");
+            dtXLPE2view.Columns.Add("Reactance at 50Hz(Ω/km)");
+            dtXLPE2view.Columns.Add("DC Resistance at 90°C(Ω/km)");
+            dtXLPE2view.Columns.Add("Under Ground CCC at 20°C(A)");
+            dtXLPE2view.Columns.Add("Above Ground CCC at 30°C(A)");
+
+            dtXLPE2view.Columns[0].ColumnName = "Size";
+            dtXLPE2view.Columns[1].ColumnName = "AC_Resistance";
+            dtXLPE2view.Columns[2].ColumnName = "Reactance";
+            dtXLPE2view.Columns[3].ColumnName = "DC_Resistance";
+            dtXLPE2view.Columns[4].ColumnName = "UG_CCC";
+            dtXLPE2view.Columns[5].ColumnName = "AG_CCC";
+
+            dtXLPE2.TableName = "XLPE_2CORE";
+
+
+            //initializing XLPE3 table column
+            dtXLPE3view.Columns.Add("Size (mm²)");
+            dtXLPE3view.Columns.Add("AC Resistance at 90°C(Ω/km)");
+            dtXLPE3view.Columns.Add("Reactance at 50Hz(Ω/km)");
+            dtXLPE3view.Columns.Add("DC Resistance at 90°C(Ω/km)");
+            dtXLPE3view.Columns.Add("Under Ground CCC at 20°C(A)");
+            dtXLPE3view.Columns.Add("Above Ground CCC at 30°C(A)");
+
+            dtXLPE3view.Columns[0].ColumnName = "Size";
+            dtXLPE3view.Columns[1].ColumnName = "AC_Resistance";
+            dtXLPE3view.Columns[2].ColumnName = "Reactance";
+            dtXLPE3view.Columns[3].ColumnName = "DC_Resistance";
+            dtXLPE3view.Columns[4].ColumnName = "UG_CCC";
+            dtXLPE3view.Columns[5].ColumnName = "AG_CCC";
+
+            dtXLPE3view.TableName = "XLPE_3CORE";
+
+            //initializing XLPE4 table column
+            dtXLPE4view.Columns.Add("Size (mm²)");
+            dtXLPE4view.Columns.Add("AC Resistance at 90°C(Ω/km)");
+            dtXLPE4view.Columns.Add("Reactance at 50Hz(Ω/km)");
+            dtXLPE4view.Columns.Add("DC Resistance at 90°C(Ω/km)");
+            dtXLPE4view.Columns.Add("Under Ground CCC at 20°C(A)");
+            dtXLPE4view.Columns.Add("Above Ground CCC at 30°C(A)");
+
+            dtXLPE4view.Columns[0].ColumnName = "Size";
+            dtXLPE4view.Columns[1].ColumnName = "AC_Resistance";
+            dtXLPE4view.Columns[2].ColumnName = "Reactance";
+            dtXLPE4view.Columns[3].ColumnName = "DC_Resistance";
+            dtXLPE4view.Columns[4].ColumnName = "UG_CCC";
+            dtXLPE4view.Columns[5].ColumnName = "AG_CCC";
+
+            dtXLPE4view.TableName = "XLPE_4CORE";
+
+
+            //initializing PVC2 table column
+            dtPVC2view.Columns.Add("Size (mm²)");
+            dtPVC2view.Columns.Add("AC Resistance at 70°C(Ω/km)");
+            dtPVC2view.Columns.Add("Reactance at 50Hz(Ω/km)");
+            dtPVC2view.Columns.Add("DC Resistance at 70°C(Ω/km)");
+            dtPVC2view.Columns.Add("Under Ground CCC at 20°C(A)");
+            dtPVC2view.Columns.Add("Above Ground CCC at 30°C(A)");
+
+            dtPVC2view.Columns[0].ColumnName = "Size";
+            dtPVC2view.Columns[1].ColumnName = "AC_Resistance";
+            dtPVC2view.Columns[2].ColumnName = "Reactance";
+            dtPVC2view.Columns[3].ColumnName = "DC_Resistance";
+            dtPVC2view.Columns[4].ColumnName = "UG_CCC";
+            dtPVC2view.Columns[5].ColumnName = "AG_CCC";
+
+            dtPVC2view.TableName = "PVC_2CORE";
+
+            //initializing PVC3 table column
+            dtPVC3view.Columns.Add("Size (mm²)");
+            dtPVC3view.Columns.Add("AC Resistance at 70°C(Ω/km)");
+            dtPVC3view.Columns.Add("Reactance at 50Hz(Ω/km)");
+            dtPVC3view.Columns.Add("DC Resistance at 70°C(Ω/km)");
+            dtPVC3view.Columns.Add("Under Ground CCC at 20°C(A)");
+            dtPVC3view.Columns.Add("Above Ground CCC at 30°C(A)");
+
+            dtPVC3view.Columns[0].ColumnName = "Size";
+            dtPVC3view.Columns[1].ColumnName = "AC_Resistance";
+            dtPVC3view.Columns[2].ColumnName = "Reactance";
+            dtPVC3view.Columns[3].ColumnName = "DC_Resistance";
+            dtPVC3view.Columns[4].ColumnName = "UG_CCC";
+            dtPVC3view.Columns[5].ColumnName = "AG_CCC";
+
+            dtPVC3view.TableName = "PVC_3CORE";
+
+            //initializing PVC4 table column
+            dtPVC4view.Columns.Add("Size (mm²)");
+            dtPVC4view.Columns.Add("AC Resistance at 70°C(Ω/km)");
+            dtPVC4view.Columns.Add("Reactance at 50Hz(Ω/km)");
+            dtPVC4view.Columns.Add("DC Resistance at 70°C(Ω/km)");
+            dtPVC4view.Columns.Add("Under Ground CCC at 20°C(A)");
+            dtPVC4view.Columns.Add("Above Ground CCC at 30°C(A)");
+
+            dtPVC4view.Columns[0].ColumnName = "Size";
+            dtPVC4view.Columns[1].ColumnName = "AC_Resistance";
+            dtPVC4view.Columns[2].ColumnName = "Reactance";
+            dtPVC4view.Columns[3].ColumnName = "DC_Resistance";
+            dtPVC4view.Columns[4].ColumnName = "UG_CCC";
+            dtPVC4view.Columns[5].ColumnName = "AG_CCC";
+
+            dtPVC4view.TableName = "PVC_4CORE";
         }
 
         private void ComboBoxInsulation_SelectedIndexChanged(object sender, EventArgs e)
@@ -394,17 +513,17 @@ namespace Test1
                         case 2:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtXLPE2;
-                            SetDGVRuntimeProperties();
+                            SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 3:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtXLPE3;
-                            SetDGVRuntimeProperties();
+                            SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 4:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtXLPE4;
-                            SetDGVRuntimeProperties();
+                            SetDGVRuntimeProperties(dataGridView1);
                             break;
                         default:
                             dataGridView1.DataSource = null;
@@ -418,17 +537,17 @@ namespace Test1
                         case 2:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtPVC2;
-                            SetDGVRuntimeProperties();
+                            SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 3:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtPVC3;
-                            SetDGVRuntimeProperties();
+                            SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 4:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtPVC4;
-                            SetDGVRuntimeProperties();
+                            SetDGVRuntimeProperties(dataGridView1);
                             break;
                         default:
                             dataGridView1.DataSource = null;
@@ -443,15 +562,16 @@ namespace Test1
             }
         }
 
-        private void SetDGVRuntimeProperties()
+        //Disable DataGridView Column Sorting and makes first column (wire size data) Read only 
+        private void SetDGVRuntimeProperties(DataGridView dgv)
         {
             //disable column sorting
             for (int i = 0; i < 6; i++)
             {
-                dataGridView1.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
+                dgv.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
             //disable changing the wire size data
-            dataGridView1.Columns[0].ReadOnly = true;
+            dgv.Columns[0].ReadOnly = true;
         }
 
         private void ButtonCancel_Click(object sender, EventArgs e)
@@ -895,12 +1015,19 @@ namespace Test1
         bool IECSelected;
         bool NECSelected;
 
-
         DirectoryInfo di;
 
+        DataSet viewCableDS;
+        DataTable dtXLPE2view;
+        DataTable dtXLPE3view;
+        DataTable dtXLPE4view;
+        DataTable dtPVC2view;
+        DataTable dtPVC3view;
+        DataTable dtPVC4view;
+
+        int xlpe2coreLength, xlpe3coreLength, xlpe4coreLength, pvc2coreLength, pvc3coreLength, pvc4coreLength;
 
         int IECFiles;
-
 
         int viewCores;
         string viewinsulation, viewconductor;
@@ -949,41 +1076,67 @@ namespace Test1
         private void ComboBoxDatabase_SelectedIndexChanged(object sender, EventArgs e)
         {
             fileName = comboBoxDatabase.Text;
+
+            if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
+            {
+                ReadIECDatabase();
+            }
+            else if (fileName == "Sumi Indo Cable (Default)")
+            {
+                DoubleArrayToDT(Form1.xlpe2core, 17, 6, dtXLPE2view);
+                DoubleArrayToDT(Form1.xlpe3core, 17, 6, dtXLPE3view);
+                DoubleArrayToDT(Form1.xlpe4core, 17, 6, dtXLPE4view);
+                DoubleArrayToDT(Form1.pvc2core, 16, 6, dtPVC2view);
+                DoubleArrayToDT(Form1.pvc3core, 16, 6, dtPVC3view);
+                DoubleArrayToDT(Form1.pvc4core, 16, 6, dtPVC4view);
+                //Insert default-hard-coded array table (sumi indo) to data table used here
+                xlpe2coreLength = 17;
+                xlpe3coreLength = 17;
+                xlpe4coreLength = 17;
+                pvc2coreLength = 16;
+                pvc3coreLength = 16;
+                pvc4coreLength = 16;
+            }
+            else if (fileName != "")
+            {
+                dtXLPE2view = null;
+                dtXLPE3view = null;
+                dtXLPE4view = null;
+                dtPVC2view = null;
+                dtPVC3view = null;
+                dtPVC4view = null;
+            }
+
+            ChooseDatabaseView();
         }
 
 
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             viewinsulation = comboBox1.Text;
+            ChooseDatabaseView();
         }
 
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
             viewCores = int.Parse(comboBox3.Text);
+            ChooseDatabaseView();
         }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             viewconductor = comboBox2.Text;
+            ChooseDatabaseView();
         }
 
-        private void FillDataTable()
-        {
-            if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
-            {
 
-            }
-        }
-
-        DataSet viewCableDS;
-
-        /*
+        //Read IEC saved Database from the directory, return cable data file + length of each type of cable data
         internal void ReadIECDatabase()
         {
             string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database";
-            string saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", SelectedDatabase + ".xml");
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", fileName + ".xml");
 
             //save database to a new dataset
             viewCableDS = new DataSet();
@@ -992,89 +1145,150 @@ namespace Test1
             //save each cable data table to their respective datatable
             if (viewCableDS.Tables.Contains("XLPE_2CORE"))
             {
-                dtXLPE2DB = viewCableDS.Tables["XLPE_2CORE"].Copy();
-                xlpe2coreDB = new double[dtXLPE2DB.Rows.Count, dtXLPE2DB.Columns.Count];
-                DTToArrayDouble(dtXLPE2DB, xlpe2coreDB);
-                xlpe2coreLength = dtXLPE2DB.Rows.Count;
+                dtXLPE2view = viewCableDS.Tables["XLPE_2CORE"].Copy();
+                xlpe2coreLength = dtXLPE2view.Rows.Count;
             }
             else
             {
+                dtXLPE2view.Rows.Clear();
                 xlpe2coreLength = 0;
             }
-            if (cableDS.Tables.Contains("XLPE_3CORE"))
+            if (viewCableDS.Tables.Contains("XLPE_3CORE"))
             {
-                dtXLPE3DB = cableDS.Tables["XLPE_3CORE"].Copy();
-                xlpe3coreDB = new double[dtXLPE3DB.Rows.Count, dtXLPE3DB.Columns.Count];
-                DTToArrayDouble(dtXLPE3DB, xlpe3coreDB);
-                xlpe3coreLength = dtXLPE3DB.Rows.Count;
+                dtXLPE3view= viewCableDS.Tables["XLPE_3CORE"].Copy();
+                xlpe3coreLength = dtXLPE3view.Rows.Count;
             }
             else
             {
+                dtXLPE3view.Rows.Clear();
                 xlpe3coreLength = 0;
             }
-            if (cableDS.Tables.Contains("XLPE_4CORE"))
+            if (viewCableDS.Tables.Contains("XLPE_4CORE"))
             {
-                dtXLPE4DB = cableDS.Tables["XLPE_4CORE"].Copy();
-                xlpe4coreDB = new double[dtXLPE4DB.Rows.Count, dtXLPE4DB.Columns.Count];
-                DTToArrayDouble(dtXLPE4DB, xlpe4coreDB);
-                xlpe4coreLength = dtXLPE4DB.Rows.Count;
+                dtXLPE4view = viewCableDS.Tables["XLPE_4CORE"].Copy();
+                xlpe4coreLength = dtXLPE4view.Rows.Count;
             }
             else
             {
+                dtXLPE4view.Rows.Clear();
                 xlpe4coreLength = 0;
             }
-            if (cableDS.Tables.Contains("PVC_2CORE"))
+            if (viewCableDS.Tables.Contains("PVC_2CORE"))
             {
-                dtPVC2DB = cableDS.Tables["PVC_2CORE"].Copy();
-                pvc2coreDB = new double[dtPVC2DB.Rows.Count, dtPVC2DB.Columns.Count];
-                DTToArrayDouble(dtPVC2DB, pvc2coreDB);
-                pvc2coreLength = dtPVC2DB.Rows.Count;
+                dtPVC2view = viewCableDS.Tables["PVC_2CORE"].Copy();
+                pvc2coreLength = dtPVC2view.Rows.Count;
             }
             else
             {
+                dtPVC2view.Rows.Clear();
                 pvc2coreLength = 0;
             }
-            if (cableDS.Tables.Contains("PVC_3CORE"))
+            if (viewCableDS.Tables.Contains("PVC_3CORE"))
             {
-                dtPVC3DB = cableDS.Tables["PVC_3CORE"].Copy();
-                pvc3coreDB = new double[dtPVC3DB.Rows.Count, dtPVC3DB.Columns.Count];
-                DTToArrayDouble(dtPVC3DB, pvc3coreDB);
-                pvc3coreLength = dtPVC3DB.Rows.Count;
+                dtPVC3view = viewCableDS.Tables["PVC_3CORE"].Copy();
+                pvc3coreLength = dtPVC3view.Rows.Count;
             }
             else
             {
+                dtPVC3view.Rows.Clear();
                 pvc3coreLength = 0;
             }
-            if (cableDS.Tables.Contains("PVC_4CORE"))
+            if (viewCableDS.Tables.Contains("PVC_4CORE"))
             {
-                dtPVC4DB = cableDS.Tables["PVC_4CORE"].Copy();
-                pvc4coreDB = new double[dtPVC4DB.Rows.Count, dtPVC4DB.Columns.Count];
-                DTToArrayDouble(dtPVC2DB, pvc4coreDB);
-                pvc4coreLength = dtPVC4DB.Rows.Count;
+                dtPVC4view = viewCableDS.Tables["PVC_4CORE"].Copy();
+                pvc4coreLength = dtPVC4view.Rows.Count;
             }
             else
             {
+                dtPVC4view.Rows.Clear();
                 pvc4coreLength = 0;
             }
         }
 
-        private void DTToArrayDouble(DataTable dt, double[,] arr)
+        private void ChooseDatabaseView()
         {
-            int dtRow = dt.Rows.Count;
-            int dtColumn = dt.Columns.Count;
-
-            int row = 0;
-            foreach (DataRow dr in dt.Rows)
+            if (viewconductor == "Copper")
             {
-                for (int col = 0; col < dtColumn; col++)
+                if (viewinsulation == "XLPE")
                 {
-                    arr[row, col] = Convert.ToDouble(dr[col]);
+                    switch (viewCores)
+                    {
+                        case 2:
+                            //bound datagridview to datatable
+                            dataGridView2.DataSource = dtXLPE2view;
+                            SetDGVRuntimeProperties(dataGridView2);
+                            break;
+                        case 3:
+                            //bound datagridview to datatable
+                            dataGridView2.DataSource = dtXLPE3view;
+                            SetDGVRuntimeProperties(dataGridView2);
+                            break;
+                        case 4:
+                            //bound datagridview to datatable
+                            dataGridView2.DataSource = dtXLPE4view;
+                            SetDGVRuntimeProperties(dataGridView2);
+                            break;
+                        default:
+                            dataGridView2.DataSource = null;
+                            break;
+                    }
                 }
-                row++;
+                else if (viewinsulation == "PVC")
+                {
+                    switch (viewCores)
+                    {
+                        case 2:
+                            //bound datagridview to datatable
+                            dataGridView2.DataSource = dtPVC2view;
+                            SetDGVRuntimeProperties(dataGridView2);
+                            break;
+                        case 3:
+                            //bound datagridview to datatable
+                            dataGridView2.DataSource = dtPVC3view;
+                            SetDGVRuntimeProperties(dataGridView2);
+                            break;
+                        case 4:
+                            //bound datagridview to datatable
+                            dataGridView2.DataSource = dtPVC4view;
+                            SetDGVRuntimeProperties(dataGridView2);
+                            break;
+                        default:
+                            dataGridView2.DataSource = null;
+                            break;
+                    }
+
+                }
+            }
+            else
+            {
+                dataGridView2.DataSource = null;
+            }
+        }
+
+        /*
+        private void FillDataTable()
+        {
+            if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
+            {
+
             }
         }
         */
 
+        private void DoubleArrayToDT(double [,] arr, int Row, int Col, DataTable dt)
+        {
+            DataRow dr;
+            for (int nRow = 0; nRow < Row; nRow ++)
+            {
+                dr = dt.NewRow();
+                for (int nCol = 0; nCol < Col; nCol ++)
+                {
+                    dr[nCol] = arr[nRow, nCol]; 
+                }
+                dt.Rows.Add(dr);
+            }
+            
+        }
     }
 
 }

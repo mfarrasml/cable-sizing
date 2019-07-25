@@ -144,7 +144,7 @@ namespace Test1
 
         }
 
-        double[,] xlpe2core = new double[17, 6]
+        public static double[,] xlpe2core = new double[17, 6]
         {
             { 1.5, 15.4300, 0.0999, 15.4287, 26, 26 },
             { 2.5, 9.4500, 0.0961, 9.4485, 34, 36 },
@@ -165,7 +165,7 @@ namespace Test1
             { 400, 0.0633, 0.0701, 0.0599, 555, 892 }
         };
 
-        double[,] xlpe3core = new double[17, 6]
+        public static double[,] xlpe3core = new double[17, 6]
         {
             {1.5, 15.4300, 0.0999, 15.4281, 22, 23 },
             {2.5,    9.4500,  0.0961,  9.4481,  29,  32 },
@@ -186,7 +186,7 @@ namespace Test1
             {400, 0.0633,  0.0701,  0.0599,  464, 745 }
         };
 
-        double[,] xlpe4core = new double[17, 6]
+        public static double[,] xlpe4core = new double[17, 6]
         {
             { 1.5, 15.4300, 0.1125,  15.4287, 22,  23 },
             { 2.5, 9.4500,  0.1086,  9.4485,  29,  32 },
@@ -207,7 +207,7 @@ namespace Test1
             { 400, 0.0633, 0.0832, 0.0599297, 464, 745 }
         };
 
-        double[,] pvc2core = new double[16, 6]
+        public static double[,] pvc2core = new double[16, 6]
         {
             { 1.5, 14.4777, 0.1075, 14.47765, 22, 22 },
             { 2.5, 8.8661, 0.0994, 8.866065, 29, 30 },
@@ -227,7 +227,7 @@ namespace Test1
             { 300, 0.0749, 0.0756, 0.07190965, 408, 593 }
         };
 
-        double[,] pvc3core = new double[16, 6]
+        public static double[,] pvc3core = new double[16, 6]
         {
             { 1.5, 14.4777, 0.1075, 14.47721021611, 18, 18.5 },
             { 2.5, 8.8661, 0.0994, 8.86579567779961, 24, 25 },
@@ -247,7 +247,7 @@ namespace Test1
             { 300, 0.0749, 0.0756, 0.0719074656188605, 336, 497 }
         };
 
-        double[,] pvc4core = new double[16, 6]
+        public static double[,] pvc4core = new double[16, 6]
         {
             { 1.5, 14.4777, 0.1199, 14.47765, 18, 18.5 },
             { 2.5, 8.8661, 0.112, 8.866065, 24, 25 },
