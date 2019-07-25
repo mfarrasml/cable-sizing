@@ -26,7 +26,7 @@ namespace Test1
 
         public static int summaryCount = 0;
 
-        string[] arrTemp = new string[39];
+        string[] arrTemp = new string[40];
 
         public static bool toolbarTextActivated;
 
@@ -270,6 +270,7 @@ namespace Test1
 
                     dataGridView1.Rows.Clear();
 
+                    //NOTE: ALL '.' and ',' still got changed, TODO: Change decimal separator replacing to only decimal data
                     foreach (DataRow row in Form1.dtdiameter.Rows)
                     {
                         if (Form1.decimalseparator == ',')
@@ -294,8 +295,8 @@ namespace Test1
                         for (int k = 0; k < dxcolumn; k++)
                         {
 
-                            if ((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 23)) ||
-                                ((k >= 25) && (k <= 36)))
+                            if ((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 24)) ||
+                                ((k >= 26) && (k <= 37)))
                             {
                                 if (Form1.decimalseparator == ',')
                                 {
@@ -363,7 +364,7 @@ namespace Test1
                     string Input;
                     // matching all decimal separator as '.' in xml file
                     if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) ||
-                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
+                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 24)) || ((cell.ColumnIndex >= 26) && (cell.ColumnIndex <= 37)))
                     {
 
                         Input = Convert.ToString(cell.Value).Replace(',', '.');
@@ -376,6 +377,9 @@ namespace Test1
                 }
                 dt.Rows.Add(dRow);
             }
+
+
+            //NOTE: ALL '.' and ',' still got changed, TODO: Change decimal separator replacing to only decimal data
             // matching all decimal separator as '.' in xml file
             foreach (DataRow row in dd.Rows)
             {
@@ -428,7 +432,7 @@ namespace Test1
                     string Input;
                     // matching all decimal separator as '.' in xml file
                     if ((cell.ColumnIndex == 8) || ((cell.ColumnIndex >= 10) && (cell.ColumnIndex <= 16)) ||
-                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 23)) || ((cell.ColumnIndex >= 25) && (cell.ColumnIndex <= 36)))
+                            ((cell.ColumnIndex >= 18) && (cell.ColumnIndex <= 24)) || ((cell.ColumnIndex >= 26) && (cell.ColumnIndex <= 37)))
                     {
 
                         Input = Convert.ToString(cell.Value).Replace(',', '.');
@@ -441,6 +445,8 @@ namespace Test1
                 }
                 dt.Rows.Add(dRow);
             }
+
+            //NOTE: ALL '.' and ',' still got changed, TODO: Change decimal separator replacing to only decimal data
             // matching all decimal separator as '.' in xml file
             foreach (DataRow row in dd.Rows)
             {
@@ -555,7 +561,7 @@ namespace Test1
             printer.FooterSpacing = 15;
 
 
-            for (int i = 0; i < 39; i++)
+            for (int i = 0; i < 40; i++)
             {
 
                 printer.ColumnStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
@@ -606,9 +612,9 @@ namespace Test1
             summaryCount = 0;
             for (int i = 0; i < Form1.j + 1; i++)
             {
-                sel_cable = Convert.ToString(dataGridView1.Rows[i].Cells[37].Value);
+                sel_cable = Convert.ToString(dataGridView1.Rows[i].Cells[38].Value);
                 sel_cable = sel_cable.Replace(Convert.ToString(dataGridView1.Rows[i].Cells[17].Value) + "  ×  ", "");
-                cable_length = (Convert.ToDouble(dataGridView1.Rows[i].Cells[17].Value) * Convert.ToDouble(dataGridView1.Rows[i].Cells[26].Value));
+                cable_length = (Convert.ToDouble(dataGridView1.Rows[i].Cells[17].Value) * Convert.ToDouble(dataGridView1.Rows[i].Cells[27].Value));
 
                 done = false;
 
@@ -654,7 +660,7 @@ namespace Test1
 
         private void RowUp()
         {
-            for (int i = 1; i < 39; i++)
+            for (int i = 1; i < 40; i++)
             {
                 arrTemp[i] = Convert.ToString(dataGridView1.Rows[currentrow - 1].Cells[i].Value);
                 dataGridView1.Rows[currentrow - 1].Cells[i].Value = dataGridView1.Rows[currentrow].Cells[i].Value;
@@ -678,7 +684,7 @@ namespace Test1
 
         private void RowDown()
         {
-            for (int i = 1; i < 39; i++)
+            for (int i = 1; i < 40; i++)
             {
                 arrTemp[i] = Convert.ToString(dataGridView1.Rows[currentrow + 1].Cells[i].Value);
                 dataGridView1.Rows[currentrow + 1].Cells[i].Value = dataGridView1.Rows[currentrow].Cells[i].Value;

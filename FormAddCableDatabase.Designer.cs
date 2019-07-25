@@ -43,23 +43,44 @@
             this.labelStandard = new System.Windows.Forms.Label();
             this.radioButtonIEC = new System.Windows.Forms.RadioButton();
             this.radioButtonNEC = new System.Windows.Forms.RadioButton();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabAdd = new System.Windows.Forms.TabPage();
+            this.tabView = new System.Windows.Forms.TabPage();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBoxDatabase = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.tabControl1.SuspendLayout();
+            this.tabAdd.SuspendLayout();
+            this.tabView.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // textBoxName
             // 
             this.textBoxName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.textBoxName.Location = new System.Drawing.Point(15, 52);
+            this.textBoxName.Location = new System.Drawing.Point(6, 46);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(584, 20);
+            this.textBoxName.Size = new System.Drawing.Size(604, 20);
             this.textBoxName.TabIndex = 3;
             this.textBoxName.TextChanged += new System.EventHandler(this.TextBoxName_TextChanged);
             // 
             // labelName
             // 
             this.labelName.AutoSize = true;
-            this.labelName.Location = new System.Drawing.Point(12, 31);
+            this.labelName.Location = new System.Drawing.Point(3, 25);
             this.labelName.Margin = new System.Windows.Forms.Padding(3);
             this.labelName.Name = "labelName";
             this.labelName.Size = new System.Drawing.Size(35, 13);
@@ -69,7 +90,7 @@
             // labelInsertData
             // 
             this.labelInsertData.AutoSize = true;
-            this.labelInsertData.Location = new System.Drawing.Point(12, 82);
+            this.labelInsertData.Location = new System.Drawing.Point(3, 76);
             this.labelInsertData.Margin = new System.Windows.Forms.Padding(3);
             this.labelInsertData.Name = "labelInsertData";
             this.labelInsertData.Size = new System.Drawing.Size(89, 13);
@@ -85,12 +106,13 @@
             this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 162);
+            this.dataGridView1.Location = new System.Drawing.Point(6, 136);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(587, 284);
+            this.dataGridView1.Size = new System.Drawing.Size(604, 361);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
             this.dataGridView1.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellLeave);
@@ -101,7 +123,7 @@
             // labelInsulationType
             // 
             this.labelInsulationType.AutoSize = true;
-            this.labelInsulationType.Location = new System.Drawing.Point(22, 110);
+            this.labelInsulationType.Location = new System.Drawing.Point(19, 104);
             this.labelInsulationType.Margin = new System.Windows.Forms.Padding(3);
             this.labelInsulationType.Name = "labelInsulationType";
             this.labelInsulationType.Size = new System.Drawing.Size(79, 13);
@@ -115,7 +137,7 @@
             this.comboBoxInsulation.Items.AddRange(new object[] {
             "XLPE",
             "PVC"});
-            this.comboBoxInsulation.Location = new System.Drawing.Point(107, 106);
+            this.comboBoxInsulation.Location = new System.Drawing.Point(104, 100);
             this.comboBoxInsulation.Name = "comboBoxInsulation";
             this.comboBoxInsulation.Size = new System.Drawing.Size(98, 21);
             this.comboBoxInsulation.TabIndex = 8;
@@ -124,7 +146,7 @@
             // labelCores
             // 
             this.labelCores.AutoSize = true;
-            this.labelCores.Location = new System.Drawing.Point(217, 110);
+            this.labelCores.Location = new System.Drawing.Point(214, 104);
             this.labelCores.Margin = new System.Windows.Forms.Padding(3);
             this.labelCores.Name = "labelCores";
             this.labelCores.Size = new System.Drawing.Size(66, 13);
@@ -139,7 +161,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxCores.Location = new System.Drawing.Point(289, 106);
+            this.comboBoxCores.Location = new System.Drawing.Point(286, 100);
             this.comboBoxCores.Name = "comboBoxCores";
             this.comboBoxCores.Size = new System.Drawing.Size(62, 21);
             this.comboBoxCores.TabIndex = 10;
@@ -148,7 +170,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(22, 139);
+            this.label1.Location = new System.Drawing.Point(362, 104);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
@@ -161,7 +183,7 @@
             this.comboBoxConductor.FormattingEnabled = true;
             this.comboBoxConductor.Items.AddRange(new object[] {
             "Copper"});
-            this.comboBoxConductor.Location = new System.Drawing.Point(107, 135);
+            this.comboBoxConductor.Location = new System.Drawing.Point(447, 100);
             this.comboBoxConductor.Name = "comboBoxConductor";
             this.comboBoxConductor.Size = new System.Drawing.Size(98, 21);
             this.comboBoxConductor.TabIndex = 12;
@@ -171,7 +193,7 @@
             // 
             this.buttonSave.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.buttonSave.Enabled = false;
-            this.buttonSave.Location = new System.Drawing.Point(222, 452);
+            this.buttonSave.Location = new System.Drawing.Point(225, 503);
             this.buttonSave.Name = "buttonSave";
             this.buttonSave.Size = new System.Drawing.Size(75, 23);
             this.buttonSave.TabIndex = 13;
@@ -182,17 +204,18 @@
             // buttonCancel
             // 
             this.buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.buttonCancel.Location = new System.Drawing.Point(314, 452);
+            this.buttonCancel.Location = new System.Drawing.Point(317, 503);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 14;
             this.buttonCancel.Text = "Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
+            this.buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
             // 
             // labelStandard
             // 
             this.labelStandard.AutoSize = true;
-            this.labelStandard.Location = new System.Drawing.Point(217, 139);
+            this.labelStandard.Location = new System.Drawing.Point(3, 6);
             this.labelStandard.Margin = new System.Windows.Forms.Padding(3);
             this.labelStandard.Name = "labelStandard";
             this.labelStandard.Size = new System.Drawing.Size(50, 13);
@@ -203,7 +226,7 @@
             // 
             this.radioButtonIEC.AutoSize = true;
             this.radioButtonIEC.Checked = true;
-            this.radioButtonIEC.Location = new System.Drawing.Point(289, 137);
+            this.radioButtonIEC.Location = new System.Drawing.Point(75, 4);
             this.radioButtonIEC.Name = "radioButtonIEC";
             this.radioButtonIEC.Size = new System.Drawing.Size(42, 17);
             this.radioButtonIEC.TabIndex = 16;
@@ -215,7 +238,7 @@
             // radioButtonNEC
             // 
             this.radioButtonNEC.AutoSize = true;
-            this.radioButtonNEC.Location = new System.Drawing.Point(341, 137);
+            this.radioButtonNEC.Location = new System.Drawing.Point(127, 4);
             this.radioButtonNEC.Name = "radioButtonNEC";
             this.radioButtonNEC.Size = new System.Drawing.Size(47, 17);
             this.radioButtonNEC.TabIndex = 17;
@@ -223,32 +246,244 @@
             this.radioButtonNEC.Text = "NEC";
             this.radioButtonNEC.UseVisualStyleBackColor = true;
             // 
+            // tabControl1
+            // 
+            this.tabControl1.Controls.Add(this.tabView);
+            this.tabControl1.Controls.Add(this.tabAdd);
+            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(624, 560);
+            this.tabControl1.TabIndex = 18;
+            // 
+            // tabAdd
+            // 
+            this.tabAdd.BackColor = System.Drawing.Color.White;
+            this.tabAdd.Controls.Add(this.labelName);
+            this.tabAdd.Controls.Add(this.radioButtonNEC);
+            this.tabAdd.Controls.Add(this.textBoxName);
+            this.tabAdd.Controls.Add(this.radioButtonIEC);
+            this.tabAdd.Controls.Add(this.labelInsertData);
+            this.tabAdd.Controls.Add(this.labelStandard);
+            this.tabAdd.Controls.Add(this.dataGridView1);
+            this.tabAdd.Controls.Add(this.buttonCancel);
+            this.tabAdd.Controls.Add(this.labelInsulationType);
+            this.tabAdd.Controls.Add(this.buttonSave);
+            this.tabAdd.Controls.Add(this.comboBoxInsulation);
+            this.tabAdd.Controls.Add(this.comboBoxConductor);
+            this.tabAdd.Controls.Add(this.labelCores);
+            this.tabAdd.Controls.Add(this.label1);
+            this.tabAdd.Controls.Add(this.comboBoxCores);
+            this.tabAdd.Location = new System.Drawing.Point(4, 22);
+            this.tabAdd.Name = "tabAdd";
+            this.tabAdd.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAdd.Size = new System.Drawing.Size(616, 534);
+            this.tabAdd.TabIndex = 0;
+            this.tabAdd.Text = "Add Database";
+            // 
+            // tabView
+            // 
+            this.tabView.BackColor = System.Drawing.Color.White;
+            this.tabView.Controls.Add(this.button1);
+            this.tabView.Controls.Add(this.comboBoxDatabase);
+            this.tabView.Controls.Add(this.label3);
+            this.tabView.Controls.Add(this.label4);
+            this.tabView.Controls.Add(this.dataGridView2);
+            this.tabView.Controls.Add(this.label5);
+            this.tabView.Controls.Add(this.comboBox1);
+            this.tabView.Controls.Add(this.comboBox2);
+            this.tabView.Controls.Add(this.label6);
+            this.tabView.Controls.Add(this.label7);
+            this.tabView.Controls.Add(this.comboBox3);
+            this.tabView.Controls.Add(this.radioButton1);
+            this.tabView.Controls.Add(this.radioButton2);
+            this.tabView.Controls.Add(this.label2);
+            this.tabView.Location = new System.Drawing.Point(4, 22);
+            this.tabView.Name = "tabView";
+            this.tabView.Padding = new System.Windows.Forms.Padding(3);
+            this.tabView.Size = new System.Drawing.Size(616, 534);
+            this.tabView.TabIndex = 1;
+            this.tabView.Text = "View Database";
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(127, 4);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(47, 17);
+            this.radioButton1.TabIndex = 20;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "NEC";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Location = new System.Drawing.Point(75, 4);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(42, 17);
+            this.radioButton2.TabIndex = 19;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "IEC";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 6);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Standard";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(3, 25);
+            this.label3.Margin = new System.Windows.Forms.Padding(3);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(91, 13);
+            this.label3.TabIndex = 22;
+            this.label3.Text = "Browse Database";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(3, 76);
+            this.label4.Margin = new System.Windows.Forms.Padding(3);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(93, 13);
+            this.label4.TabIndex = 23;
+            this.label4.Text = "Select Cable Data";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AllowUserToResizeColumns = false;
+            this.dataGridView2.AllowUserToResizeRows = false;
+            this.dataGridView2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Location = new System.Drawing.Point(6, 136);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.RowHeadersVisible = false;
+            this.dataGridView2.Size = new System.Drawing.Size(604, 361);
+            this.dataGridView2.TabIndex = 24;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(19, 104);
+            this.label5.Margin = new System.Windows.Forms.Padding(3);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(79, 13);
+            this.label5.TabIndex = 25;
+            this.label5.Text = "Insulation Type";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "XLPE",
+            "PVC"});
+            this.comboBox1.Location = new System.Drawing.Point(104, 100);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(98, 21);
+            this.comboBox1.TabIndex = 26;
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.ComboBox1_SelectedIndexChanged);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Copper"});
+            this.comboBox2.Location = new System.Drawing.Point(447, 100);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(98, 21);
+            this.comboBox2.TabIndex = 30;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(214, 104);
+            this.label6.Margin = new System.Windows.Forms.Padding(3);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 13);
+            this.label6.TabIndex = 27;
+            this.label6.Text = "No. of Cores";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(362, 104);
+            this.label7.Margin = new System.Windows.Forms.Padding(3);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(83, 13);
+            this.label7.TabIndex = 29;
+            this.label7.Text = "Conductor Type";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "2",
+            "3",
+            "4"});
+            this.comboBox3.Location = new System.Drawing.Point(286, 100);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(62, 21);
+            this.comboBox3.TabIndex = 28;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ComboBox3_SelectedIndexChanged);
+            // 
+            // comboBoxDatabase
+            // 
+            this.comboBoxDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxDatabase.FormattingEnabled = true;
+            this.comboBoxDatabase.Location = new System.Drawing.Point(6, 46);
+            this.comboBoxDatabase.Name = "comboBoxDatabase";
+            this.comboBoxDatabase.Size = new System.Drawing.Size(523, 21);
+            this.comboBoxDatabase.TabIndex = 31;
+            this.comboBoxDatabase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDatabase_SelectedIndexChanged);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(535, 45);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "Rename";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
             // FormAddCableDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(611, 482);
-            this.Controls.Add(this.radioButtonNEC);
-            this.Controls.Add(this.radioButtonIEC);
-            this.Controls.Add(this.labelStandard);
-            this.Controls.Add(this.buttonCancel);
-            this.Controls.Add(this.buttonSave);
-            this.Controls.Add(this.comboBoxConductor);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBoxCores);
-            this.Controls.Add(this.labelCores);
-            this.Controls.Add(this.comboBoxInsulation);
-            this.Controls.Add(this.labelInsulationType);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.labelInsertData);
-            this.Controls.Add(this.labelName);
-            this.Controls.Add(this.textBoxName);
+            this.ClientSize = new System.Drawing.Size(624, 560);
+            this.Controls.Add(this.tabControl1);
             this.Name = "FormAddCableDatabase";
             this.Text = "Add Cable Database";
             this.Load += new System.EventHandler(this.FormAddCableDatabase_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.tabControl1.ResumeLayout(false);
+            this.tabAdd.ResumeLayout(false);
+            this.tabAdd.PerformLayout();
+            this.tabView.ResumeLayout(false);
+            this.tabView.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -268,5 +503,22 @@
         private System.Windows.Forms.Label labelStandard;
         private System.Windows.Forms.RadioButton radioButtonIEC;
         private System.Windows.Forms.RadioButton radioButtonNEC;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabAdd;
+        private System.Windows.Forms.TabPage tabView;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox comboBoxDatabase;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Button button1;
     }
 }
