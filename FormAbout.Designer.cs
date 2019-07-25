@@ -74,10 +74,11 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::Test1.Properties.Resources.power_vector_plug_cord_256;
-            this.pictureBox1.Location = new System.Drawing.Point(14, 30);
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.Image = global::Test1.Properties.Resources.power_vector_plug_cord_4;
+            this.pictureBox1.Location = new System.Drawing.Point(22, 30);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(55, 59);
+            this.pictureBox1.Size = new System.Drawing.Size(61, 62);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 3;
             this.pictureBox1.TabStop = false;

@@ -107,8 +107,9 @@ namespace Test1
         Form6 f6 = new Form6();
         Form10 f10 = new Form10();
         FSettings fSettings = new FSettings();
+        FormAbout fAbout;
 
-        public static string[] results = new string[38];
+        public static string[] results = new string[39];
 
         public static string[,] inputCableData_nec;
         public static double[] inputCableData_nec_metric;
@@ -1056,10 +1057,23 @@ namespace Test1
             Form1.dtdiameter.Columns.Add("BreakNominalCurrent");
             Form1.dtdiameter.Columns.Add("BLTE");
             Form1.dtdiameter.Columns.Add("i");
-
+            
 
             //load saved/default settings
             Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
+
+            //Set datatable column header
+            f5.dataGridView1.Columns[18].HeaderText = "Size (AWG or kcmil)";
+            f5.dataGridView1.Columns[20].HeaderText = "Rdc (Ω/kft)";
+            f5.dataGridView1.Columns[19].HeaderText = "Rac (Ω/kft)";
+            f5.dataGridView1.Columns[21].HeaderText = "X (Ω/kft)";
+            f5.dataGridView1.Columns[27].HeaderText = "Length (ft)";
+            f5.dataGridView1.Columns[28].HeaderText = "Lmax (ft)";
+            f5.dataGridView1.Columns[27].HeaderText = "Length (ft)";
+            f5.dataGridView1.Columns[35].HeaderText = "Minimum Cable Size Due to S.C. (AWG or kcmil)";
+
+            Form5.f7.dataGridView1.Columns[2].HeaderText = "Cable Total Length (ft)";
 
 
             cbPower.Text = "kW";
@@ -3771,7 +3785,7 @@ namespace Test1
         {
             if (comboBox19.Text != "")
             {
-                scrating = double.Parse(comboBox19.Text);
+                scrating = double.Parse(comboBox10.Text);
             }
             else
             {
@@ -4379,7 +4393,7 @@ namespace Test1
                 Form1.j++;
                 f5.dataGridView1.Rows[Form1.j].Cells[0].Value = Form1.j + 1;
 
-                for (int k = 0; k < 38; k++)
+                for (int k = 0; k < 40; k++)
                 {
                     f5.dataGridView1.Rows[Form1.j].Cells[k + 1].Value = results[k];
                 }
@@ -4394,8 +4408,7 @@ namespace Test1
             }
             else
             {
-
-                for (int k = 0; k < 38; k++)
+                for (int k = 0; k < 40; k++)
                 {
                     f5.dataGridView1.Rows[tempCurrentRow].Cells[k + 1].Value = results[k];
                 }
@@ -4563,14 +4576,10 @@ namespace Test1
             }
             vdrun = Convert.ToDouble(dtx[33]);
             textBox8.Text = vdrun.ToString("0.##"); //vdrun
-            vdstart = Convert.ToDouble(dtx[34]);
-            if (vdstart != 0)
+            textBox10.Text = DtrToDoubleText(dtx, 34); //vdstart
+            if (textBox10.Text != "")
             {
-                textBox10.Text = vdstart.ToString("0.##"); //vdstart0
-            }
-            else
-            {
-                textBox10.Text = "";
+                vdstart = Convert.ToDouble(dtx[34]);
             }
             lmax = Convert.ToDouble(dtx[35]);
             textBox29.Text = lmax.ToString("0.##");  //lmax
@@ -4638,8 +4647,8 @@ namespace Test1
                 comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
                 comboBox11.SelectedIndex = -1;
             }
-            textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value); //remarks
-            tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[37].Value);
+            textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
+            tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
             i = Convert.ToInt32(dtx[54]);
             Update_size();
 
@@ -4775,10 +4784,10 @@ namespace Test1
         {
             for (int i = 0; i < Form1.j + 1; i++)
             {
-                for (int k = 0; k < 39; k++)
+                for (int k = 0; k < 40; k++)
                 {
-                    if (((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 23)) ||
-                       ((k >= 25) && (k <= 36))))
+                    if (((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 24)) ||
+                       ((k >= 26) && (k <= 37))))
                     {
                         if (Form1.decimalseparator == '.')
                         {
@@ -6516,6 +6525,12 @@ namespace Test1
             Calc_k();
         }
 
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fAbout = new FormAbout();
+            fAbout.ShowDialog();
+        }
+
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
@@ -7308,28 +7323,38 @@ namespace Test1
             results[15] = currentstart.ToString("0.##");
             results[16] = n.ToString("0.##");
             results[17] = wirearea_nec;
-            results[18] = Rac.ToString("0.####");
-            results[19] = X.ToString("0.####");
-            results[20] = Irated.ToString("0.##");
-            results[21] = ktmain.ToString("0.##");
-            results[22] = iderated.ToString("0.##");
-            results[23] = "";
+            if (phase == "DC")
+            {
+                results[18] = "";
+                results[19] = Rdc.ToString("0.####");
+                results[20] = "";
+            }
+            else
+            {
+                results[18] = Rac.ToString("0.####");
+                results[19] = "";
+                results[20] = X.ToString("0.####");
+            }
+            results[21] = Irated.ToString("0.##");
+            results[22] = ktmain.ToString("0.##");
+            results[23] = iderated.ToString("0.##");
             results[24] = "";
-            results[25] = length.ToString("0.##");
-            results[26] = lmax.ToString("0.##");
-            results[27] = vdrun.ToString("0.##");
-            results[28] = vdrunmax.ToString("0.##");
-            results[29] = vdstart.ToString("0.##");
-            results[30] = vdstartmax.ToString("0.##");
-            results[31] = "";
+            results[25] = "";
+            results[26] = length.ToString("0.##");
+            results[27] = lmax.ToString("0.##");
+            results[28] = vdrun.ToString("0.##");
+            results[29] = vdrunmax.ToString("0.##");
+            results[30] = vdstart.ToString("0.##");
+            results[31] = vdstartmax.ToString("0.##");
             results[32] = "";
             results[33] = "";
             results[34] = "";
             results[35] = "";
-            results[36] = readtemp;
-            results[37] = remarks;
+            results[36] = cLTE.ToString("0.##");
+            results[37] = readtemp;
+            results[38] = remarks;
 
-            for (int i = 0; i < 37; i++)
+            for (int i = 0; i < 38; i++)
             {
                 if ((results[i] == "0") || (results[i] == null) || (results[i] == ""))
                 {
@@ -7472,43 +7497,53 @@ namespace Test1
             results[15] = currentstart.ToString("0.##");
             results[16] = n.ToString("0.##");
             results[17] = wirearea_nec;
-            results[18] = Rac.ToString("0.####");
-            results[19] = X.ToString("0.####");
-            results[20] = Irated.ToString("0.##");
-            results[21] = ktmain.ToString("0.##");
-            results[22] = iderated.ToString("0.##");
-            results[23] = breakertype;
-            results[24] = breakcurrent.ToString("0.##");
-            results[25] = length.ToString("0.##");
-            results[26] = lmax.ToString("0.##");
-            results[27] = vdrun.ToString("0.##");
-            results[28] = vdrunmax.ToString("0.##");
-            results[29] = vdstart.ToString("0.##");
-            results[30] = vdstartmax.ToString("0.##");
+            if (phase == "DC")
+            {
+                results[18] = "";
+                results[19] = Rdc.ToString("0.####");
+                results[20] = "";
+            }
+            else
+            {
+                results[18] = Rac.ToString("0.####");
+                results[19] = "";
+                results[20] = X.ToString("0.####");
+            }
+            results[21] = Irated.ToString("0.##");
+            results[22] = ktmain.ToString("0.##");
+            results[23] = iderated.ToString("0.##");
+            results[24] = breakertype;
+            results[25] = breakcurrent.ToString("0.##");
+            results[26] = length.ToString("0.##");
+            results[27] = lmax.ToString("0.##");
+            results[28] = vdrun.ToString("0.##");
+            results[29] = vdrunmax.ToString("0.##");
+            results[30] = vdstart.ToString("0.##");
+            results[31] = vdstartmax.ToString("0.##");
             if (radioButton2.Checked)
             {
-                results[31] = sccurrent.ToString("0.##");
-                results[32] = tbreaker.ToString("0.##");
+                results[32] = sccurrent.ToString("0.##");
+                results[33] = tbreaker.ToString("0.##");
             }
             else
             {
-                results[31] = "";
                 results[32] = "";
+                results[33] = "";
             }
-            results[33] = smin_nec;
+            results[34] = smin.ToString("0.##");
             if (radioButton1.Checked)
             {
-                results[34] = bLTE.ToString("0.##");
+                results[35] = bLTE.ToString("0.##");
             }
             else
             {
-                results[34] = "";
+                results[35] = "";
             }
-            results[35] = cLTE.ToString("0.##");
-            results[36] = readtemp;
-            results[37] = remarks;
+            results[36] = cLTE.ToString("0.##");
+            results[37] = readtemp;
+            results[38] = remarks;
 
-            for (int i = 0; i < 37; i++)
+            for (int i = 0; i < 38; i++)
             {
                 if ((results[i] == "0") || (results[i] == null) || (results[i] == ""))
                 {

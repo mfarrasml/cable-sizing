@@ -3588,10 +3588,10 @@ namespace Test1
             }
             vdrun = Convert.ToDouble(dtx[33]);
             textBox8.Text = vdrun.ToString("0.##"); //vdrun
-            vdstart = Convert.ToDouble(dtx[34]);
-            if (vdstart != 0)
+            textBox10.Text = DtrToDoubleText(dtx, 34); //vdstart
+            if (textBox10.Text != "")
             {
-                textBox10.Text = vdstart.ToString("0.##"); //vdstart0
+                vdstart = Convert.ToDouble(dtx[34]);
             }
             else
             {
@@ -3862,6 +3862,10 @@ namespace Test1
             if (multiplier != 0)
             {
                 textBox25.Text = multiplier.ToString();
+            }
+            if ((current != 0) && (radioButton8.Checked))
+            {
+                textBox3.Text = current.ToString();
             }
             if (eff != 0)
             {
