@@ -214,6 +214,12 @@ namespace Test1
 
             //initialize datagridview properties
             dataGridView1.DoubleBuffered(true);
+            dataGridView2.DoubleBuffered(true);
+
+
+            //initialize edit/view tab
+            LoadIECDatabase();
+            comboBoxDatabase.SelectedIndex = 1;
 
         }
 
@@ -266,7 +272,7 @@ namespace Test1
 
                         if (!File.Exists(saveDir))
                         {
-                            SaveDatabase();
+                            SaveIECDatabase();
                         }
                         else //file with the same name detected
                         {
@@ -274,7 +280,7 @@ namespace Test1
                                 MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
                             if (dr == DialogResult.OK)
                             {
-                                SaveDatabase();
+                                SaveIECDatabase();
                             }
                             else
                             {
@@ -295,7 +301,7 @@ namespace Test1
             }
         }
 
-        private void SaveDatabase()
+        private void SaveIECDatabase()
         {
             var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             Directory.CreateDirectory(systemPath + "/Cable Sizing");
@@ -447,6 +453,12 @@ namespace Test1
             //disable changing the wire size data
             dataGridView1.Columns[0].ReadOnly = true;
         }
+
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
 
         private void DataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
@@ -871,6 +883,96 @@ namespace Test1
                 {
                     k++;
                 }
+            }
+        }
+
+        //
+        //
+        // TAB VIEW Database
+        //
+        //
+
+        bool IECSelected;
+        bool NECSelected;
+
+
+        DirectoryInfo di;
+
+
+        int IECFiles;
+
+
+        int viewCores;
+        string viewinsulation, viewconductor;
+
+
+        string fileName;
+
+        private void RadioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            if (radioButton2.Checked)
+            {
+                IECSelected = true;
+                NECSelected = false;
+            }
+            else
+            {
+                IECSelected = false;
+                NECSelected = true;
+            }
+        }
+
+        private void LoadIECDatabase()
+        {
+            //read all file in database directory
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing");
+            string saveDir = (systemPath + "/Cable Sizing");
+
+            di = new DirectoryInfo(saveDir);
+            //get all file name in database directory
+            FileInfo[] files = di.GetFiles("*.xml");
+            IECFiles = files.Length;
+            //fill vendor data from database
+            comboBoxDatabase.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
+            //fill all saved database created by user
+            for (int z = 0; z < IECFiles; z++)
+            {
+                string tempstring;
+                tempstring = files[z].ToString();
+                tempstring = tempstring.Replace(".xml", "");
+                comboBoxDatabase.Items.Insert(z + 1, tempstring);
+            }
+        }
+
+
+        private void ComboBoxDatabase_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            fileName = comboBoxDatabase.Text;
+        }
+
+
+        private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            viewinsulation = comboBox1.Text;
+        }
+
+
+        private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            viewCores = int.Parse(comboBox3.Text);
+        }
+
+        private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            viewconductor = comboBox2.Text;
+        }
+
+        private void FillDataTable()
+        {
+            if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
+            {
+
             }
         }
 
