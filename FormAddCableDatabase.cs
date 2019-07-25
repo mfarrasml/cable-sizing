@@ -976,6 +976,105 @@ namespace Test1
             }
         }
 
+        DataSet viewCableDS;
+
+        /*
+        internal void ReadIECDatabase()
+        {
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing");
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing", SelectedDatabase + ".xml");
+
+            //save database to a new dataset
+            viewCableDS = new DataSet();
+            viewCableDS.ReadXml(saveDir);
+
+            //save each cable data table to their respective datatable
+            if (viewCableDS.Tables.Contains("XLPE_2CORE"))
+            {
+                dtXLPE2DB = viewCableDS.Tables["XLPE_2CORE"].Copy();
+                xlpe2coreDB = new double[dtXLPE2DB.Rows.Count, dtXLPE2DB.Columns.Count];
+                DTToArrayDouble(dtXLPE2DB, xlpe2coreDB);
+                xlpe2coreLength = dtXLPE2DB.Rows.Count;
+            }
+            else
+            {
+                xlpe2coreLength = 0;
+            }
+            if (cableDS.Tables.Contains("XLPE_3CORE"))
+            {
+                dtXLPE3DB = cableDS.Tables["XLPE_3CORE"].Copy();
+                xlpe3coreDB = new double[dtXLPE3DB.Rows.Count, dtXLPE3DB.Columns.Count];
+                DTToArrayDouble(dtXLPE3DB, xlpe3coreDB);
+                xlpe3coreLength = dtXLPE3DB.Rows.Count;
+            }
+            else
+            {
+                xlpe3coreLength = 0;
+            }
+            if (cableDS.Tables.Contains("XLPE_4CORE"))
+            {
+                dtXLPE4DB = cableDS.Tables["XLPE_4CORE"].Copy();
+                xlpe4coreDB = new double[dtXLPE4DB.Rows.Count, dtXLPE4DB.Columns.Count];
+                DTToArrayDouble(dtXLPE4DB, xlpe4coreDB);
+                xlpe4coreLength = dtXLPE4DB.Rows.Count;
+            }
+            else
+            {
+                xlpe4coreLength = 0;
+            }
+            if (cableDS.Tables.Contains("PVC_2CORE"))
+            {
+                dtPVC2DB = cableDS.Tables["PVC_2CORE"].Copy();
+                pvc2coreDB = new double[dtPVC2DB.Rows.Count, dtPVC2DB.Columns.Count];
+                DTToArrayDouble(dtPVC2DB, pvc2coreDB);
+                pvc2coreLength = dtPVC2DB.Rows.Count;
+            }
+            else
+            {
+                pvc2coreLength = 0;
+            }
+            if (cableDS.Tables.Contains("PVC_3CORE"))
+            {
+                dtPVC3DB = cableDS.Tables["PVC_3CORE"].Copy();
+                pvc3coreDB = new double[dtPVC3DB.Rows.Count, dtPVC3DB.Columns.Count];
+                DTToArrayDouble(dtPVC3DB, pvc3coreDB);
+                pvc3coreLength = dtPVC3DB.Rows.Count;
+            }
+            else
+            {
+                pvc3coreLength = 0;
+            }
+            if (cableDS.Tables.Contains("PVC_4CORE"))
+            {
+                dtPVC4DB = cableDS.Tables["PVC_4CORE"].Copy();
+                pvc4coreDB = new double[dtPVC4DB.Rows.Count, dtPVC4DB.Columns.Count];
+                DTToArrayDouble(dtPVC2DB, pvc4coreDB);
+                pvc4coreLength = dtPVC4DB.Rows.Count;
+            }
+            else
+            {
+                pvc4coreLength = 0;
+            }
+        }
+
+        private void DTToArrayDouble(DataTable dt, double[,] arr)
+        {
+            int dtRow = dt.Rows.Count;
+            int dtColumn = dt.Columns.Count;
+
+            int row = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                for (int col = 0; col < dtColumn; col++)
+                {
+                    arr[row, col] = Convert.ToDouble(dr[col]);
+                }
+                row++;
+            }
+        }
+        */
+
     }
 
 }

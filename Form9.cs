@@ -4792,15 +4792,22 @@ namespace Test1
                 }
             }
 
+            //NOTE: ALL '.' and ',' still got changed, TODO: Change decimal separator replacing to only decimal data
             foreach (DataRow row in Form1.dtdiameter.Rows)
             {
                 if (Form1.decimalseparator == ',')
                 {
-                    row[0] = Convert.ToString(row[0]).Replace('.', ',');
+                    for (int i = 0; i < 55; i++)
+                    {
+                        row[i] = Convert.ToString(row[i]).Replace('.', ',');
+                    }
                 }
                 else
                 {
-                    row[0] = Convert.ToString(row[0]).Replace(',', '.');
+                    for (int i = 0; i < 55; i++)
+                    {
+                        row[i] = Convert.ToString(row[i]).Replace(',', '.');
+                    }
                 }
             }
             f5.Update_summary();
