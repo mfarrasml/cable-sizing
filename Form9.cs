@@ -35,8 +35,9 @@ namespace Test1
         string materialname;
         public static double initialTemp = 0;
         double finalTemp;
-        double diameter;
+        double diameter = 0;
         double temperature;
+        double scrating;
 
         double wirearea;
 
@@ -69,10 +70,14 @@ namespace Test1
 
         public static double k1main, k2main, k3main, ktmain;
 
+        bool EditingState = false;
+
         bool complete, inputValid;
         int i = 0;
         int insulindex = 0;
         int tempindex = 0;
+
+        int tempCurrentRow;
 
         string readtemp;
         double Rac;
@@ -97,7 +102,7 @@ namespace Test1
 
         string voltageLv;
 
-        public static int j = -1;
+        //public static int j = -1;
         Form5 f5 = new Form5();
         Form6 f6 = new Form6();
         Form10 f10 = new Form10();
@@ -111,7 +116,9 @@ namespace Test1
         public static double[,] inputCableData;
         public static int cableCount;
 
-        public static DataTable dtdiameter = new DataTable();
+        DataRow dtr;
+
+        //public static DataTable dtdiameter = new DataTable();
 
 
         public Form9()
@@ -979,8 +986,10 @@ namespace Test1
         }
 
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void Form9_Load(object sender, EventArgs e)
         {
+            Form1.j = -1;
+
             OpenForm.formMainClose = false;
             if (Form5.f7.IsDisposed)
             {
@@ -988,65 +997,65 @@ namespace Test1
             }
 
             //set new dtdiameter everytime this form is loaded
-            dtdiameter = new DataTable();
-            dtdiameter.TableName = "Data";
+            Form1.dtdiameter = new DataTable();
+            Form1.dtdiameter.TableName = "Data";
 
             //set dtdiameter columns
-            dtdiameter.Columns.Add("Diameter");
-            dtdiameter.Columns.Add("TagNo");
-            dtdiameter.Columns.Add("From");
-            dtdiameter.Columns.Add("FromDesc");
-            dtdiameter.Columns.Add("To");
-            dtdiameter.Columns.Add("ToDesc");
-            dtdiameter.Columns.Add("Phase");
-            dtdiameter.Columns.Add("LoadType");
-            dtdiameter.Columns.Add("VoltageSystem");
-            dtdiameter.Columns.Add("CurrentButton");
-            dtdiameter.Columns.Add("cbPower");
-            dtdiameter.Columns.Add("Power");
-            dtdiameter.Columns.Add("Current");
-            dtdiameter.Columns.Add("Voltage");
-            dtdiameter.Columns.Add("Efficiency");
-            dtdiameter.Columns.Add("PF");
-            dtdiameter.Columns.Add("PFStart");
-            dtdiameter.Columns.Add("Multiplier");
-            dtdiameter.Columns.Add("RatedVoltage");
-            dtdiameter.Columns.Add("Material");
-            dtdiameter.Columns.Add("Insulation");
-            dtdiameter.Columns.Add("Armour");
-            dtdiameter.Columns.Add("OutherSheath");
-            dtdiameter.Columns.Add("Installation");
-            dtdiameter.Columns.Add("DeratingButton");
-            dtdiameter.Columns.Add("K1");
-            dtdiameter.Columns.Add("K2");
-            dtdiameter.Columns.Add("K3");
-            dtdiameter.Columns.Add("Kt");
-            dtdiameter.Columns.Add("Length");
-            dtdiameter.Columns.Add("VdRunMax");
-            dtdiameter.Columns.Add("VdStartMax");
-            dtdiameter.Columns.Add("CablePropButton");
-            dtdiameter.Columns.Add("VdRun");
-            dtdiameter.Columns.Add("VdStart");
-            dtdiameter.Columns.Add("Lmax");
-            dtdiameter.Columns.Add("N");
-            dtdiameter.Columns.Add("Cores");
-            dtdiameter.Columns.Add("WireArea");
-            dtdiameter.Columns.Add("Rac");
-            dtdiameter.Columns.Add("X");
-            dtdiameter.Columns.Add("Irated");
-            dtdiameter.Columns.Add("Iderated");
-            dtdiameter.Columns.Add("SCOrLTE");
-            dtdiameter.Columns.Add("SCCurrent");
-            dtdiameter.Columns.Add("TBreak");
-            dtdiameter.Columns.Add("InitialTemp");
-            dtdiameter.Columns.Add("FinalTemp");
-            dtdiameter.Columns.Add("CLTE");
-            dtdiameter.Columns.Add("BreakerType");
-            dtdiameter.Columns.Add("BreakerBtn");
-            dtdiameter.Columns.Add("SCRating");
-            dtdiameter.Columns.Add("BreakNominalCurrent");
-            dtdiameter.Columns.Add("BLTE");
-            dtdiameter.Columns.Add("i");
+            Form1.dtdiameter.Columns.Add("Diameter");
+            Form1.dtdiameter.Columns.Add("TagNo");
+            Form1.dtdiameter.Columns.Add("From");
+            Form1.dtdiameter.Columns.Add("FromDesc");
+            Form1.dtdiameter.Columns.Add("To");
+            Form1.dtdiameter.Columns.Add("ToDesc");
+            Form1.dtdiameter.Columns.Add("Phase");
+            Form1.dtdiameter.Columns.Add("LoadType");
+            Form1.dtdiameter.Columns.Add("VoltageSystem");
+            Form1.dtdiameter.Columns.Add("CurrentButton");
+            Form1.dtdiameter.Columns.Add("cbPower");
+            Form1.dtdiameter.Columns.Add("Power");
+            Form1.dtdiameter.Columns.Add("Current");
+            Form1.dtdiameter.Columns.Add("Voltage");
+            Form1.dtdiameter.Columns.Add("Efficiency");
+            Form1.dtdiameter.Columns.Add("PF");
+            Form1.dtdiameter.Columns.Add("PFStart");
+            Form1.dtdiameter.Columns.Add("Multiplier");
+            Form1.dtdiameter.Columns.Add("RatedVoltage");
+            Form1.dtdiameter.Columns.Add("Material");
+            Form1.dtdiameter.Columns.Add("Insulation");
+            Form1.dtdiameter.Columns.Add("Armour");
+            Form1.dtdiameter.Columns.Add("OutherSheath");
+            Form1.dtdiameter.Columns.Add("Installation");
+            Form1.dtdiameter.Columns.Add("DeratingButton");
+            Form1.dtdiameter.Columns.Add("K1");
+            Form1.dtdiameter.Columns.Add("K2");
+            Form1.dtdiameter.Columns.Add("K3");
+            Form1.dtdiameter.Columns.Add("Kt");
+            Form1.dtdiameter.Columns.Add("Length");
+            Form1.dtdiameter.Columns.Add("VdRunMax");
+            Form1.dtdiameter.Columns.Add("VdStartMax");
+            Form1.dtdiameter.Columns.Add("CablePropButton");
+            Form1.dtdiameter.Columns.Add("VdRun");
+            Form1.dtdiameter.Columns.Add("VdStart");
+            Form1.dtdiameter.Columns.Add("Lmax");
+            Form1.dtdiameter.Columns.Add("N");
+            Form1.dtdiameter.Columns.Add("Cores");
+            Form1.dtdiameter.Columns.Add("WireArea");
+            Form1.dtdiameter.Columns.Add("Rac");
+            Form1.dtdiameter.Columns.Add("X");
+            Form1.dtdiameter.Columns.Add("Irated");
+            Form1.dtdiameter.Columns.Add("Iderated");
+            Form1.dtdiameter.Columns.Add("SCOrLTE");
+            Form1.dtdiameter.Columns.Add("SCCurrent");
+            Form1.dtdiameter.Columns.Add("TBreak");
+            Form1.dtdiameter.Columns.Add("InitialTemp");
+            Form1.dtdiameter.Columns.Add("FinalTemp");
+            Form1.dtdiameter.Columns.Add("CLTE");
+            Form1.dtdiameter.Columns.Add("BreakerType");
+            Form1.dtdiameter.Columns.Add("BreakerBtn");
+            Form1.dtdiameter.Columns.Add("SCRating");
+            Form1.dtdiameter.Columns.Add("BreakNominalCurrent");
+            Form1.dtdiameter.Columns.Add("BLTE");
+            Form1.dtdiameter.Columns.Add("i");
 
 
             //load saved/default settings
@@ -3760,6 +3769,14 @@ namespace Test1
 
         private void ComboBox10_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox19.Text != "")
+            {
+                scrating = double.Parse(comboBox19.Text);
+            }
+            else
+            {
+                scrating = 0;
+            }
             SCLTEchanged();
             breaker_fill();
             enable_result_btn();
@@ -3805,6 +3822,8 @@ namespace Test1
 
         private void buttonReset(object sender, EventArgs e)
         {
+            button4.Enabled = false;
+
             calculated = false;
             textBox13.Text = "";
             textBox26.Text = "";
@@ -4354,24 +4373,42 @@ namespace Test1
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            DataRow dtr = dtdiameter.NewRow();
-            f5.dataGridView1.RowCount++;
-            j++;
-            f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
-
-            for (int k = 0; k < 38; k++)
+            if (!EditingState)
             {
-                f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
+                f5.dataGridView1.RowCount++;
+                Form1.j++;
+                f5.dataGridView1.Rows[Form1.j].Cells[0].Value = Form1.j + 1;
+
+                for (int k = 0; k < 38; k++)
+                {
+                    f5.dataGridView1.Rows[Form1.j].Cells[k + 1].Value = results[k];
+                }
+
+                DataRow dtrTemp = Form1.dtdiameter.NewRow();
+                dtrTemp.ItemArray = dtr.ItemArray.Clone() as object[];
+                Form1.dtdiameter.Rows.Add(dtrTemp);
+
+                OpenDataTable();
+
+                f5.Update_summary();
             }
+            else
+            {
 
-            OpenDataTable();
-            
-            //cable OD
-            dtr[0] = diameter;
+                for (int k = 0; k < 38; k++)
+                {
+                    f5.dataGridView1.Rows[tempCurrentRow].Cells[k + 1].Value = results[k];
+                }
+                EditingState = false;
+                f5.Enabled = true;
+                Form1.dtdiameter.Rows.RemoveAt(tempCurrentRow);
+                Form1.dtdiameter.Rows.InsertAt(dtr, tempCurrentRow);
+                OpenDataTable();
+                f5.Update_summary();
+                button4.Text = "Add";
+                button5.Text = "Open Table";
 
-            dtdiameter.Rows.Add(dtr);
-            
-            f5.Update_summary();
+            }
         }
 
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
@@ -4379,7 +4416,7 @@ namespace Test1
             fromdesc = textBox16.Text;
         }
 
-        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        private void Form9_FormClosing(object sender, FormClosingEventArgs e)
         {
             OpenForm.formMainClose = true;
             if (OpenForm.ReturnToTitle) //return to title menu is clicked --> return to title form (OpenForm)
@@ -4422,11 +4459,24 @@ namespace Test1
 
         private void Button5_Click_1(object sender, EventArgs e)
         {
-            OpenDataTable();
+            if (!EditingState)
+            {
+                OpenDataTable();
+            }
+            else
+            {
+                EditingState = false;
+                f5.Enabled = true;
+                OpenDataTable();
+                button4.Text = "Add";
+                button5.Text = "Open Table";
+            }
         }
 
         private void OpenDataTable()
         {
+            f5.editRow.Click += EditRowClicked;
+            f5.editRowDataToolStripMenuItem.Click += EditRowClicked;
             if (!f5.Visible)
             {
                 f5.Show();
@@ -4438,6 +4488,195 @@ namespace Test1
             else
             {
                 f5.BringToFront();
+            }
+        }
+
+        private void EditRowClicked(object sender, EventArgs e)
+        {
+            tempCurrentRow = Form5.currentrow;
+            f5.Enabled = false;
+            EditingState = true;
+            if (WindowState == FormWindowState.Minimized)
+            {
+                WindowState = FormWindowState.Normal;
+            }
+            else
+            {
+                BringToFront();
+            }
+
+            DataRow dtx = Form1.dtdiameter.Rows[Form5.currentrow];
+            textBox13.Text = Convert.ToString(dtx[1]); //tagno
+            textBox26.Text = Convert.ToString(dtx[2]); //from
+            textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
+            textBox27.Text = Convert.ToString(dtx[4]); //to
+            textBox31.Text = Convert.ToString(dtx[5]); //todesc
+            comboBox3.Text = Convert.ToString(dtx[6]); //phase
+            comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
+            comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
+            if (Convert.ToString(dtx[9]) == "True")
+            {
+                radioButton8.Checked = true;
+            }
+            else
+            {
+                radioButton8.Checked = false;
+            }
+            cbPower.Text = Convert.ToString(dtx[10]); // power unit
+            TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
+            current = Convert.ToDouble(dtx[12]);
+            textBox3.Text = current.ToString("0.##"); // FL Current
+            textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
+            textBox5.Text = DtrToDoubleText(dtx, 14); //eff
+            textBox4.Text = DtrToDoubleText(dtx, 15); //pf
+            textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
+            textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
+            comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
+            comboBox4.Text = Convert.ToString(dtx[19]);//material
+            comboBox6.Text = Convert.ToString(dtx[20]); //insulation
+            //comboBox7.Text = Convert.ToString(dtx[21]); //armour
+            //comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
+            comboBox9.Text = Convert.ToString(dtx[23]); //installation
+            if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
+            {
+                radioButton7.Checked = true;
+            }
+            else
+            {
+                radioButton7.Checked = false;
+            }
+            textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
+            textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
+            textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
+            textBox19.Text = DtrToDoubleText(dtx, 28); //ktmain
+            ktmain = Convert.ToDouble(dtx[28]);
+            textBox6.Text = DtrToDoubleText(dtx, 29); //length
+            textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
+            textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
+            if (Convert.ToString(dtx[32]) == "vendor")
+            {
+                radioButton4.Checked = true;
+            }
+            else if (Convert.ToString(dtx[32]) == "manual")
+            {
+                radioButton3.Checked = true;
+            }
+            vdrun = Convert.ToDouble(dtx[33]);
+            textBox8.Text = vdrun.ToString("0.##"); //vdrun
+            vdstart = Convert.ToDouble(dtx[34]);
+            if (vdstart != 0)
+            {
+                textBox10.Text = vdstart.ToString("0.##"); //vdstart0
+            }
+            else
+            {
+                textBox10.Text = "";
+            }
+            lmax = Convert.ToDouble(dtx[35]);
+            textBox29.Text = lmax.ToString("0.##");  //lmax
+            textBox12.Text = Convert.ToString(dtx[36]); //no of run
+            comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
+            textBox37.Text = Convert.ToString(dtx[38]); //wirearea
+            wirearea = Convert.ToDouble(dtx[38]);
+            if (Convert.ToString(dtx[6]) == "DC")
+            {
+                Rdc = Convert.ToDouble(dtx[39]);
+                textBox34.Text = Rac.ToString("0.####"); //Rdc
+            }
+            else
+            {
+                Rac = Convert.ToDouble(dtx[39]);
+                textBox34.Text = Rac.ToString("0.####"); //Rac
+            }
+            X = Convert.ToDouble(dtx[40]);
+            textBox33.Text = X.ToString("0.####"); //X
+            textBox32.Text = Convert.ToString(dtx[41]); //irated
+            Irated = Convert.ToDouble(dtx[41]);
+            iderated = Convert.ToDouble(dtx[42]); //iderated
+            if (Convert.ToString(dtx[43]) == "sc")
+            {
+                radioButton2.Checked = true;
+            }
+            else if (Convert.ToString(dtx[43]) == "lte")
+            {
+                radioButton1.Checked = true;
+            }
+            textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+            textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+            textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+            comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
+            textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
+            cLTE = Convert.ToDouble(dtx[48]);
+            textBox22.Text = cLTE.ToString("0.##"); //CLTE
+            if (Convert.ToString(dtx[49]) != "")
+            {
+                comboBox12.Text = Convert.ToString(dtx[49]); //protection type
+                if (Convert.ToString(dtx[50]) == "vendor")
+                {
+                    radioButton5.Checked = true;
+                }
+                else if (Convert.ToString(dtx[50]) == "manual")
+                {
+                    radioButton6.Checked = true;
+                }
+                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+            }
+            else
+            {
+                comboBox12.SelectedIndex = -1; //protection type
+                if (Convert.ToString(dtx[50]) == "vendor")
+                {
+                    radioButton5.Checked = true;
+                }
+                else if (Convert.ToString(dtx[50]) == "manual")
+                {
+                    radioButton6.Checked = true;
+                }
+                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                comboBox10.SelectedIndex = -1;
+                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                comboBox11.SelectedIndex = -1;
+            }
+            textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value); //remarks
+            tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[37].Value);
+            i = Convert.ToInt32(dtx[54]);
+            Update_size();
+
+            if (comboBox11.Text == "") //data being edited is vd calculated only
+            {
+                button2.Enabled = false;
+            }
+            else //data being edited is complete with SC/LTE consideration
+            {
+                button2.Enabled = false;
+            }
+            //Disable all inputs before vd calculation
+            panel4.Enabled = true;
+            panel5.Enabled = false;
+            panel6.Enabled = false;
+
+            //enable vd calculate & edit data buttons
+            button7.Enabled = true;
+            button8.Enabled = true;
+
+
+            button4.Text = "Save Edit";
+            button4.Enabled = false;
+            enable_result_btn();
+            button5.Text = "Cancel";
+        }
+
+        private string DtrToDoubleText(DataRow datRow, int num)
+        {
+            double Number;
+            if (!(Convert.ToString(datRow[num]) == "0") && (double.TryParse(Convert.ToString(datRow[num]), out Number)))
+            {
+                return Convert.ToString(datRow[num]);
+            }
+            else
+            {
+                return "";
             }
         }
 
@@ -4534,7 +4773,7 @@ namespace Test1
         //change decimal separator of data in data table based on the new selected decimal separator
         private void refreshDataTable()
         {
-            for (int i = 0; i < j + 1; i++)
+            for (int i = 0; i < Form1.j + 1; i++)
             {
                 for (int k = 0; k < 39; k++)
                 {
@@ -4553,7 +4792,7 @@ namespace Test1
                 }
             }
 
-            foreach (DataRow row in dtdiameter.Rows)
+            foreach (DataRow row in Form1.dtdiameter.Rows)
             {
                 if (Form1.decimalseparator == ',')
                 {
@@ -5585,6 +5824,10 @@ namespace Test1
             textBox23.Text = "";
             textBox30.Text = "";
             textBox22.Text = "";
+            finalTemp = 0;
+            textBox24.Text = "";
+            textBox21.Text = "";
+
             bLTE = 0;
             textBox20.Text = "";
 
@@ -7086,6 +7329,120 @@ namespace Test1
                     results[i] = "N/A";
                 }
             }
+
+            //update data
+            dtr = Form1.dtdiameter.NewRow();
+            //cable OD
+            if (diameter != 0)
+            {
+                dtr[0] = diameter;
+            }
+            else
+            {
+                dtr[0] = "N/A";
+            }
+            //full data
+            dtr[1] = tagno;
+            dtr[2] = from;
+            dtr[3] = fromdesc;
+            dtr[4] = to;
+            dtr[5] = todesc;
+            dtr[6] = phase;
+            dtr[7] = loadtype;
+            dtr[8] = volSys;
+            if (!radioButton8.Checked) //Manual current input or not
+            {
+                dtr[9] = false;
+                dtr[10] = cbPower.Text; //powerdata
+                if (Convert.ToString(dtr[10]) == "kW") //power
+                {
+                    dtr[11] = power;
+                }
+                else if (Convert.ToString(dtr[10]) == "kV")
+                {
+                    dtr[11] = cplxpower;
+                }
+                else if (Convert.ToString(dtr[10]) == "HP")
+                {
+                    dtr[11] = hp;
+                }
+                dtr[12] = current;
+            }
+            else
+            {
+                dtr[9] = true;
+                dtr[10] = cbPower.Text;
+                dtr[11] = "";
+                dtr[12] = current;
+            }
+            dtr[13] = voltage;
+            dtr[14] = eff;
+            dtr[15] = pf;
+
+            if (loadtype == "Motor")
+            {
+                dtr[16] = pfstart;
+                dtr[17] = multiplier;
+                dtr[31] = vdstartmax;
+                dtr[34] = vdstart;
+            }
+            else
+            {
+                dtr[16] = "";
+                dtr[17] = "";
+                dtr[31] = "";
+                dtr[34] = "";
+            }
+
+            dtr[18] = ratedvoltage;
+            dtr[19] = material;
+            dtr[20] = insulation;
+            dtr[21] = armour;
+            dtr[22] = outersheath;
+            dtr[23] = installation;
+            if (radioButton7.Checked) //Manual derating input or not
+            {
+                dtr[24] = true;
+            }
+            else
+            {
+                dtr[24] = false;
+            }
+            dtr[25] = k1main;
+            dtr[26] = k2main;
+            dtr[27] = k3main;
+            dtr[28] = ktmain;
+            dtr[29] = length;
+            dtr[30] = vdrunmax;
+            if (radioButton4.Checked) //vendor/manual cable properties input
+            {
+                dtr[32] = "vendor";
+            }
+            else if (radioButton3.Checked)
+            {
+                dtr[32] = "manual";
+            }
+            dtr[33] = vdrun;
+            dtr[35] = lmax;
+            dtr[36] = n;
+            dtr[37] = cores;
+            dtr[38] = wirearea_nec;
+            dtr[39] = Rac;
+            dtr[40] = X;
+            dtr[41] = Irated;
+            dtr[42] = iderated;
+            dtr[43] = "";
+            dtr[44] = "";
+            dtr[45] = "";
+            dtr[46] = initialTemp;
+            dtr[47] = finalTemp;
+            dtr[48] = cLTE;
+            dtr[54] = i + 1;
+
+            for (int i = 49; i < 54; i++)
+            {
+                dtr[i] = "";
+            }
         }
 
         private void save_result()
@@ -7121,10 +7478,25 @@ namespace Test1
             results[28] = vdrunmax.ToString("0.##");
             results[29] = vdstart.ToString("0.##");
             results[30] = vdstartmax.ToString("0.##");
-            results[31] = sccurrent.ToString("0.##");
-            results[32] = tbreaker.ToString("0.##");
-            results[33] = cablesizemin_nec;
-            results[34] = bLTE.ToString("0.##");
+            if (radioButton2.Checked)
+            {
+                results[31] = sccurrent.ToString("0.##");
+                results[32] = tbreaker.ToString("0.##");
+            }
+            else
+            {
+                results[31] = "";
+                results[32] = "";
+            }
+            results[33] = smin_nec;
+            if (radioButton1.Checked)
+            {
+                results[34] = bLTE.ToString("0.##");
+            }
+            else
+            {
+                results[34] = "";
+            }
             results[35] = cLTE.ToString("0.##");
             results[36] = readtemp;
             results[37] = remarks;
@@ -7137,10 +7509,16 @@ namespace Test1
                 }
             }
 
-            /*
-            //update data
-            DataRow dtr = dtdiameter.NewRow();
-
+            dtr = Form1.dtdiameter.NewRow();
+            //cable OD
+            if (diameter != 0)
+            {
+                dtr[0] = diameter;
+            }
+            else
+            {
+                dtr[0] = "N/A";
+            }
             //full data
             dtr[1] = tagno;
             dtr[2] = from;
@@ -7150,66 +7528,116 @@ namespace Test1
             dtr[6] = phase;
             dtr[7] = loadtype;
             dtr[8] = volSys;
-            if (!radioButton8.Checked)
+            if (!radioButton8.Checked) //Manual current input or not
             {
-                dtr[9] = false; ;
-                dtr[10] = cbPower; //powerdata
-                if (Convert.ToString(dtr[9]) == "kW") //power
+                dtr[9] = false;
+                dtr[10] = cbPower.Text; //powerdata
+                if (Convert.ToString(dtr[10]) == "kW") //power
                 {
                     dtr[11] = power;
                 }
-                else if (Convert.ToString(dtr[9]) == "kV")
+                else if (Convert.ToString(dtr[10]) == "kV")
                 {
                     dtr[11] = cplxpower;
                 }
-                else if (Convert.ToString(dtr[9]) == "HP")
+                else if (Convert.ToString(dtr[10]) == "HP")
                 {
                     dtr[11] = hp;
                 }
-                dtr[12] = "";
+                dtr[12] = current;
             }
             else
             {
                 dtr[9] = true;
-                dtr[10] = "";
+                dtr[10] = cbPower.Text;
                 dtr[11] = "";
                 dtr[12] = current;
             }
             dtr[13] = voltage;
             dtr[14] = eff;
             dtr[15] = pf;
-            dtr[16] = ratedvoltage;
-            dtr[17] = material;
-            dtr[18] = insulation;
-            dtr[21] = installation;
-            if(radioButton7.Checked)
+
+            if (loadtype == "Motor")
             {
-                dtr[22] = true;
+                dtr[16] = pfstart;
+                dtr[17] = multiplier;
+                dtr[31] = vdstartmax;
+                dtr[34] = vdstart;
             }
             else
             {
-                dtr[22] = false;
+                dtr[16] = "";
+                dtr[17] = "";
+                dtr[31] = "";
+                dtr[34] = "";
             }
-            dtr[23] = k1main;
-            dtr[24] = k2main;
-            dtr[25] = k3main;
-            dtr[26] = length;
-            dtr[27] = vdrunmax;
-            dtr[28] = vdstartmax;
-            if (radioButton4.Checked)
+
+            dtr[18] = ratedvoltage;
+            dtr[19] = material;
+            dtr[20] = insulation;
+            dtr[21] = armour;
+            dtr[22] = outersheath;
+            dtr[23] = installation;
+            if (radioButton7.Checked) //Manual derating input or not
             {
-                dtr[29] = "vendor";
+                dtr[24] = true;
+            }
+            else
+            {
+                dtr[24] = false;
+            }
+            dtr[25] = k1main;
+            dtr[26] = k2main;
+            dtr[27] = k3main;
+            dtr[28] = ktmain;
+            dtr[29] = length;
+            dtr[30] = vdrunmax;
+            if (radioButton4.Checked) //vendor/manual cable properties input
+            {
+                dtr[32] = "vendor";
             }
             else if (radioButton3.Checked)
             {
-                dtr[29] = "manual";
+                dtr[32] = "manual";
             }
-            dtr[30] = vdrun;
-            dtr[31] = vdstart;
-            dtr[32] = lmax;
-            dtr[33] = n;
-            dtr[34] = cores;
-            dtr[35] = */
+            dtr[33] = vdrun;
+            dtr[35] = lmax;
+            dtr[36] = n;
+            dtr[37] = cores;
+            dtr[38] = wirearea_nec;
+            dtr[39] = Rac;
+            dtr[40] = X;
+            dtr[41] = Irated;
+            dtr[42] = iderated;
+            if (radioButton2.Checked) //using S.C. current or LTE
+            {
+                dtr[43] = "sc";
+                dtr[44] = sccurrent;
+                dtr[45] = tbreaker;
+                dtr[53] = "";
+            }
+            else
+            {
+                dtr[43] = "lte";
+                dtr[44] = "";
+                dtr[45] = "";
+                dtr[53] = bLTE;
+            }
+            dtr[46] = initialTemp;
+            dtr[47] = finalTemp;
+            dtr[48] = cLTE;
+            dtr[49] = breakertype;
+            if (radioButton5.Checked)
+            {
+                dtr[50] = "vendor";
+            }
+            else if (radioButton6.Checked)
+            {
+                dtr[50] = "manual";
+            }
+            dtr[51] = scrating;
+            dtr[52] = breakcurrent;
+            dtr[54] = i;
 
         }
 
