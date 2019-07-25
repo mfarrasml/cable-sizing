@@ -219,7 +219,7 @@ namespace Test1
 
             //initialize edit/view tab
             LoadIECDatabase();
-            comboBoxDatabase.SelectedIndex = 1;
+            comboBoxDatabase.SelectedIndex = 0;
 
         }
 
@@ -267,8 +267,8 @@ namespace Test1
                         || (dtPVC3final.Rows.Count > 0) || (dtPVC4final.Rows.Count > 0))
                     {
                         var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                        Directory.CreateDirectory(systemPath + "/Cable Sizing");
-                        var saveDir = Path.Combine(systemPath + "/Cable Sizing", saveName + ".xml");
+                        Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+                        var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", saveName + ".xml");
 
                         if (!File.Exists(saveDir))
                         {
@@ -304,8 +304,8 @@ namespace Test1
         private void SaveIECDatabase()
         {
             var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing");
-            var saveDir = Path.Combine(systemPath + "/Cable Sizing", saveName + ".xml");
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+            var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", saveName + ".xml");
 
             DataSet ds = new DataSet();
             ds.Tables.Add(dtXLPE2final);
@@ -926,8 +926,8 @@ namespace Test1
         {
             //read all file in database directory
             string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing");
-            string saveDir = (systemPath + "/Cable Sizing");
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+            string saveDir = (systemPath + "/Cable Sizing/IEC_database");
 
             di = new DirectoryInfo(saveDir);
             //get all file name in database directory
@@ -982,8 +982,8 @@ namespace Test1
         internal void ReadIECDatabase()
         {
             string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing");
-            string saveDir = Path.Combine(systemPath + "/Cable Sizing", SelectedDatabase + ".xml");
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database";
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", SelectedDatabase + ".xml");
 
             //save database to a new dataset
             viewCableDS = new DataSet();

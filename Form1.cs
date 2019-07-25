@@ -5095,8 +5095,16 @@ namespace Test1
 
         private void CableDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            /*
+            faddcable.buttonSave.Click += ReloadIECDatabase; */
             faddcable = new FormAddCableDatabase();
             faddcable.ShowDialog();
+        }
+
+        private void ReloadIECDatabase (object sender, EventArgs e)
+        {
+            ResetData();
+            LoadIECDatabase();
         }
 
         private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
@@ -6258,8 +6266,8 @@ namespace Test1
         {
             //read all file in database directory
             string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing");
-            string saveDir = (systemPath + "/Cable Sizing");
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+            string saveDir = (systemPath + "/Cable Sizing/IEC_database");
 
             di = new DirectoryInfo(saveDir);
             //get all file name in database directory
@@ -6267,6 +6275,7 @@ namespace Test1
             IECDatabaseFiles = files.Length;
             //fill vendor data from database
             comboBoxVendor.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
+            comboBoxVendor.Text = "Sumi Indo Cable (Default)";
             //fill all saved database created by user
             for (int z = 0; z < IECDatabaseFiles; z++)
             {
@@ -6280,8 +6289,8 @@ namespace Test1
         internal void ReadIECDatabase()
         {
             string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing");
-            string saveDir = Path.Combine(systemPath + "/Cable Sizing", SelectedDatabase + ".xml");
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", SelectedDatabase + ".xml");
 
             //save database to a new dataset
             cableDS = new DataSet();

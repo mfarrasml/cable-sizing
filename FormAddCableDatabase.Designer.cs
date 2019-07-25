@@ -44,11 +44,9 @@
             this.radioButtonIEC = new System.Windows.Forms.RadioButton();
             this.radioButtonNEC = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.tabAdd = new System.Windows.Forms.TabPage();
             this.tabView = new System.Windows.Forms.TabPage();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
-            this.label2 = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.comboBoxDatabase = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -58,13 +56,15 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBoxDatabase = new System.Windows.Forms.ComboBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tabAdd = new System.Windows.Forms.TabPage();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
-            this.tabAdd.SuspendLayout();
             this.tabView.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
+            this.tabAdd.SuspendLayout();
             this.SuspendLayout();
             // 
             // textBoxName
@@ -257,31 +257,6 @@
             this.tabControl1.Size = new System.Drawing.Size(624, 560);
             this.tabControl1.TabIndex = 18;
             // 
-            // tabAdd
-            // 
-            this.tabAdd.BackColor = System.Drawing.Color.White;
-            this.tabAdd.Controls.Add(this.labelName);
-            this.tabAdd.Controls.Add(this.radioButtonNEC);
-            this.tabAdd.Controls.Add(this.textBoxName);
-            this.tabAdd.Controls.Add(this.radioButtonIEC);
-            this.tabAdd.Controls.Add(this.labelInsertData);
-            this.tabAdd.Controls.Add(this.labelStandard);
-            this.tabAdd.Controls.Add(this.dataGridView1);
-            this.tabAdd.Controls.Add(this.buttonCancel);
-            this.tabAdd.Controls.Add(this.labelInsulationType);
-            this.tabAdd.Controls.Add(this.buttonSave);
-            this.tabAdd.Controls.Add(this.comboBoxInsulation);
-            this.tabAdd.Controls.Add(this.comboBoxConductor);
-            this.tabAdd.Controls.Add(this.labelCores);
-            this.tabAdd.Controls.Add(this.label1);
-            this.tabAdd.Controls.Add(this.comboBoxCores);
-            this.tabAdd.Location = new System.Drawing.Point(4, 22);
-            this.tabAdd.Name = "tabAdd";
-            this.tabAdd.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAdd.Size = new System.Drawing.Size(616, 534);
-            this.tabAdd.TabIndex = 0;
-            this.tabAdd.Text = "Add Database";
-            // 
             // tabView
             // 
             this.tabView.BackColor = System.Drawing.Color.White;
@@ -306,39 +281,25 @@
             this.tabView.TabIndex = 1;
             this.tabView.Text = "View Database";
             // 
-            // radioButton1
+            // button1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(127, 4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 17);
-            this.radioButton1.TabIndex = 20;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "NEC";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.button1.Location = new System.Drawing.Point(535, 45);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 32;
+            this.button1.Text = "Rename";
+            this.button1.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // comboBoxDatabase
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Checked = true;
-            this.radioButton2.Location = new System.Drawing.Point(75, 4);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(42, 17);
-            this.radioButton2.TabIndex = 19;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "IEC";
-            this.radioButton2.UseVisualStyleBackColor = true;
-            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 6);
-            this.label2.Margin = new System.Windows.Forms.Padding(3);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(50, 13);
-            this.label2.TabIndex = 18;
-            this.label2.Text = "Standard";
+            this.comboBoxDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.comboBoxDatabase.FormattingEnabled = true;
+            this.comboBoxDatabase.Location = new System.Drawing.Point(6, 46);
+            this.comboBoxDatabase.Name = "comboBoxDatabase";
+            this.comboBoxDatabase.Size = new System.Drawing.Size(523, 21);
+            this.comboBoxDatabase.TabIndex = 31;
+            this.comboBoxDatabase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDatabase_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -447,25 +408,64 @@
             this.comboBox3.TabIndex = 28;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ComboBox3_SelectedIndexChanged);
             // 
-            // comboBoxDatabase
+            // radioButton1
             // 
-            this.comboBoxDatabase.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.comboBoxDatabase.FormattingEnabled = true;
-            this.comboBoxDatabase.Location = new System.Drawing.Point(6, 46);
-            this.comboBoxDatabase.Name = "comboBoxDatabase";
-            this.comboBoxDatabase.Size = new System.Drawing.Size(523, 21);
-            this.comboBoxDatabase.TabIndex = 31;
-            this.comboBoxDatabase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDatabase_SelectedIndexChanged);
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(127, 4);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(47, 17);
+            this.radioButton1.TabIndex = 20;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "NEC";
+            this.radioButton1.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // radioButton2
             // 
-            this.button1.Location = new System.Drawing.Point(535, 45);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 32;
-            this.button1.Text = "Rename";
-            this.button1.UseVisualStyleBackColor = true;
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Location = new System.Drawing.Point(75, 4);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(42, 17);
+            this.radioButton2.TabIndex = 19;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "IEC";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 6);
+            this.label2.Margin = new System.Windows.Forms.Padding(3);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(50, 13);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "Standard";
+            // 
+            // tabAdd
+            // 
+            this.tabAdd.BackColor = System.Drawing.Color.White;
+            this.tabAdd.Controls.Add(this.labelName);
+            this.tabAdd.Controls.Add(this.radioButtonNEC);
+            this.tabAdd.Controls.Add(this.textBoxName);
+            this.tabAdd.Controls.Add(this.radioButtonIEC);
+            this.tabAdd.Controls.Add(this.labelInsertData);
+            this.tabAdd.Controls.Add(this.labelStandard);
+            this.tabAdd.Controls.Add(this.dataGridView1);
+            this.tabAdd.Controls.Add(this.buttonCancel);
+            this.tabAdd.Controls.Add(this.labelInsulationType);
+            this.tabAdd.Controls.Add(this.buttonSave);
+            this.tabAdd.Controls.Add(this.comboBoxInsulation);
+            this.tabAdd.Controls.Add(this.comboBoxConductor);
+            this.tabAdd.Controls.Add(this.labelCores);
+            this.tabAdd.Controls.Add(this.label1);
+            this.tabAdd.Controls.Add(this.comboBoxCores);
+            this.tabAdd.Location = new System.Drawing.Point(4, 22);
+            this.tabAdd.Name = "tabAdd";
+            this.tabAdd.Padding = new System.Windows.Forms.Padding(3);
+            this.tabAdd.Size = new System.Drawing.Size(616, 534);
+            this.tabAdd.TabIndex = 0;
+            this.tabAdd.Text = "Add Database";
             // 
             // FormAddCableDatabase
             // 
@@ -478,11 +478,11 @@
             this.Load += new System.EventHandler(this.FormAddCableDatabase_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
-            this.tabAdd.ResumeLayout(false);
-            this.tabAdd.PerformLayout();
             this.tabView.ResumeLayout(false);
             this.tabView.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
+            this.tabAdd.ResumeLayout(false);
+            this.tabAdd.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -498,7 +498,6 @@
         private System.Windows.Forms.ComboBox comboBoxCores;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox comboBoxConductor;
-        private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelStandard;
         private System.Windows.Forms.RadioButton radioButtonIEC;
@@ -520,5 +519,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Button button1;
+        internal System.Windows.Forms.Button buttonSave;
     }
 }
