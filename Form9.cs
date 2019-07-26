@@ -117,6 +117,12 @@ namespace Test1
         public static double[,] inputCableData;
         public static int cableCount;
 
+        int index_temperature;
+        int index_groupedconductor;
+        int index_distanceaboveroof;
+        int index_cablecover;
+        int index_conduit;
+
         DataRow dtr;
 
         //public static DataTable dtdiameter = new DataTable();
@@ -1057,7 +1063,14 @@ namespace Test1
             Form1.dtdiameter.Columns.Add("BreakNominalCurrent");
             Form1.dtdiameter.Columns.Add("BLTE");
             Form1.dtdiameter.Columns.Add("i");
-            
+            Form1.dtdiameter.Columns.Add("Temperature");
+            Form1.dtdiameter.Columns.Add("IndexTemperature");
+            Form1.dtdiameter.Columns.Add("IndexGroupedConductor");
+            Form1.dtdiameter.Columns.Add("IndexDistanceAboveRoof");
+            Form1.dtdiameter.Columns.Add("IndexCableCover");
+            Form1.dtdiameter.Columns.Add("Conduit");
+            Form1.dtdiameter.Columns.Add("IndexConduit");
+
 
             //load saved/default settings
             Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
@@ -1291,6 +1304,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = true;
                     comboBox20.Enabled = false;
@@ -1307,6 +1323,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = true;
@@ -1323,6 +1342,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
@@ -1339,6 +1361,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
@@ -1355,6 +1380,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = false;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
@@ -1374,6 +1402,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = true;
                     comboBox20.Enabled = false;
@@ -1385,6 +1416,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = true;
@@ -1396,6 +1430,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
@@ -1407,6 +1444,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
@@ -1418,6 +1458,9 @@ namespace Test1
                     comboBox18.SelectedIndex = -1;
                     comboBox19.SelectedIndex = -1;
                     comboBox20.SelectedIndex = -1;
+                    index_groupedconductor = -1;
+                    index_distanceaboveroof = -1;
+                    index_cablecover = -1;
                     comboBox18.Enabled = false;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
@@ -3776,6 +3819,14 @@ namespace Test1
 
         private void ComboBox10_TextChanged(object sender, EventArgs e)
         {
+            if (comboBox10.Text != "")
+            {
+                scrating = double.Parse(comboBox10.Text);
+            }
+            else
+            {
+                scrating = 0;
+            }
             SCLTEchanged();
             breaker_fill();
             enable_result_btn();
@@ -3783,7 +3834,7 @@ namespace Test1
 
         private void ComboBox10_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox19.Text != "")
+            if (comboBox10.Text != "")
             {
                 scrating = double.Parse(comboBox10.Text);
             }
@@ -4393,7 +4444,7 @@ namespace Test1
                 Form1.j++;
                 f5.dataGridView1.Rows[Form1.j].Cells[0].Value = Form1.j + 1;
 
-                for (int k = 0; k < 40; k++)
+                for (int k = 0; k < 39; k++)
                 {
                     f5.dataGridView1.Rows[Form1.j].Cells[k + 1].Value = results[k];
                 }
@@ -4408,7 +4459,7 @@ namespace Test1
             }
             else
             {
-                for (int k = 0; k < 40; k++)
+                for (int k = 0; k < 39; k++)
                 {
                     f5.dataGridView1.Rows[tempCurrentRow].Cells[k + 1].Value = results[k];
                 }
@@ -4586,7 +4637,7 @@ namespace Test1
             textBox12.Text = Convert.ToString(dtx[36]); //no of run
             comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
             textBox37.Text = Convert.ToString(dtx[38]); //wirearea
-            wirearea = Convert.ToDouble(dtx[38]);
+            wirearea_nec = Convert.ToString(dtx[38]);
             if (Convert.ToString(dtx[6]) == "DC")
             {
                 Rdc = Convert.ToDouble(dtx[39]);
@@ -4650,6 +4701,17 @@ namespace Test1
             textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
             tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
             i = Convert.ToInt32(dtx[54]);
+
+            temperature = Convert.ToDouble(dtx[55]);
+            comboBox16.Text = temperature.ToString();
+            comboBox16.SelectedIndex = Convert.ToInt32(dtx[56]);
+            comboBox18.SelectedIndex = Convert.ToInt32(dtx[57]);
+            comboBox19.SelectedIndex = Convert.ToInt32(dtx[58]);
+            comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
+            conduit = Convert.ToString(dtx[60]);
+            comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
+
+
             Update_size();
 
             if (comboBox11.Text == "") //data being edited is vd calculated only
@@ -4784,7 +4846,7 @@ namespace Test1
         {
             for (int i = 0; i < Form1.j + 1; i++)
             {
-                for (int k = 0; k < 40; k++)
+                for (int k = 0; k < 39; k++)
                 {
                     if (((k == 8) || ((k >= 10) && (k <= 16)) || ((k >= 18) && (k <= 24)) ||
                        ((k >= 26) && (k <= 37))))
@@ -4806,7 +4868,7 @@ namespace Test1
             {
                 if (Form1.decimalseparator == ',')
                 {
-                    for (int i = 0; i < 55; i++)
+                    for (int i = 0; i < 62; i++)
                     {
                         row[i] = Convert.ToString(row[i]).Replace('.', ',');
                     }
@@ -5854,6 +5916,7 @@ namespace Test1
             comboBox15.Items.Clear();
             comboBox10.SelectedIndex = -1;
             comboBox11.SelectedIndex = -1;
+            comboBox11.Text = "";
             comboBox12.SelectedIndex = -1;
             comboBox21.Enabled = true;
 
@@ -6078,10 +6141,12 @@ namespace Test1
             if (comboBox16.SelectedIndex != -1)
             {
                 panel32.BackColor = Color.Transparent;
+                index_temperature = comboBox16.SelectedIndex;
             }
             else
             {
                 panel32.BackColor = Color.Red;
+                index_temperature = -1;
             }
 
             Updatek1();
@@ -6096,7 +6161,7 @@ namespace Test1
 
         private void ComboBox17_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox17.SelectedIndex != -1)
+            if (comboBox17.Text != "")
             {
                 initialTemp = double.Parse(comboBox17.Text);
                 panel33.BackColor = Color.Transparent;
@@ -6159,12 +6224,16 @@ namespace Test1
             {
                 groupconductor = comboBox18.Text;
                 panel34.BackColor = Color.Transparent;
+                index_groupedconductor = comboBox18.SelectedIndex;
             }
             else
             {
                 groupconductor = "";
                 panel34.BackColor = Color.Red;
+                index_groupedconductor = -1;
             }
+
+            
 
             Updatek2();
 
@@ -6216,11 +6285,15 @@ namespace Test1
             if (comboBox19.SelectedIndex != -1)
             {
                 panel35.BackColor = Color.Transparent;
+                index_distanceaboveroof = comboBox19.SelectedIndex;
             }
             else
             {
                 panel35.BackColor = Color.Red;
+                index_distanceaboveroof = -1;
             }
+
+            
 
             Updatek1();
             Updatekt();
@@ -6338,11 +6411,15 @@ namespace Test1
             if (comboBox20.SelectedIndex != -1)
             {
                 panel36.BackColor = Color.Transparent;
+                index_cablecover = comboBox20.SelectedIndex;
             }
             else
             {
                 panel36.BackColor = Color.Red;
+                index_cablecover = -1;
             }
+
+            
 
             Updatek3();
             Updatekt();
@@ -6355,11 +6432,13 @@ namespace Test1
             {
                 conduit = comboBox21.Text;
                 panel37.BackColor = Color.Transparent;
+                index_conduit = comboBox21.SelectedIndex;
             }
             else
             {
                 conduit = "";
                 panel37.BackColor = Color.Red;
+                index_conduit = -1;
             }
 
             enable_vd_btn();
@@ -6470,13 +6549,14 @@ namespace Test1
         {
             if (textBox24.Text != "")
             {
+                
                 if (finalTemp > initialTemp)
                 {
                     if (material == "Copper")
                     {
                         k = 226 * Math.Sqrt(Math.Log(1 + ((finalTemp - initialTemp) / (234.5 + initialTemp))));
                     }
-                    else if (material == "Alumunium")
+                    else if (material == "Aluminium")
                     {
                         k = 148 * Math.Sqrt(Math.Log(1 + ((finalTemp - initialTemp) / (228.1 + initialTemp))));
                     }
@@ -6505,6 +6585,22 @@ namespace Test1
         {
             if (comboBox17.Text != "")
             {
+                initialTemp = double.Parse(comboBox17.Text);
+                panel33.BackColor = Color.Transparent;
+                if ((insulation == "XHHW") || (insulation == "THHW"))
+                {
+                    if (initialTemp == 75)
+                    {
+                        insulindex = 2;
+                    }
+                    else if (initialTemp == 90)
+                    {
+                        insulindex = 3;
+                    }
+                }
+
+                comboBox16.Enabled = true;
+
                 if ((radioButton3.Checked) && (comboBox4.Text != ""))
                 {
                     button6.Enabled = true;
@@ -6518,17 +6614,81 @@ namespace Test1
             }
             else
             {
+                initialTemp = 0;
+                panel33.BackColor = Color.Red;
+                comboBox16.Enabled = false;
+
                 button6.Enabled = false;
                 label78.Enabled = false;
             }
 
+            if (initialTemp == 60)
+            {
+                label33.Text = "at 60 ᵒC";
+                label33.Visible = true;
+            }
+            else if (initialTemp == 75)
+            {
+                label33.Text = "at 75 ᵒC";
+                label33.Visible = true;
+            }
+            else if (initialTemp == 90)
+            {
+                label33.Text = "at 90 ᵒC";
+                label33.Visible = true;
+            }
+            else
+            {
+                label33.Text = "";
+                label33.Visible = false;
+            }
+
+            temp_fill();
+
+            maxtemp_calc();
+
+            Updatek1();
+            Updatekt();
+
+            SCLTEchanged();
             Calc_k();
+            enable_vd_btn();
+            
+
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             fAbout = new FormAbout();
             fAbout.ShowDialog();
+        }
+
+        private void ComboBox5_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox5.Text != "")
+            {
+                cores = int.Parse(comboBox5.Text);
+                panel30.BackColor = Color.Transparent;
+            }
+            else
+            {
+                cores = 0;
+                panel30.BackColor = Color.Red;
+            }
+        }
+
+        private void ComboBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (comboBox2.Text != "")
+            {
+                loadtype = comboBox2.Text;
+                panel18.BackColor = Color.Transparent;
+            }
+            else
+            {
+                loadtype = "";
+                panel18.BackColor = Color.Red;
+            }
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)
@@ -7470,6 +7630,13 @@ namespace Test1
             dtr[47] = finalTemp;
             dtr[48] = cLTE;
             dtr[54] = i + 1;
+            dtr[55] = temperature;
+            dtr[56] = comboBox16.SelectedIndex;
+            dtr[57] = comboBox18.SelectedIndex;
+            dtr[58] = comboBox19.SelectedIndex;
+            dtr[59] = comboBox20.SelectedIndex;
+            dtr[60] = conduit;
+            dtr[61] = comboBox21.SelectedIndex;
 
             for (int i = 49; i < 54; i++)
             {
@@ -7680,6 +7847,13 @@ namespace Test1
             dtr[51] = scrating;
             dtr[52] = breakcurrent;
             dtr[54] = i;
+            dtr[55] = temperature;
+            dtr[56] = index_temperature;
+            dtr[57] = index_groupedconductor;
+            dtr[58] = index_distanceaboveroof;
+            dtr[59] = index_cablecover;
+            dtr[60] = conduit;
+            dtr[61] = index_conduit;
 
         }
 
