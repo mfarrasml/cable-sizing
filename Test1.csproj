@@ -87,6 +87,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="Files\Exist.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +160,12 @@
     <Compile Include="FormAddCableDatabase.Designer.cs">
       <DependentUpon>FormAddCableDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormRename.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormRename.Designer.cs">
+      <DependentUpon>FormRename.cs</DependentUpon>
+    </Compile>
     <Compile Include="FSettings.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -219,6 +226,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FormAddCableDatabase.resx">
       <DependentUpon>FormAddCableDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormRename.resx">
+      <DependentUpon>FormRename.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FSettings.resx">
       <DependentUpon>FSettings.cs</DependentUpon>

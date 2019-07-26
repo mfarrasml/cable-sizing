@@ -3103,6 +3103,7 @@ namespace Test1
 
         private void ResetData()
         {
+            ReadIECDatabase();
 
             button4.Enabled = false;
 
@@ -3461,6 +3462,10 @@ namespace Test1
             else
             {
                 Properties.Settings.Default.Save();
+                if (EditingState)
+                {
+                    f5.Enabled = true;
+                }
             }
             OpenForm.formMainClose = false;
         }
@@ -3832,14 +3837,14 @@ namespace Test1
             {
                 if (decimalseparator == ',')
                 {
-                    for (int i = 0; i < 55; i++)
+                    for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
                     {
                         row[i] = Convert.ToString(row[i]).Replace('.', ',');
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < 55; i++)
+                    for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
                     {
                         row[i] = Convert.ToString(row[i]).Replace(',', '.');
                     }
@@ -5197,6 +5202,14 @@ namespace Test1
             {
                 e.Handled = true;
             }
+        }
+
+        private void AddCableDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            /*
+            faddcable.buttonSave.Click += ReloadIECDatabase; */
+            faddcable = new FormAddCableDatabase();
+            faddcable.ShowDialog();
         }
 
         private void Calc_k()

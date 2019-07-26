@@ -214,6 +214,18 @@ namespace Test1
                 NECStandard = true;
             }
 
+            //checking standard used
+            if (radioButtonIEC.Checked)
+            {
+                IECSelected = true;
+                NECSelected = false;
+            }
+            else
+            {
+                IECSelected = false;
+                NECSelected = true;
+            }
+
             //initialize datagridview properties
             dataGridView1.DoubleBuffered(true);
             dataGridView2.DoubleBuffered(true);
@@ -400,6 +412,7 @@ namespace Test1
                             if (dr == DialogResult.OK)
                             {
                                 SaveIECDatabase();
+                                LoadIECDatabase();
                             }
                             else
                             {
@@ -1029,11 +1042,702 @@ namespace Test1
 
         int IECFiles;
 
+
         int viewCores;
         string viewinsulation, viewconductor;
 
 
-        string fileName;
+        internal static string fileName;
+
+
+        private void DataGridView2_CurrentCellChanged(object sender, EventArgs e)
+        {
+            //making sure there are no non decimal input by deleting cell when non decimal value is detected
+            double Number;
+            if (!double.TryParse(Convert.ToString(dataGridView2.CurrentCell.Value), out Number))
+            {
+                dataGridView2.CurrentCell.Value = "";
+            }
+        }
+
+        private void DataGridView2_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        {
+            double Number;
+
+            if (dataGridView2.CurrentCell.Selected)
+            {
+                if (!double.TryParse(Convert.ToString(dataGridView2.CurrentCell.Value), out Number))
+                {
+                    dataGridView2.CurrentCell.Value = null;
+                }
+
+            }
+        }
+
+        private void DataGridView2_CellLeave(object sender, DataGridViewCellEventArgs e)
+        {
+            double Number;
+
+            //check if data that the user input is valid, delete if it's not
+            if (dataGridView2.CurrentCell.Selected)
+            {
+                if (!double.TryParse(Convert.ToString(dataGridView2.CurrentCell.Value), out Number))
+                {
+                    dataGridView2.CurrentCell.Value = null;
+                }
+            }
+        }
+
+        private void ButtonCancel2_Click(object sender, EventArgs e)
+        {
+            buttonEdit.Text = "Edit";
+            dataGridView2.ReadOnly = true;
+            ReadIECDatabase();
+            ChooseDatabaseView();
+            comboBoxDatabase.Enabled = true;
+            buttonRename.Enabled = true;
+            buttonDelete.Enabled = true;
+            buttonCancel2.Visible = false;
+        }
+
+        private void DataGridView2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
+        {
+            try
+            {
+                e.Control.KeyPress += new KeyPressEventHandler(DataGridView2_KeyPress);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        private void DataGridView2_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (dataGridView2.CurrentCell.ColumnIndex > -1)
+            {
+                //decimal and separator input only
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator)))
+                {
+                    e.Handled = true;
+                }
+            }
+
+        }
+
+        private void ButtonEdit_Click(object sender, EventArgs e)
+        {
+            if ((fileName != "") && (buttonEdit.Text == "Edit"))
+            {
+                buttonEdit.Text = "Save";
+                buttonCancel2.Visible = true;
+                comboBoxDatabase.Enabled = false;
+                buttonRename.Enabled = false;
+                buttonDelete.Enabled = false;
+                FillDataTableEdit();
+
+                //Make data editable
+                dataGridView2.ReadOnly = false;
+                dataGridView2.Columns[0].ReadOnly = true;
+            }
+            else if (buttonEdit.Text == "Save")
+            {
+                if ((fileName != "") && IECSelected)
+                {
+                    dtXLPE2final = new DataTable();
+                    dtXLPE3final = new DataTable();
+                    dtXLPE4final = new DataTable();
+                    dtPVC2final = new DataTable();
+                    dtPVC3final = new DataTable();
+                    dtPVC4final = new DataTable();
+
+
+                    inValid = CheckEditTableValidation();
+                    if (!inValid)
+                    {
+                        CheckEditAvailability();
+                        FinalCableDataEdit();
+                        if ((dtXLPE2final.Rows.Count > 0) || (dtXLPE3final.Rows.Count > 0) || (dtXLPE4final.Rows.Count > 0) || (dtPVC2final.Rows.Count > 0)
+                            || (dtPVC3final.Rows.Count > 0) || (dtPVC4final.Rows.Count > 0))
+                        {
+                            DialogResult dr = MessageBox.Show("Edit existing database?", "Confirm Edit",
+                                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                            if (dr == DialogResult.OK)
+                            {
+                                SaveIECDatabaseView();
+                                buttonEdit.Text = "Edit";
+                                dataGridView2.ReadOnly = true;
+                                ReadIECDatabase();
+                                ChooseDatabaseView();
+                                comboBoxDatabase.Enabled = true;
+                                buttonRename.Enabled = true;
+                                buttonDelete.Enabled = true;
+                                buttonCancel2.Visible = false;
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+        private void SaveIECDatabaseView()
+        {
+            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+            var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", fileName + ".xml");
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dtXLPE2final);
+            ds.Tables.Add(dtXLPE3final);
+            ds.Tables.Add(dtXLPE4final);
+            ds.Tables.Add(dtPVC2final);
+            ds.Tables.Add(dtPVC3final);
+            ds.Tables.Add(dtPVC4final);
+
+            XmlTextWriter xmlSave = new XmlTextWriter(saveDir, Encoding.UTF8);
+            xmlSave.Formatting = Formatting.Indented;
+            ds.DataSetName = "Cable_Database";
+            ds.WriteXml(xmlSave);
+            xmlSave.Close();
+
+            MessageBox.Show("Data Saved!", "Cable Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private bool CheckEditTableValidation()
+        {
+            bool inVal;
+            int count;
+            inVal = false;
+            int i = 0;
+            int j;
+
+            //validate XLPE2
+            while ((i < 17) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtXLPE2view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 5) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //Validate XLPE3
+            i = 0;
+            while ((i < 17) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtXLPE3view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 5) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //Validate XLPE4
+            i = 0;
+            while ((i < 17) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtXLPE4view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 5) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //Validate PVC2
+            i = 0;
+            while ((i < 16) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtPVC2view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 5) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //Validate PVC3
+            i = 0;
+            while ((i < 16) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtPVC3view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 5) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //Validate PVC4
+            i = 0;
+            while ((i < 16) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtPVC4view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 5) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+            return inVal;
+        }
+
+        private void ButtonDelete_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Delete cable data file \"" + fileName + "\"?", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            if (dr == DialogResult.OK)
+            {
+                string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+                string deleteDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", fileName + ".xml");
+                File.Delete(deleteDir);
+                MessageBox.Show("Data \"" + fileName + "\" deleted successfully!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadIECDatabase();
+            }
+        }
+        private void EnableRenameDelete()
+        {
+            if ((comboBoxDatabase.Text != "") && (comboBoxDatabase.Text != "Sumi Indo Cable (Default)"))
+            {
+                buttonDelete.Enabled = true;
+                buttonRename.Enabled = true;
+            }
+            else
+            {
+                buttonDelete.Enabled = false;
+                buttonRename.Enabled = false;
+            }
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (fileName != "")
+            {
+                FormRename fR = new FormRename();
+                fR.FormClosed += RenameFile;
+                fR.ShowDialog();
+            }
+        }
+
+        private void RenameFile(object sender, FormClosedEventArgs e)
+        {
+            if (FormRename.saveClicked)
+            {
+                string sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                string oldFile = Path.Combine(sysPath + "/Cable Sizing/IEC_database", fileName + ".xml");
+                string NewFile = Path.Combine(sysPath + "/Cable Sizing/IEC_database", FormRename.NewName + ".xml");
+
+                File.Move(oldFile, NewFile);
+                LoadIECDatabase();
+                comboBoxDatabase.Text = FormRename.NewName;
+            }
+            FormRename.saveClicked = false;
+        }
+
+        private void CheckEditAvailability()
+        {
+            bool terisi;
+            //XLPE2CORE
+            for (int i = 0; i < 17; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtXLPE2view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailable[i, 0] = true;
+                }
+                else
+                {
+                    datAvailable[i, 0] = false;
+                }
+            }
+
+            //XLPE3CORE
+            for (int i = 0; i < 17; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtXLPE3view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailable[i, 1] = true;
+                }
+                else
+                {
+                    datAvailable[i, 1] = false;
+                }
+            }
+
+            //XLPE4CORE
+            for (int i = 0; i < 17; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtXLPE4view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailable[i, 2] = true;
+                }
+                else
+                {
+                    datAvailable[i, 2] = false;
+                }
+            }
+
+            //PVC2CORE
+            for (int i = 0; i < 16; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtPVC2view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailable[i, 3] = true;
+                }
+                else
+                {
+                    datAvailable[i, 3] = false;
+                }
+            }
+
+            //PVC3CORE
+            for (int i = 0; i < 16; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtPVC3view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailable[i, 4] = true;
+                }
+                else
+                {
+                    datAvailable[i, 4] = false;
+                }
+            }
+
+            //PVC4CORE
+            for (int i = 0; i < 16; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < 6)
+                {
+                    if (Convert.ToString(dtPVC4view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailable[i, 5] = true;
+                }
+                else
+                {
+                    datAvailable[i, 5] = false;
+                }
+            }
+
+        }
+
+        //Function to fill all data table with all the sizes available
+        private void FillDataTableEdit()
+        {
+            //For XLPE 2 Core
+            for (int i = 0; i < 17; i++)
+            {
+                DataRow row = dtXLPE2view.NewRow();
+                if (i > dtXLPE2view.Rows.Count - 1)
+                {
+                    row[0] = cablesize[i];
+                    dtXLPE2view.Rows.InsertAt(row, i);
+                }
+                else if (cablesize[i] != Convert.ToDouble(dtXLPE2view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = cablesize[i];
+                    dtXLPE2view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For XLPE 3 Core
+            for (int i = 0; i < 17; i++)
+            {
+                DataRow row = dtXLPE3view.NewRow();
+                if (i > dtXLPE3view.Rows.Count - 1)
+                {
+                    row[0] = cablesize[i];
+                    dtXLPE3view.Rows.InsertAt(row, i);
+                }
+                else if (cablesize[i] != Convert.ToDouble(dtXLPE3view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = cablesize[i];
+                    dtXLPE3view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For XLPE 4 Core
+            for (int i = 0; i < 17; i++)
+            {
+                DataRow row = dtXLPE4view.NewRow();
+                if (i > dtXLPE4view.Rows.Count - 1)
+                {
+                    row[0] = cablesize[i];
+                    dtXLPE4view.Rows.InsertAt(row, i);
+                }
+                else if (cablesize[i] != Convert.ToDouble(dtXLPE4view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = cablesize[i];
+                    dtXLPE4view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For PVC 2 Core
+            for (int i = 0; i < 16; i++)
+            {
+                DataRow row = dtPVC2view.NewRow();
+                if (i > dtPVC2view.Rows.Count - 1)
+                {
+                    row[0] = cablesize[i];
+                    dtPVC2view.Rows.InsertAt(row, i);
+                }
+                else if (cablesize[i] != Convert.ToDouble(dtPVC2view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = cablesize[i];
+                    dtPVC2view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For PVC 3 Core
+            for (int i = 0; i < 16; i++)
+            {
+                DataRow row = dtPVC3view.NewRow();
+                if (i > dtPVC3view.Rows.Count - 1)
+                {
+                    row[0] = cablesize[i];
+                    dtPVC3view.Rows.InsertAt(row, i);
+                }
+                else if (cablesize[i] != Convert.ToDouble(dtPVC3view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = cablesize[i];
+                    dtPVC3view.Rows.InsertAt(row, i);
+                }
+            }
+
+
+            //For PVC 4 Core
+            for (int i = 0; i < 16; i++)
+            {
+                DataRow row = dtPVC4view.NewRow();
+                if (i > dtPVC4view.Rows.Count - 1)
+                {
+                    row[0] = cablesize[i];
+                    dtPVC4view.Rows.InsertAt(row, i);
+                }
+                else if (cablesize[i] != Convert.ToDouble(dtPVC4view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = cablesize[i];
+                    dtPVC4view.Rows.InsertAt(row, i);
+                }
+            }
+
+        }
+
+        private void FinalCableDataEdit()
+        {
+            int k;
+
+            //Save XLPE2 Cable Data
+            k = 0;
+            dtXLPE2final = dtXLPE2view.Copy();
+            for (int i = 0; i < 17; i++)
+            {
+                if (!datAvailable[i, 0])
+                {
+                    dtXLPE2final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+            //Save XLPE3 Cable Data
+            k = 0;
+            dtXLPE3final = dtXLPE3view.Copy();
+            for (int i = 0; i < 17; i++)
+            {
+                if (!datAvailable[i, 1])
+                {
+                    dtXLPE3final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+            //Save XLPE4 Cable Data
+            k = 0;
+            dtXLPE4final = dtXLPE4view.Copy();
+            for (int i = 0; i < 17; i++)
+            {
+                if (!datAvailable[i, 2])
+                {
+                    dtXLPE4final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+            //Save PVC2 Cable Data
+            k = 0;
+            dtPVC2final = dtPVC2view.Copy();
+            for (int i = 0; i < 16; i++)
+            {
+                if (!datAvailable[i, 3])
+                {
+                    dtPVC2final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+            //Save PVC3 Cable Data
+            k = 0;
+            dtPVC3final = dtPVC3view.Copy();
+            for (int i = 0; i < 16; i++)
+            {
+                if (!datAvailable[i, 4])
+                {
+                    dtPVC3final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+            //Save PVC4 Cable Data
+            k = 0;
+            dtPVC4final = dtPVC4view.Copy();
+            for (int i = 0; i < 16; i++)
+            {
+                if (!datAvailable[i, 5])
+                {
+                    dtPVC4final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+        }
 
         private void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
@@ -1061,6 +1765,7 @@ namespace Test1
             FileInfo[] files = di.GetFiles("*.xml");
             IECFiles = files.Length;
             //fill vendor data from database
+            comboBoxDatabase.Items.Clear();
             comboBoxDatabase.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
             //fill all saved database created by user
             for (int z = 0; z < IECFiles; z++)
@@ -1107,7 +1812,21 @@ namespace Test1
                 dtPVC4view = null;
             }
 
+            EnableRenameDelete();
             ChooseDatabaseView();
+            EnableEdit();
+        }
+
+        private void EnableEdit()
+        {
+            if ((fileName != "") && (fileName != "Sumi Indo Cable (Default)") && (viewconductor != "") && (viewinsulation != "") && (viewCores != 0))
+            {
+                buttonEdit.Enabled = true;
+            }
+            else
+            {
+                buttonEdit.Enabled = false;
+            }
         }
 
 
@@ -1115,19 +1834,23 @@ namespace Test1
         {
             viewinsulation = comboBox1.Text;
             ChooseDatabaseView();
+            EnableEdit();
         }
 
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
+
             viewCores = int.Parse(comboBox3.Text);
             ChooseDatabaseView();
+            EnableEdit();
         }
 
         private void ComboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             viewconductor = comboBox2.Text;
             ChooseDatabaseView();
+            EnableEdit();
         }
 
 
