@@ -247,8 +247,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -308,8 +306,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.viewToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.viewToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(4, 2, 0, 2);
@@ -334,33 +331,33 @@
             this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Return_16x;
             this.returnToTitleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.returnToTitleToolStripMenuItem.Name = "returnToTitleToolStripMenuItem";
-            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.returnToTitleToolStripMenuItem.Text = "Return to Title";
             this.returnToTitleToolStripMenuItem.Click += new System.EventHandler(this.ReturnToTitleToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(146, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Image = global::Test1.Properties.Resources.Settings_16x;
             this.settingsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(146, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -375,17 +372,15 @@
             // 
             // cableDataTableToolStripMenuItem
             // 
-            this.cableDataTableToolStripMenuItem.Image = global::Test1.Properties.Resources.Table_16x;
-            this.cableDataTableToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cableDataTableToolStripMenuItem.Name = "cableDataTableToolStripMenuItem";
-            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.cableDataTableToolStripMenuItem.Text = "Cable Data Table";
             this.cableDataTableToolStripMenuItem.Click += new System.EventHandler(this.CableDataTableToolStripMenuItem_Click);
             // 
             // cableSummaryToolStripMenuItem
             // 
             this.cableSummaryToolStripMenuItem.Name = "cableSummaryToolStripMenuItem";
-            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(162, 22);
             this.cableSummaryToolStripMenuItem.Text = "Cable Summary";
             this.cableSummaryToolStripMenuItem.Click += new System.EventHandler(this.CableSummaryToolStripMenuItem_Click);
             // 
@@ -436,6 +431,7 @@
             this.comboBox2.Size = new System.Drawing.Size(121, 21);
             this.comboBox2.TabIndex = 4;
             this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.ComboBox2_SelectedIndexChanged);
+            this.comboBox2.TextChanged += new System.EventHandler(this.ComboBox2_TextChanged);
             // 
             // comboBox3
             // 
@@ -756,6 +752,7 @@
             this.comboBox5.Size = new System.Drawing.Size(100, 21);
             this.comboBox5.TabIndex = 48;
             this.comboBox5.SelectedIndexChanged += new System.EventHandler(this.ComboBox5_SelectedIndexChanged);
+            this.comboBox5.TextChanged += new System.EventHandler(this.ComboBox5_TextChanged);
             // 
             // label32
             // 
@@ -1009,6 +1006,7 @@
             // 
             this.textBox21.Location = new System.Drawing.Point(163, 111);
             this.textBox21.Name = "textBox21";
+            this.textBox21.ReadOnly = true;
             this.textBox21.Size = new System.Drawing.Size(100, 20);
             this.textBox21.TabIndex = 89;
             this.textBox21.TextChanged += new System.EventHandler(this.TextBox21_TextChanged);
@@ -2745,21 +2743,6 @@
             // 
             this.timer3.Interval = 5000;
             this.timer3.Tick += new System.EventHandler(this.Timer3_Tick);
-            // 
-            // helpToolStripMenuItem
-            // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 19);
-            this.helpToolStripMenuItem.Text = "Help";
-            // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // Form9
             // 
