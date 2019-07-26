@@ -275,14 +275,14 @@ namespace Test1
                     {
                         if (Form1.decimalseparator == ',')
                         {
-                            for (int i = 0; i < 55; i++)
+                            for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
                             {
                                 row[i] = Convert.ToString(row[i]).Replace('.', ',');
                             }
                         }
                         else
                         {
-                            for (int i = 0; i < 55; i++)
+                            for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
                             {
                                 row[i] = Convert.ToString(row[i]).Replace(',', '.');
                             }
@@ -383,7 +383,7 @@ namespace Test1
             // matching all decimal separator as '.' in xml file
             foreach (DataRow row in dd.Rows)
             {
-                for (int i = 0; i < 55; i++)
+                for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
                 {
                     row[i] = Convert.ToString(row[i]).Replace(',', '.');
                 }
@@ -450,7 +450,7 @@ namespace Test1
             // matching all decimal separator as '.' in xml file
             foreach (DataRow row in dd.Rows)
             {
-                for (int i = 0; i < 55; i++)
+                for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
                 {
                     row[i] = Convert.ToString(row[i]).Replace(',', '.');
                 }
@@ -668,7 +668,7 @@ namespace Test1
             }
 
             DataRow dataRow = Form1.dtdiameter.NewRow();
-            for (int i = 0; i < 55; i++)
+            for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
             {
                 dataRow[i] = Form1.dtdiameter.Rows[currentrow - 1].ItemArray[i];
             }
@@ -693,7 +693,7 @@ namespace Test1
 
 
             DataRow dataRow = Form1.dtdiameter.NewRow();
-            for (int i = 0; i < 55; i++)
+            for (int i = 0; i < Form1.dtdiameter.Columns.Count; i++)
             {
                 dataRow[i] = Form1.dtdiameter.Rows[currentrow + 1].ItemArray[i];
                 // dataRow[0] = Form1.dtdiameter.Rows[currentrow + 1].ItemArray[0];

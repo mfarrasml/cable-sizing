@@ -45,7 +45,11 @@
             this.radioButtonNEC = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabView = new System.Windows.Forms.TabPage();
-            this.button1 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
+            this.buttonCancel2 = new System.Windows.Forms.Button();
+            this.buttonEdit = new System.Windows.Forms.Button();
+            this.buttonRename = new System.Windows.Forms.Button();
             this.comboBoxDatabase = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -260,7 +264,11 @@
             // tabView
             // 
             this.tabView.BackColor = System.Drawing.Color.White;
-            this.tabView.Controls.Add(this.button1);
+            this.tabView.Controls.Add(this.label8);
+            this.tabView.Controls.Add(this.buttonDelete);
+            this.tabView.Controls.Add(this.buttonCancel2);
+            this.tabView.Controls.Add(this.buttonEdit);
+            this.tabView.Controls.Add(this.buttonRename);
             this.tabView.Controls.Add(this.comboBoxDatabase);
             this.tabView.Controls.Add(this.label3);
             this.tabView.Controls.Add(this.label4);
@@ -281,14 +289,61 @@
             this.tabView.TabIndex = 1;
             this.tabView.Text = "View Database";
             // 
-            // button1
+            // label8
             // 
-            this.button1.Location = new System.Drawing.Point(535, 45);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 32;
-            this.button1.Text = "Rename";
-            this.button1.UseVisualStyleBackColor = true;
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(19, 139);
+            this.label8.Margin = new System.Windows.Forms.Padding(3);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(51, 13);
+            this.label8.TabIndex = 36;
+            this.label8.Text = "Edit Data";
+            // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Enabled = false;
+            this.buttonDelete.Location = new System.Drawing.Point(532, 45);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 35;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.ButtonDelete_Click);
+            // 
+            // buttonCancel2
+            // 
+            this.buttonCancel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonCancel2.Location = new System.Drawing.Point(185, 134);
+            this.buttonCancel2.Name = "buttonCancel2";
+            this.buttonCancel2.Size = new System.Drawing.Size(75, 23);
+            this.buttonCancel2.TabIndex = 34;
+            this.buttonCancel2.Text = "Cancel";
+            this.buttonCancel2.UseVisualStyleBackColor = true;
+            this.buttonCancel2.Visible = false;
+            this.buttonCancel2.Click += new System.EventHandler(this.ButtonCancel2_Click);
+            // 
+            // buttonEdit
+            // 
+            this.buttonEdit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.buttonEdit.Enabled = false;
+            this.buttonEdit.Location = new System.Drawing.Point(104, 134);
+            this.buttonEdit.Name = "buttonEdit";
+            this.buttonEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonEdit.TabIndex = 33;
+            this.buttonEdit.Text = "Edit";
+            this.buttonEdit.UseVisualStyleBackColor = true;
+            this.buttonEdit.Click += new System.EventHandler(this.ButtonEdit_Click);
+            // 
+            // buttonRename
+            // 
+            this.buttonRename.Enabled = false;
+            this.buttonRename.Location = new System.Drawing.Point(451, 45);
+            this.buttonRename.Name = "buttonRename";
+            this.buttonRename.Size = new System.Drawing.Size(75, 23);
+            this.buttonRename.TabIndex = 32;
+            this.buttonRename.Text = "Rename";
+            this.buttonRename.UseVisualStyleBackColor = true;
+            this.buttonRename.Click += new System.EventHandler(this.Button1_Click);
             // 
             // comboBoxDatabase
             // 
@@ -298,7 +353,7 @@
             this.comboBoxDatabase.FormattingEnabled = true;
             this.comboBoxDatabase.Location = new System.Drawing.Point(6, 46);
             this.comboBoxDatabase.Name = "comboBoxDatabase";
-            this.comboBoxDatabase.Size = new System.Drawing.Size(523, 21);
+            this.comboBoxDatabase.Size = new System.Drawing.Size(439, 21);
             this.comboBoxDatabase.TabIndex = 31;
             this.comboBoxDatabase.SelectedIndexChanged += new System.EventHandler(this.ComboBoxDatabase_SelectedIndexChanged);
             // 
@@ -334,12 +389,16 @@
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.BackgroundColor = System.Drawing.Color.White;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(6, 136);
+            this.dataGridView2.Location = new System.Drawing.Point(6, 163);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(604, 361);
+            this.dataGridView2.Size = new System.Drawing.Size(604, 334);
             this.dataGridView2.TabIndex = 24;
+            this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellEndEdit);
+            this.dataGridView2.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellLeave);
+            this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridView2_EditingControlShowing);
+            this.dataGridView2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DataGridView2_KeyPress);
             // 
             // label5
             // 
@@ -520,7 +579,11 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonRename;
         internal System.Windows.Forms.Button buttonSave;
+        internal System.Windows.Forms.Button buttonEdit;
+        internal System.Windows.Forms.Button buttonCancel2;
+        private System.Windows.Forms.Button buttonDelete;
+        private System.Windows.Forms.Label label8;
     }
 }
