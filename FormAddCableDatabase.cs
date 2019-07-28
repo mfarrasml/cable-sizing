@@ -41,6 +41,8 @@ namespace Test1
 
         bool IECStandard, NECStandard;
 
+        internal static bool databaseEdited; //used to alert main form whether database is edited
+
         double[] cablesize = new double[17];
 
         public FormAddCableDatabase()
@@ -50,6 +52,10 @@ namespace Test1
 
         private void FormAddCableDatabase_Load(object sender, EventArgs e)
         {
+            //reset database edited status
+            databaseEdited = false;
+
+            //initializing new database datatable
             dtXLPE2 = new DataTable();
             dtXLPE3 = new DataTable();
             dtXLPE4 = new DataTable();
@@ -410,6 +416,7 @@ namespace Test1
                         if (!File.Exists(saveDir))
                         {
                             SaveIECDatabase();
+                            databaseEdited = true;
                         }
                         else //file with the same name detected
                         {
@@ -419,6 +426,7 @@ namespace Test1
                             {
                                 SaveIECDatabase();
                                 LoadIECDatabase();
+                                databaseEdited = true;
                             }
                             else
                             {
@@ -460,10 +468,6 @@ namespace Test1
             xmlSave.Close();
 
             MessageBox.Show("Data Saved!", "Cable Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-            /*XmlTextWriter xmlSave = new XmlTextWriter("D:" + saveName, Encoding.UTF8);
-            ds.WriteXml(xmlSave);
-            xmlSave.Close();*/
         }
 
 
@@ -1179,6 +1183,7 @@ namespace Test1
                                 buttonRename.Enabled = true;
                                 buttonDelete.Enabled = true;
                                 buttonCancel2.Visible = false;
+                                databaseEdited = true;
                             }
 
                         }
@@ -1401,6 +1406,7 @@ namespace Test1
                 File.Move(oldFile, NewFile);
                 LoadIECDatabase();
                 comboBoxDatabase.Text = FormRename.NewName;
+                databaseEdited = true;
             }
             FormRename.saveClicked = false;
         }

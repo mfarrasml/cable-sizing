@@ -5103,7 +5103,17 @@ namespace Test1
             /*
             faddcable.buttonSave.Click += ReloadIECDatabase; */
             faddcable = new FormAddCableDatabase();
+            faddcable.FormClosed += AddDatabaseClosed;
             faddcable.ShowDialog();
+        }
+
+        private void AddDatabaseClosed(object sender, FormClosedEventArgs e)
+        {
+            if (FormAddCableDatabase.databaseEdited)
+            {
+                LoadIECDatabase();
+                FormAddCableDatabase.databaseEdited = false;
+            }
         }
 
         private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
@@ -5200,9 +5210,8 @@ namespace Test1
 
         private void AddCableDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            /*
-            faddcable.buttonSave.Click += ReloadIECDatabase; */
             faddcable = new FormAddCableDatabase();
+            faddcable.FormClosed += AddDatabaseClosed;
             faddcable.ShowDialog();
         }
 
@@ -6364,7 +6373,7 @@ namespace Test1
             {
                 dtPVC4DB = cableDS.Tables["PVC_4CORE"].Copy();
                 pvc4coreDB = new double[dtPVC4DB.Rows.Count, dtPVC4DB.Columns.Count];
-                DTToArrayDouble(dtPVC2DB, pvc4coreDB);
+                DTToArrayDouble(dtPVC4DB, pvc4coreDB);
                 pvc4coreLength = dtPVC4DB.Rows.Count;
             }
             else

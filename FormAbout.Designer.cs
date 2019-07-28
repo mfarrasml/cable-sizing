@@ -41,13 +41,14 @@
             // 
             // panel1
             // 
+            this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.panel1.Controls.Add(this.labelSpecialThanks);
             this.panel1.Controls.Add(this.labelDeveloper);
             this.panel1.Controls.Add(this.pictureBox1);
             this.panel1.Controls.Add(this.labelDescription);
             this.panel1.Controls.Add(this.labelCopyright);
             this.panel1.Controls.Add(this.labelTitle);
-            this.panel1.Location = new System.Drawing.Point(90, 13);
+            this.panel1.Location = new System.Drawing.Point(37, 13);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(299, 425);
             this.panel1.TabIndex = 0;
@@ -117,7 +118,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(479, 450);
+            this.ClientSize = new System.Drawing.Size(373, 450);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;

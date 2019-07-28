@@ -282,6 +282,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Iconsmind-Outline-Power-Cable.ico" />
+    <None Include="Resources\Close_WhiteNoHalo_16x.png" />
+    <None Include="Resources\Close_White_16x.png" />
     <None Include="Resources\power-vector-plug-cord-256.png" />
     <None Include="Resources\power-vector-plug-cord-4.png" />
     <None Include="Resources\Edit_16x.png" />

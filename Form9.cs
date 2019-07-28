@@ -5888,6 +5888,12 @@ namespace Test1
             }
         }
 
+        private void ToolStripMenuItem3_Click(object sender, EventArgs e)
+        {
+            FormAbout fAbout = new FormAbout();
+            fAbout.ShowDialog();
+        }
+
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
