@@ -2478,6 +2478,8 @@ namespace Test1
 
                     }
 
+                    label85.Text = wirearea_unit;
+
                 }
                 if (inputValid)
                 {
@@ -4555,8 +4557,16 @@ namespace Test1
                     m = i + 2;
                 }
 
-                textBox37.Text = data_wirearea[m];
-                label85.Text = data_wirearea_unit[m];
+                if (radioButton4.Checked)
+                {
+                    textBox37.Text = data_wirearea[m];
+                    label85.Text = data_wirearea_unit[m];
+                }
+                else if (radioButton3.Checked)
+                {
+                    textBox37.Text = inputCableData_nec[m, 0];
+                    label85.Text = inputCableData_nec_unit[m];
+                }
             }
 
             if (!((textBox37.Text == wirearea_nec) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") || 
