@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace Test1
 {
     public partial class Form10 : Form
     {
         //global variables
-        public static string[,] cabledata_nec = new string[21,6];
+        public static string[,] cabledata_nec = new string[21, 6];
         public static string[,] prevcabledata_nec = new string[21, 6];
         public static string[,] confirmedcabledata_nec = new string[21, 6];
         public static double[] confirmedcabledata_nec_metric = new double[21];
@@ -26,7 +27,7 @@ namespace Test1
 
         //local variables
         int cablecount;
-        bool[] datAvailable = new bool[21]; 
+        bool[] datAvailable = new bool[21];
         int nMax = 21;
         bool inValid;
         double maxTemp;
@@ -137,7 +138,7 @@ namespace Test1
 
             dataGridView1.RowCount = 21;
 
-            for (int i = 0; i <21; i++)
+            for (int i = 0; i < 21; i++)
             {
                 dataGridView1.Rows[i].Cells[0].Value = cabledata_nec[i, 0];
                 dataGridView1.Rows[i].Cells[0].ReadOnly = true;
@@ -173,7 +174,7 @@ namespace Test1
             {
                 Console.WriteLine(ex);
             }
-            
+
         }
 
         private void DataGridView1_KeyPress(object sender, KeyPressEventArgs e)
@@ -209,12 +210,12 @@ namespace Test1
             {
                 MessageBox.Show("Invalid: All cells in a row must be either filled entirely or left empty!", "Input Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            
+
         }
 
         private void DataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            
+
         }
 
         private void tableToArray()
@@ -249,13 +250,13 @@ namespace Test1
             int count;
             inVal = false;
             int i = 0;
-            while ((i <nMax) && !inVal)
+            while ((i < nMax) && !inVal)
             {
                 int j = 1;
                 count = 0;
                 while (j < 6)
                 {
-                    if(cabledata_nec[i, j] == "")
+                    if (cabledata_nec[i, j] == "")
                     {
                         count++;
                     }
@@ -273,7 +274,7 @@ namespace Test1
         private void finalCableData()
         {
             cablecount = 0;
-            for (int i = 0; i <nMax; i++)
+            for (int i = 0; i < nMax; i++)
             {
                 if (datAvailable[i])
                 {
@@ -285,7 +286,7 @@ namespace Test1
                     confirmedcabledata_nec_unit[cablecount] = cabledata_nec_unit[i];
                     cablecount++;
                 }
-            } 
+            }
         }
 
         private void Button2_Click(object sender, EventArgs e)
@@ -304,7 +305,7 @@ namespace Test1
                     {
                         if (prevcabledata_nec[i, j] == "")
                         {
-                            dataGridView1.Rows[i].Cells[j].Value =  null;
+                            dataGridView1.Rows[i].Cells[j].Value = null;
                         }
                         else
                         {
@@ -377,9 +378,9 @@ namespace Test1
         {
             bool rowNotEmpty = false;
 
-            for (int i = 1; i <6; i++)
+            for (int i = 1; i < 6; i++)
             {
-                if(dataGridView1.CurrentRow.Cells[i].Value != null)
+                if (dataGridView1.CurrentRow.Cells[i].Value != null)
                 {
                     rowNotEmpty = true;
                 }
@@ -409,9 +410,9 @@ namespace Test1
                     }
                     else
                     {
-                       
+
                         dataGridView1.Rows[i].Cells[2].Value = null;
-                        
+
                     }
                 }
             }
@@ -450,5 +451,144 @@ namespace Test1
                 }
             }
         }
+
+        private void ButtonSave_Click(object sender, EventArgs e)
+        {
+            tableToArray();
+            inValid = cekValidasiTable();
+            if (!inValid)
+            {
+                finalCableData();
+                SaveData();
+                Form9.cableCount = cablecount;
+                PrevCable();
+                Close();
+            }
+            else
+            {
+                MessageBox.Show("Invalid: All cells in a row must be either filled entirely or left empty!", "Input Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void SaveData()
+        {
+            DataTable dt = new DataTable();
+            dt.Columns.Add("Size");
+            dt.Columns.Add("Rac20");
+            dt.Columns.Add("Rac");
+            dt.Columns.Add("X");
+            dt.Columns.Add("CCC");
+            dt.Columns.Add("OD");
+
+            StringArrayToDT(confirmedcabledata_nec, cablecount, 6, dt);
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dt);
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "MCI|*.mci";
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
+                    xmlSave.Formatting = Formatting.Indented;
+                    ds.DataSetName = "Manual_NEC_Input";
+                    ds.WriteXml(xmlSave);
+                    xmlSave.Close();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+            }
+        }
+        private void StringArrayToDT(string[,] arr, int Row, int Col, DataTable dt)
+        {
+            DataRow dr;
+            for (int nRow = 0; nRow < Row; nRow++)
+            {
+                dr = dt.NewRow();
+                for (int nCol = 0; nCol < Col; nCol++)
+                {
+                    dr[nCol] = arr[nRow, nCol];
+                }
+                dt.Rows.Add(dr);
+            }
+
+        }
+
+        private void DoubleArray1ToDT(double[] arr, int Row, DataTable dt)
+        {
+            DataRow dr;
+            dr = dt.NewRow();
+            for (int nCol = 0; nCol < Row; nCol++)
+            {
+                dr[nCol] = arr[nCol];
+            }
+
+        }
+
+        private void StringArray1ToDT(string[] arr, int Row, DataTable dt)
+        {
+            DataRow dr;
+            dr = dt.NewRow();
+            for (int nCol = 0; nCol < Row; nCol++)
+            {
+                dr[nCol] = arr[nCol];
+            }
+        }
+
+        private void ButtonOpen_Click(object sender, EventArgs e)
+        {
+            DataTable dt;
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "MCI|*.mci";
+            DataSet ds = new DataSet();
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ds.ReadXml(ofd.FileName);
+                    dt = ds.Tables[0];
+
+                    cablecount = dt.Rows.Count;
+                    int i = 0;
+                    int f = 0;
+                    while (f < cablecount)
+                    {
+                        if (cabledata_nec[i, 0] == Convert.ToString(dt.Rows[f].ItemArray[0]))
+                        {
+                            for (int k = 0; k < 6; k++)
+                            {
+                                cabledata_nec[i, k] = Convert.ToString(dt.Rows[f].ItemArray[k]);
+                            }
+
+                            f++;
+                        }
+                        i++;
+                    }
+                    for (int k = 0; k < 21; k++)
+                    {
+                        for (int c = 0; c < 6; c++)
+                        {
+                            dataGridView1.Rows[k].Cells[c].Value = cabledata_nec[k, c];
+                        }
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
+                dataGridView1.ClearSelection();
+            }
+        }
     }
+
 }
+
+
+
+

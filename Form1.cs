@@ -3103,7 +3103,7 @@ namespace Test1
 
         private void ResetData()
         {
-            ReadIECDatabase();
+            LoadIECDatabase();
 
             button4.Enabled = false;
 
@@ -5106,12 +5106,6 @@ namespace Test1
             faddcable.ShowDialog();
         }
 
-        private void ReloadIECDatabase (object sender, EventArgs e)
-        {
-            ResetData();
-            LoadIECDatabase();
-        }
-
         private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
         {
             toolTip1.SetToolTip(comboBoxVendor, comboBoxVendor.Text);
@@ -6287,8 +6281,9 @@ namespace Test1
             FileInfo[] files = di.GetFiles("*.xml");
             IECDatabaseFiles = files.Length;
             //fill vendor data from database
+            comboBoxVendor.Items.Clear();
             comboBoxVendor.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
-            comboBoxVendor.Text = "Sumi Indo Cable (Default)";
+            comboBoxVendor.SelectedIndex = 0;
             //fill all saved database created by user
             for (int z = 0; z < IECDatabaseFiles; z++)
             {

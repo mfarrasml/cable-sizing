@@ -47,27 +47,42 @@ namespace Test1.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public string ToolbarTextPropertiesDefault {
             get {
                 return ((string)(this["ToolbarTextPropertiesDefault"]));
             }
-            set {
-                this["ToolbarTextPropertiesDefault"] = value;
-            }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("0")]
         public int DecimalSeparatorDefault {
             get {
                 return ((int)(this["DecimalSeparatorDefault"]));
             }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToolbarDescriptionProperties {
+            get {
+                return ((bool)(this["ToolbarDescriptionProperties"]));
+            }
             set {
-                this["DecimalSeparatorDefault"] = value;
+                this["ToolbarDescriptionProperties"] = value;
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool ToolbarDescriptionPropertiesDefault {
+            get {
+                return ((bool)(this["ToolbarDescriptionPropertiesDefault"]));
             }
         }
     }

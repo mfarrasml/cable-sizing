@@ -241,6 +241,10 @@ namespace Test1
         //initializing table view/edit columns
         private void LoadDataViewColumn()
         {
+            // LOADING DATA TABLES FOR IEC DATABASE
+            //
+            //
+
             dtXLPE2view = new DataTable();
             dtXLPE3view = new DataTable();
             dtXLPE4view = new DataTable();
@@ -352,6 +356,8 @@ namespace Test1
             dtPVC4view.Columns[5].ColumnName = "AG_CCC";
 
             dtPVC4view.TableName = "PVC_4CORE";
+
+            //LOADING DATATABLE FOR NEC DATABASE
         }
 
         private void ComboBoxInsulation_SelectedIndexChanged(object sender, EventArgs e)
@@ -1998,7 +2004,7 @@ namespace Test1
         }
         */
 
-        private void DoubleArrayToDT(double [,] arr, int Row, int Col, DataTable dt)
+        public static void DoubleArrayToDT(double [,] arr, int Row, int Col, DataTable dt)
         {
             DataRow dr;
             for (int nRow = 0; nRow < Row; nRow ++)

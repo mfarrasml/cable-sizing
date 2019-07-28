@@ -29,6 +29,7 @@ namespace Test1
         string[] arrTemp = new string[40];
 
         public static bool toolbarTextActivated;
+        public static bool toolbarDescShown;
 
         FSettings fSettings = new FSettings();
 
@@ -36,8 +37,6 @@ namespace Test1
         {
             InitializeComponent();
         }
-
-
 
         private void Form5_Load(object sender, EventArgs e)
         {
@@ -47,6 +46,7 @@ namespace Test1
             //set toolbar text status based on saved settings
             if (toolbarTextActivated)
             {
+                toolbarMenuDescriptionToolStripMenuItem.Checked = true;
                 btnUp.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
                 btnDown.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
                 btnDelete.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
@@ -56,12 +56,28 @@ namespace Test1
             }
             else
             {
+
+                toolbarMenuDescriptionToolStripMenuItem.Checked = false;
                 btnUp.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 btnDown.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 btnDeleteAll.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 editRow.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 clipboardCopy.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            }
+
+            toolbarDescShown = Properties.Settings.Default.ToolbarDescriptionProperties;
+            if(toolbarDescShown)
+            {
+                toolStrip1.Visible = true;
+                toolbarDescShown = true;
+                showToolStripMenuItem.Text = "Hide Toolbar";
+            }
+            else //toolstrip1 is close (!visible)
+            {
+                toolStrip1.Visible = false;
+                toolbarDescShown = false;
+                showToolStripMenuItem.Text = "Show Toolbar";
             }
         }
 
@@ -835,16 +851,19 @@ namespace Test1
 
         private void ShowToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (toolStrip1.Visible)
+            if (toolbarDescShown)
             {
                 toolStrip1.Visible = false;
+                toolbarDescShown = false;
                 showToolStripMenuItem.Text = "Show Toolbar";
             }
             else //toolstrip1 is close (!visible)
             {
                 toolStrip1.Visible = true;
+                toolbarDescShown = true;
                 showToolStripMenuItem.Text = "Hide Toolbar";
             }
+            Properties.Settings.Default.ToolbarDescriptionProperties = toolbarDescShown;
         }
 
         private void ToolbarMenuDescriptionToolStripMenuItem_Click(object sender, EventArgs e)
@@ -857,6 +876,7 @@ namespace Test1
             if (toolbarTextActivated)
             {
                 toolbarTextActivated = false;
+                toolbarMenuDescriptionToolStripMenuItem.Checked = false;
                 btnUp.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 btnDown.DisplayStyle = ToolStripItemDisplayStyle.Image;
                 btnDelete.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -867,6 +887,7 @@ namespace Test1
             else
             {
                 toolbarTextActivated = true;
+                toolbarMenuDescriptionToolStripMenuItem.Checked = true;
                 btnUp.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
                 btnDown.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
                 btnDelete.DisplayStyle = ToolStripItemDisplayStyle.ImageAndText;
