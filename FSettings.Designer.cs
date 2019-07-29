@@ -127,7 +127,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FSettings";
-            this.Text = "FSettings";
+            this.Text = "ss";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FSettings_FormClosing);
             this.Load += new System.EventHandler(this.FSettings_Load);
             this.panel1.ResumeLayout(false);

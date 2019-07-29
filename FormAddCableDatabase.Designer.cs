@@ -42,7 +42,6 @@
             this.buttonCancel = new System.Windows.Forms.Button();
             this.labelStandard = new System.Windows.Forms.Label();
             this.radioButtonIEC = new System.Windows.Forms.RadioButton();
-            this.radioButtonNEC = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabView = new System.Windows.Forms.TabPage();
             this.label8 = new System.Windows.Forms.Label();
@@ -60,7 +59,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.tabAdd = new System.Windows.Forms.TabPage();
@@ -239,17 +237,6 @@
             this.radioButtonIEC.UseVisualStyleBackColor = true;
             this.radioButtonIEC.CheckedChanged += new System.EventHandler(this.RadioButtonIEC_CheckedChanged);
             // 
-            // radioButtonNEC
-            // 
-            this.radioButtonNEC.AutoSize = true;
-            this.radioButtonNEC.Location = new System.Drawing.Point(127, 4);
-            this.radioButtonNEC.Name = "radioButtonNEC";
-            this.radioButtonNEC.Size = new System.Drawing.Size(47, 17);
-            this.radioButtonNEC.TabIndex = 17;
-            this.radioButtonNEC.TabStop = true;
-            this.radioButtonNEC.Text = "NEC";
-            this.radioButtonNEC.UseVisualStyleBackColor = true;
-            // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabView);
@@ -279,7 +266,6 @@
             this.tabView.Controls.Add(this.label6);
             this.tabView.Controls.Add(this.label7);
             this.tabView.Controls.Add(this.comboBox3);
-            this.tabView.Controls.Add(this.radioButton1);
             this.tabView.Controls.Add(this.radioButton2);
             this.tabView.Controls.Add(this.label2);
             this.tabView.Location = new System.Drawing.Point(4, 22);
@@ -469,17 +455,6 @@
             this.comboBox3.TabIndex = 28;
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.ComboBox3_SelectedIndexChanged);
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(127, 4);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(47, 17);
-            this.radioButton1.TabIndex = 20;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "NEC";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
@@ -507,7 +482,6 @@
             // 
             this.tabAdd.BackColor = System.Drawing.Color.White;
             this.tabAdd.Controls.Add(this.labelName);
-            this.tabAdd.Controls.Add(this.radioButtonNEC);
             this.tabAdd.Controls.Add(this.textBoxName);
             this.tabAdd.Controls.Add(this.radioButtonIEC);
             this.tabAdd.Controls.Add(this.labelInsertData);
@@ -562,11 +536,9 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelStandard;
         private System.Windows.Forms.RadioButton radioButtonIEC;
-        private System.Windows.Forms.RadioButton radioButtonNEC;
         private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabAdd;
         private System.Windows.Forms.TabPage tabView;
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxDatabase;

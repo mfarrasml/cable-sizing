@@ -87,7 +87,6 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="ExtensionMethods.cs" />
-    <Compile Include="Files\Exist.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

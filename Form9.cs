@@ -3074,6 +3074,11 @@ namespace Test1
 
         private void buttonReset(object sender, EventArgs e)
         {
+            ResetData();
+        }
+
+        private void ResetData()
+        {
             button4.Enabled = false;
 
             calculated = false;
@@ -5892,6 +5897,11 @@ namespace Test1
         {
             FormAbout fAbout = new FormAbout();
             fAbout.ShowDialog();
+        }
+
+        private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ResetData();
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)
