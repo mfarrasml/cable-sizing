@@ -35,6 +35,7 @@
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -42,6 +43,7 @@
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labelSpecialThanks);
             this.panel1.Controls.Add(this.labelDeveloper);
             this.panel1.Controls.Add(this.pictureBox1);
@@ -59,9 +61,9 @@
             this.labelSpecialThanks.Location = new System.Drawing.Point(89, 148);
             this.labelSpecialThanks.Margin = new System.Windows.Forms.Padding(3);
             this.labelSpecialThanks.Name = "labelSpecialThanks";
-            this.labelSpecialThanks.Size = new System.Drawing.Size(96, 13);
+            this.labelSpecialThanks.Size = new System.Drawing.Size(149, 13);
             this.labelSpecialThanks.TabIndex = 5;
-            this.labelSpecialThanks.Text = "Special Thanks to:";
+            this.labelSpecialThanks.Text = "Supervised By: Irpan Harahap";
             // 
             // labelDeveloper
             // 
@@ -69,9 +71,9 @@
             this.labelDeveloper.Location = new System.Drawing.Point(89, 87);
             this.labelDeveloper.Margin = new System.Windows.Forms.Padding(3);
             this.labelDeveloper.Name = "labelDeveloper";
-            this.labelDeveloper.Size = new System.Drawing.Size(77, 52);
+            this.labelDeveloper.Size = new System.Drawing.Size(153, 39);
             this.labelDeveloper.TabIndex = 4;
-            this.labelDeveloper.Text = "Developed By:\r\n- Rauf, \r\n- Farras,\r\n- Irpan. ";
+            this.labelDeveloper.Text = "Developed By:\r\n- Rauf Abror Pramudyana, \r\n- Muhammad Farras Muwaffaq.";
             // 
             // pictureBox1
             // 
@@ -114,6 +116,16 @@
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Cable Sizing version: ";
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(89, 181);
+            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Special Thanks to:";
+            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -144,5 +156,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Label labelDeveloper;
         private System.Windows.Forms.Label labelSpecialThanks;
+        private System.Windows.Forms.Label label1;
     }
 }

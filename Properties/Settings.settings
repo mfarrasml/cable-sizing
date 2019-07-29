@@ -8,7 +8,7 @@
     <Setting Name="ToolbarTextProperties" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
-    <Setting Name="ToolbarTextPropertiesDefault" Type="System.String" Scope="Application">
+    <Setting Name="ToolbarTextPropertiesDefault" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
     </Setting>
     <Setting Name="DecimalSeparatorDefault" Type="System.Int32" Scope="Application">
@@ -19,6 +19,9 @@
     </Setting>
     <Setting Name="ToolbarDescriptionPropertiesDefault" Type="System.Boolean" Scope="Application">
       <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="ColorTheme" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">0</Value>
     </Setting>
   </Settings>
 </SettingsFile>

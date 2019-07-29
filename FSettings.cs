@@ -18,6 +18,7 @@ namespace Test1
         CultureInfo culture = (CultureInfo)CultureInfo.CurrentCulture.Clone();
         char currentDecimalSeparator;
         public static int tempDecimalSeparator;
+        int currenttheme;
 
         public FSettings()
         {
@@ -51,6 +52,13 @@ namespace Test1
         private void FSettings_Load(object sender, EventArgs e)
         {
             currentDecimalSeparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+            DecLoad();
+            currenttheme = Properties.Settings.Default.ColorTheme;
+            comboBoxTheme.SelectedIndex = currenttheme;
+        }
+
+        private void DecLoad()
+        {
             if (tempDecimalSeparator == 0)
             {
                 checkBox1.Checked = true;
@@ -107,6 +115,9 @@ namespace Test1
                 Form1.decimalSeparatorChanged = true;
             }
 
+            //save color Theme settings
+            Properties.Settings.Default.ColorTheme = currenttheme;
+
             Form1.okSetClicked = true;
             Close();
         }
@@ -145,6 +156,110 @@ namespace Test1
                     radioButton2.Checked = true;
                 }
             }
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Resete all settings to default?", "Cable Sizing", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            if (dr == DialogResult.OK)
+            {
+                //reset decimal separator
+                tempDecimalSeparator = Properties.Settings.Default.DecimalSeparatorDefault;
+                DecLoad();
+
+                comboBoxTheme.SelectedIndex = 0;
+
+                MessageBox.Show("Settings reset to default", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                /* //resest toolbardesc
+                Form5.toolbarDescShown = Properties.Settings.Default.ToolbarDescriptionPropertiesDefault;
+                Properties.Settings.Default.ToolbarDescriptionProperties = Form5.toolbarDescShown;
+
+
+                //resest toolbar activated
+                Form5.toolbarTextActivated = Properties.Settings.Default.ToolbarTextPropertiesDefault;
+                Properties.Settings.Default.ToolbarTextProperties = Properties.Settings.Default.ToolbarTextPropertiesDefault;
+                */
+            }
+        }
+
+        private void LoadColor()
+        {
+            if (currenttheme == 0) //default theme
+            {
+                gradientPanelSecondary.Visible = true;
+                gradientPanelSecondary.BackColor = SystemColors.Control;
+
+                gradientPanelPrimary.BackColor = Color.White;
+                gradientPanelPrimary.TopColor = Color.Transparent;
+                gradientPanelPrimary.BottomColor = Color.Transparent;
+                gradientPanelPrimary.Angle = 0;
+
+            }
+            else if (currenttheme == 1) //Skyblue theme
+            {
+                gradientPanelPrimary.BackColor = Color.White;
+
+                gradientPanelSecondary.Visible = false;
+                gradientPanelSecondary.BackColor = Color.Transparent;
+
+                gradientPanelPrimary.BackColor = Color.Transparent;
+                gradientPanelPrimary.TopColor = Color.Azure;
+                gradientPanelPrimary.BottomColor = Color.LightCyan;
+                gradientPanelPrimary.Angle = 300;
+            }
+            else if (currenttheme == 2) //Dark theme
+            {
+                gradientPanelSecondary.Visible = true;
+                gradientPanelSecondary.BackColor = Color.FromArgb(45, 46, 51);
+
+                gradientPanelPrimary.BackColor = Color.FromArgb(58, 59, 66);
+                gradientPanelPrimary.TopColor = Color.Transparent;
+                gradientPanelPrimary.BottomColor = Color.Transparent;
+                gradientPanelPrimary.Angle = 0;
+            }
+            else if (currenttheme == 3) //Pinky salmon theme
+            {
+                gradientPanelPrimary.BackColor = Color.White;
+
+                gradientPanelSecondary.Visible = false;
+                gradientPanelSecondary.BackColor = Color.Transparent;
+                
+                gradientPanelPrimary.BackColor = Color.Transparent;
+                gradientPanelPrimary.TopColor = Color.Salmon;
+                gradientPanelPrimary.BottomColor = Color.HotPink;
+                gradientPanelPrimary.Angle = 0;
+
+            }
+            else if (currenttheme == 4) //Cable sizing theme
+            {
+                gradientPanelPrimary.BackColor = Color.White;
+
+                gradientPanelSecondary.Visible = false;
+                gradientPanelSecondary.BackColor = Color.Transparent;
+
+                gradientPanelPrimary.BackColor = Color.Transparent;
+                gradientPanelPrimary.TopColor = Color.Turquoise;
+                gradientPanelPrimary.BottomColor = Color.DodgerBlue;
+                gradientPanelPrimary.Angle = 60;
+            }
+            else if (currenttheme == 5) //Visual Studio theme
+            {
+                gradientPanelSecondary.Visible = true;
+                gradientPanelSecondary.BackColor = Color.FromArgb(93, 107, 153);
+
+                gradientPanelPrimary.BackColor = Color.AliceBlue;
+                gradientPanelPrimary.TopColor = Color.Transparent;
+                gradientPanelPrimary.BottomColor = Color.Transparent;
+                gradientPanelPrimary.Angle = 0;
+
+            }
+        }
+
+        private void ComboBoxTheme_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            currenttheme = comboBoxTheme.SelectedIndex;
+            LoadColor();
         }
     }
 }

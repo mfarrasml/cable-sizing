@@ -30,9 +30,6 @@ namespace Test1
 
         public static bool toolbarTextActivated;
         public static bool toolbarDescShown;
-
-        FSettings fSettings = new FSettings();
-
         internal static int Standard; //1 = IEC, 2 = NEC
 
         public Form5()
@@ -612,7 +609,6 @@ namespace Test1
 
             for (int i = 0; i < 40; i++)
             {
-
                 printer.ColumnStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
                 printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name] = dataGridView1.DefaultCellStyle.Clone();
                 printer.ColumnHeaderStyles[dataGridView1.Columns[i].Name].Font = new Font("Arial", (float)4);

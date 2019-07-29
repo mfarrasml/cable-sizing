@@ -5336,6 +5336,29 @@ namespace Test1
             {
                 lengthunit = comboBox1.Text;
             }
+
+            if (textBox6.Text != "")
+            {
+                if (lengthunit == "m")
+                {
+                    length = 3.28084 * double.Parse(textBox6.Text);
+                }
+                else
+                {
+                    length = double.Parse(textBox6.Text);
+                }
+            }
+            else
+            {
+                length = 0;
+            }
+
+            Updatek3();
+
+            Updatekt();
+
+            enable_vd_btn();
+            enable_result_btn();
         }
 
         private void ComboBox16_SelectedIndexChanged(object sender, EventArgs e)

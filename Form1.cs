@@ -15,7 +15,7 @@ using System.IO;
 namespace Test1
 {
 
-    public partial class Form1 : Form
+    public partial class Form1 : GradientForm
     {
 
         //variables
@@ -805,9 +805,95 @@ namespace Test1
             enable_result_btn();
         }
 
+        internal void LoadColor()
+        {
+            if (Properties.Settings.Default.ColorTheme == 0) //default theme
+            {
+                BackColor = SystemColors.Control;
+                TopColor = Color.Transparent;
+                BottomColor = Color.Transparent;
+                Angle = 0;
+
+                panel2.BackColor = Color.White;
+
+                ForeColor = SystemColors.ControlText;
+
+
+                label21.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 1) //Skyblue theme
+            {
+                BackColor = Color.White;
+                TopColor = Color.Azure;
+                BottomColor = Color.LightCyan;
+                Angle = 300;
+
+                panel2.BackColor = Color.Transparent;
+
+                ForeColor = SystemColors.ControlText;
+
+                label21.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 2) //Dark theme
+            {
+                BackColor = Color.FromArgb(45, 46, 51);
+                TopColor = Color.Transparent;
+                BottomColor = Color.Transparent;
+                Angle = 0;
+
+                panel2.BackColor = Color.FromArgb(58, 59, 66);
+
+                ForeColor = SystemColors.ControlLightLight;
+
+                label21.ForeColor = SystemColors.ControlLightLight;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 3) //Pinky salmon theme
+            {
+                BackColor = Color.White;
+                TopColor = Color.Salmon;
+                BottomColor = Color.HotPink;
+                Angle = 0;
+
+                panel2.BackColor = Color.Transparent;
+
+                ForeColor = SystemColors.ControlText;
+
+                label21.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 4) //Cable sizing theme
+            {
+                BackColor = Color.White;
+                TopColor = Color.Turquoise;
+                BottomColor = Color.DodgerBlue;
+                Angle = 60;
+
+                panel2.BackColor = Color.Transparent;
+
+                ForeColor = SystemColors.ControlLightLight;
+
+                label21.ForeColor = SystemColors.ControlLightLight;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 5) //Visual Studio theme
+            {
+                BackColor = Color.FromArgb(93, 107, 153);
+                TopColor = Color.Transparent;
+                BottomColor = Color.Transparent;
+                Angle = 0;
+
+                panel2.BackColor = Color.AliceBlue;
+
+                ForeColor = SystemColors.ControlText;
+
+                label21.ForeColor = SystemColors.ControlLightLight;
+
+            }
+        }
+
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            LoadColor();
+            
             OpenForm.formMainClose = false;
 
             comboBox8.Text = "PVC";
@@ -900,6 +986,7 @@ namespace Test1
             ktlabelX = label43.Location.X;
             ktlabelY = label43.Location.Y;
 
+            Form5.f7.dataGridView1.Columns[2].HeaderText = "Cable Total Length (m)";
         }
 
         private void TextBox15_KeyPress(object sender, KeyPressEventArgs e)
@@ -3834,16 +3921,23 @@ namespace Test1
 
         private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            fSettings = new FSettings();
             fSettings.FormClosed += fSettings_FormClosed;
             fSettings.ShowDialog();
         }
         private void fSettings_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if (decimalSeparatorChanged && okSetClicked)
+            if (okSetClicked)
             {
-                refreshInputData();
-                refreshDataTable();
-                decimalSeparatorChanged = false;
+                //decimalseparator update
+                if (decimalSeparatorChanged && okSetClicked)
+                {
+                    refreshInputData();
+                    refreshDataTable();
+                    decimalSeparatorChanged = false;
+                }
+                //colortheme update
+                LoadColor();
             }
             okSetClicked = false;
         }

@@ -15,6 +15,17 @@ namespace Test1
         public Color BottomColor { get; set; }
         public float Angle { get; set; }
 
+        public GradientPanel()
+        {
+            DoubleBuffered = true;
+
+            // or
+
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            UpdateStyles();
+        }
+
 
         protected override void OnPaint(PaintEventArgs e)
         {

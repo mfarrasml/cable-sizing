@@ -50,9 +50,9 @@ namespace Test1.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("True")]
-        public string ToolbarTextPropertiesDefault {
+        public bool ToolbarTextPropertiesDefault {
             get {
-                return ((string)(this["ToolbarTextPropertiesDefault"]));
+                return ((bool)(this["ToolbarTextPropertiesDefault"]));
             }
         }
         
@@ -83,6 +83,18 @@ namespace Test1.Properties {
         public bool ToolbarDescriptionPropertiesDefault {
             get {
                 return ((bool)(this["ToolbarDescriptionPropertiesDefault"]));
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int ColorTheme {
+            get {
+                return ((int)(this["ColorTheme"]));
+            }
+            set {
+                this["ColorTheme"] = value;
             }
         }
     }
