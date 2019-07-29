@@ -45,6 +45,7 @@
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cableDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCableDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cableDataTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cableSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -239,7 +240,6 @@
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.timer3 = new System.Windows.Forms.Timer(this.components);
-            this.addCableDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -330,33 +330,33 @@
             this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Return_16x;
             this.returnToTitleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.returnToTitleToolStripMenuItem.Name = "returnToTitleToolStripMenuItem";
-            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.returnToTitleToolStripMenuItem.Text = "Return to Title";
             this.returnToTitleToolStripMenuItem.Click += new System.EventHandler(this.ReturnToTitleToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Image = global::Test1.Properties.Resources.Settings_16x;
             this.settingsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -394,6 +394,13 @@
             this.cableDatabaseToolStripMenuItem.Text = "View/Edit Cable Database";
             this.cableDatabaseToolStripMenuItem.Click += new System.EventHandler(this.CableDatabaseToolStripMenuItem_Click);
             // 
+            // addCableDatabaseToolStripMenuItem
+            // 
+            this.addCableDatabaseToolStripMenuItem.Name = "addCableDatabaseToolStripMenuItem";
+            this.addCableDatabaseToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.addCableDatabaseToolStripMenuItem.Text = "Add Cable Database";
+            this.addCableDatabaseToolStripMenuItem.Click += new System.EventHandler(this.AddCableDatabaseToolStripMenuItem_Click);
+            // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -408,14 +415,14 @@
             this.cableDataTableToolStripMenuItem.Image = global::Test1.Properties.Resources.Table_16x;
             this.cableDataTableToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cableDataTableToolStripMenuItem.Name = "cableDataTableToolStripMenuItem";
-            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.cableDataTableToolStripMenuItem.Text = "Cable Data Table";
             this.cableDataTableToolStripMenuItem.Click += new System.EventHandler(this.CableDataTableToolStripMenuItem_Click);
             // 
             // cableSummaryToolStripMenuItem
             // 
             this.cableSummaryToolStripMenuItem.Name = "cableSummaryToolStripMenuItem";
-            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.cableSummaryToolStripMenuItem.Text = "Cable Summary";
             this.cableSummaryToolStripMenuItem.Click += new System.EventHandler(this.CableSummaryToolStripMenuItem_Click);
             // 
@@ -2673,13 +2680,6 @@
             this.timer3.Interval = 5000;
             this.timer3.Tick += new System.EventHandler(this.Timer3_Tick);
             // 
-            // addCableDatabaseToolStripMenuItem
-            // 
-            this.addCableDatabaseToolStripMenuItem.Name = "addCableDatabaseToolStripMenuItem";
-            this.addCableDatabaseToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.addCableDatabaseToolStripMenuItem.Text = "Add Cable Database";
-            this.addCableDatabaseToolStripMenuItem.Click += new System.EventHandler(this.AddCableDatabaseToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2700,7 +2700,7 @@
             this.MaximizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Cable Sizing";
+            this.Text = "Cable Sizing IEC Standard";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
