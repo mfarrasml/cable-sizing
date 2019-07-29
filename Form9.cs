@@ -824,6 +824,7 @@ namespace Test1
             Form1.dtdiameter.Columns.Add("IndexCableCover");
             Form1.dtdiameter.Columns.Add("Conduit");
             Form1.dtdiameter.Columns.Add("IndexConduit");
+            Form1.dtdiameter.Columns.Add("IndexLength");
 
 
             //load saved/default settings
@@ -845,7 +846,6 @@ namespace Test1
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = 1;
-
         }
 
 
@@ -3745,6 +3745,7 @@ namespace Test1
             {
                 f5.BringToFront();
             }
+            Form5.Standard = 2;
         }
 
         private void EditRowClicked(object sender, EventArgs e)
@@ -3902,6 +3903,7 @@ namespace Test1
             comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
             conduit = Convert.ToString(dtx[60]);
             comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
+            comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
 
 
             Update_size();
@@ -6850,6 +6852,7 @@ namespace Test1
             dtr[59] = comboBox20.SelectedIndex;
             dtr[60] = conduit;
             dtr[61] = comboBox21.SelectedIndex;
+            dtr[62] = comboBox1.SelectedIndex;
 
             for (int i = 49; i < 54; i++)
             {
@@ -7067,6 +7070,7 @@ namespace Test1
             dtr[59] = index_cablecover;
             dtr[60] = conduit;
             dtr[61] = index_conduit;
+            dtr[62] = comboBox1.SelectedIndex;
 
         }
 

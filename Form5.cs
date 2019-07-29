@@ -33,6 +33,8 @@ namespace Test1
 
         FSettings fSettings = new FSettings();
 
+        internal static int Standard; //1 = IEC, 2 = NEC
+
         public Form5()
         {
             InitializeComponent();
@@ -267,7 +269,15 @@ namespace Test1
         {
             DataTable dx = new DataTable();
             OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "IEC|*.iec";
+            if (Standard == 1)
+            {
+                ofd.Filter = "IEC|*.iec";
+            }
+            else if (Standard == 2)
+            {
+                ofd.Filter = "NEC|*.nec";
+            }
+            
             DataSet ds = new DataSet();
 
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -410,14 +420,30 @@ namespace Test1
             ds.Tables.Add(dd);
 
             SaveFileDialog sfd = new SaveFileDialog();
-            sfd.Filter = "IEC|*.iec";
+            if (Standard == 1)
+            {
+                sfd.Filter = "IEC|*.iec";
+            }
+            else if (Standard == 2)
+            {
+                sfd.Filter = "NEC|*.nec";
+            }
+            
             if (sfd.ShowDialog() == DialogResult.OK)
             {
                 try
                 {
                     XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
                     xmlSave.Formatting = Formatting.Indented;
-                    ds.DataSetName = "IEC_Cable_Data";
+                    if (Standard == 1)
+                    {
+                        ds.DataSetName = "IEC_Cable_Data";
+                    }
+                    else if (Standard == 2)
+                    {
+                        ds.DataSetName = "NEC_Cable_Data";
+                    }
+
                     ds.WriteXml(xmlSave);
                     xmlSave.Close();
                     savefile = sfd.FileName;
@@ -479,7 +505,14 @@ namespace Test1
             {
                 XmlTextWriter xmlSave = new XmlTextWriter(savefile, Encoding.UTF8);
                 xmlSave.Formatting = Formatting.Indented;
-                ds.DataSetName = "IEC_Cable_Data";
+                if (Standard == 1)
+                {
+                    ds.DataSetName = "IEC_Cable_Data";
+                }
+                else if (Standard == 2)
+                {
+                    ds.DataSetName = "NEC_Cable_Data";
+                }
                 ds.WriteXml(xmlSave);
                 xmlSave.Close();
             }

@@ -56,7 +56,7 @@
             // labelSpecialThanks
             // 
             this.labelSpecialThanks.AutoSize = true;
-            this.labelSpecialThanks.Location = new System.Drawing.Point(89, 145);
+            this.labelSpecialThanks.Location = new System.Drawing.Point(89, 148);
             this.labelSpecialThanks.Margin = new System.Windows.Forms.Padding(3);
             this.labelSpecialThanks.Name = "labelSpecialThanks";
             this.labelSpecialThanks.Size = new System.Drawing.Size(96, 13);
@@ -69,9 +69,9 @@
             this.labelDeveloper.Location = new System.Drawing.Point(89, 87);
             this.labelDeveloper.Margin = new System.Windows.Forms.Padding(3);
             this.labelDeveloper.Name = "labelDeveloper";
-            this.labelDeveloper.Size = new System.Drawing.Size(138, 13);
+            this.labelDeveloper.Size = new System.Drawing.Size(77, 52);
             this.labelDeveloper.TabIndex = 4;
-            this.labelDeveloper.Text = "Developed By: Farras, Rauf";
+            this.labelDeveloper.Text = "Developed By:\r\n- Rauf, \r\n- Farras,\r\n- Irpan. ";
             // 
             // pictureBox1
             // 

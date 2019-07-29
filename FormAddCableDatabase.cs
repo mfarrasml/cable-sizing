@@ -1369,6 +1369,7 @@ namespace Test1
                 File.Delete(deleteDir);
                 MessageBox.Show("Data \"" + fileName + "\" deleted successfully!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadIECDatabase();
+                databaseEdited = true;
             }
         }
         private void EnableRenameDelete()
