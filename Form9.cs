@@ -18,7 +18,7 @@ using System.Windows.Forms;
 namespace Test1
 {
 
-    public partial class Form9 : Form
+    public partial class Form9 : GradientForm
     {
         double current;
         double currentstart;
@@ -107,7 +107,7 @@ namespace Test1
         Form6 f6 = new Form6();
         Form10 f10 = new Form10();
         FSettings fSettings = new FSettings();
-        FormAbout fAbout;
+        FormAbout fAbout = new FormAbout();
 
         public static string[] results = new string[39];
 
@@ -749,6 +749,11 @@ namespace Test1
 
         private void Form9_Load(object sender, EventArgs e)
         {
+
+            //Load and apply color theme
+            LoadColor();
+            SaveAllColor();
+
             Form1.j = -1;
 
             OpenForm.formMainClose = false;
@@ -829,6 +834,7 @@ namespace Test1
 
             //load saved/default settings
             Form1.decimalseparator = Convert.ToChar(Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator);
+
 
 
             //Set datatable column header
@@ -4034,6 +4040,9 @@ namespace Test1
                 refreshDataTable();
                 Form1.decimalSeparatorChanged = false;
             }
+            //colortheme update
+            LoadColor();
+            SaveAllColor();
             Form1.okSetClicked = false;
         }
 
@@ -5361,6 +5370,416 @@ namespace Test1
             enable_result_btn();
         }
 
+        internal void LoadColor()
+        {
+            if (Properties.Settings.Default.ColorTheme == 0) //default theme
+            {
+                BackColor = SystemColors.Control;
+                TopColor = Color.Transparent;
+                BottomColor = Color.Transparent;
+                Angle = 0;
+
+                panel2.BackColor = Color.White;
+
+                ForeColor = SystemColors.ControlText;
+
+
+                label21.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 1) //Skyblue theme
+            {
+                BackColor = Color.White;
+                TopColor = Color.Azure;
+                BottomColor = Color.LightCyan;
+                Angle = 300;
+
+                panel2.BackColor = Color.Transparent;
+
+                ForeColor = SystemColors.ControlText;
+
+                label21.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 2) //Dark theme
+            {
+                BackColor = Color.FromArgb(45, 46, 51);
+                TopColor = Color.Transparent;
+                BottomColor = Color.Transparent;
+                Angle = 0;
+
+                panel2.BackColor = Color.FromArgb(58, 59, 66);
+
+                ForeColor = SystemColors.ControlLightLight;
+
+                label21.ForeColor = SystemColors.ControlLightLight;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 3) //Pinky salmon theme
+            {
+                BackColor = Color.White;
+                TopColor = Color.Salmon;
+                BottomColor = Color.HotPink;
+                Angle = 0;
+
+                panel2.BackColor = Color.Transparent;
+
+                ForeColor = SystemColors.ControlText;
+
+                label21.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 4) //Cable sizing theme
+            {
+                BackColor = Color.White;
+                TopColor = Color.Turquoise;
+                BottomColor = Color.DodgerBlue;
+                Angle = 60;
+
+                panel2.BackColor = Color.Transparent;
+
+                ForeColor = SystemColors.ControlLightLight;
+
+                label21.ForeColor = SystemColors.ControlLightLight;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 5) //Visual Studio theme
+            {
+                BackColor = Color.FromArgb(93, 107, 153);
+                TopColor = Color.Transparent;
+                BottomColor = Color.Transparent;
+                Angle = 0;
+
+                panel2.BackColor = Color.AliceBlue;
+
+                ForeColor = SystemColors.ControlText;
+
+                label21.ForeColor = SystemColors.ControlLightLight;
+
+            }
+        }
+
+        internal void SaveAllColor()
+        {
+            //Form 5
+            if (Properties.Settings.Default.ColorTheme == 0) //default theme
+            {
+                f5.BackColor = Color.Gray;
+                f5.BackColor = Color.White;
+                f5.TopColor = Color.Transparent;
+                f5.BottomColor = Color.Transparent;
+                f5.Angle = 0;
+
+                f5.dataGridView1.BackgroundColor = Color.White;
+
+                f5.ForeColor = SystemColors.ControlText;
+                f5.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 1) //Skyblue theme
+            {
+                f5.BackColor = Color.Gray;
+                f5.BackColor = Color.White;
+                f5.TopColor = Color.Azure;
+                f5.BottomColor = Color.LightCyan;
+                f5.Angle = 300;
+
+                f5.dataGridView1.BackgroundColor = Color.White;
+
+                f5.ForeColor = SystemColors.ControlText;
+                f5.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 2) //Dark theme
+            {
+                f5.BackColor = Color.FromArgb(45, 46, 51);
+                f5.TopColor = Color.Transparent;
+                f5.BottomColor = Color.Transparent;
+                f5.Angle = 0;
+
+                f5.dataGridView1.BackgroundColor = Color.FromArgb(58, 59, 66);
+
+                f5.ForeColor = SystemColors.ControlLightLight;
+                f5.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 3) //Pinky salmon theme
+            {
+                f5.BackColor = Color.Gray;
+                f5.BackColor = Color.White;
+                f5.TopColor = Color.Salmon;
+                f5.BottomColor = Color.HotPink;
+                f5.Angle = 0;
+
+                f5.dataGridView1.BackgroundColor = Color.White;
+
+                f5.ForeColor = SystemColors.ControlText;
+                f5.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 4) //Cable sizing theme
+            {
+                f5.BackColor = Color.Gray;
+                f5.BackColor = Color.White;
+                f5.TopColor = Color.Turquoise;
+                f5.BottomColor = Color.DodgerBlue;
+                f5.Angle = 60;
+
+                f5.dataGridView1.BackgroundColor = Color.White;
+
+                f5.ForeColor = SystemColors.ControlLightLight;
+                f5.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 5) //Visual Studio theme
+            {
+                f5.BackColor = Color.FromArgb(93, 107, 153);
+                f5.TopColor = Color.Transparent;
+                f5.BottomColor = Color.Transparent;
+                f5.Angle = 0;
+
+                f5.dataGridView1.BackgroundColor = Color.AliceBlue;
+
+                f5.ForeColor = SystemColors.ControlLightLight;
+                f5.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+
+            //Form 7 (form summary)
+            if (Properties.Settings.Default.ColorTheme == 0) //default theme
+            {
+                Form5.f7.BackColor = Color.Gray;
+                Form5.f7.BackColor = Color.White;
+                Form5.f7.TopColor = Color.Transparent;
+                Form5.f7.BottomColor = Color.Transparent;
+                Form5.f7.Angle = 0;
+
+                Form5.f7.dataGridView1.BackgroundColor = Color.White;
+
+                Form5.f7.ForeColor = SystemColors.ControlText;
+                Form5.f7.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 1) //Skyblue theme
+            {
+                Form5.f7.BackColor = Color.Gray;
+                Form5.f7.BackColor = Color.White;
+                Form5.f7.TopColor = Color.Azure;
+                Form5.f7.BottomColor = Color.LightCyan;
+                Form5.f7.Angle = 300;
+
+                Form5.f7.dataGridView1.BackgroundColor = Color.White;
+
+                Form5.f7.ForeColor = SystemColors.ControlText;
+                Form5.f7.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 2) //Dark theme
+            {
+                Form5.f7.BackColor = Color.FromArgb(45, 46, 51);
+                Form5.f7.TopColor = Color.Transparent;
+                Form5.f7.BottomColor = Color.Transparent;
+                Form5.f7.Angle = 0;
+
+                Form5.f7.dataGridView1.BackgroundColor = Color.FromArgb(58, 59, 66);
+
+                Form5.f7.ForeColor = SystemColors.ControlLightLight;
+                Form5.f7.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 3) //Pinky salmon theme
+            {
+                Form5.f7.BackColor = Color.Gray;
+                Form5.f7.BackColor = Color.White;
+                Form5.f7.TopColor = Color.Salmon;
+                Form5.f7.BottomColor = Color.HotPink;
+                Form5.f7.Angle = 0;
+
+                Form5.f7.dataGridView1.BackgroundColor = Color.White;
+
+                Form5.f7.ForeColor = SystemColors.ControlText;
+                Form5.f7.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 4) //Cable sizing theme
+            {
+                Form5.f7.BackColor = Color.Gray;
+                Form5.f7.BackColor = Color.White;
+                Form5.f7.TopColor = Color.Turquoise;
+                Form5.f7.BottomColor = Color.DodgerBlue;
+                Form5.f7.Angle = 60;
+
+                Form5.f7.dataGridView1.BackgroundColor = Color.White;
+
+                Form5.f7.ForeColor = SystemColors.ControlLightLight;
+                Form5.f7.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 5) //Visual Studio theme
+            {
+                Form5.f7.BackColor = Color.FromArgb(93, 107, 153);
+                Form5.f7.TopColor = Color.Transparent;
+                Form5.f7.BottomColor = Color.Transparent;
+                Form5.f7.Angle = 0;
+
+                Form5.f7.dataGridView1.BackgroundColor = Color.AliceBlue;
+
+                Form5.f7.ForeColor = SystemColors.ControlLightLight;
+                Form5.f7.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+
+            //Form 10 (NEC Manual Input)
+            if (Properties.Settings.Default.ColorTheme == 0) //default theme
+            {
+                f10.BackColor = Color.Gray;
+                f10.BackColor = Color.White;
+                f10.TopColor = Color.Transparent;
+                f10.BottomColor = Color.Transparent;
+                f10.Angle = 0;
+
+                f10.dataGridView1.BackgroundColor = Color.White;
+
+                f10.ForeColor = SystemColors.ControlText;
+                f10.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 1) //Skyblue theme
+            {
+                f10.BackColor = Color.Gray;
+                f10.BackColor = Color.White;
+                f10.TopColor = Color.Azure;
+                f10.BottomColor = Color.LightCyan;
+                f10.Angle = 300;
+
+                f10.dataGridView1.BackgroundColor = Color.White;
+
+                f10.ForeColor = SystemColors.ControlText;
+                f10.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 2) //Dark theme
+            {
+                f10.BackColor = Color.FromArgb(45, 46, 51);
+                f10.TopColor = Color.Transparent;
+                f10.BottomColor = Color.Transparent;
+                f10.Angle = 0;
+
+                f10.dataGridView1.BackgroundColor = Color.FromArgb(58, 59, 66);
+
+                f10.ForeColor = SystemColors.ControlLightLight;
+                f10.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 3) //Pinky salmon theme
+            {
+                f10.BackColor = Color.Gray;
+                f10.BackColor = Color.White;
+                f10.TopColor = Color.Salmon;
+                f10.BottomColor = Color.HotPink;
+                f10.Angle = 0;
+
+                f10.dataGridView1.BackgroundColor = Color.White;
+
+                f10.ForeColor = SystemColors.ControlText;
+                f10.dataGridView1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 4) //Cable sizing theme
+            {
+                f10.BackColor = Color.Gray;
+                f10.BackColor = Color.White;
+                f10.TopColor = Color.Turquoise;
+                f10.BottomColor = Color.DodgerBlue;
+                f10.Angle = 60;
+
+                f10.dataGridView1.BackgroundColor = Color.White;
+
+                f10.ForeColor = SystemColors.ControlLightLight;
+                f10.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 5) //Visual Studio theme
+            {
+                f10.BackColor = Color.FromArgb(93, 107, 153);
+                f10.TopColor = Color.Transparent;
+                f10.BottomColor = Color.Transparent;
+                f10.Angle = 0;
+
+                f10.dataGridView1.BackgroundColor = Color.AliceBlue;
+
+                f10.ForeColor = SystemColors.ControlLightLight;
+                f10.dataGridView1.ForeColor = SystemColors.ControlText;
+            }
+
+            //Form About
+            if (Properties.Settings.Default.ColorTheme == 0) //default theme
+            {
+                fAbout.BackColor = SystemColors.Control;
+                fAbout.TopColor = Color.Transparent;
+                fAbout.BottomColor = Color.Transparent;
+                fAbout.Angle = 0;
+
+                fAbout.panel1.BackColor = Color.Transparent;
+
+                fAbout.ForeColor = SystemColors.ControlText;
+                fAbout.panel1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 1) //Skyblue theme
+            {
+                fAbout.BackColor = Color.Gray;
+                fAbout.BackColor = Color.White;
+                fAbout.TopColor = Color.Azure;
+                fAbout.BottomColor = Color.LightCyan;
+                fAbout.Angle = 300;
+
+                fAbout.panel1.BackColor = Color.Transparent;
+
+                fAbout.ForeColor = SystemColors.ControlText;
+                fAbout.panel1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 2) //Dark theme
+            {
+                fAbout.BackColor = Color.FromArgb(45, 46, 51);
+                fAbout.TopColor = Color.Transparent;
+                fAbout.BottomColor = Color.Transparent;
+                fAbout.Angle = 0;
+
+                fAbout.panel1.BackColor = Color.FromArgb(58, 59, 66);
+
+                fAbout.ForeColor = SystemColors.ControlLightLight;
+                fAbout.panel1.ForeColor = SystemColors.ControlLightLight;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 3) //Pinky salmon theme
+            {
+                fAbout.BackColor = Color.Gray;
+                fAbout.BackColor = Color.White;
+                fAbout.TopColor = Color.Salmon;
+                fAbout.BottomColor = Color.HotPink;
+                fAbout.Angle = 0;
+
+                fAbout.panel1.BackColor = Color.Transparent;
+
+                fAbout.ForeColor = SystemColors.ControlText;
+                fAbout.panel1.ForeColor = SystemColors.ControlText;
+
+            }
+            else if (Properties.Settings.Default.ColorTheme == 4) //Cable sizing theme
+            {
+                fAbout.BackColor = Color.Gray;
+                fAbout.BackColor = Color.White;
+                fAbout.TopColor = Color.Turquoise;
+                fAbout.BottomColor = Color.DodgerBlue;
+                fAbout.Angle = 60;
+
+                fAbout.panel1.BackColor = Color.Transparent;
+
+                fAbout.ForeColor = SystemColors.ControlLightLight;
+                fAbout.panel1.ForeColor = SystemColors.ControlText;
+            }
+            else if (Properties.Settings.Default.ColorTheme == 5) //Visual Studio theme
+            {
+                fAbout.BackColor = Color.FromArgb(93, 107, 153);
+                fAbout.TopColor = Color.Transparent;
+                fAbout.BottomColor = Color.Transparent;
+                fAbout.Angle = 0;
+
+                fAbout.panel1.BackColor = Color.AliceBlue;
+
+                fAbout.ForeColor = SystemColors.ControlLightLight;
+                fAbout.panel1.ForeColor = SystemColors.ControlText;
+            }
+        }
+
         private void ComboBox16_SelectedIndexChanged(object sender, EventArgs e)
         {
             
@@ -5884,11 +6303,6 @@ namespace Test1
 
         }
 
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            fAbout = new FormAbout();
-            fAbout.ShowDialog();
-        }
 
         private void ComboBox5_TextChanged(object sender, EventArgs e)
         {
@@ -5920,7 +6334,6 @@ namespace Test1
 
         private void ToolStripMenuItem3_Click(object sender, EventArgs e)
         {
-            FormAbout fAbout = new FormAbout();
             fAbout.ShowDialog();
         }
 
@@ -6867,7 +7280,7 @@ namespace Test1
             dtr[46] = initialTemp;
             dtr[47] = finalTemp;
             dtr[48] = cLTE;
-            dtr[54] = i + 1;
+            dtr[54] = i;
             dtr[55] = temperature;
             dtr[56] = comboBox16.SelectedIndex;
             dtr[57] = comboBox18.SelectedIndex;

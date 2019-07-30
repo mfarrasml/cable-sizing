@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Test1
 {
-    public partial class Form3 : Form
+    public partial class Form3 : GradientForm
     {
         double k1, k2, kt;
 
@@ -203,7 +203,32 @@ namespace Test1
             {
                 dataGridView2.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
-            
+
+            //datagridview 1
+            int height = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                height += row.Height;
+            }
+            height += dataGridView1.ColumnHeadersHeight;
+            if (height < dataGridView1.Height)
+            {
+                dataGridView1.ClientSize = new Size(dataGridView1.Width, height);
+            }
+
+            //datagridview 2
+            height = 0;
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                height += row.Height;
+            }
+            height += dataGridView2.ColumnHeadersHeight;
+
+            if (height < dataGridView2.Height)
+            {
+                dataGridView2.ClientSize = new Size(dataGridView2.Width, height);
+            }
+
         }
 
 

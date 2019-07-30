@@ -14,7 +14,7 @@ using DGVPrinterHelper;
 
 namespace Test1
 {
-    public partial class Form5 : Form
+    public partial class Form5 : GradientForm
     {
         //variable
         public static int currentrow;

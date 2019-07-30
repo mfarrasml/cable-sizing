@@ -123,6 +123,7 @@ namespace Test1
         }
 
 
+
         private void FSettings_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (e.CloseReason == CloseReason.UserClosing)
@@ -182,6 +183,8 @@ namespace Test1
                 */
             }
         }
+
+
 
         private void LoadColor()
         {

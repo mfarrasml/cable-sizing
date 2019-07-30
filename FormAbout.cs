@@ -12,7 +12,7 @@ using System.Diagnostics;
 
 namespace Test1
 {
-    public partial class FormAbout : Form
+    public partial class FormAbout : GradientForm
     {
         string version;
         string description;
@@ -30,7 +30,7 @@ namespace Test1
 
             //write app version beside title
             version = fvi.FileVersion;
-            labelTitle.Text += version;
+            labelTitle.Text ="Cable Sizing version: " + version;
 
             //write app description (NOTE: NEED MANUAL INPUT FOR DESCRIPTION)
             description = "IEC && NEC Cable Sizing Application";

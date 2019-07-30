@@ -117,7 +117,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(604, 361);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellEndEdit);
-            this.dataGridView1.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellLeave);
             this.dataGridView1.CurrentCellChanged += new System.EventHandler(this.DataGridView1_CurrentCellChanged);
             this.dataGridView1.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridView1_EditingControlShowing);
             this.dataGridView1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DataGridView1_KeyPress);
@@ -382,7 +381,6 @@
             this.dataGridView2.Size = new System.Drawing.Size(604, 334);
             this.dataGridView2.TabIndex = 24;
             this.dataGridView2.CellEndEdit += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellEndEdit);
-            this.dataGridView2.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView2_CellLeave);
             this.dataGridView2.EditingControlShowing += new System.Windows.Forms.DataGridViewEditingControlShowingEventHandler(this.DataGridView2_EditingControlShowing);
             this.dataGridView2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DataGridView2_KeyPress);
             // 
@@ -512,7 +510,8 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormAddCableDatabase";
-            this.Text = "Add Cable Database";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Cable Database";
             this.Load += new System.EventHandler(this.FormAddCableDatabase_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.tabControl1.ResumeLayout(false);
@@ -539,7 +538,6 @@
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelStandard;
         private System.Windows.Forms.RadioButton radioButtonIEC;
-        private System.Windows.Forms.TabControl tabControl1;
         private System.Windows.Forms.TabPage tabAdd;
         private System.Windows.Forms.TabPage tabView;
         private System.Windows.Forms.RadioButton radioButton2;
@@ -560,5 +558,6 @@
         internal System.Windows.Forms.Button buttonCancel2;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Label label8;
+        internal System.Windows.Forms.TabControl tabControl1;
     }
 }

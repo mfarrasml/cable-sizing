@@ -11,7 +11,7 @@ using System.Xml;
 
 namespace Test1
 {
-    public partial class Form10 : Form
+    public partial class Form10 : GradientForm
     {
         //global variables
         public static string[,] cabledata_nec = new string[21, 6];

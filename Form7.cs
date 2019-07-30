@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Test1
 {
-    public partial class Form7 : Form
+    public partial class Form7 : GradientForm
     {
         public Form7()
         {

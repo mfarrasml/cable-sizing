@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Test1
 {
-    public partial class Form6 : Form
+    public partial class Form6 : GradientForm
     {
         //global variables
         public static double[,] cabledata = new double[17, 6];

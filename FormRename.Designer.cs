@@ -95,6 +95,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormRename";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Rename FIle";
             this.Load += new System.EventHandler(this.FormRename_Load);
             this.ResumeLayout(false);

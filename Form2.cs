@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Test1
 {
-    public partial class Form2 : Form
+    public partial class Form2 : GradientForm
     {
         double k1, k2, k3, kt;
 
@@ -234,6 +234,42 @@ namespace Test1
             dataGridView3.ColumnHeadersDefaultCellStyle.SelectionBackColor = Color.FromArgb(20, 25, 72);
             dataGridView3.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGridView3.RowHeadersDefaultCellStyle.SelectionBackColor = Color.DarkTurquoise;
+
+            //datagridview 1
+            int height = 0;
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                height += row.Height;
+            }
+            height += dataGridView1.ColumnHeadersHeight;
+            if (height < dataGridView1.Height)
+            {
+                dataGridView1.ClientSize = new Size(dataGridView1.Width, height);
+            }
+
+            //datagridview 2
+            height = 0;
+            foreach (DataGridViewRow row in dataGridView2.Rows)
+            {
+                height += row.Height;
+            }
+            height += dataGridView2.ColumnHeadersHeight;
+
+            if (height < dataGridView2.Height)
+            {
+                dataGridView2.ClientSize = new Size(dataGridView2.Width, height );
+            }
+
+            //datagridview 3
+            height = 0;
+            foreach (DataGridViewRow row in dataGridView3.Rows)
+            {
+                height += row.Height;
+            }
+            height += dataGridView3.ColumnHeadersHeight;
+
+            if (height < dataGridView3.Height)
+            dataGridView3.ClientSize = new Size(dataGridView3.Width, height);
         }
 
         private void TextBox3_TextChanged(object sender, EventArgs e)

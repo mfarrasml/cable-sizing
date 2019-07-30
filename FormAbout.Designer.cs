@@ -28,14 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.panel1 = new Test1.GradientPanel();
+            this.label1 = new System.Windows.Forms.Label();
             this.labelSpecialThanks = new System.Windows.Forms.Label();
             this.labelDeveloper = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.labelDescription = new System.Windows.Forms.Label();
             this.labelCopyright = new System.Windows.Forms.Label();
             this.labelTitle = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -43,6 +43,8 @@
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.Angle = 0F;
+            this.panel1.BottomColor = System.Drawing.Color.Empty;
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.labelSpecialThanks);
             this.panel1.Controls.Add(this.labelDeveloper);
@@ -54,6 +56,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(299, 425);
             this.panel1.TabIndex = 0;
+            this.panel1.TopColor = System.Drawing.Color.Empty;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(89, 181);
+            this.label1.Margin = new System.Windows.Forms.Padding(3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 13);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Special Thanks to:";
             // 
             // labelSpecialThanks
             // 
@@ -116,16 +129,6 @@
             this.labelTitle.TabIndex = 0;
             this.labelTitle.Text = "Cable Sizing version: ";
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(89, 181);
-            this.label1.Margin = new System.Windows.Forms.Padding(3);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(96, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Special Thanks to:";
-            // 
             // FormAbout
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -138,7 +141,7 @@
             this.Name = "FormAbout";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "FormAbout";
+            this.Text = "About Cable Sizing";
             this.Load += new System.EventHandler(this.FormAbout_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -148,8 +151,6 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label labelTitle;
         private System.Windows.Forms.Label labelCopyright;
         private System.Windows.Forms.Label labelDescription;
@@ -157,5 +158,6 @@
         private System.Windows.Forms.Label labelDeveloper;
         private System.Windows.Forms.Label labelSpecialThanks;
         private System.Windows.Forms.Label label1;
+        internal GradientPanel panel1;
     }
 }

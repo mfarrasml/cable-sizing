@@ -266,6 +266,7 @@
             this.MinimizeBox = false;
             this.Name = "FSettings";
             this.Padding = new System.Windows.Forms.Padding(10, 5, 10, 0);
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Settings";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FSettings_FormClosing);
             this.Load += new System.EventHandler(this.FSettings_Load);

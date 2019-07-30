@@ -90,13 +90,13 @@ namespace Test1
             dtXLPE2.Columns.Add("DC Resistance at 90°C(Ω/km)");
             dtXLPE2.Columns.Add("Under Ground CCC at 20°C(A)");
             dtXLPE2.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtXLPE2.Columns[0].ColumnName = "Size";
             dtXLPE2.Columns[1].ColumnName = "AC_Resistance";
             dtXLPE2.Columns[2].ColumnName = "Reactance";
             dtXLPE2.Columns[3].ColumnName = "DC_Resistance";
             dtXLPE2.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE2.Columns[5].ColumnName = "AG_CCC";
+            dtXLPE2.Columns[5].ColumnName = "AG_CCC"; */
 
             dtXLPE2.TableName = "XLPE_2CORE";
 
@@ -108,13 +108,13 @@ namespace Test1
             dtXLPE3.Columns.Add("DC Resistance at 90°C(Ω/km)");
             dtXLPE3.Columns.Add("Under Ground CCC at 20°C(A)");
             dtXLPE3.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtXLPE3.Columns[0].ColumnName = "Size";
             dtXLPE3.Columns[1].ColumnName = "AC_Resistance";
             dtXLPE3.Columns[2].ColumnName = "Reactance";
             dtXLPE3.Columns[3].ColumnName = "DC_Resistance";
             dtXLPE3.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE3.Columns[5].ColumnName = "AG_CCC";
+            dtXLPE3.Columns[5].ColumnName = "AG_CCC"; */
 
             dtXLPE3.TableName = "XLPE_3CORE";
 
@@ -125,13 +125,13 @@ namespace Test1
             dtXLPE4.Columns.Add("DC Resistance at 90°C(Ω/km)");
             dtXLPE4.Columns.Add("Under Ground CCC at 20°C(A)");
             dtXLPE4.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtXLPE4.Columns[0].ColumnName = "Size";
             dtXLPE4.Columns[1].ColumnName = "AC_Resistance";
             dtXLPE4.Columns[2].ColumnName = "Reactance";
             dtXLPE4.Columns[3].ColumnName = "DC_Resistance";
             dtXLPE4.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE4.Columns[5].ColumnName = "AG_CCC";
+            dtXLPE4.Columns[5].ColumnName = "AG_CCC"; */
 
             dtXLPE4.TableName = "XLPE_4CORE";
 
@@ -143,13 +143,13 @@ namespace Test1
             dtPVC2.Columns.Add("DC Resistance at 70°C(Ω/km)");
             dtPVC2.Columns.Add("Under Ground CCC at 20°C(A)");
             dtPVC2.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtPVC2.Columns[0].ColumnName = "Size";
             dtPVC2.Columns[1].ColumnName = "AC_Resistance";
             dtPVC2.Columns[2].ColumnName = "Reactance";
             dtPVC2.Columns[3].ColumnName = "DC_Resistance";
             dtPVC2.Columns[4].ColumnName = "UG_CCC";
-            dtPVC2.Columns[5].ColumnName = "AG_CCC";
+            dtPVC2.Columns[5].ColumnName = "AG_CCC"; */
 
             dtPVC2.TableName = "PVC_2CORE";
 
@@ -160,13 +160,13 @@ namespace Test1
             dtPVC3.Columns.Add("DC Resistance at 70°C(Ω/km)");
             dtPVC3.Columns.Add("Under Ground CCC at 20°C(A)");
             dtPVC3.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtPVC3.Columns[0].ColumnName = "Size";
             dtPVC3.Columns[1].ColumnName = "AC_Resistance";
             dtPVC3.Columns[2].ColumnName = "Reactance";
             dtPVC3.Columns[3].ColumnName = "DC_Resistance";
             dtPVC3.Columns[4].ColumnName = "UG_CCC";
-            dtPVC3.Columns[5].ColumnName = "AG_CCC";
+            dtPVC3.Columns[5].ColumnName = "AG_CCC"; */
 
             dtPVC3.TableName = "PVC_3CORE";
 
@@ -177,13 +177,13 @@ namespace Test1
             dtPVC4.Columns.Add("DC Resistance at 70°C(Ω/km)");
             dtPVC4.Columns.Add("Under Ground CCC at 20°C(A)");
             dtPVC4.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtPVC4.Columns[0].ColumnName = "Size";
             dtPVC4.Columns[1].ColumnName = "AC_Resistance";
             dtPVC4.Columns[2].ColumnName = "Reactance";
             dtPVC4.Columns[3].ColumnName = "DC_Resistance";
             dtPVC4.Columns[4].ColumnName = "UG_CCC";
-            dtPVC4.Columns[5].ColumnName = "AG_CCC";
+            dtPVC4.Columns[5].ColumnName = "AG_CCC"; */
 
             dtPVC4.TableName = "PVC_4CORE";
 
@@ -267,12 +267,13 @@ namespace Test1
             dtXLPE2view.Columns.Add("Under Ground CCC at 20°C(A)");
             dtXLPE2view.Columns.Add("Above Ground CCC at 30°C(A)");
 
+            /*
             dtXLPE2view.Columns[0].ColumnName = "Size";
             dtXLPE2view.Columns[1].ColumnName = "AC_Resistance";
             dtXLPE2view.Columns[2].ColumnName = "Reactance";
             dtXLPE2view.Columns[3].ColumnName = "DC_Resistance";
             dtXLPE2view.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE2view.Columns[5].ColumnName = "AG_CCC";
+            dtXLPE2view.Columns[5].ColumnName = "AG_CCC"; */
 
             dtXLPE2.TableName = "XLPE_2CORE";
 
@@ -284,13 +285,13 @@ namespace Test1
             dtXLPE3view.Columns.Add("DC Resistance at 90°C(Ω/km)");
             dtXLPE3view.Columns.Add("Under Ground CCC at 20°C(A)");
             dtXLPE3view.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtXLPE3view.Columns[0].ColumnName = "Size";
             dtXLPE3view.Columns[1].ColumnName = "AC_Resistance";
             dtXLPE3view.Columns[2].ColumnName = "Reactance";
             dtXLPE3view.Columns[3].ColumnName = "DC_Resistance";
             dtXLPE3view.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE3view.Columns[5].ColumnName = "AG_CCC";
+            dtXLPE3view.Columns[5].ColumnName = "AG_CCC"; */
 
             dtXLPE3view.TableName = "XLPE_3CORE";
 
@@ -301,13 +302,13 @@ namespace Test1
             dtXLPE4view.Columns.Add("DC Resistance at 90°C(Ω/km)");
             dtXLPE4view.Columns.Add("Under Ground CCC at 20°C(A)");
             dtXLPE4view.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtXLPE4view.Columns[0].ColumnName = "Size";
             dtXLPE4view.Columns[1].ColumnName = "AC_Resistance";
             dtXLPE4view.Columns[2].ColumnName = "Reactance";
             dtXLPE4view.Columns[3].ColumnName = "DC_Resistance";
             dtXLPE4view.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE4view.Columns[5].ColumnName = "AG_CCC";
+            dtXLPE4view.Columns[5].ColumnName = "AG_CCC"; */
 
             dtXLPE4view.TableName = "XLPE_4CORE";
 
@@ -319,13 +320,13 @@ namespace Test1
             dtPVC2view.Columns.Add("DC Resistance at 70°C(Ω/km)");
             dtPVC2view.Columns.Add("Under Ground CCC at 20°C(A)");
             dtPVC2view.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtPVC2view.Columns[0].ColumnName = "Size";
             dtPVC2view.Columns[1].ColumnName = "AC_Resistance";
             dtPVC2view.Columns[2].ColumnName = "Reactance";
             dtPVC2view.Columns[3].ColumnName = "DC_Resistance";
             dtPVC2view.Columns[4].ColumnName = "UG_CCC";
-            dtPVC2view.Columns[5].ColumnName = "AG_CCC";
+            dtPVC2view.Columns[5].ColumnName = "AG_CCC"; */
 
             dtPVC2view.TableName = "PVC_2CORE";
 
@@ -336,13 +337,13 @@ namespace Test1
             dtPVC3view.Columns.Add("DC Resistance at 70°C(Ω/km)");
             dtPVC3view.Columns.Add("Under Ground CCC at 20°C(A)");
             dtPVC3view.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtPVC3view.Columns[0].ColumnName = "Size";
             dtPVC3view.Columns[1].ColumnName = "AC_Resistance";
             dtPVC3view.Columns[2].ColumnName = "Reactance";
             dtPVC3view.Columns[3].ColumnName = "DC_Resistance";
             dtPVC3view.Columns[4].ColumnName = "UG_CCC";
-            dtPVC3view.Columns[5].ColumnName = "AG_CCC";
+            dtPVC3view.Columns[5].ColumnName = "AG_CCC"; */
 
             dtPVC3view.TableName = "PVC_3CORE";
 
@@ -353,13 +354,13 @@ namespace Test1
             dtPVC4view.Columns.Add("DC Resistance at 70°C(Ω/km)");
             dtPVC4view.Columns.Add("Under Ground CCC at 20°C(A)");
             dtPVC4view.Columns.Add("Above Ground CCC at 30°C(A)");
-
+            /*
             dtPVC4view.Columns[0].ColumnName = "Size";
             dtPVC4view.Columns[1].ColumnName = "AC_Resistance";
             dtPVC4view.Columns[2].ColumnName = "Reactance";
             dtPVC4view.Columns[3].ColumnName = "DC_Resistance";
             dtPVC4view.Columns[4].ColumnName = "UG_CCC";
-            dtPVC4view.Columns[5].ColumnName = "AG_CCC";
+            dtPVC4view.Columns[5].ColumnName = "AG_CCC"; */
 
             dtPVC4view.TableName = "PVC_4CORE";
 
@@ -602,20 +603,6 @@ namespace Test1
             Close();
         }
 
-
-        private void DataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            double Number;
-
-            //check if data that the user input is valid, delete if it's not
-            if (dataGridView1.CurrentCell.Selected)
-            {
-                if (!double.TryParse(Convert.ToString(dataGridView1.CurrentCell.Value), out Number))
-                {
-                    dataGridView1.CurrentCell.Value = null;
-                }
-            }
-        }
 
         private void DataGridView1_CellEndEdit(object sender, DataGridViewCellEventArgs e)
         {
@@ -1086,16 +1073,7 @@ namespace Test1
 
         private void DataGridView2_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            double Number;
 
-            //check if data that the user input is valid, delete if it's not
-            if (dataGridView2.CurrentCell.Selected)
-            {
-                if (!double.TryParse(Convert.ToString(dataGridView2.CurrentCell.Value), out Number))
-                {
-                    dataGridView2.CurrentCell.Value = null;
-                }
-            }
         }
 
         private void ButtonCancel2_Click(object sender, EventArgs e)
@@ -2011,7 +1989,7 @@ namespace Test1
         }
         */
 
-        public static void DoubleArrayToDT(double [,] arr, int Row, int Col, DataTable dt)
+            public static void DoubleArrayToDT(double [,] arr, int Row, int Col, DataTable dt)
         {
             DataRow dr;
             for (int nRow = 0; nRow < Row; nRow ++)
