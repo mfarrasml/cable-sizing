@@ -7,7 +7,7 @@ CABLE SIZING APPLICATION PROJECT
 
 Cable sizing based on:
 1. IEC Standard.
-2. NEC Standard (in progress)
+2. NEC Standard
 
-16/7/19
+31/7/19
 ________________________________________________________________________________________________________
