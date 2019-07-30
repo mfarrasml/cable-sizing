@@ -45,7 +45,6 @@
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cableDataTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cableSummaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.label1 = new System.Windows.Forms.Label();
@@ -111,7 +110,6 @@
             this.label57 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.label59 = new System.Windows.Forms.Label();
             this.label61 = new System.Windows.Forms.Label();
             this.label62 = new System.Windows.Forms.Label();
@@ -289,21 +287,22 @@
             // 
             // button4
             // 
+            this.button4.AutoSize = true;
             this.button4.Enabled = false;
             this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(511, 639);
+            this.button4.Location = new System.Drawing.Point(68, 6);
             this.button4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(75, 22);
+            this.button4.Size = new System.Drawing.Size(81, 23);
             this.button4.TabIndex = 129;
-            this.button4.Text = "Add";
+            this.button4.Text = "Add to Result";
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
             // button5
             // 
             this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button5.Location = new System.Drawing.Point(624, 639);
+            this.button5.Location = new System.Drawing.Point(565, 639);
             this.button5.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(75, 22);
@@ -338,42 +337,43 @@
             this.settingsToolStripMenuItem,
             this.toolStripSeparator2,
             this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 18);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // returnToTitleToolStripMenuItem
             // 
-            this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Return_16x;
+            this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Home_16x;
             this.returnToTitleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.returnToTitleToolStripMenuItem.Name = "returnToTitleToolStripMenuItem";
-            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.returnToTitleToolStripMenuItem.Text = "Return to Title";
+            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.returnToTitleToolStripMenuItem.Text = "Home";
             this.returnToTitleToolStripMenuItem.Click += new System.EventHandler(this.ReturnToTitleToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Image = global::Test1.Properties.Resources.Settings_16x;
             this.settingsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -381,6 +381,7 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resetToolStripMenuItem});
+            this.editToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 18);
             this.editToolStripMenuItem.Text = "Edit";
@@ -390,15 +391,15 @@
             this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
             this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(102, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cableDataTableToolStripMenuItem,
-            this.cableSummaryToolStripMenuItem});
+            this.cableDataTableToolStripMenuItem});
+            this.viewToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 18);
             this.viewToolStripMenuItem.Text = "View";
@@ -408,21 +409,15 @@
             this.cableDataTableToolStripMenuItem.Image = global::Test1.Properties.Resources.Table_16x;
             this.cableDataTableToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cableDataTableToolStripMenuItem.Name = "cableDataTableToolStripMenuItem";
-            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.cableDataTableToolStripMenuItem.Text = "Cable Data Table";
             this.cableDataTableToolStripMenuItem.Click += new System.EventHandler(this.CableDataTableToolStripMenuItem_Click);
-            // 
-            // cableSummaryToolStripMenuItem
-            // 
-            this.cableSummaryToolStripMenuItem.Name = "cableSummaryToolStripMenuItem";
-            this.cableSummaryToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
-            this.cableSummaryToolStripMenuItem.Text = "Cable Summary";
-            this.cableSummaryToolStripMenuItem.Click += new System.EventHandler(this.CableSummaryToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripMenuItem3});
+            this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Black;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 18);
             this.toolStripMenuItem1.Text = "Help";
@@ -430,7 +425,7 @@
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "About";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
             // 
@@ -956,10 +951,10 @@
             // 
             this.button2.Enabled = false;
             this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button2.Location = new System.Drawing.Point(10, 4);
+            this.button2.Location = new System.Drawing.Point(75, 418);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 22);
+            this.button2.Size = new System.Drawing.Size(166, 23);
             this.button2.TabIndex = 75;
             this.button2.Text = "Calculate";
             this.button2.UseVisualStyleBackColor = true;
@@ -1163,19 +1158,6 @@
             this.label58.Size = new System.Drawing.Size(18, 13);
             this.label58.TabIndex = 104;
             this.label58.Text = "ᵒC";
-            // 
-            // button3
-            // 
-            this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Location = new System.Drawing.Point(123, 4);
-            this.button3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 22);
-            this.button3.TabIndex = 105;
-            this.button3.Text = "Reset";
-            this.toolTip1.SetToolTip(this.button3, "Clear all the data in this form");
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.buttonReset);
             // 
             // label59
             // 
@@ -2472,6 +2454,7 @@
             // panel4
             // 
             this.panel4.BackColor = System.Drawing.Color.Transparent;
+            this.panel4.Controls.Add(this.button2);
             this.panel4.Controls.Add(this.radioButton2);
             this.panel4.Controls.Add(this.label8);
             this.panel4.Controls.Add(this.label48);
@@ -2508,7 +2491,7 @@
             this.panel4.Location = new System.Drawing.Point(862, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(318, 448);
+            this.panel4.Size = new System.Drawing.Size(318, 449);
             this.panel4.TabIndex = 158;
             // 
             // radioButton2
@@ -2858,9 +2841,8 @@
             // 
             // panel23
             // 
-            this.panel23.Controls.Add(this.button2);
-            this.panel23.Controls.Add(this.button3);
-            this.panel23.Location = new System.Drawing.Point(489, 520);
+            this.panel23.Controls.Add(this.button4);
+            this.panel23.Location = new System.Drawing.Point(484, 520);
             this.panel23.Name = "panel23";
             this.panel23.Size = new System.Drawing.Size(216, 38);
             this.panel23.TabIndex = 187;
@@ -2903,7 +2885,6 @@
             this.Controls.Add(this.label86);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
             this.Controls.Add(this.tbResult);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.menuStrip1);
@@ -2935,6 +2916,7 @@
             this.panel21.ResumeLayout(false);
             this.panel21.PerformLayout();
             this.panel23.ResumeLayout(false);
+            this.panel23.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2986,7 +2968,6 @@
         private System.Windows.Forms.Label label61;
         private DoubleTextBox textBox25;
         private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label55;
         private DoubleTextBox textBox24;
@@ -3129,7 +3110,6 @@
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cableDataTableToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem cableSummaryToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Panel panel32;
         private System.Windows.Forms.Label label27;

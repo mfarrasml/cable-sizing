@@ -153,6 +153,16 @@ namespace Test1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Home_16x {
+            get {
+                object obj = ResourceManager.GetObject("Home_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconfinder_arrow_down_circle_3313573__1_ {
             get {
                 object obj = ResourceManager.GetObject("iconfinder_arrow-down-circle_3313573 (1)", resourceCulture);

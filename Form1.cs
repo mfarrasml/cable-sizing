@@ -137,6 +137,8 @@ namespace Test1
         double pvc3coreLength;
         double pvc4coreLength;
 
+        double currentDataLength;
+
 
 
         public Form1()
@@ -2309,6 +2311,8 @@ namespace Test1
 
                 save_vd_result(); //MUNGKIN DUIBAH
 
+                SelectedDataLength();
+
                 Update_size();
 
                 enable_save();
@@ -3059,6 +3063,7 @@ namespace Test1
                     cable_lte();
                     textBox22.Text = cLTE.ToString("0.##");
                     save_result();
+                    SelectedDataLength();
                     Update_size();
                     enable_save();
                     if (phase == "DC")
@@ -3128,38 +3133,38 @@ namespace Test1
                 {
                     if (cores == 2)
                     {
-                        comboBox15.Items.Insert(1, xlpe2core[i, 0]);
-                        if (i < 16)
+                        comboBox15.Items.Insert(1, xlpe2coreDB[i, 0]);
+                        if (i < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, xlpe2core[i + 1, 0]);
+                            comboBox15.Items.Insert(2, xlpe2coreDB[i + 1, 0]);
                         }
-                        if (i < 15)
+                        if (i < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, xlpe2core[i + 2, 0]);
+                            comboBox15.Items.Insert(3, xlpe2coreDB[i + 2, 0]);
                         }
                     }
                     else if (cores == 3)
                     {
-                        comboBox15.Items.Insert(1, xlpe3core[i, 0]);
-                        if (i < 16)
+                        comboBox15.Items.Insert(1, xlpe3coreDB[i, 0]);
+                        if (i < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, xlpe3core[i + 1, 0]);
+                            comboBox15.Items.Insert(2, xlpe3coreDB[i + 1, 0]);
                         }
-                        if (i < 15)
+                        if (i < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, xlpe3core[i + 2, 0]);
+                            comboBox15.Items.Insert(3, xlpe3coreDB[i + 2, 0]);
                         }
                     }
                     else if (cores == 4)
                     {
-                        comboBox15.Items.Insert(1, xlpe4core[i, 0]);
-                        if (i < 16)
+                        comboBox15.Items.Insert(1, xlpe4coreDB[i, 0]);
+                        if (i < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, xlpe4core[i + 1, 0]);
+                            comboBox15.Items.Insert(2, xlpe4coreDB[i + 1, 0]);
                         }
-                        if (i < 15)
+                        if (i < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, xlpe4core[i + 2, 0]);
+                            comboBox15.Items.Insert(3, xlpe4coreDB[i + 2, 0]);
                         }
                     }
                 }
@@ -3167,38 +3172,38 @@ namespace Test1
                 {
                     if (cores == 2)
                     {
-                        comboBox15.Items.Insert(1, pvc2core[i, 0]);
-                        if (i < 15)
+                        comboBox15.Items.Insert(1, pvc2coreDB[i, 0]);
+                        if (i < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, pvc2core[i + 1, 0]);
+                            comboBox15.Items.Insert(2, pvc2coreDB[i + 1, 0]);
                         }
-                        if (i < 14)
+                        if (i < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, pvc2core[i + 2, 0]);
+                            comboBox15.Items.Insert(3, pvc2coreDB[i + 2, 0]);
                         }
                     }
                     else if (cores == 3)
                     {
-                        comboBox15.Items.Insert(1, pvc3core[i, 0]);
-                        if (i < 15)
+                        comboBox15.Items.Insert(1, pvc3coreDB[i, 0]);
+                        if (i < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, pvc3core[i + 1, 0]);
+                            comboBox15.Items.Insert(2, pvc3coreDB[i + 1, 0]);
                         }
-                        if (i < 14)
+                        if (i < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, pvc3core[i + 2, 0]);
+                            comboBox15.Items.Insert(3, pvc3coreDB[i + 2, 0]);
                         }
                     }
                     else if (cores == 4)
                     {
-                        comboBox15.Items.Insert(1, pvc3core[i, 0]);
-                        if (i < 15)
+                        comboBox15.Items.Insert(1, pvc4coreDB[i, 0]);
+                        if (i < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, pvc3core[i + 1, 0]);
+                            comboBox15.Items.Insert(2, pvc4coreDB[i + 1, 0]);
                         }
-                        if (i < 14)
+                        if (i < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, pvc3core[i + 2, 0]);
+                            comboBox15.Items.Insert(3, pvc4coreDB[i + 2, 0]);
                         }
                     }
                 }
@@ -3206,12 +3211,12 @@ namespace Test1
             else if (radioButton3.Checked)
             {
                 comboBox15.Items.Insert(1, inputCableData[i, 0]);
-                if (i + 1 < cableCount)
+                if (i < cableCount - 1)
                 {
                     comboBox15.Items.Insert(2, inputCableData[i + 1, 0]);
 
                 }
-                if (i + 2 < cableCount)
+                if (i < cableCount - 2)
                 {
                     comboBox15.Items.Insert(3, inputCableData[i + 2, 0]);
                 }
@@ -4843,6 +4848,44 @@ namespace Test1
             }
         }
 
+        private void SelectedDataLength()
+        {
+            if (material == "Copper")
+            {
+                if (insulation == "XLPE")
+                {
+                    switch (cores)
+                    {
+                        case 2:
+                            currentDataLength = xlpe2coreLength;
+                            break;
+                        case 3:
+                            currentDataLength = xlpe3coreLength;
+                            break;
+                        case 4:
+                            currentDataLength = xlpe4coreLength;
+                            break;
+                    }
+                }
+                else if (insulation == "PVC")
+                {
+
+                    switch (cores)
+                    {
+                        case 2:
+                            currentDataLength = pvc2coreLength;
+                            break;
+                        case 3:
+                            currentDataLength = pvc3coreLength;
+                            break;
+                        case 4:
+                            currentDataLength = pvc4coreLength;
+                            break;
+                    }
+                }
+            }
+        }
+
         private void TextBox36_TextChanged(object sender, EventArgs e)
         {
             if((textBox36.Text != "") && (radioButton7.Checked))
@@ -5892,6 +5935,21 @@ namespace Test1
         }
 
         private void Label39_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Panel24_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Label43_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Label40_Click(object sender, EventArgs e)
         {
 
         }
