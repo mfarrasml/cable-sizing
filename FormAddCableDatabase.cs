@@ -260,107 +260,64 @@ namespace Test1
 
             //Initializing view/edit database columns
             //initializing XLPE2 table column
-            dtXLPE2view.Columns.Add("Size (mm²)");
-            dtXLPE2view.Columns.Add("AC Resistance at 90°C(Ω/km)");
-            dtXLPE2view.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtXLPE2view.Columns.Add("DC Resistance at 90°C(Ω/km)");
-            dtXLPE2view.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtXLPE2view.Columns.Add("Above Ground CCC at 30°C(A)");
-
-            /*
-            dtXLPE2view.Columns[0].ColumnName = "Size";
-            dtXLPE2view.Columns[1].ColumnName = "AC_Resistance";
-            dtXLPE2view.Columns[2].ColumnName = "Reactance";
-            dtXLPE2view.Columns[3].ColumnName = "DC_Resistance";
-            dtXLPE2view.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE2view.Columns[5].ColumnName = "AG_CCC"; */
+            dtXLPE2view.Columns.Add("Size");
+            dtXLPE2view.Columns.Add("AC_Resistance");
+            dtXLPE2view.Columns.Add("Reactance");
+            dtXLPE2view.Columns.Add("DC_Resistance");
+            dtXLPE2view.Columns.Add("UG_CCC");
+            dtXLPE2view.Columns.Add("AG_CCC");
 
             dtXLPE2.TableName = "XLPE_2CORE";
 
 
             //initializing XLPE3 table column
-            dtXLPE3view.Columns.Add("Size (mm²)");
-            dtXLPE3view.Columns.Add("AC Resistance at 90°C(Ω/km)");
-            dtXLPE3view.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtXLPE3view.Columns.Add("DC Resistance at 90°C(Ω/km)");
-            dtXLPE3view.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtXLPE3view.Columns.Add("Above Ground CCC at 30°C(A)");
-            /*
-            dtXLPE3view.Columns[0].ColumnName = "Size";
-            dtXLPE3view.Columns[1].ColumnName = "AC_Resistance";
-            dtXLPE3view.Columns[2].ColumnName = "Reactance";
-            dtXLPE3view.Columns[3].ColumnName = "DC_Resistance";
-            dtXLPE3view.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE3view.Columns[5].ColumnName = "AG_CCC"; */
+            dtXLPE3view.Columns.Add("Size");
+            dtXLPE3view.Columns.Add("AC_Resistance");
+            dtXLPE3view.Columns.Add("Reactance");
+            dtXLPE3view.Columns.Add("DC_Resistance");
+            dtXLPE3view.Columns.Add("UG_CCC");
+            dtXLPE3view.Columns.Add("AG_CCC");
 
             dtXLPE3view.TableName = "XLPE_3CORE";
 
             //initializing XLPE4 table column
-            dtXLPE4view.Columns.Add("Size (mm²)");
-            dtXLPE4view.Columns.Add("AC Resistance at 90°C(Ω/km)");
-            dtXLPE4view.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtXLPE4view.Columns.Add("DC Resistance at 90°C(Ω/km)");
-            dtXLPE4view.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtXLPE4view.Columns.Add("Above Ground CCC at 30°C(A)");
-            /*
-            dtXLPE4view.Columns[0].ColumnName = "Size";
-            dtXLPE4view.Columns[1].ColumnName = "AC_Resistance";
-            dtXLPE4view.Columns[2].ColumnName = "Reactance";
-            dtXLPE4view.Columns[3].ColumnName = "DC_Resistance";
-            dtXLPE4view.Columns[4].ColumnName = "UG_CCC";
-            dtXLPE4view.Columns[5].ColumnName = "AG_CCC"; */
+            dtXLPE4view.Columns.Add("Size");
+            dtXLPE4view.Columns.Add("AC_Resistance");
+            dtXLPE4view.Columns.Add("Reactance");
+            dtXLPE4view.Columns.Add("DC_Resistance");
+            dtXLPE4view.Columns.Add("UG_CCC");
+            dtXLPE4view.Columns.Add("AG_CCC");
 
             dtXLPE4view.TableName = "XLPE_4CORE";
 
 
             //initializing PVC2 table column
-            dtPVC2view.Columns.Add("Size (mm²)");
-            dtPVC2view.Columns.Add("AC Resistance at 70°C(Ω/km)");
-            dtPVC2view.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtPVC2view.Columns.Add("DC Resistance at 70°C(Ω/km)");
-            dtPVC2view.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtPVC2view.Columns.Add("Above Ground CCC at 30°C(A)");
-            /*
-            dtPVC2view.Columns[0].ColumnName = "Size";
-            dtPVC2view.Columns[1].ColumnName = "AC_Resistance";
-            dtPVC2view.Columns[2].ColumnName = "Reactance";
-            dtPVC2view.Columns[3].ColumnName = "DC_Resistance";
-            dtPVC2view.Columns[4].ColumnName = "UG_CCC";
-            dtPVC2view.Columns[5].ColumnName = "AG_CCC"; */
+            dtPVC2view.Columns.Add("Size");
+            dtPVC2view.Columns.Add("AC_Resistance");
+            dtPVC2view.Columns.Add("Reactance");
+            dtPVC2view.Columns.Add("DC_Resistance");
+            dtPVC2view.Columns.Add("UG_CCC");
+            dtPVC2view.Columns.Add("AG_CCC");
 
             dtPVC2view.TableName = "PVC_2CORE";
 
             //initializing PVC3 table column
-            dtPVC3view.Columns.Add("Size (mm²)");
-            dtPVC3view.Columns.Add("AC Resistance at 70°C(Ω/km)");
-            dtPVC3view.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtPVC3view.Columns.Add("DC Resistance at 70°C(Ω/km)");
-            dtPVC3view.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtPVC3view.Columns.Add("Above Ground CCC at 30°C(A)");
-            /*
-            dtPVC3view.Columns[0].ColumnName = "Size";
-            dtPVC3view.Columns[1].ColumnName = "AC_Resistance";
-            dtPVC3view.Columns[2].ColumnName = "Reactance";
-            dtPVC3view.Columns[3].ColumnName = "DC_Resistance";
-            dtPVC3view.Columns[4].ColumnName = "UG_CCC";
-            dtPVC3view.Columns[5].ColumnName = "AG_CCC"; */
+            dtPVC3view.Columns.Add("Size");
+            dtPVC3view.Columns.Add("AC_Resistance");
+            dtPVC3view.Columns.Add("Reactance");
+            dtPVC3view.Columns.Add("DC_Resistance");
+            dtPVC3view.Columns.Add("UG_CCC");
+            dtPVC3view.Columns.Add("AG_CCC");
 
             dtPVC3view.TableName = "PVC_3CORE";
 
             //initializing PVC4 table column
-            dtPVC4view.Columns.Add("Size (mm²)");
-            dtPVC4view.Columns.Add("AC Resistance at 70°C(Ω/km)");
-            dtPVC4view.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtPVC4view.Columns.Add("DC Resistance at 70°C(Ω/km)");
-            dtPVC4view.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtPVC4view.Columns.Add("Above Ground CCC at 30°C(A)");
-            /*
-            dtPVC4view.Columns[0].ColumnName = "Size";
-            dtPVC4view.Columns[1].ColumnName = "AC_Resistance";
-            dtPVC4view.Columns[2].ColumnName = "Reactance";
-            dtPVC4view.Columns[3].ColumnName = "DC_Resistance";
-            dtPVC4view.Columns[4].ColumnName = "UG_CCC";
-            dtPVC4view.Columns[5].ColumnName = "AG_CCC"; */
+            dtPVC4view.Columns.Add("Size");
+            dtPVC4view.Columns.Add("AC_Resistance");
+            dtPVC4view.Columns.Add("Reactance");
+            dtPVC4view.Columns.Add("DC_Resistance");
+            dtPVC4view.Columns.Add("UG_CCC");
+            dtPVC4view.Columns.Add("AG_CCC");
 
             dtPVC4view.TableName = "PVC_4CORE";
 
@@ -537,16 +494,34 @@ namespace Test1
                         case 2:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtXLPE2;
+                            dataGridView1.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                            dataGridView1.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView1.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
+                            dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 3:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtXLPE3;
+                            dataGridView1.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                            dataGridView1.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView1.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
+                            dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 4:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtXLPE4;
+                            dataGridView1.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                            dataGridView1.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView1.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
+                            dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView1);
                             break;
                         default:
@@ -561,16 +536,34 @@ namespace Test1
                         case 2:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtPVC2;
+                            dataGridView1.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView1.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
+                            dataGridView1.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView1.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
+                            dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 3:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtPVC3;
+                            dataGridView1.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView1.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
+                            dataGridView1.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView1.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
+                            dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView1);
                             break;
                         case 4:
                             //bound datagridview to datatable
                             dataGridView1.DataSource = dtPVC4;
+                            dataGridView1.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView1.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
+                            dataGridView1.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView1.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
+                            dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView1);
                             break;
                         default:
@@ -1930,16 +1923,34 @@ namespace Test1
                         case 2:
                             //bound datagridview to datatable
                             dataGridView2.DataSource = dtXLPE2view;
+                            dataGridView2.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                            dataGridView2.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView2.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
+                            dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView2);
                             break;
                         case 3:
                             //bound datagridview to datatable
                             dataGridView2.DataSource = dtXLPE3view;
+                            dataGridView2.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                            dataGridView2.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView2.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
+                            dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView2);
                             break;
                         case 4:
                             //bound datagridview to datatable
                             dataGridView2.DataSource = dtXLPE4view;
+                            dataGridView2.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                            dataGridView2.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView2.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
+                            dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView2);
                             break;
                         default:
@@ -1954,16 +1965,32 @@ namespace Test1
                         case 2:
                             //bound datagridview to datatable
                             dataGridView2.DataSource = dtPVC2view;
+                            dataGridView2.Columns[0].HeaderText = "Size (mm²)";
+                            dataGridView2.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
+                            dataGridView2.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView2.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
+                            dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView2);
                             break;
                         case 3:
                             //bound datagridview to datatable
                             dataGridView2.DataSource = dtPVC3view;
+                            dataGridView2.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
+                            dataGridView2.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView2.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
+                            dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView2);
                             break;
                         case 4:
                             //bound datagridview to datatable
                             dataGridView2.DataSource = dtPVC4view;
+                            dataGridView2.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
+                            dataGridView2.Columns[2].HeaderText = "Reactance at 50Hz(Ω/km)";
+                            dataGridView2.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
+                            dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
+                            dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
                             SetDGVRuntimeProperties(dataGridView2);
                             break;
                         default:

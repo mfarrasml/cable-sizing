@@ -63,6 +63,26 @@ namespace Test1.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Add_16x {
+            get {
+                object obj = ResourceManager.GetObject("Add_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Add_grey_16xMD {
+            get {
+                object obj = ResourceManager.GetObject("Add_grey_16xMD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Close_12x_16x {
             get {
                 object obj = ResourceManager.GetObject("Close_12x_16x", resourceCulture);
@@ -136,6 +156,16 @@ namespace Test1.Properties {
         internal static System.Drawing.Bitmap Edit_16x {
             get {
                 object obj = ResourceManager.GetObject("Edit_16x", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Exit_16x {
+            get {
+                object obj = ResourceManager.GetObject("Exit_16x", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

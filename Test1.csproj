@@ -272,6 +272,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Iconsmind-Outline-Power-Cable.ico" />
+    <None Include="Resources\Exit_16x.png" />
+    <None Include="Resources\Add_grey_16xMD.png" />
+    <None Include="Resources\Add_16x.png" />
     <None Include="Resources\Home_16x.png" />
     <None Include="Resources\Close_WhiteNoHalo_16x.png" />
     <None Include="Resources\Close_White_16x.png" />

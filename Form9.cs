@@ -611,12 +611,16 @@ namespace Test1
                 {
                     panel27.BackColor = Color.Red;
                 }
+
+                textBox25.Text = "1";
             }
             else
             {
                 panel10.BackColor = Color.Transparent;
                 panel12.BackColor = Color.Transparent;
                 panel27.BackColor = Color.Transparent;
+                textBox25.Text = "";
+                multiplier = 0;
             }
 
 
@@ -677,6 +681,34 @@ namespace Test1
             if (cbPower.Text != "")
             {
                 powerUnit = cbPower.Text;
+            }
+
+            if (TextBox1.Text != "")
+            {
+                if (cbPower.Text == "HP")
+                {
+                    hp = double.Parse(TextBox1.Text);
+                    power = 0.746 * hp;
+                }
+                else if (cbPower.Text == "kVA")
+                {
+                    cplxpower = double.Parse(TextBox1.Text);
+                }
+                else
+                {
+                    power = double.Parse(TextBox1.Text);
+                }
+                panel14.BackColor = Color.Transparent;
+            }
+            else if ((TextBox1.Text == "") && (!radioButton8.Checked))
+            {
+                power = 0;
+                panel14.BackColor = Color.Red;
+            }
+            else
+            {
+                power = 0;
+                panel14.BackColor = Color.Transparent;
             }
             calc_current();
         }
@@ -750,11 +782,15 @@ namespace Test1
         private void Form9_Load(object sender, EventArgs e)
         {
 
+            Form1.OpenFromMain = false;
+            Form1.FileOpened = false;
+
             //Load and apply color theme
             LoadColor();
             SaveAllColor();
 
             Form1.j = -1;
+            eff = 1;
 
             OpenForm.formMainClose = false;
             if (Form5.f7.IsDisposed)
@@ -1889,7 +1925,7 @@ namespace Test1
             else
             {
                 tbResult.Text = "Failed to get a suitable cable size";
-                button4.Enabled = false;
+                disable_save();
                 textBox8.Text = "";
                 textBox10.Text = "";
                 textBox29.Text = "";
@@ -2554,7 +2590,7 @@ namespace Test1
                 else
                 {
                     tbResult.Text = "Failed to get a suitable cable size";
-                    button4.Enabled = false;
+                    disable_save();
                     i = m;
                 }
             }
@@ -2715,7 +2751,14 @@ namespace Test1
                 panel7.BackColor = Color.Red;
             }
             breaker_fill();
-            calc_current();
+            if (!radioButton8.Checked)
+            {
+                calc_current();
+            }
+            else
+            {
+                calc_power();
+            }
             enable_vd_btn();
             enable_result_btn();
         }
@@ -2731,6 +2774,14 @@ namespace Test1
             {
                 pf = 0;
                 panel9.BackColor = Color.Red;
+            }
+            if (!radioButton8.Checked)
+            {
+                calc_current();
+            }
+            else
+            {
+                calc_power();
             }
             calc_current();
             enable_vd_btn();
@@ -2749,7 +2800,15 @@ namespace Test1
                 eff = 0;
                 panel8.BackColor = Color.Red;
             }
-            calc_current();
+
+            if (!radioButton8.Checked)
+            {
+                calc_current();
+            }
+            else
+            {
+                calc_power();
+            }
             enable_vd_btn();
             enable_result_btn();
         }
@@ -2932,6 +2991,8 @@ namespace Test1
                 label70.Enabled = true;
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
+                textBox28.Text = "";
+                textBox23.Text = "";
 
                 if (radioButton6.Checked)
                 {
@@ -2944,7 +3005,6 @@ namespace Test1
             }
             else if ((radioButton2.Checked))
             {
-                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
                 label54.Enabled = true;
                 textBox23.Enabled = true;
@@ -3085,7 +3145,7 @@ namespace Test1
 
         private void ResetData()
         {
-            button4.Enabled = false;
+            disable_save();
 
             calculated = false;
             textBox13.Text = "";
@@ -3094,7 +3154,8 @@ namespace Test1
             TextBox1.Text = "";
             textBox2.Text = "";
             textBox4.Text = "";
-            textBox5.Text = "";
+            textBox5.Text = "1"; //default efficiency = 1
+            eff = 1;
             textBox25.Text = "";
             textBox14.Text = "";
             textBox9.Text = "";
@@ -3192,9 +3253,39 @@ namespace Test1
             {
                 panel12.BackColor = Color.Transparent;
             }
-            calc_current();
+            if (radioButton8.Checked)
+            {
+                calc_currentstart();
+            }
+            else
+            {
+                calc_current();
+            }
             enable_vd_btn();
             enable_result_btn();
+        }
+
+        private void calc_currentstart()
+        {
+
+            if (radioButton8.Checked)
+            {
+                if ((phase == "DC") && (loadtype == "Feeder"))
+                {
+                    textBox7.Text = "";
+                    currentstart = 0;
+                }
+                else if (((phase == "Single-Phase AC") || (phase == "Three-Phase AC")) && (loadtype == "Motor") && (textBox25.Text != ""))
+                {
+                    currentstart = current * multiplier;
+                    textBox7.Text = currentstart.ToString("0.##");
+                }
+                else
+                {
+                    textBox7.Text = "";
+                    currentstart = 0;
+                }
+            }
         }
 
         private void TextBox25_KeyPress(object sender, KeyPressEventArgs e)
@@ -3237,7 +3328,7 @@ namespace Test1
         {
             if (calculated)
             {
-                button4.Enabled = false;
+                disable_save();
             }
         }
 
@@ -3636,6 +3727,11 @@ namespace Test1
 
         private void Button4_Click(object sender, EventArgs e)
         {
+            AddToResult();
+        }
+
+        private void AddToResult()
+        {
             if (!EditingState)
             {
                 f5.dataGridView1.RowCount++;
@@ -3667,12 +3763,13 @@ namespace Test1
                 Form1.dtdiameter.Rows.InsertAt(dtr, tempCurrentRow);
                 OpenDataTable();
                 f5.Update_summary();
-                button4.Text = "Add";
-                button5.Text = "Open Table";
+                button4.Text = "Add to Result";
+                addToolStripMenuItem.Text = "Add to Result";
+                button3.Text = "Add and Save";
+                button5.Text = "Open Calculation Result";
 
             }
         }
-
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
         {
             fromdesc = textBox16.Text;
@@ -3730,8 +3827,10 @@ namespace Test1
                 EditingState = false;
                 f5.Enabled = true;
                 OpenDataTable();
-                button4.Text = "Add";
-                button5.Text = "Open Table";
+                button4.Text = "Add to Result";
+                addToolStripMenuItem.Text = "Add to Result";
+                button3.Text = "Add and Save";
+                button5.Text = "Open Calculation Result";
             }
         }
 
@@ -3932,8 +4031,10 @@ namespace Test1
             button8.Enabled = true;
 
 
-            button4.Text = "Save Edit";
-            button4.Enabled = false;
+            button4.Text = "Confirm Edit";
+            button3.Text = "Confirm Edit and Save";
+            addToolStripMenuItem.Text = "Confirm Edit";
+            disable_save();
             enable_result_btn();
             button5.Text = "Cancel";
         }
@@ -4379,6 +4480,13 @@ namespace Test1
                 textBox20.ReadOnly = false;
                 comboBox10.DropDownStyle = ComboBoxStyle.DropDown;
             }
+
+            comboBox10.Text = "";
+            comboBox10.SelectedIndex = -1;
+            breakcurrent = 0;
+            scrating = 0;
+            comboBox11.Text = "";
+            comboBox11.SelectedIndex = -1;
         }
 
         private void Panel2_Paint(object sender, PaintEventArgs e)
@@ -5135,6 +5243,7 @@ namespace Test1
 
             panel4.Enabled = false;
             button8.Enabled = false;
+            disable_save();
         }
 
         private void TextBox4_Leave_1(object sender, EventArgs e)
@@ -5241,9 +5350,7 @@ namespace Test1
         {
             if (radioButton8.Checked)
             {
-                TextBox1.Text = "";
-                power = 0;
-
+                cbPower.SelectedIndex = 0;
                 TextBox1.ReadOnly = true;
                 cbPower.Enabled = false;
 
@@ -5253,12 +5360,11 @@ namespace Test1
                 {
                     panel11.BackColor = Color.Red;
                 }
+                calc_power();
 
             }
             else
             {
-                textBox3.Text = "";
-                current = 0;
                 TextBox1.ReadOnly = false;
                 cbPower.Enabled = true;
 
@@ -5268,6 +5374,7 @@ namespace Test1
                 {
                     panel14.BackColor = Color.Red;
                 }
+                calc_current();
             }
         }
 
@@ -5296,11 +5403,50 @@ namespace Test1
                 panel11.BackColor = Color.Red;
             }
 
-
             if (radioButton8.Checked)
             {
+                calc_currentstart();
+                calc_power();
                 enable_vd_btn();
                 enable_result_btn();
+            }
+        }
+
+        private void calc_power()
+        {
+            if ((textBox3.Text != "") && (textBox2.Text != "") && (comboBox3.Text != "")
+            && (comboBox2.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && (radioButton8.Checked))
+            {
+                if ((phase == "DC") && (loadtype == "Feeder"))
+                {
+                    power = current * voltage / 1000;
+                    textBox7.Text = "";
+                }
+                else if (phase == "Single-Phase AC")
+                {
+                    power = current * voltage * eff * pf / 1000;
+                }
+                else if (phase == "Three-Phase AC")
+                {
+                    power = current * Math.Sqrt(3) * voltage * eff * pf / 1000;
+                }
+                else
+                {
+                    power = 0;
+                }
+                if (power != 0)
+                {
+                    TextBox1.Text = power.ToString("0.##");
+                }
+                else
+                {
+                    TextBox1.Text = "";
+                }
+            }
+            else if (radioButton8.Checked)
+            {
+                TextBox1.Text = "";
+                power = 0;
             }
         }
 
@@ -6342,6 +6488,54 @@ namespace Test1
             ResetData();
         }
 
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            AddToResult();
+            if (Form5.savefile == "")
+            {
+                f5.ExportDgvToXML();
+            }
+            else //safefile == last savepath
+            {
+                f5.saveExportDgvToXML();
+            }
+        }
+
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Form1.OpenFromMain = true;
+            f5.OpenFileDecide();
+            if (Form1.FileOpened)
+            {
+                OpenDataTable();
+                Form1.FileOpened = false;
+            }
+            Form1.OpenFromMain = false;
+        }
+
+        private void SaveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            if (Form5.savefile == "")
+            {
+                f5.ExportDgvToXML();
+            }
+            else //safefile == last savepath
+            {
+                f5.saveExportDgvToXML();
+            }
+        }
+
+        private void SaveAsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            f5.ExportDgvToXML();
+        }
+
+        private void AddToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AddToResult();
+        }
+
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
@@ -6433,7 +6627,6 @@ namespace Test1
                     {
                         current = power * 1000 / (voltage * eff * pf);
                     }
-                    textBox3.Text = current.ToString("0.##");
 
                     if ((loadtype == "Motor") && (textBox25.Text != ""))
                     {
@@ -6475,6 +6668,15 @@ namespace Test1
                     textBox7.Text = "";
                     currentstart = 0;
                 }
+
+                if (current != 0)
+                {
+                    textBox3.Text = current.ToString("0.##");
+                }
+                else
+                {
+                    textBox3.Text = "";
+                }
             }
             else if (!radioButton8.Checked)
             {
@@ -6498,10 +6700,10 @@ namespace Test1
                     currentstart = 0;
                 }
             }
-            
+
         }
 
-        
+
 
         private void reset_correction()
         {
@@ -7012,6 +7214,10 @@ namespace Test1
                     textBox20.Text = bLTE.ToString();
                 }
             }
+            else
+            {
+                textBox20.Text = "";
+            }
         }
 
 
@@ -7215,7 +7421,7 @@ namespace Test1
             {
                 dtr[9] = true;
                 dtr[10] = cbPower.Text;
-                dtr[11] = "";
+                dtr[11] = TextBox1.Text;
                 dtr[12] = current;
             }
             dtr[13] = voltage;
@@ -7411,7 +7617,7 @@ namespace Test1
             {
                 dtr[9] = true;
                 dtr[10] = cbPower.Text;
-                dtr[11] = "";
+                dtr[11] = TextBox1.Text;
                 dtr[12] = current;
             }
             dtr[13] = voltage;
@@ -7513,13 +7719,19 @@ namespace Test1
         private void enable_save()
         {
             button4.Enabled = true;
+            addToolStripMenuItem.Enabled = true;
+            button3.Enabled = true;
             toolTip1.SetToolTip(button4, "Add calculated cable size data to data table");
+            toolTip1.SetToolTip(button3, "Add calculated cable size data to data table and save the data table");
         }
 
         private void disable_save()
         {
             button4.Enabled = false;
+            addToolStripMenuItem.Enabled = false;
+            button3.Enabled = false;
             toolTip1.SetToolTip(button4, null);
+            toolTip1.SetToolTip(button3, null);
         }
 
     }

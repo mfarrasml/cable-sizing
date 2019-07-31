@@ -218,6 +218,11 @@ namespace Test1
 
         private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            OpenFileDecide();
+        }
+
+        public void OpenFileDecide()
+        {
             if ((Form1.j > -1) && (savefile == ""))
             {
                 DialogResult dr = MessageBox.Show("Want to save your changes?", "Cable Sizing", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Warning);
@@ -258,8 +263,6 @@ namespace Test1
                 openFile();
                 Update_summary();
             }
-
-
         }
 
         private void openFile()
@@ -341,6 +344,14 @@ namespace Test1
                     }
                     Form1.j = dxrow - 1;
                     savefile = ofd.FileName;
+                    if (Form1.OpenFromMain)
+                    {
+                        Form1.FileOpened = true;
+                    }
+                    else
+                    {
+                        Form1.FileOpened = false;
+                    }
                 }
                 catch (Exception ex)
                 {
