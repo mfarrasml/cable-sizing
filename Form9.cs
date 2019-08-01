@@ -2902,6 +2902,7 @@ namespace Test1
                 pfstart = 0;
                 panel10.BackColor = Color.Transparent;
             }
+            
             DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
@@ -3273,6 +3274,7 @@ namespace Test1
             {
                 calc_current();
             }
+            
             DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
@@ -7060,6 +7062,7 @@ namespace Test1
                 vdstartmax = 0;
                 panel27.BackColor = Color.Transparent;
             }
+            
             DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
@@ -8194,5 +8197,145 @@ namespace Test1
             toolTip1.SetToolTip(button3, null);
         }
 
+        /*
+        private void motorstartproperties()
+        {
+            if (loadtype == "Motor")
+            {
+                //pf start
+                label45.Enabled = true;
+                textBox14.Enabled = true;
+
+                //multiplier
+                label59.Enabled = false;
+                textBox25.Enabled = false;
+
+                //vd start max
+                label19.Enabled = true;
+                textBox11.Enabled = true;
+
+                if ((pfstart == 0) && (vdstartmax == 0))
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Transparent;
+
+                    
+                    //multiplier
+                    label59.Enabled = false;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = false;
+                    //multiplier = 0;
+                    
+                }
+                else if ((pfstart == 0) && (vdstartmax != 0))
+                {
+                    panel10.BackColor = Color.Red;
+                    panel27.BackColor = Color.Transparent;
+
+                    
+                    //multiplier
+                    label59.Enabled = true;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = true;
+                    //multiplier = 1;
+                    
+                }
+                else if ((pfstart != 0) && (vdstartmax == 0))
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Red;
+
+                    
+                    //multiplier
+                    label59.Enabled = true;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = true;
+                   // multiplier = 1;
+                    
+                }
+                else if ((pfstart != 0) && (vdstartmax != 0))
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Transparent;
+
+                    
+                    //multiplier
+                    label59.Enabled = true;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = true;
+                    //multiplier = 1;
+                    
+                }
+            }
+            else if (loadtype == "Feeder")
+            {
+                //pf start
+                label45.Enabled = false;
+                panel10.BackColor = Color.Transparent;
+                textBox14.Enabled = false;
+                pfstart = 0;
+
+                //multiplier
+                label59.Enabled = false;
+                panel12.BackColor = Color.Transparent;
+                textBox25.Enabled = false;
+                multiplier = 0;
+
+                //vd start max
+                label19.Enabled = false;
+                panel27.BackColor = Color.Transparent;
+                textBox11.Enabled = false;
+                vdstartmax = 0;
+            }
+            else
+            {
+                //pf start
+                label45.Enabled = false;
+                panel10.BackColor = Color.Transparent;
+                textBox14.Enabled = false;
+                pfstart = 0;
+
+                //multiplier
+                label59.Enabled = false;
+                panel12.BackColor = Color.Transparent;
+                textBox25.Enabled = false;
+                multiplier = 0;
+
+                //vd start max
+                label19.Enabled = false;
+                panel27.BackColor = Color.Transparent;
+                textBox11.Enabled = false;
+                vdstartmax = 0;
+            }
+
+            //write to textbox
+            if (pfstart != 0)
+            {
+                textBox14.Text = pfstart.ToString("0.##");
+            }
+            else
+            {
+                textBox14.Text = "";
+            }
+
+            if (multiplier != 0)
+            {
+                textBox25.Text = multiplier.ToString("0.##");
+            }
+            else
+            {
+                textBox25.Text = "";
+            }
+
+            if (vdstartmax != 0)
+            {
+                textBox11.Text = vdstartmax.ToString("0.##");
+            }
+            else
+            {
+                textBox11.Text = "";
+            }
+        }
+        */
     }
 }
