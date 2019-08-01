@@ -283,13 +283,13 @@
             // 
             // button4
             // 
-            this.button4.AutoSize = true;
+            this.button4.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button4.Enabled = false;
             this.button4.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button4.Location = new System.Drawing.Point(25, 3);
+            this.button4.Location = new System.Drawing.Point(53, 3);
             this.button4.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(81, 23);
+            this.button4.Size = new System.Drawing.Size(122, 23);
             this.button4.TabIndex = 1;
             this.button4.Text = "Add to Result";
             this.button4.UseVisualStyleBackColor = true;
@@ -297,6 +297,7 @@
             // 
             // button5
             // 
+            this.button5.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button5.AutoSize = true;
             this.button5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button5.Location = new System.Drawing.Point(538, 635);
@@ -439,7 +440,7 @@
             this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
             this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
@@ -449,7 +450,7 @@
             this.undoResetToolStripMenuItem.Image = global::Test1.Properties.Resources.Refresh_16x;
             this.undoResetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoResetToolStripMenuItem.Name = "undoResetToolStripMenuItem";
-            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoResetToolStripMenuItem.Text = "Undo Reset";
             this.undoResetToolStripMenuItem.Click += new System.EventHandler(this.UndoResetToolStripMenuItem_Click);
             // 
@@ -459,7 +460,7 @@
             this.cableDatabaseToolStripMenuItem,
             this.addCableDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.databaseToolStripMenuItem.Text = "Database";
             // 
             // cableDatabaseToolStripMenuItem
@@ -1782,7 +1783,7 @@
             this.label87.AutoSize = true;
             this.label87.BackColor = System.Drawing.Color.Transparent;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(709, 508);
+            this.label87.Location = new System.Drawing.Point(737, 508);
             this.label87.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(41, 13);
@@ -2777,20 +2778,19 @@
             this.panel33.BackColor = System.Drawing.Color.Transparent;
             this.panel33.Controls.Add(this.button3);
             this.panel33.Controls.Add(this.button4);
-            this.panel33.Location = new System.Drawing.Point(475, 522);
+            this.panel33.Location = new System.Drawing.Point(405, 522);
             this.panel33.Name = "panel33";
-            this.panel33.Size = new System.Drawing.Size(232, 29);
+            this.panel33.Size = new System.Drawing.Size(373, 29);
             this.panel33.TabIndex = 167;
             // 
             // button3
             // 
-            this.button3.AutoSize = true;
             this.button3.Enabled = false;
             this.button3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button3.Location = new System.Drawing.Point(123, 3);
+            this.button3.Location = new System.Drawing.Point(197, 3);
             this.button3.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(85, 23);
+            this.button3.Size = new System.Drawing.Size(122, 23);
             this.button3.TabIndex = 2;
             this.button3.Text = "Add and Save";
             this.button3.UseVisualStyleBackColor = true;
@@ -2838,7 +2838,6 @@
             this.Controls.Add(this.tbResult);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.menuStrip1);
-            this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
@@ -2868,7 +2867,6 @@
             this.panel32.ResumeLayout(false);
             this.panel32.PerformLayout();
             this.panel33.ResumeLayout(false);
-            this.panel33.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
