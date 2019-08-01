@@ -70,6 +70,8 @@ namespace Test1
 
         public static double k1main, k2main, k3main, ktmain;
 
+        bool ConsiderVdStart;
+
         bool EditingState = false;
 
         bool complete, inputValid;
@@ -600,36 +602,7 @@ namespace Test1
                 panel18.BackColor = Color.Red;
             }
 
-
-            if (comboBox2.Text == "Motor")
-            {
-                if (textBox14.Text == "")
-                {
-                    panel10.BackColor = Color.Red;
-                }
-                if (textBox25.Text == "")
-                {
-                    panel12.BackColor = Color.Red;
-                }
-                if (textBox11.Text == "")
-                {
-                    panel27.BackColor = Color.Red;
-                }
-
-                textBox25.Text = "1";
-            }
-            else
-            {
-                panel10.BackColor = Color.Transparent;
-                panel12.BackColor = Color.Transparent;
-                panel27.BackColor = Color.Transparent;
-                textBox25.Text = "";
-                multiplier = 0;
-            }
-
-
-
-            if (comboBox2.Text == "Motor")
+            if ((comboBox2.Text == "Motor") && !ConsiderVdStart)
             {
                 label18.Enabled = true;
                 label19.Enabled = true;
@@ -640,14 +613,15 @@ namespace Test1
                 label45.Enabled = true;
                 label46.Enabled = true;
                 textBox14.Enabled = true;
-                label28.Enabled = true;
-                label29.Enabled = true;
-                textBox7.Enabled = true;
-                textBox25.Enabled = true;
-                label59.Enabled = true;
+                label28.Enabled = false;
+                label29.Enabled = false;
+                textBox7.Enabled = false;
+                textBox25.Enabled = false;
+                label59.Enabled = false;
+                ConsiderVdStart = false;
 
             }
-            else
+            else if (comboBox2.Text != "Motor")
             {
                 label18.Enabled = false;
                 label19.Enabled = false;
@@ -664,15 +638,22 @@ namespace Test1
                 textBox25.Enabled = false;
                 label59.Enabled = false;
 
-                textBox25.Text = "";
                 textBox14.Text = "";
                 textBox10.Text = "";
+                textBox25.Text = "";
                 textBox11.Text = "";
                 textBox7.Text = "";
                 vdstart = 0;
                 vdstartmax = 0;
                 pfstart = 0;
                 currentstart = 0;
+                multiplier = 0;
+
+                panel10.BackColor = Color.Transparent;
+                panel27.BackColor = Color.Transparent;
+                panel12.BackColor = Color.Transparent;
+
+                ConsiderVdStart = false;
             }
 
             DisableUndoReset();
@@ -897,6 +878,8 @@ namespace Test1
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = 1;
+
+            Form5.Standard = 2;
         }
 
 
@@ -1369,10 +1352,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                     else if (phase == "Three-Phase AC")
@@ -1383,10 +1370,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                 }
@@ -1439,10 +1430,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                     else if (phase == "Three-Phase AC")
@@ -1453,10 +1448,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                 }
@@ -1509,10 +1508,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                     else if (phase == "Three-Phase AC")
@@ -1523,10 +1526,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                 }
@@ -1595,10 +1602,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                     else if (phase == "Three-Phase AC")
@@ -1609,10 +1620,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                 }
@@ -1665,10 +1680,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                     else if (phase == "Three-Phase AC")
@@ -1679,10 +1698,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                 }
@@ -1735,10 +1758,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                     else if (phase == "Three-Phase AC")
@@ -1749,10 +1776,14 @@ namespace Test1
                                         lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                             (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                        if (loadtype == "Motor")
+                                        if ((loadtype == "Motor") && ConsiderVdStart)
                                         {
                                             vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                             / (n * 1000 * voltage);
+                                        }
+                                        else
+                                        {
+                                            vdstart = 0;
                                         }
                                     }
                                 }
@@ -1815,10 +1846,14 @@ namespace Test1
                                 lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                     (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                if (loadtype == "Motor")
+                                if ((loadtype == "Motor") && ConsiderVdStart)
                                 {
                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
                                 }
                             }
                             else if (phase == "Three-Phase AC")
@@ -1829,10 +1864,14 @@ namespace Test1
                                 lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                     (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                if (loadtype == "Motor")
+                                if ((loadtype == "Motor") && ConsiderVdStart)
                                 {
                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
                                 }
                             }
                         }
@@ -1873,7 +1912,7 @@ namespace Test1
                     materialname = "Al";
                 }
 
-                if (loadtype == "Motor")
+                if ((loadtype == "Motor") && ConsiderVdStart)
                 {
                     textBox10.Text = vdstart.ToString("0.##");
                 }
@@ -1952,7 +1991,7 @@ namespace Test1
         {
             if ((current < iderated) && (vdrun < vdrunmax))
             {
-                if (loadtype == "Motor")
+                if ((loadtype == "Motor") && ConsiderVdStart)
                 {
                     if (vdstart < vdstartmax)
                     {
@@ -2044,10 +2083,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                         else if (phase == "Three-Phase AC")
@@ -2058,10 +2101,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2114,10 +2161,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                         else if (phase == "Three-Phase AC")
@@ -2128,10 +2179,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2184,10 +2239,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                         else if (phase == "Three-Phase AC")
@@ -2198,10 +2257,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2270,10 +2333,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                         else if (phase == "Three-Phase AC")
@@ -2284,10 +2351,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2340,10 +2411,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                         else if (phase == "Three-Phase AC")
@@ -2354,10 +2429,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2410,10 +2489,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                         else if (phase == "Three-Phase AC")
@@ -2424,10 +2507,14 @@ namespace Test1
                                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                            if (loadtype == "Motor")
+                                            if ((loadtype == "Motor") && ConsiderVdStart)
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2492,10 +2579,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -2506,10 +2597,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -2551,7 +2646,7 @@ namespace Test1
                         materialname = "Al";
                     }
 
-                    if (loadtype == "Motor")
+                    if ((loadtype == "Motor") && ConsiderVdStart)
                     {
                         textBox10.Text = vdstart.ToString("0.##");
                     }
@@ -2712,7 +2807,7 @@ namespace Test1
                 (((radioButton4.Checked) && (data_wirearea_metric[i] > cablesizemin)) || ((radioButton3.Checked) && (inputCableData_nec_metric[i] > cablesizemin)))
                 )))
             {
-                if (loadtype == "Motor")
+                if ((loadtype == "Motor") && ConsiderVdStart)
                 {
                     if (vdstart < vdstartmax)
                     {
@@ -2887,22 +2982,52 @@ namespace Test1
 
         private void TextBox14_TextChanged(object sender, EventArgs e)
         {
+            if (comboBox2.Text == "Motor")
+            {
+                if ((textBox14.Text == "") && (textBox11.Text == ""))
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Transparent;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = false;
+                    textBox25.Text = "";
+                    label59.Enabled = false;
+                    label29.Enabled = false;
+                    label28.Enabled = false;
+                    textBox7.Enabled = false;
+                    ConsiderVdStart = false;
+                }
+                else if ((textBox14.Text != "") && (textBox11.Text == "") && !ConsiderVdStart)
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Red;
+                    panel12.BackColor = Color.Transparent;
+                    label59.Enabled = true;
+                    label29.Enabled = true;
+                    label28.Enabled = true;
+                    textBox7.Enabled = true;
+                    textBox25.Enabled = true;
+                    textBox25.Text = "1";
+                    ConsiderVdStart = true;
+                }
+                else if (textBox14.Text == "")
+                {
+                    panel10.BackColor = Color.Red;
+                }
+                else if (textBox14.Text != "")
+                {
+                    panel10.BackColor = Color.Transparent;
+                }
+            }
+
             if (textBox14.Text != "")
             {
                 pfstart = double.Parse(textBox14.Text);
-                panel10.BackColor = Color.Transparent;
-            }
-            else if ((textBox14.Text == "") && (comboBox2.Text == "Motor"))
-            {
-                pfstart = 0;
-                panel10.BackColor = Color.Red;
             }
             else
             {
                 pfstart = 0;
-                panel10.BackColor = Color.Transparent;
             }
-            
             DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
@@ -3252,20 +3377,25 @@ namespace Test1
 
         private void TextBox25_TextChanged(object sender, EventArgs e)
         {
-            if (textBox25.Text != "")
+            if ((textBox25.Text == "") && ((textBox14.Text != "") || (textBox11.Text != "")))
             {
-                multiplier = double.Parse(textBox25.Text);
-                panel12.BackColor = Color.Transparent;
-            }
-            else if ((textBox25.Text == "") && (comboBox2.Text == "Motor"))
-            {
-                multiplier = 0;
                 panel12.BackColor = Color.Red;
             }
             else
             {
                 panel12.BackColor = Color.Transparent;
             }
+
+
+            if (textBox25.Text != "")
+            {
+                multiplier = double.Parse(textBox25.Text);
+            }
+            else
+            {
+                multiplier = 0;
+            }
+
             if (radioButton8.Checked)
             {
                 calc_currentstart();
@@ -3274,7 +3404,7 @@ namespace Test1
             {
                 calc_current();
             }
-            
+
             DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
@@ -4012,6 +4142,15 @@ namespace Test1
 
             Update_size();
 
+            if ((textBox11.Text != "") || (textBox14.Text != ""))
+            {
+                ConsiderVdStart = true;
+            }
+            else
+            {
+                ConsiderVdStart = false;
+            }
+
             if (comboBox11.Text == "") //data being edited is vd calculated only
             {
                 button2.Enabled = false;
@@ -4036,6 +4175,7 @@ namespace Test1
             disable_save();
             enable_result_btn();
             button5.Text = "Cancel";
+
         }
 
         private string DtrToDoubleText(DataRow datRow, int num)
@@ -4519,8 +4659,8 @@ namespace Test1
         {
             calculated = false;
             if ((voltage == 0) || (eff == 0) || (length == 0) || ((power == 0) && (!radioButton8.Checked)) || (current == 0) ||
-                ((comboBox2.Text == "Motor") && (multiplier == 0)) || (pf > 1) || (pfstart > 1) || 
-                (vdrunmax > 100) || (vdrunmax <= 0) || ((comboBox2.Text == "Motor") && ((vdstartmax > 100) || (vdstartmax <= 0)))) 
+                ((comboBox2.Text == "Motor") && ConsiderVdStart && (multiplier == 0)) || (pf > 1) || (pfstart > 1) || 
+                (vdrunmax > 100) || (vdrunmax <= 0) || ((comboBox2.Text == "Motor") && ConsiderVdStart && ((vdstartmax > 100) || (vdstartmax <= 0)))) 
             {
                 string msgbox;
                 msgbox = "Invalid value on following input: ";
@@ -4540,7 +4680,7 @@ namespace Test1
                 {
                     msgbox += "\n- Full load Current";
                 }
-                if ((comboBox2.Text == "Motor") && (multiplier == 0))
+                if ((comboBox2.Text == "Motor") && ConsiderVdStart && (multiplier == 0))
                 {
                     msgbox += "\n- Multiplier";
                 }
@@ -4560,7 +4700,7 @@ namespace Test1
                 {
                     msgbox += "\n- Vd Run Max";
                 }
-                if ((comboBox2.Text == "Motor") && ((vdstartmax > 100) || (vdstartmax <= 0)))
+                if ((comboBox2.Text == "Motor") && ConsiderVdStart && ((vdstartmax > 100) || (vdstartmax <= 0)))
                 {
                     msgbox += "\n- Vd Start Max";
                 }
@@ -4746,10 +4886,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -4760,10 +4904,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -4806,10 +4954,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -4820,10 +4972,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -4866,10 +5022,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -4880,10 +5040,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -4942,10 +5106,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -4956,10 +5124,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5002,10 +5174,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -5016,10 +5192,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5062,10 +5242,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                                 else if (phase == "Three-Phase AC")
@@ -5076,10 +5260,14 @@ namespace Test1
                                     lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                         (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                                    if (loadtype == "Motor")
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5129,10 +5317,14 @@ namespace Test1
                             lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                            if (loadtype == "Motor")
+                            if ((loadtype == "Motor") && ConsiderVdStart)
                             {
                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                 / (n * 1000 * voltage);
+                            }
+                            else
+                            {
+                                vdstart = 0;
                             }
                         }
                         else if (phase == "Three-Phase AC")
@@ -5143,10 +5335,14 @@ namespace Test1
                             lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
                                 (X * Math.Sqrt(1 - pf * pf))) * 100);
 
-                            if (loadtype == "Motor")
+                            if ((loadtype == "Motor") && ConsiderVdStart)
                             {
                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                 / (n * 1000 * voltage);
+                            }
+                            else
+                            {
+                                vdstart = 0;
                             }
                         }
                     }
@@ -5172,7 +5368,7 @@ namespace Test1
                     materialname = "Al";
                 }
 
-                if (loadtype == "Motor")
+                if ((loadtype == "Motor") && ConsiderVdStart)
                 {
                     textBox10.Text = vdstart.ToString("0.##");
                 }
@@ -6607,7 +6803,7 @@ namespace Test1
             dtr[14] = textBox5.Text;
             dtr[15] = textBox4.Text;
 
-            if (loadtype == "Motor")
+            if ((loadtype == "Motor") && ConsiderVdStart)
             {
                 dtr[16] = textBox14.Text;
                 dtr[17] = textBox25.Text;
@@ -7047,22 +7243,53 @@ namespace Test1
 
         private void TextBox11_TextChanged(object sender, EventArgs e)
         {
+
+            if (comboBox2.Text == "Motor")
+            {
+                if ((textBox14.Text == "") && (textBox11.Text == ""))
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Transparent;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = false;
+                    textBox25.Text = "";
+                    label59.Enabled = false;
+                    label29.Enabled = false;
+                    label28.Enabled = false;
+                    textBox7.Enabled = false;
+                    ConsiderVdStart = false;
+                }
+                else if ((textBox14.Text == "") && (textBox11.Text != "") && !ConsiderVdStart)
+                {
+                    panel10.BackColor = Color.Red;
+                    panel27.BackColor = Color.Transparent;
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = true;
+                    textBox25.Text = "1";
+                    label59.Enabled = true;
+                    label29.Enabled = true;
+                    label28.Enabled = true;
+                    textBox7.Enabled = true;
+                    ConsiderVdStart = true;
+                }
+                else if (textBox11.Text == "")
+                {
+                    panel27.BackColor = Color.Red;
+                }
+                else if (textBox11.Text != "")
+                {
+                    panel27.BackColor = Color.Transparent;
+                }
+            }
+
             if (textBox11.Text != "")
             {
                 vdstartmax = double.Parse(textBox11.Text);
-                panel27.BackColor = Color.Transparent;
-            }
-            else if ((textBox11.Text == "") && (comboBox2.Text == "Motor"))
-            {
-                vdstartmax = 0;
-                panel27.BackColor = Color.Red;
             }
             else
             {
                 vdstartmax = 0;
-                panel27.BackColor = Color.Transparent;
             }
-            
             DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
@@ -7195,7 +7422,7 @@ namespace Test1
             {
                 if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                 {
-                    if (loadtype == "Motor")
+                    if ((loadtype == "Motor") && ConsiderVdStart)
                     {
                         if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                         {
@@ -7309,8 +7536,8 @@ namespace Test1
                         if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "")) ||
                                 ((radioButton1.Checked) && (textBox20.Text != "")))
                         {
-                            if (loadtype == "Motor")
-                            {
+                            if ((loadtype == "Motor") && ConsiderVdStart)
+                        {
                                 if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                                 {
                                     button2.Enabled = true;
@@ -7891,7 +8118,7 @@ namespace Test1
             dtr[14] = eff;
             dtr[15] = pf;
 
-            if (loadtype == "Motor")
+            if ((loadtype == "Motor") && ConsiderVdStart)
             {
                 dtr[16] = pfstart;
                 dtr[17] = multiplier;
@@ -8087,7 +8314,7 @@ namespace Test1
             dtr[14] = eff;
             dtr[15] = pf;
 
-            if (loadtype == "Motor")
+            if ((loadtype == "Motor") && ConsiderVdStart)
             {
                 dtr[16] = pfstart;
                 dtr[17] = multiplier;
@@ -8197,145 +8424,5 @@ namespace Test1
             toolTip1.SetToolTip(button3, null);
         }
 
-        /*
-        private void motorstartproperties()
-        {
-            if (loadtype == "Motor")
-            {
-                //pf start
-                label45.Enabled = true;
-                textBox14.Enabled = true;
-
-                //multiplier
-                label59.Enabled = false;
-                textBox25.Enabled = false;
-
-                //vd start max
-                label19.Enabled = true;
-                textBox11.Enabled = true;
-
-                if ((pfstart == 0) && (vdstartmax == 0))
-                {
-                    panel10.BackColor = Color.Transparent;
-                    panel27.BackColor = Color.Transparent;
-
-                    
-                    //multiplier
-                    label59.Enabled = false;
-                    panel12.BackColor = Color.Transparent;
-                    textBox25.Enabled = false;
-                    //multiplier = 0;
-                    
-                }
-                else if ((pfstart == 0) && (vdstartmax != 0))
-                {
-                    panel10.BackColor = Color.Red;
-                    panel27.BackColor = Color.Transparent;
-
-                    
-                    //multiplier
-                    label59.Enabled = true;
-                    panel12.BackColor = Color.Transparent;
-                    textBox25.Enabled = true;
-                    //multiplier = 1;
-                    
-                }
-                else if ((pfstart != 0) && (vdstartmax == 0))
-                {
-                    panel10.BackColor = Color.Transparent;
-                    panel27.BackColor = Color.Red;
-
-                    
-                    //multiplier
-                    label59.Enabled = true;
-                    panel12.BackColor = Color.Transparent;
-                    textBox25.Enabled = true;
-                   // multiplier = 1;
-                    
-                }
-                else if ((pfstart != 0) && (vdstartmax != 0))
-                {
-                    panel10.BackColor = Color.Transparent;
-                    panel27.BackColor = Color.Transparent;
-
-                    
-                    //multiplier
-                    label59.Enabled = true;
-                    panel12.BackColor = Color.Transparent;
-                    textBox25.Enabled = true;
-                    //multiplier = 1;
-                    
-                }
-            }
-            else if (loadtype == "Feeder")
-            {
-                //pf start
-                label45.Enabled = false;
-                panel10.BackColor = Color.Transparent;
-                textBox14.Enabled = false;
-                pfstart = 0;
-
-                //multiplier
-                label59.Enabled = false;
-                panel12.BackColor = Color.Transparent;
-                textBox25.Enabled = false;
-                multiplier = 0;
-
-                //vd start max
-                label19.Enabled = false;
-                panel27.BackColor = Color.Transparent;
-                textBox11.Enabled = false;
-                vdstartmax = 0;
-            }
-            else
-            {
-                //pf start
-                label45.Enabled = false;
-                panel10.BackColor = Color.Transparent;
-                textBox14.Enabled = false;
-                pfstart = 0;
-
-                //multiplier
-                label59.Enabled = false;
-                panel12.BackColor = Color.Transparent;
-                textBox25.Enabled = false;
-                multiplier = 0;
-
-                //vd start max
-                label19.Enabled = false;
-                panel27.BackColor = Color.Transparent;
-                textBox11.Enabled = false;
-                vdstartmax = 0;
-            }
-
-            //write to textbox
-            if (pfstart != 0)
-            {
-                textBox14.Text = pfstart.ToString("0.##");
-            }
-            else
-            {
-                textBox14.Text = "";
-            }
-
-            if (multiplier != 0)
-            {
-                textBox25.Text = multiplier.ToString("0.##");
-            }
-            else
-            {
-                textBox25.Text = "";
-            }
-
-            if (vdstartmax != 0)
-            {
-                textBox11.Text = vdstartmax.ToString("0.##");
-            }
-            else
-            {
-                textBox11.Text = "";
-            }
-        }
-        */
     }
 }

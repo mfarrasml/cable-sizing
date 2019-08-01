@@ -74,46 +74,46 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.clipboardCopy = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SelectedCable = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CLTE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BLTE = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Smin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tFault = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SCCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VdstartMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vdstart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.VdrunMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Vdrun = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Lmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NomBreakCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Protection = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Iderated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Kt = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Irated = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rdc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rac = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WireSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NoOfRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Istart = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Ifl = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CosBeta = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.SinPhi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CosPhi = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Efficiency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Power = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Installation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Voltage = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LoadType = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Phase = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ToDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.FromDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.From = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CableTagNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CableTagNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.From = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.FromDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.To = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ToDesc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Phase = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.LoadType = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Voltage = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Installation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Power = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Efficiency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CosPhi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SinPhi = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CosBeta = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Ifl = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Istart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NoOfRun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WireSize = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rac = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Rdc = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.X = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Irated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Kt = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Iderated = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Protection = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.NomBreakCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Length = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lmax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vdrun = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VdrunMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Vdstart = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.VdstartMax = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SCCurrent = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tFault = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Smin = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BLTE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CLTE = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SelectedCable = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -248,6 +248,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+            this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
             this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
@@ -577,344 +578,14 @@
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.DataGridView1_SelectionChanged);
             // 
-            // Remarks
-            // 
-            this.Remarks.HeaderText = "Remarks";
-            this.Remarks.MinimumWidth = 6;
-            this.Remarks.Name = "Remarks";
-            this.Remarks.ReadOnly = true;
-            this.Remarks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Remarks.Width = 55;
-            // 
-            // SelectedCable
-            // 
-            this.SelectedCable.HeaderText = "Selected Cable";
-            this.SelectedCable.MinimumWidth = 6;
-            this.SelectedCable.Name = "SelectedCable";
-            this.SelectedCable.ReadOnly = true;
-            this.SelectedCable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SelectedCable.Width = 85;
-            // 
-            // CLTE
-            // 
-            this.CLTE.HeaderText = "Cable LTE (A²s)";
-            this.CLTE.MinimumWidth = 6;
-            this.CLTE.Name = "CLTE";
-            this.CLTE.ReadOnly = true;
-            this.CLTE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CLTE.Width = 87;
-            // 
-            // BLTE
-            // 
-            this.BLTE.HeaderText = "Breaker LTE (A²s)";
-            this.BLTE.MinimumWidth = 6;
-            this.BLTE.Name = "BLTE";
-            this.BLTE.ReadOnly = true;
-            this.BLTE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BLTE.Width = 97;
-            // 
-            // Smin
-            // 
-            this.Smin.HeaderText = "Minimum Cable Size Due to S.C. (mm²)";
-            this.Smin.MinimumWidth = 6;
-            this.Smin.Name = "Smin";
-            this.Smin.ReadOnly = true;
-            this.Smin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Smin.Width = 193;
-            // 
-            // tFault
-            // 
-            this.tFault.HeaderText = "Fault Duration (s)";
-            this.tFault.MinimumWidth = 6;
-            this.tFault.Name = "tFault";
-            this.tFault.ReadOnly = true;
-            this.tFault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.tFault.Width = 93;
-            // 
-            // SCCurrent
-            // 
-            this.SCCurrent.HeaderText = "S.C. Current (kA)";
-            this.SCCurrent.MinimumWidth = 6;
-            this.SCCurrent.Name = "SCCurrent";
-            this.SCCurrent.ReadOnly = true;
-            this.SCCurrent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SCCurrent.Width = 92;
-            // 
-            // VdstartMax
-            // 
-            this.VdstartMax.HeaderText = "Vd start max (%)";
-            this.VdstartMax.MinimumWidth = 6;
-            this.VdstartMax.Name = "VdstartMax";
-            this.VdstartMax.ReadOnly = true;
-            this.VdstartMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.VdstartMax.Width = 88;
-            // 
-            // Vdstart
-            // 
-            this.Vdstart.HeaderText = "Vd start (%)";
-            this.Vdstart.MinimumWidth = 6;
-            this.Vdstart.Name = "Vdstart";
-            this.Vdstart.ReadOnly = true;
-            this.Vdstart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Vdstart.Width = 66;
-            // 
-            // VdrunMax
-            // 
-            this.VdrunMax.HeaderText = "Vd run max (%)";
-            this.VdrunMax.MinimumWidth = 6;
-            this.VdrunMax.Name = "VdrunMax";
-            this.VdrunMax.ReadOnly = true;
-            this.VdrunMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.VdrunMax.Width = 83;
-            // 
-            // Vdrun
-            // 
-            this.Vdrun.HeaderText = "Vd run (%)";
-            this.Vdrun.MinimumWidth = 6;
-            this.Vdrun.Name = "Vdrun";
-            this.Vdrun.ReadOnly = true;
-            this.Vdrun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Vdrun.Width = 61;
-            // 
-            // Lmax
-            // 
-            this.Lmax.HeaderText = "Lmax (m)";
-            this.Lmax.MinimumWidth = 6;
-            this.Lmax.Name = "Lmax";
-            this.Lmax.ReadOnly = true;
-            this.Lmax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Lmax.Width = 55;
-            // 
-            // Length
-            // 
-            this.Length.HeaderText = "Length (m)";
-            this.Length.MinimumWidth = 6;
-            this.Length.Name = "Length";
-            this.Length.ReadOnly = true;
-            this.Length.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Length.Width = 63;
-            // 
-            // NomBreakCurrent
-            // 
-            this.NomBreakCurrent.HeaderText = "Nominal Breaker Current (A)";
-            this.NomBreakCurrent.MinimumWidth = 6;
-            this.NomBreakCurrent.Name = "NomBreakCurrent";
-            this.NomBreakCurrent.ReadOnly = true;
-            this.NomBreakCurrent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.NomBreakCurrent.Width = 144;
-            // 
-            // Protection
-            // 
-            this.Protection.HeaderText = "Protection Type";
-            this.Protection.MinimumWidth = 6;
-            this.Protection.Name = "Protection";
-            this.Protection.ReadOnly = true;
-            this.Protection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Protection.Width = 88;
-            // 
-            // Iderated
-            // 
-            this.Iderated.HeaderText = "I Derated (A)";
-            this.Iderated.MinimumWidth = 6;
-            this.Iderated.Name = "Iderated";
-            this.Iderated.ReadOnly = true;
-            this.Iderated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Iderated.Width = 73;
-            // 
-            // Kt
-            // 
-            this.Kt.HeaderText = "Correction Factor (Kt)";
-            this.Kt.MinimumWidth = 6;
-            this.Kt.Name = "Kt";
-            this.Kt.ReadOnly = true;
-            this.Kt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Kt.Width = 113;
-            // 
-            // Irated
-            // 
-            this.Irated.HeaderText = "I Rated (A)";
-            this.Irated.MinimumWidth = 6;
-            this.Irated.Name = "Irated";
-            this.Irated.ReadOnly = true;
-            this.Irated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Irated.Width = 64;
-            // 
-            // X
-            // 
-            this.X.HeaderText = "X at 50 Hz (Ω/km)";
-            this.X.MinimumWidth = 6;
-            this.X.Name = "X";
-            this.X.ReadOnly = true;
-            this.X.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // Rdc
-            // 
-            this.Rdc.HeaderText = "Rdc (Ω/km)";
-            this.Rdc.Name = "Rdc";
-            this.Rdc.ReadOnly = true;
-            this.Rdc.Width = 89;
-            // 
-            // Rac
-            // 
-            this.Rac.HeaderText = "Rac (Ω/km)";
-            this.Rac.MinimumWidth = 6;
-            this.Rac.Name = "Rac";
-            this.Rac.ReadOnly = true;
-            this.Rac.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Rac.Width = 70;
-            // 
-            // WireSize
-            // 
-            this.WireSize.HeaderText = "Size (mm²)";
-            this.WireSize.MinimumWidth = 6;
-            this.WireSize.Name = "WireSize";
-            this.WireSize.ReadOnly = true;
-            this.WireSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.WireSize.Width = 61;
-            // 
-            // NoOfRun
-            // 
-            this.NoOfRun.HeaderText = "No. of Run";
-            this.NoOfRun.MinimumWidth = 6;
-            this.NoOfRun.Name = "NoOfRun";
-            this.NoOfRun.ReadOnly = true;
-            this.NoOfRun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.NoOfRun.Width = 65;
-            // 
-            // Istart
-            // 
-            this.Istart.HeaderText = "Start Current (A)";
-            this.Istart.MinimumWidth = 6;
-            this.Istart.Name = "Istart";
-            this.Istart.ReadOnly = true;
-            this.Istart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Istart.Width = 88;
-            // 
-            // Ifl
-            // 
-            this.Ifl.HeaderText = "Full Load Current (A)";
-            this.Ifl.MinimumWidth = 6;
-            this.Ifl.Name = "Ifl";
-            this.Ifl.ReadOnly = true;
-            this.Ifl.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Ifl.Width = 109;
-            // 
-            // CosBeta
-            // 
-            this.CosBeta.HeaderText = "Cos β (p.u)";
-            this.CosBeta.MinimumWidth = 6;
-            this.CosBeta.Name = "CosBeta";
-            this.CosBeta.ReadOnly = true;
-            this.CosBeta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CosBeta.Width = 64;
-            // 
-            // SinPhi
-            // 
-            this.SinPhi.HeaderText = "Sin φ (p.u)";
-            this.SinPhi.MinimumWidth = 6;
-            this.SinPhi.Name = "SinPhi";
-            this.SinPhi.ReadOnly = true;
-            this.SinPhi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SinPhi.Width = 63;
-            // 
-            // CosPhi
-            // 
-            this.CosPhi.HeaderText = "Cos φ (p.u)";
-            this.CosPhi.MinimumWidth = 6;
-            this.CosPhi.Name = "CosPhi";
-            this.CosPhi.ReadOnly = true;
-            this.CosPhi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CosPhi.Width = 66;
-            // 
-            // Efficiency
-            // 
-            this.Efficiency.HeaderText = "Efficiency (p.u)";
-            this.Efficiency.MinimumWidth = 6;
-            this.Efficiency.Name = "Efficiency";
-            this.Efficiency.ReadOnly = true;
-            this.Efficiency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Efficiency.Width = 83;
-            // 
-            // Power
-            // 
-            this.Power.HeaderText = "Power (kW)";
-            this.Power.MinimumWidth = 6;
-            this.Power.Name = "Power";
-            this.Power.ReadOnly = true;
-            this.Power.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Power.Width = 69;
-            // 
-            // Installation
-            // 
-            this.Installation.HeaderText = "Installation";
-            this.Installation.MinimumWidth = 6;
-            this.Installation.Name = "Installation";
-            this.Installation.ReadOnly = true;
-            this.Installation.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Installation.Width = 63;
-            // 
-            // Voltage
-            // 
-            this.Voltage.HeaderText = "Voltage (V)";
-            this.Voltage.MinimumWidth = 6;
-            this.Voltage.Name = "Voltage";
-            this.Voltage.ReadOnly = true;
-            this.Voltage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Voltage.Width = 65;
-            // 
-            // LoadType
-            // 
-            this.LoadType.HeaderText = "Load Type";
-            this.LoadType.MinimumWidth = 6;
-            this.LoadType.Name = "LoadType";
-            this.LoadType.ReadOnly = true;
-            this.LoadType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.LoadType.Width = 64;
-            // 
-            // Phase
-            // 
-            this.Phase.HeaderText = "Phase";
-            this.Phase.MinimumWidth = 6;
-            this.Phase.Name = "Phase";
-            this.Phase.ReadOnly = true;
-            this.Phase.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Phase.Width = 43;
-            // 
-            // ToDesc
-            // 
-            this.ToDesc.HeaderText = "Description";
-            this.ToDesc.MinimumWidth = 6;
-            this.ToDesc.Name = "ToDesc";
-            this.ToDesc.ReadOnly = true;
-            this.ToDesc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ToDesc.Width = 66;
-            // 
-            // To
-            // 
-            this.To.HeaderText = "To";
-            this.To.MinimumWidth = 6;
-            this.To.Name = "To";
-            this.To.ReadOnly = true;
-            this.To.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.To.Width = 26;
-            // 
-            // FromDesc
-            // 
-            this.FromDesc.HeaderText = "Description";
-            this.FromDesc.MinimumWidth = 6;
-            this.FromDesc.Name = "FromDesc";
-            this.FromDesc.ReadOnly = true;
-            this.FromDesc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.FromDesc.Width = 66;
-            // 
-            // From
-            // 
-            this.From.HeaderText = "From";
-            this.From.MinimumWidth = 6;
-            this.From.Name = "From";
-            this.From.ReadOnly = true;
-            this.From.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.From.Width = 36;
+            // No
+            // 
+            this.No.HeaderText = "No.";
+            this.No.MinimumWidth = 6;
+            this.No.Name = "No";
+            this.No.ReadOnly = true;
+            this.No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.No.Width = 30;
             // 
             // CableTagNo
             // 
@@ -925,14 +596,344 @@
             this.CableTagNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.CableTagNo.Width = 82;
             // 
-            // No
+            // From
             // 
-            this.No.HeaderText = "No.";
-            this.No.MinimumWidth = 6;
-            this.No.Name = "No";
-            this.No.ReadOnly = true;
-            this.No.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.No.Width = 30;
+            this.From.HeaderText = "From";
+            this.From.MinimumWidth = 6;
+            this.From.Name = "From";
+            this.From.ReadOnly = true;
+            this.From.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.From.Width = 36;
+            // 
+            // FromDesc
+            // 
+            this.FromDesc.HeaderText = "Description";
+            this.FromDesc.MinimumWidth = 6;
+            this.FromDesc.Name = "FromDesc";
+            this.FromDesc.ReadOnly = true;
+            this.FromDesc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.FromDesc.Width = 66;
+            // 
+            // To
+            // 
+            this.To.HeaderText = "To";
+            this.To.MinimumWidth = 6;
+            this.To.Name = "To";
+            this.To.ReadOnly = true;
+            this.To.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.To.Width = 26;
+            // 
+            // ToDesc
+            // 
+            this.ToDesc.HeaderText = "Description";
+            this.ToDesc.MinimumWidth = 6;
+            this.ToDesc.Name = "ToDesc";
+            this.ToDesc.ReadOnly = true;
+            this.ToDesc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ToDesc.Width = 66;
+            // 
+            // Phase
+            // 
+            this.Phase.HeaderText = "Phase";
+            this.Phase.MinimumWidth = 6;
+            this.Phase.Name = "Phase";
+            this.Phase.ReadOnly = true;
+            this.Phase.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Phase.Width = 43;
+            // 
+            // LoadType
+            // 
+            this.LoadType.HeaderText = "Load Type";
+            this.LoadType.MinimumWidth = 6;
+            this.LoadType.Name = "LoadType";
+            this.LoadType.ReadOnly = true;
+            this.LoadType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.LoadType.Width = 64;
+            // 
+            // Voltage
+            // 
+            this.Voltage.HeaderText = "Voltage (V)";
+            this.Voltage.MinimumWidth = 6;
+            this.Voltage.Name = "Voltage";
+            this.Voltage.ReadOnly = true;
+            this.Voltage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Voltage.Width = 65;
+            // 
+            // Installation
+            // 
+            this.Installation.HeaderText = "Installation";
+            this.Installation.MinimumWidth = 6;
+            this.Installation.Name = "Installation";
+            this.Installation.ReadOnly = true;
+            this.Installation.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Installation.Width = 63;
+            // 
+            // Power
+            // 
+            this.Power.HeaderText = "Power (kW)";
+            this.Power.MinimumWidth = 6;
+            this.Power.Name = "Power";
+            this.Power.ReadOnly = true;
+            this.Power.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Power.Width = 69;
+            // 
+            // Efficiency
+            // 
+            this.Efficiency.HeaderText = "Efficiency (p.u)";
+            this.Efficiency.MinimumWidth = 6;
+            this.Efficiency.Name = "Efficiency";
+            this.Efficiency.ReadOnly = true;
+            this.Efficiency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Efficiency.Width = 83;
+            // 
+            // CosPhi
+            // 
+            this.CosPhi.HeaderText = "Cos φ (p.u)";
+            this.CosPhi.MinimumWidth = 6;
+            this.CosPhi.Name = "CosPhi";
+            this.CosPhi.ReadOnly = true;
+            this.CosPhi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CosPhi.Width = 66;
+            // 
+            // SinPhi
+            // 
+            this.SinPhi.HeaderText = "Sin φ (p.u)";
+            this.SinPhi.MinimumWidth = 6;
+            this.SinPhi.Name = "SinPhi";
+            this.SinPhi.ReadOnly = true;
+            this.SinPhi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SinPhi.Width = 63;
+            // 
+            // CosBeta
+            // 
+            this.CosBeta.HeaderText = "Cos β (p.u)";
+            this.CosBeta.MinimumWidth = 6;
+            this.CosBeta.Name = "CosBeta";
+            this.CosBeta.ReadOnly = true;
+            this.CosBeta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CosBeta.Width = 64;
+            // 
+            // Ifl
+            // 
+            this.Ifl.HeaderText = "Full Load Current (A)";
+            this.Ifl.MinimumWidth = 6;
+            this.Ifl.Name = "Ifl";
+            this.Ifl.ReadOnly = true;
+            this.Ifl.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Ifl.Width = 109;
+            // 
+            // Istart
+            // 
+            this.Istart.HeaderText = "Start Current (A)";
+            this.Istart.MinimumWidth = 6;
+            this.Istart.Name = "Istart";
+            this.Istart.ReadOnly = true;
+            this.Istart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Istart.Width = 88;
+            // 
+            // NoOfRun
+            // 
+            this.NoOfRun.HeaderText = "No. of Run";
+            this.NoOfRun.MinimumWidth = 6;
+            this.NoOfRun.Name = "NoOfRun";
+            this.NoOfRun.ReadOnly = true;
+            this.NoOfRun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.NoOfRun.Width = 65;
+            // 
+            // WireSize
+            // 
+            this.WireSize.HeaderText = "Size (mm²)";
+            this.WireSize.MinimumWidth = 6;
+            this.WireSize.Name = "WireSize";
+            this.WireSize.ReadOnly = true;
+            this.WireSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.WireSize.Width = 61;
+            // 
+            // Rac
+            // 
+            this.Rac.HeaderText = "Rac (Ω/km)";
+            this.Rac.MinimumWidth = 6;
+            this.Rac.Name = "Rac";
+            this.Rac.ReadOnly = true;
+            this.Rac.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Rac.Width = 70;
+            // 
+            // Rdc
+            // 
+            this.Rdc.HeaderText = "Rdc (Ω/km)";
+            this.Rdc.Name = "Rdc";
+            this.Rdc.ReadOnly = true;
+            this.Rdc.Width = 89;
+            // 
+            // X
+            // 
+            this.X.HeaderText = "X at 50 Hz (Ω/km)";
+            this.X.MinimumWidth = 6;
+            this.X.Name = "X";
+            this.X.ReadOnly = true;
+            this.X.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // Irated
+            // 
+            this.Irated.HeaderText = "I Rated (A)";
+            this.Irated.MinimumWidth = 6;
+            this.Irated.Name = "Irated";
+            this.Irated.ReadOnly = true;
+            this.Irated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Irated.Width = 64;
+            // 
+            // Kt
+            // 
+            this.Kt.HeaderText = "Correction Factor (Kt)";
+            this.Kt.MinimumWidth = 6;
+            this.Kt.Name = "Kt";
+            this.Kt.ReadOnly = true;
+            this.Kt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Kt.Width = 113;
+            // 
+            // Iderated
+            // 
+            this.Iderated.HeaderText = "I Derated (A)";
+            this.Iderated.MinimumWidth = 6;
+            this.Iderated.Name = "Iderated";
+            this.Iderated.ReadOnly = true;
+            this.Iderated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Iderated.Width = 73;
+            // 
+            // Protection
+            // 
+            this.Protection.HeaderText = "Protection Type";
+            this.Protection.MinimumWidth = 6;
+            this.Protection.Name = "Protection";
+            this.Protection.ReadOnly = true;
+            this.Protection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Protection.Width = 88;
+            // 
+            // NomBreakCurrent
+            // 
+            this.NomBreakCurrent.HeaderText = "Nominal Breaker Current (A)";
+            this.NomBreakCurrent.MinimumWidth = 6;
+            this.NomBreakCurrent.Name = "NomBreakCurrent";
+            this.NomBreakCurrent.ReadOnly = true;
+            this.NomBreakCurrent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.NomBreakCurrent.Width = 144;
+            // 
+            // Length
+            // 
+            this.Length.HeaderText = "Length (m)";
+            this.Length.MinimumWidth = 6;
+            this.Length.Name = "Length";
+            this.Length.ReadOnly = true;
+            this.Length.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Length.Width = 63;
+            // 
+            // Lmax
+            // 
+            this.Lmax.HeaderText = "Lmax (m)";
+            this.Lmax.MinimumWidth = 6;
+            this.Lmax.Name = "Lmax";
+            this.Lmax.ReadOnly = true;
+            this.Lmax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Lmax.Width = 55;
+            // 
+            // Vdrun
+            // 
+            this.Vdrun.HeaderText = "Vd run (%)";
+            this.Vdrun.MinimumWidth = 6;
+            this.Vdrun.Name = "Vdrun";
+            this.Vdrun.ReadOnly = true;
+            this.Vdrun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Vdrun.Width = 61;
+            // 
+            // VdrunMax
+            // 
+            this.VdrunMax.HeaderText = "Vd run max (%)";
+            this.VdrunMax.MinimumWidth = 6;
+            this.VdrunMax.Name = "VdrunMax";
+            this.VdrunMax.ReadOnly = true;
+            this.VdrunMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.VdrunMax.Width = 83;
+            // 
+            // Vdstart
+            // 
+            this.Vdstart.HeaderText = "Vd start (%)";
+            this.Vdstart.MinimumWidth = 6;
+            this.Vdstart.Name = "Vdstart";
+            this.Vdstart.ReadOnly = true;
+            this.Vdstart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Vdstart.Width = 66;
+            // 
+            // VdstartMax
+            // 
+            this.VdstartMax.HeaderText = "Vd start max (%)";
+            this.VdstartMax.MinimumWidth = 6;
+            this.VdstartMax.Name = "VdstartMax";
+            this.VdstartMax.ReadOnly = true;
+            this.VdstartMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.VdstartMax.Width = 88;
+            // 
+            // SCCurrent
+            // 
+            this.SCCurrent.HeaderText = "S.C. Current (kA)";
+            this.SCCurrent.MinimumWidth = 6;
+            this.SCCurrent.Name = "SCCurrent";
+            this.SCCurrent.ReadOnly = true;
+            this.SCCurrent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SCCurrent.Width = 92;
+            // 
+            // tFault
+            // 
+            this.tFault.HeaderText = "Fault Duration (s)";
+            this.tFault.MinimumWidth = 6;
+            this.tFault.Name = "tFault";
+            this.tFault.ReadOnly = true;
+            this.tFault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.tFault.Width = 93;
+            // 
+            // Smin
+            // 
+            this.Smin.HeaderText = "Minimum Cable Size Due to S.C. (mm²)";
+            this.Smin.MinimumWidth = 6;
+            this.Smin.Name = "Smin";
+            this.Smin.ReadOnly = true;
+            this.Smin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Smin.Width = 193;
+            // 
+            // BLTE
+            // 
+            this.BLTE.HeaderText = "Breaker LTE (A²s)";
+            this.BLTE.MinimumWidth = 6;
+            this.BLTE.Name = "BLTE";
+            this.BLTE.ReadOnly = true;
+            this.BLTE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.BLTE.Width = 97;
+            // 
+            // CLTE
+            // 
+            this.CLTE.HeaderText = "Cable LTE (A²s)";
+            this.CLTE.MinimumWidth = 6;
+            this.CLTE.Name = "CLTE";
+            this.CLTE.ReadOnly = true;
+            this.CLTE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.CLTE.Width = 87;
+            // 
+            // SelectedCable
+            // 
+            this.SelectedCable.HeaderText = "Selected Cable";
+            this.SelectedCable.MinimumWidth = 6;
+            this.SelectedCable.Name = "SelectedCable";
+            this.SelectedCable.ReadOnly = true;
+            this.SelectedCable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.SelectedCable.Width = 85;
+            // 
+            // Remarks
+            // 
+            this.Remarks.HeaderText = "Remarks";
+            this.Remarks.MinimumWidth = 6;
+            this.Remarks.Name = "Remarks";
+            this.Remarks.ReadOnly = true;
+            this.Remarks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Remarks.Width = 55;
             // 
             // label1
             // 

@@ -680,7 +680,7 @@ namespace Test1
                 panel18.BackColor = Color.Red;
             }
 
-            if (comboBox2.Text == "Motor")
+            if ((comboBox2.Text == "Motor") && !ConsiderVdStart)
             {
                 label18.Enabled = true;
                 label19.Enabled = true;
@@ -699,7 +699,7 @@ namespace Test1
                 ConsiderVdStart = false;
 
             }
-            else
+            else if (comboBox2.Text != "Motor")
             {
                 label18.Enabled = false;
                 label19.Enabled = false;
@@ -730,6 +730,9 @@ namespace Test1
                 panel10.BackColor = Color.Transparent;
                 panel27.BackColor = Color.Transparent;
                 panel12.BackColor = Color.Transparent;
+
+
+                ConsiderVdStart = false;
             }
 
             DisabeUndoReset();
@@ -1732,6 +1735,10 @@ namespace Test1
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
                                             }
+                                            else
+                                            {
+                                                vdstart = 0;
+                                            }
                                         }
                                         else if (phase == "Three-Phase AC")
                                         {
@@ -1745,6 +1752,10 @@ namespace Test1
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -1822,6 +1833,10 @@ namespace Test1
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
                                             }
+                                            else
+                                            {
+                                                vdstart = 0;
+                                            }
                                         }
                                         else if (phase == "Three-Phase AC")
                                         {
@@ -1835,6 +1850,10 @@ namespace Test1
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -1909,6 +1928,10 @@ namespace Test1
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
                                             }
+                                            else
+                                            {
+                                                vdstart = 0;
+                                            }
                                         }
                                         else if (phase == "Three-Phase AC")
                                         {
@@ -1922,6 +1945,10 @@ namespace Test1
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2000,6 +2027,10 @@ namespace Test1
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
                                             }
+                                            else
+                                            {
+                                                vdstart = 0;
+                                            }
                                         }
                                         else if (phase == "Three-Phase AC")
                                         {
@@ -2013,6 +2044,10 @@ namespace Test1
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2087,6 +2122,10 @@ namespace Test1
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
                                             }
+                                            else
+                                            {
+                                                vdstart = 0;
+                                            }
                                         }
                                         else if (phase == "Three-Phase AC")
                                         {
@@ -2100,6 +2139,10 @@ namespace Test1
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2175,6 +2218,10 @@ namespace Test1
                                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
                                             }
+                                            else
+                                            {
+                                                vdstart = 0;
+                                            }
                                         }
                                         else if (phase == "Three-Phase AC")
                                         {
@@ -2189,6 +2236,10 @@ namespace Test1
                                             {
                                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                 / (n * 1000 * voltage);
+                                            }
+                                            else
+                                            {
+                                                vdstart = 0;
                                             }
                                         }
                                     }
@@ -2278,6 +2329,10 @@ namespace Test1
                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
                                 }
+                                else
+                                {
+                                    vdstart = 0;
+                                }
                             }
                             else if (phase == "Three-Phase AC")
                             {
@@ -2291,6 +2346,10 @@ namespace Test1
                                 {
                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                     / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
                                 }
                             }
                         }
@@ -2486,6 +2545,10 @@ namespace Test1
                                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
                                                 }
+                                                else
+                                                {
+                                                    vdstart = 0;
+                                                }
                                             }
                                             else if (phase == "Three-Phase AC")
                                             {
@@ -2499,6 +2562,10 @@ namespace Test1
                                                 {
                                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
+                                                }
+                                                else
+                                                {
+                                                    vdstart = 0;
                                                 }
                                             }
                                         }
@@ -2574,6 +2641,10 @@ namespace Test1
                                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
                                                 }
+                                                else
+                                                {
+                                                    vdstart = 0;
+                                                }
                                             }
                                             else if (phase == "Three-Phase AC")
                                             {
@@ -2587,6 +2658,10 @@ namespace Test1
                                                 {
                                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
+                                                }
+                                                else
+                                                {
+                                                    vdstart = 0;
                                                 }
                                             }
                                         }
@@ -2661,6 +2736,10 @@ namespace Test1
                                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
                                                 }
+                                                else
+                                                {
+                                                    vdstart = 0;
+                                                }
                                             }
                                             else if (phase == "Three-Phase AC")
                                             {
@@ -2674,6 +2753,10 @@ namespace Test1
                                                 {
                                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
+                                                }
+                                                else
+                                                {
+                                                    vdstart = 0;
                                                 }
                                             }
                                         }
@@ -2752,6 +2835,10 @@ namespace Test1
                                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
                                                 }
+                                                else
+                                                {
+                                                    vdstart = 0;
+                                                }
                                             }
                                             else if (phase == "Three-Phase AC")
                                             {
@@ -2765,6 +2852,10 @@ namespace Test1
                                                 {
                                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
+                                                }
+                                                else
+                                                {
+                                                    vdstart = 0;
                                                 }
                                             }
                                         }
@@ -2840,6 +2931,10 @@ namespace Test1
                                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
                                                 }
+                                                else
+                                                {
+                                                    vdstart = 0;
+                                                }
                                             }
                                             else if (phase == "Three-Phase AC")
                                             {
@@ -2853,6 +2948,10 @@ namespace Test1
                                                 {
                                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
+                                                }
+                                                else
+                                                {
+                                                    vdstart = 0;
                                                 }
                                             }
                                         }
@@ -2929,6 +3028,10 @@ namespace Test1
                                                     vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
                                                 }
+                                                else
+                                                {
+                                                    vdstart = 0;
+                                                }
                                             }
                                             else if (phase == "Three-Phase AC")
                                             {
@@ -2943,6 +3046,10 @@ namespace Test1
                                                 {
                                                     vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                                     / (n * 1000 * voltage);
+                                                }
+                                                else
+                                                {
+                                                    vdstart = 0;
                                                 }
                                             }
                                         }
@@ -3031,6 +3138,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -3044,6 +3155,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5238,6 +5353,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -5251,6 +5370,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5313,6 +5436,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -5326,6 +5453,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5388,6 +5519,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -5401,6 +5536,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5465,6 +5604,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -5478,6 +5621,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5535,6 +5682,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -5548,6 +5699,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5606,6 +5761,10 @@ namespace Test1
                                         vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
                                     }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
                                 }
                                 else if (phase == "Three-Phase AC")
                                 {
@@ -5620,6 +5779,10 @@ namespace Test1
                                     {
                                         vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                         / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
                                     }
                                 }
                             }
@@ -5683,6 +5846,10 @@ namespace Test1
                                 vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                 / (n * 1000 * voltage);
                             }
+                            else
+                            {
+                                vdstart = 0;
+                            }
                         }
                         else if (phase == "Three-Phase AC")
                         {
@@ -5696,6 +5863,10 @@ namespace Test1
                             {
                                 vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
                                 / (n * 1000 * voltage);
+                            }
+                            else
+                            {
+                                vdstart = 0;
                             }
                         }
                     }
