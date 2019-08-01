@@ -125,6 +125,8 @@ namespace Test1
 
         DataRow dtr;
 
+        DataTable dtReset;
+
         //public static DataTable dtdiameter = new DataTable();
 
 
@@ -514,6 +516,7 @@ namespace Test1
                 panel14.BackColor = Color.Transparent;
             }
 
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -568,6 +571,7 @@ namespace Test1
                 comboBox2.Items.Insert(0, "Feeder");
             }
 
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -671,6 +675,7 @@ namespace Test1
                 currentstart = 0;
             }
 
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -710,6 +715,7 @@ namespace Test1
                 power = 0;
                 panel14.BackColor = Color.Transparent;
             }
+            DisableUndoReset();
             calc_current();
         }
 
@@ -739,6 +745,7 @@ namespace Test1
                 panel25.BackColor = Color.Red;
             }
 
+            DisableUndoReset();
             Updatek3();
 
             Updatekt();
@@ -758,6 +765,7 @@ namespace Test1
             {
                 panel31.BackColor = Color.Red;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -774,6 +782,7 @@ namespace Test1
                 panel30.BackColor = Color.Red;
             }
 
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -907,6 +916,7 @@ namespace Test1
             {
                 panel19.BackColor = Color.Red;
             }
+            DisableUndoReset();
             enable_vd_btn();
             Calc_k();
             enable_result_btn();
@@ -999,6 +1009,7 @@ namespace Test1
                 panel33.BackColor = Color.Red;
             }
 
+            DisableUndoReset();
             temp_fill();
 
             maxtemp_calc();
@@ -1083,6 +1094,7 @@ namespace Test1
         {
             installation = comboBox9.Text;
 
+            DisableUndoReset();
             correctionfactor_fill();
             Updatek1();
             Updatekt();
@@ -2759,6 +2771,7 @@ namespace Test1
             {
                 calc_power();
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -2783,6 +2796,7 @@ namespace Test1
             {
                 calc_power();
             }
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -2809,6 +2823,7 @@ namespace Test1
             {
                 calc_power();
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -2887,6 +2902,7 @@ namespace Test1
                 pfstart = 0;
                 panel10.BackColor = Color.Transparent;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
 
@@ -3133,15 +3149,11 @@ namespace Test1
                 vdrunmax = 0;
                 panel26.BackColor = Color.Red;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
 
-
-        private void buttonReset(object sender, EventArgs e)
-        {
-            ResetData();
-        }
 
         private void ResetData()
         {
@@ -3261,6 +3273,7 @@ namespace Test1
             {
                 calc_current();
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3403,6 +3416,7 @@ namespace Test1
             }
             */
 
+            DisableUndoReset();
             UpdatePosition();
 
             Updatekt();
@@ -3541,32 +3555,7 @@ namespace Test1
             {
                 k2main = 0;
             }
-
-            /*
-            if ((textBox18.Text != "") && (radioButton7.Checked))
-            {
-                k2main = double.Parse(textBox18.Text);
-                textBox19.Location = new Point(kttextboxX, kttextboxY);
-                label43.Location = new Point(ktlabelX, ktlabelY);
-
-                textBox36.Visible = true;
-                label80.Visible = true;
-
-            }
-            else if ((textBox18.Text == "") && (radioButton7.Checked))
-            {
-                k2main = 0;
-                k3main = 0;
-
-                textBox36.Text = "";
-
-                label43.Location = label80.Location;
-                textBox19.Location = textBox36.Location;
-
-                textBox36.Visible = false;
-                label80.Visible = false;
-            }
-            */
+            DisableUndoReset();
 
             UpdatePosition();
 
@@ -3585,6 +3574,7 @@ namespace Test1
                 panel24.BackColor = Color.Red;
             }
 
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3714,6 +3704,7 @@ namespace Test1
         private void TextBox26_TextChanged(object sender, EventArgs e)
         {
             from = textBox26.Text;
+            DisableUndoReset();
         }
 
         private void ComboBox12_SelectedIndexChanged(object sender, EventArgs e)
@@ -3773,6 +3764,7 @@ namespace Test1
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
         {
             fromdesc = textBox16.Text;
+            DisableUndoReset();
         }
 
         private void Form9_FormClosing(object sender, FormClosingEventArgs e)
@@ -3802,6 +3794,7 @@ namespace Test1
         private void TextBox31_TextChanged(object sender, EventArgs e)
         {
             todesc = textBox31.Text;
+            DisableUndoReset();
         }
 
         private void TextBox30_TextChanged(object sender, EventArgs e)
@@ -3925,10 +3918,14 @@ namespace Test1
             }
             vdrun = Convert.ToDouble(dtx[33]);
             textBox8.Text = vdrun.ToString("0.##"); //vdrun
-            textBox10.Text = DtrToDoubleText(dtx, 34); //vdstart
-            if (textBox10.Text != "")
+            if (DtrToDoubleText(dtx, 34) != "")
             {
                 vdstart = Convert.ToDouble(dtx[34]);
+                textBox10.Text = vdstart.ToString("0.##"); //vdstart
+            }
+            else
+            {
+                textBox10.Text = "";
             }
             lmax = Convert.ToDouble(dtx[35]);
             textBox29.Text = lmax.ToString("0.##");  //lmax
@@ -4073,6 +4070,7 @@ namespace Test1
                 button6.Enabled = true;
                 label78.Enabled = true;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4097,6 +4095,7 @@ namespace Test1
                 button6.Enabled = false;
                 label78.Enabled = false;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4416,6 +4415,7 @@ namespace Test1
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 radioButton3.Checked = true;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4431,6 +4431,7 @@ namespace Test1
                 panel16.BackColor = Color.Red;
             }
             ratedvoltage = comboBox14.Text;
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4580,6 +4581,7 @@ namespace Test1
                 k3main = 0;
             }
 
+            DisableUndoReset();
             UpdatePosition();
 
             Updatekt();
@@ -5330,6 +5332,7 @@ namespace Test1
 
             }
 
+            DisableUndoReset();
 
             Updatekt();
         }
@@ -5376,6 +5379,7 @@ namespace Test1
                 }
                 calc_current();
             }
+            DisableUndoReset();
         }
 
         private void RadioButton8_Click(object sender, EventArgs e)
@@ -5410,6 +5414,7 @@ namespace Test1
                 enable_vd_btn();
                 enable_result_btn();
             }
+            DisableUndoReset();
         }
 
         private void calc_power()
@@ -5508,6 +5513,7 @@ namespace Test1
                 length = 0;
             }
 
+            DisableUndoReset();
             Updatek3();
 
             Updatekt();
@@ -5941,6 +5947,7 @@ namespace Test1
                 index_temperature = -1;
             }
 
+            DisableUndoReset();
             Updatek1();
             Updatekt();
 
@@ -5998,6 +6005,7 @@ namespace Test1
                 label33.Visible = false;
             }
 
+            DisableUndoReset();
             temp_fill();
 
             maxtemp_calc();
@@ -6025,8 +6033,9 @@ namespace Test1
                 index_groupedconductor = -1;
             }
 
-            
 
+
+            DisableUndoReset();
             Updatek2();
 
             Updatekt();
@@ -6085,8 +6094,9 @@ namespace Test1
                 index_distanceaboveroof = -1;
             }
 
-            
 
+
+            DisableUndoReset();
             Updatek1();
             Updatekt();
             enable_vd_btn();
@@ -6211,8 +6221,9 @@ namespace Test1
                 index_cablecover = -1;
             }
 
-            
 
+
+            DisableUndoReset();
             Updatek3();
             Updatekt();
             enable_vd_btn();
@@ -6233,6 +6244,7 @@ namespace Test1
                 index_conduit = -1;
             }
 
+            DisableUndoReset();
             enable_vd_btn();
         }
 
@@ -6485,7 +6497,230 @@ namespace Test1
 
         private void ResetToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            dtReset = new DataTable();
+
+            dtReset.Columns.Add("Diameter");
+            dtReset.Columns.Add("TagNo");
+            dtReset.Columns.Add("From");
+            dtReset.Columns.Add("FromDesc");
+            dtReset.Columns.Add("To");
+            dtReset.Columns.Add("ToDesc");
+            dtReset.Columns.Add("Phase");
+            dtReset.Columns.Add("LoadType");
+            dtReset.Columns.Add("VoltageSystem");
+            dtReset.Columns.Add("CurrentButton");
+            dtReset.Columns.Add("cbPower");
+            dtReset.Columns.Add("Power");
+            dtReset.Columns.Add("Current");
+            dtReset.Columns.Add("Voltage");
+            dtReset.Columns.Add("Efficiency");
+            dtReset.Columns.Add("PF");
+            dtReset.Columns.Add("PFStart");
+            dtReset.Columns.Add("Multiplier");
+            dtReset.Columns.Add("RatedVoltage");
+            dtReset.Columns.Add("Material");
+            dtReset.Columns.Add("Insulation");
+            dtReset.Columns.Add("Armour");
+            dtReset.Columns.Add("OutherSheath");
+            dtReset.Columns.Add("Installation");
+            dtReset.Columns.Add("DeratingButton");
+            dtReset.Columns.Add("K1");
+            dtReset.Columns.Add("K2");
+            dtReset.Columns.Add("K3");
+            dtReset.Columns.Add("Kt");
+            dtReset.Columns.Add("Length");
+            dtReset.Columns.Add("VdRunMax");
+            dtReset.Columns.Add("VdStartMax");
+            dtReset.Columns.Add("CablePropButton");
+            dtReset.Columns.Add("VdRun");
+            dtReset.Columns.Add("VdStart");
+            dtReset.Columns.Add("Lmax");
+            dtReset.Columns.Add("N");
+            dtReset.Columns.Add("Cores");
+            dtReset.Columns.Add("WireArea");
+            dtReset.Columns.Add("Rac");
+            dtReset.Columns.Add("X");
+            dtReset.Columns.Add("Irated");
+            dtReset.Columns.Add("Iderated");
+            dtReset.Columns.Add("SCOrLTE");
+            dtReset.Columns.Add("SCCurrent");
+            dtReset.Columns.Add("TBreak");
+            dtReset.Columns.Add("InitialTemp");
+            dtReset.Columns.Add("FinalTemp");
+            dtReset.Columns.Add("CLTE");
+            dtReset.Columns.Add("BreakerType");
+            dtReset.Columns.Add("BreakerBtn");
+            dtReset.Columns.Add("SCRating");
+            dtReset.Columns.Add("BreakNominalCurrent");
+            dtReset.Columns.Add("BLTE");
+            dtReset.Columns.Add("i");
+            dtReset.Columns.Add("Temperature");
+            dtReset.Columns.Add("IndexTemperature");
+            dtReset.Columns.Add("IndexGroupedConductor");
+            dtReset.Columns.Add("IndexDistanceAboveRoof");
+            dtReset.Columns.Add("IndexCableCover");
+            dtReset.Columns.Add("Conduit");
+            dtReset.Columns.Add("IndexConduit");
+            dtReset.Columns.Add("IndexLength");
+            dtReset.Columns.Add("Remarks");
+            dtReset.Columns.Add("Result");
+
+            dtr = dtReset.NewRow();
+
+            //full data
+            dtr[1] = textBox13.Text;
+            dtr[2] = textBox26.Text;
+            dtr[3] = textBox16.Text;
+            dtr[4] = textBox27.Text;
+            dtr[5] = textBox31.Text;
+            dtr[6] = comboBox3.Text;
+            dtr[7] = comboBox2.Text;
+            dtr[8] = comboBox13.Text;
+            if (!radioButton8.Checked) //Manual current input or not
+            {
+                dtr[9] = false;
+                dtr[10] = cbPower.Text; //powerdata
+                if (Convert.ToString(dtr[10]) == "kW") //power
+                {
+                    dtr[11] = TextBox1.Text;
+                }
+                else if (Convert.ToString(dtr[10]) == "kVA")
+                {
+                    dtr[11] = TextBox1.Text;
+                }
+                else if (Convert.ToString(dtr[10]) == "HP")
+                {
+                    dtr[11] = TextBox1.Text;
+                }
+                dtr[12] = textBox3.Text;
+            }
+            else
+            {
+                dtr[9] = true;
+                dtr[10] = cbPower.Text;
+                dtr[11] = TextBox1.Text;
+                dtr[12] = textBox3.Text;
+            }
+            dtr[13] = textBox2.Text;
+            dtr[14] = textBox5.Text;
+            dtr[15] = textBox4.Text;
+
+            if (loadtype == "Motor")
+            {
+                dtr[16] = textBox14.Text;
+                dtr[17] = textBox25.Text;
+                dtr[31] = textBox11.Text;
+                dtr[34] = textBox10.Text;
+            }
+            else
+            {
+                dtr[16] = "";
+                dtr[17] = "";
+                dtr[31] = "";
+                dtr[34] = "";
+            }
+
+            dtr[18] = comboBox14.Text;
+            dtr[19] = comboBox4.Text;
+            dtr[20] = comboBox6.Text;
+            dtr[21] = armour;
+            dtr[22] = outersheath;
+            dtr[23] = comboBox9.Text;
+            if (radioButton7.Checked) //Manual derating input or not
+            {
+                dtr[24] = true;
+            }
+            else
+            {
+                dtr[24] = false;
+            }
+            dtr[25] = textBox17.Text;
+            dtr[26] = textBox18.Text;
+            dtr[27] = textBox36.Text;
+            dtr[28] = textBox19.Text;
+            dtr[29] = textBox6.Text;
+            dtr[30] = textBox9.Text;
+            if (radioButton4.Checked) //vendor/manual cable properties input
+            {
+                dtr[32] = "vendor";
+            }
+            else if (radioButton3.Checked)
+            {
+                dtr[32] = "manual";
+            }
+            dtr[33] = textBox8.Text;
+            dtr[35] = textBox29.Text;
+            dtr[36] = textBox12.Text;
+            dtr[37] = comboBox5.Text;
+            dtr[38] = textBox37.Text;
+            if (loadtype == "DC")
+            {
+                dtr[39] = textBox34.Text;
+                dtr[40] = textBox33.Text;
+            }
+            else
+            {
+                dtr[39] = textBox34.Text;
+                dtr[40] = textBox33.Text;
+            }
+            dtr[41] = textBox32.Text;
+            if (Convert.ToString(dtr[41]) != "")
+            {
+                dtr[42] = Convert.ToDouble(dtr[41]) * Convert.ToDouble(dtr[28]);
+            }
+            else
+            {
+                dtr[42] = "";
+            }
+
+            if (radioButton2.Checked) //using S.C. current or LTE
+            {
+                dtr[43] = "sc";
+                dtr[44] = textBox28.Text;
+                dtr[45] = textBox23.Text;
+                dtr[53] = "";
+            }
+            else
+            {
+                dtr[43] = "lte";
+                dtr[44] = "";
+                dtr[45] = "";
+                dtr[53] = textBox20.Text;
+            }
+            dtr[46] = comboBox17.Text;
+            dtr[47] = textBox24.Text;
+            dtr[48] = textBox22.Text;
+            dtr[49] = comboBox12.Text;
+            if (radioButton5.Checked)
+            {
+                dtr[50] = "vendor";
+            }
+            else if (radioButton6.Checked)
+            {
+                dtr[50] = "manual";
+            }
+            dtr[51] = comboBox10.Text;
+            dtr[52] = comboBox11.Text;
+            dtr[54] = i;
+            dtr[55] = comboBox16.Text;
+            dtr[56] = comboBox16.SelectedIndex;
+            dtr[57] = comboBox18.SelectedIndex;
+            dtr[58] = comboBox19.SelectedIndex;
+            dtr[59] = comboBox20.SelectedIndex;
+            dtr[60] = comboBox21.Text;
+            dtr[61] = comboBox21.SelectedIndex;
+            dtr[62] = comboBox1.SelectedIndex;
+            dtr[63] = textBox35.Text;
+            dtr[64] = tbResult.Text;
+
+            dtReset.Rows.Add(dtr);
+
+
+            //reset all the  data
             ResetData();
+
+            //enable the undo reset button
+            undoResetToolStripMenuItem.Enabled = true;
         }
 
         private void Button3_Click(object sender, EventArgs e)
@@ -6536,9 +6771,233 @@ namespace Test1
             AddToResult();
         }
 
+        private void UndoResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UndoReset();
+            DisableUndoReset();
+        }
+
+        private void UndoReset()
+        {
+            DataRow dtx = dtReset.Rows[0];
+            textBox13.Text = Convert.ToString(dtx[1]); //tagno
+            textBox26.Text = Convert.ToString(dtx[2]); //from
+            textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
+            textBox27.Text = Convert.ToString(dtx[4]); //to
+            textBox31.Text = Convert.ToString(dtx[5]); //todesc
+            comboBox3.Text = Convert.ToString(dtx[6]); //phase
+            comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
+            comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
+            if (Convert.ToString(dtx[9]) == "True")
+            {
+                radioButton8.Checked = true;
+            }
+            else
+            {
+                radioButton8.Checked = false;
+            }
+            cbPower.Text = Convert.ToString(dtx[10]); // power unit
+            TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
+            if (DtrToDoubleText(dtx,12) != "")
+            {
+                if (radioButton8.Checked)
+                {
+                    current = Convert.ToDouble(dtx[12]);
+                    textBox3.Text = current.ToString("0.##"); // FL Current
+                }
+                else
+                {
+                    textBox3.Text = DtrToDoubleText(dtx, 12);
+                }
+            }
+            textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
+            textBox5.Text = DtrToDoubleText(dtx, 14); //eff
+            textBox4.Text = DtrToDoubleText(dtx, 15); //pf
+            textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
+            textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
+            comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
+            comboBox4.Text = Convert.ToString(dtx[19]);//material
+            comboBox6.Text = Convert.ToString(dtx[20]); //insulation
+            //comboBox7.Text = Convert.ToString(dtx[21]); //armour
+            //comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
+            comboBox9.Text = Convert.ToString(dtx[23]); //installation
+            if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
+            {
+                radioButton7.Checked = true;
+            }
+            else
+            {
+                radioButton7.Checked = false;
+            }
+            textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
+            textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
+            textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
+            if (DtrToDoubleText(dtx, 28) != "")
+            {
+                ktmain = Convert.ToDouble(dtx[28]);
+                textBox19.Text = ktmain.ToString("0.##");
+            }
+            textBox6.Text = DtrToDoubleText(dtx, 29); //length
+            textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
+            textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
+            if (Convert.ToString(dtx[32]) == "vendor")
+            {
+                radioButton4.Checked = true;
+            }
+            else if (Convert.ToString(dtx[32]) == "manual")
+            {
+                radioButton3.Checked = true;
+            }
+            if (DtrToDoubleText(dtx, 33) != "")
+            {
+                vdrun = Convert.ToDouble(dtx[33]);
+                textBox8.Text = vdrun.ToString("0.##"); //vdrun
+            }
+            else
+            {
+                textBox8.Text = "";
+            }
+            if (DtrToDoubleText(dtx, 34) != "")
+            {
+                vdstart = Convert.ToDouble(dtx[34]);
+                textBox10.Text = vdstart.ToString("0.##"); //vdstart
+            }
+            else
+            {
+                textBox10.Text = "";
+            }
+            if (DtrToDoubleText(dtx,35) != "")
+            {
+                lmax = Convert.ToDouble(dtx[35]);
+                textBox29.Text = lmax.ToString("0.##");  //lmax
+            }
+            textBox12.Text = Convert.ToString(dtx[36]); //no of run
+            comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
+            if (DtrToDoubleText(dtx,38) != "")
+            {
+                //Disable all inputs before vd calculation
+                panel4.Enabled = true;
+                panel5.Enabled = false;
+                panel6.Enabled = false;
+
+                //enable vd calculate & edit data buttons
+                button7.Enabled = true;
+                button8.Enabled = true;
+
+                textBox37.Text = Convert.ToString(dtx[38]); //wirearea
+                wirearea_nec = Convert.ToString(dtx[38]);
+                i = Convert.ToInt32(dtx[54]);
+                Update_size();
+            }
+            else
+            {
+                textBox37.Text = "";
+            }
+            if ((Convert.ToString(dtx[6]) == "DC") && (DtrToDoubleText(dtx, 39) != ""))
+            {
+                Rdc = Convert.ToDouble(dtx[39]);
+                textBox34.Text = Rac.ToString("0.####"); //Rdc
+            }
+            else if (((Convert.ToString(dtx[6]) == "Single-Phase AC") || (Convert.ToString(dtx[6]) == "Three-Phase AC")) && (DtrToDoubleText(dtx, 39) != ""))
+            {
+                Rac = Convert.ToDouble(dtx[39]);
+                textBox34.Text = Rac.ToString("0.####"); //Rac
+                X = Convert.ToDouble(dtx[40]);
+                textBox33.Text = X.ToString("0.####"); //X
+            }
+            if (DtrToDoubleText(dtx, 41) != "")
+            {
+                Irated = Convert.ToDouble(dtx[41]);
+                textBox32.Text = Irated.ToString("0.##"); //irated
+                iderated = Convert.ToDouble(dtx[42]); //iderated
+            }
+            if (Convert.ToString(dtx[43]) == "sc")
+            {
+                radioButton2.Checked = true;
+            }
+            else if (Convert.ToString(dtx[43]) == "lte")
+            {
+                radioButton1.Checked = true;
+            }
+            textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+            textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+            textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+            comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
+            textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
+            if (DtrToDoubleText(dtx, 48) != "")
+            {
+                cLTE = Convert.ToDouble(dtx[48]);
+                textBox22.Text = cLTE.ToString("0.##"); //CLTE
+            }
+            if (Convert.ToString(dtx[49]) != "")
+            {
+                comboBox12.Text = Convert.ToString(dtx[49]); //protection type
+                if (Convert.ToString(dtx[50]) == "vendor")
+                {
+                    radioButton5.Checked = true;
+                }
+                else if (Convert.ToString(dtx[50]) == "manual")
+                {
+                    radioButton6.Checked = true;
+                }
+                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+            }
+            else
+            {
+                comboBox12.SelectedIndex = -1; //protection type
+                if (Convert.ToString(dtx[50]) == "vendor")
+                {
+                    radioButton5.Checked = true;
+                }
+                else if (Convert.ToString(dtx[50]) == "manual")
+                {
+                    radioButton6.Checked = true;
+                }
+                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                comboBox10.SelectedIndex = -1;
+                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                comboBox11.SelectedIndex = -1;
+            }
+
+            textBox35.Text = Convert.ToString(dtx[63]);
+            tbResult.Text = Convert.ToString(dtx[64]);
+            if (DtrToDoubleText(dtx,55) != "")
+            {
+                temperature = Convert.ToDouble(dtx[55]);
+                comboBox16.Text = temperature.ToString();
+            }
+            comboBox16.SelectedIndex = Convert.ToInt32(dtx[56]);
+            comboBox18.SelectedIndex = Convert.ToInt32(dtx[57]);
+            comboBox19.SelectedIndex = Convert.ToInt32(dtx[58]);
+            comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
+            conduit = Convert.ToString(dtx[60]);
+            comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
+            comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
+
+            if (comboBox11.Text == "") //data being edited is vd calculated only
+            {
+                button2.Enabled = false;
+            }
+            else //data being edited is complete with SC/LTE consideration
+            {
+                button2.Enabled = false;
+            }
+
+
+            disable_save();
+            enable_result_btn();
+        }
+
+        private void DisableUndoReset()
+        {
+            undoResetToolStripMenuItem.Enabled = false;
+        }
+
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
+            DisableUndoReset();
         }
 
         private void TextBox13_TextChanged(object sender, EventArgs e)
@@ -6568,7 +7027,7 @@ namespace Test1
                 label60.Enabled = true;
                 panel13.BackColor = Color.Transparent;
             }
-
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -6601,6 +7060,7 @@ namespace Test1
                 vdstartmax = 0;
                 panel27.BackColor = Color.Transparent;
             }
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }

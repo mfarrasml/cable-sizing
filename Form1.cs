@@ -594,6 +594,7 @@ namespace Test1
                 panel14.BackColor = Color.Transparent;
             }
 
+            DisabeUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -648,6 +649,7 @@ namespace Test1
                 comboBox2.Items.Insert(0, "Feeder");
             }
 
+            DisabeUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -679,20 +681,37 @@ namespace Test1
 
             if (comboBox2.Text == "Motor")
             {
-                if (textBox14.Text == "")
+                if ((textBox14.Text == "") && (textBox11.Text == ""))
+                {
+                    panel10.BackColor = Color.Transparent;
+                    panel27.BackColor = Color.Transparent;
+                    panel12.BackColor = Color.Transparent;
+                }
+                else  if (textBox14.Text == "")
                 {
                     panel10.BackColor = Color.Red;
+                    panel27.BackColor = Color.Transparent;
                 }
-                if (textBox25.Text == "")
+                else if (textBox11.Text == "")
                 {
-                    panel12.BackColor = Color.Red;
-                }
-                if (textBox11.Text == "")
-                {
+                    panel10.BackColor = Color.Transparent;
                     panel27.BackColor = Color.Red;
                 }
 
-                textBox25.Text = "1";
+                if ((textBox25.Text == "") && ((textBox14.Text != "") || (textBox11.Text != "")))
+                {
+                    panel12.BackColor = Color.Red;
+                    textBox25.Enabled = true;
+                    label59.Enabled = true;
+                }
+                else if (textBox25.Text == "")
+                {
+                    panel12.BackColor = Color.Transparent;
+                    textBox25.Enabled = false;
+                    label59.Enabled = false;
+                    textBox25.Text = "";
+                }
+
             }
             else
             {
@@ -716,11 +735,6 @@ namespace Test1
                 label45.Enabled = true;
                 label46.Enabled = true;
                 textBox14.Enabled = true;
-                label28.Enabled = true;
-                label29.Enabled = true;
-                textBox7.Enabled = true;
-                textBox25.Enabled = true;
-                label59.Enabled = true;
 
             }
             else
@@ -751,6 +765,7 @@ namespace Test1
                 currentstart = 0;
             }
 
+            DisabeUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -790,6 +805,7 @@ namespace Test1
                 power = 0;
                 panel14.BackColor = Color.Transparent;
             }
+            DisabeUndoReset();
             calc_current();
         }
 
@@ -811,6 +827,7 @@ namespace Test1
                 length = 0;
                 panel25.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -826,6 +843,7 @@ namespace Test1
             {
                 panel31.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -842,6 +860,7 @@ namespace Test1
                 panel30.BackColor = Color.Red;
             }
 
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -1616,6 +1635,7 @@ namespace Test1
             {
                 panel19.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             Calc_k();
             enable_vd_btn();
             enable_result_btn();
@@ -1647,6 +1667,7 @@ namespace Test1
                 panel20.BackColor = Color.Red;
             }
 
+            DisabeUndoReset();
             reset_correction();
             enable_correction();
             enable_vd_btn();
@@ -1664,6 +1685,7 @@ namespace Test1
             {
                 panel21.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -1692,6 +1714,7 @@ namespace Test1
                 panel22.BackColor = Color.Red;
             }
 
+            DisabeUndoReset();
             reset_correction();
             enable_correction();
             enable_vd_btn();
@@ -3368,6 +3391,7 @@ namespace Test1
             {
                 calc_power();
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3392,6 +3416,7 @@ namespace Test1
             {
                 calc_power();
             }
+            DisabeUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -3418,6 +3443,7 @@ namespace Test1
             {
                 calc_power();
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3481,23 +3507,76 @@ namespace Test1
 
         private void TextBox14_TextChanged(object sender, EventArgs e)
         {
+            PfVDStartChange();
+
             if (textBox14.Text != "")
             {
                 pfstart = double.Parse(textBox14.Text);
-                panel10.BackColor = Color.Transparent;
-            }
-            else if ((textBox14.Text == "") && (comboBox2.Text == "Motor"))
-            {
-                pfstart = 0;
-                panel10.BackColor = Color.Red;
             }
             else
             {
                 pfstart = 0;
-                panel10.BackColor = Color.Transparent;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
+
+        }
+
+        private void PfVDStartChange()
+        {
+            if (comboBox2.Text != "Motor")
+            {
+                panel10.BackColor = Color.Transparent;
+                panel27.BackColor = Color.Transparent;
+                panel12.BackColor = Color.Transparent;
+                textBox25.Enabled = false;
+                label59.Enabled = false;
+                textBox25.Text = "";
+                multiplier = 0;
+            }
+            else if ((textBox14.Text == "") && (textBox11.Text == ""))
+            {
+                panel10.BackColor = Color.Transparent;
+                panel27.BackColor = Color.Transparent;
+                panel12.BackColor = Color.Transparent;
+                textBox25.Enabled = false;
+                label59.Enabled = false;
+                textBox25.Text = "";
+                multiplier = 0;
+            }
+            else if ((textBox11.Text != "") && (textBox14.Text == ""))
+            {
+                panel10.BackColor = Color.Red;
+                panel27.BackColor = Color.Transparent;
+                textBox7.Enabled = true;
+                label28.Enabled = true;
+                label29.Enabled = true;
+                panel12.BackColor = Color.Transparent;
+                textBox25.Enabled = true;
+                multiplier = 1;
+                textBox25.Text = "1";
+            }
+            else if ((textBox14.Text != "") && (textBox11.Text == ""))
+            {
+                panel10.BackColor = Color.Transparent;
+                panel27.BackColor = Color.Red;
+                textBox7.Enabled = true;
+                label28.Enabled = true;
+                label29.Enabled = true;
+                panel12.BackColor = Color.Transparent;
+                textBox25.Enabled = true;
+                multiplier = 1;
+                textBox25.Text = "1";
+            }
+            else
+            {
+                panel10.BackColor = Color.Transparent;
+                panel27.BackColor = Color.Transparent;
+                textBox7.Enabled = true;
+                label28.Enabled = true;
+                label29.Enabled = true;
+            }
 
         }
 
@@ -3741,6 +3820,7 @@ namespace Test1
                 vdrunmax = 0;
                 panel26.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3757,6 +3837,7 @@ namespace Test1
             {
                 panel23.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3840,17 +3921,12 @@ namespace Test1
             if (textBox25.Text != "")
             {
                 multiplier = double.Parse(textBox25.Text);
-                panel12.BackColor = Color.Transparent;
-            }
-            else if ((textBox25.Text == "") && (comboBox2.Text == "Motor"))
-            {
-                multiplier = 0;
-                panel12.BackColor = Color.Red;
             }
             else
             {
-                panel12.BackColor = Color.Transparent;
+                multiplier = 0;
             }
+
             if (radioButton8.Checked)
             {
                 calc_currentstart();
@@ -3859,6 +3935,7 @@ namespace Test1
             {
                 calc_current();
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3972,6 +4049,7 @@ namespace Test1
                 textBox18.Visible = false;
                 label42.Visible = false;
             }
+            DisabeUndoReset();
             Updatekt();
             enable_result_btn();
         }
@@ -4003,6 +4081,7 @@ namespace Test1
 
 
             }
+            DisabeUndoReset();
             Updatekt();
             enable_result_btn();
         }
@@ -4017,6 +4096,7 @@ namespace Test1
             {
                 panel24.BackColor = Color.Red;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4053,6 +4133,7 @@ namespace Test1
         private void TextBox26_TextChanged(object sender, EventArgs e)
         {
             from = textBox26.Text;
+            DisabeUndoReset();
         }
 
         private void ComboBox12_SelectedIndexChanged(object sender, EventArgs e)
@@ -4114,6 +4195,7 @@ namespace Test1
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
         {
             fromdesc = textBox16.Text;
+            DisabeUndoReset();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -4148,6 +4230,7 @@ namespace Test1
         private void TextBox31_TextChanged(object sender, EventArgs e)
         {
             todesc = textBox31.Text;
+            DisabeUndoReset();
         }
 
         private void TextBox30_TextChanged(object sender, EventArgs e)
@@ -4306,10 +4389,10 @@ namespace Test1
                 textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
                 vdrun = Convert.ToDouble(dtx[33]);
                 textBox8.Text = vdrun.ToString("0.##"); //vdrun
-                textBox10.Text = DtrToDoubleText(dtx, 34); //vdstart
-                if (textBox10.Text != "")
+                if (DtrToDoubleText(dtx,34) != "")
                 {
                     vdstart = Convert.ToDouble(dtx[34]);
+                    textBox10.Text = vdstart.ToString("0.##"); //vdstart
                 }
                 else
                 {
@@ -4406,7 +4489,7 @@ namespace Test1
 
                 button4.Text = "Confirm Edit";
                 addToolStripMenuItem.Text = "Confirm Edit";
-                button3.Text = "Confirm Edit & Save";
+                button3.Text = "Confirm Edit and Save";
                 disable_save();
                 enable_result_btn();
                 button5.Text = "Cancel";
@@ -4458,6 +4541,7 @@ namespace Test1
                 comboBoxVendor.Visible = false;
                 labelVendor.Visible = false;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4484,6 +4568,7 @@ namespace Test1
                 comboBoxVendor.Visible = true;
                 labelVendor.Visible = true;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4806,6 +4891,7 @@ namespace Test1
                 panel16.BackColor = Color.Red;
             }
             ratedvoltage = comboBox14.Text;
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4938,6 +5024,7 @@ namespace Test1
             }
             else
             {
+                DisabeUndoReset();
                 vd_size_calc();
             }
         }
@@ -4986,7 +5073,8 @@ namespace Test1
             {
                 k3main = double.Parse(textBox36.Text);
             }
-             
+
+            DisabeUndoReset();
             Updatekt();
             enable_result_btn();
         }
@@ -5692,6 +5780,7 @@ namespace Test1
 
         private void RadioButton7_CheckedChanged(object sender, EventArgs e)
         {
+            DisabeUndoReset();
             enable_correction();
             reset_correction();
             if (!radioButton7.Checked)
@@ -5780,6 +5869,7 @@ namespace Test1
                 }
                 calc_current();
             }
+            DisabeUndoReset();
         }
 
         private void RadioButton8_Click(object sender, EventArgs e)
@@ -5814,6 +5904,7 @@ namespace Test1
                 enable_vd_btn();
                 enable_result_btn();
             }
+            DisabeUndoReset();
         }
 
         private void calc_currentstart()
@@ -5944,6 +6035,8 @@ namespace Test1
             dtReset.Columns.Add("BLTE");
             dtReset.Columns.Add("i");
             dtReset.Columns.Add("Database");
+            dtReset.Columns.Add("Remarks");
+            dtReset.Columns.Add("Result");
 
             dtr = dtReset.NewRow();
 
@@ -5953,22 +6046,22 @@ namespace Test1
             dtr[3] = textBox16.Text;
             dtr[4] = textBox27.Text;
             dtr[5] = textBox31.Text;
-            dtr[6] = comboBox3.SelectedIndex;
-            dtr[7] = comboBox2.SelectedIndex;
-            dtr[8] = comboBox13.SelectedIndex;
+            dtr[6] = comboBox3.Text;
+            dtr[7] = comboBox2.Text;
+            dtr[8] = comboBox13.Text;
             if (!radioButton8.Checked) //Manual current input or not
             {
                 dtr[9] = false;
-                dtr[10] = cbPower.SelectedIndex; //powerdata
-                if (Convert.ToString(dtr[10]) == "0") //power
+                dtr[10] = cbPower.Text; //powerdata
+                if (Convert.ToString(dtr[10]) == "kW") //power
                 {
                     dtr[11] = TextBox1.Text;
                 }
-                else if (Convert.ToString(dtr[10]) == "1")
+                else if (Convert.ToString(dtr[10]) == "kVA")
                 {
                     dtr[11] = TextBox1.Text;
                 }
-                else if (Convert.ToString(dtr[10]) == "2")
+                else if (Convert.ToString(dtr[10]) == "HP")
                 {
                     dtr[11] = TextBox1.Text;
                 }
@@ -5977,7 +6070,7 @@ namespace Test1
             else
             {
                 dtr[9] = true;
-                dtr[10] = cbPower.SelectedIndex;
+                dtr[10] = cbPower.Text;
                 dtr[11] = TextBox1.Text;
                 dtr[12] = textBox3.Text;
             }
@@ -6000,12 +6093,12 @@ namespace Test1
                 dtr[34] = "";
             }
 
-            dtr[18] = comboBox14.SelectedIndex;
-            dtr[19] = comboBox4.SelectedIndex;
-            dtr[20] = comboBox6.SelectedIndex;
-            dtr[21] = comboBox7.SelectedIndex;
-            dtr[22] = comboBox8.SelectedIndex;
-            dtr[23] = comboBox9.SelectedIndex;
+            dtr[18] = comboBox14.Text;
+            dtr[19] = comboBox4.Text;
+            dtr[20] = comboBox6.Text;
+            dtr[21] = comboBox7.Text;
+            dtr[22] = comboBox8.Text;
+            dtr[23] = comboBox9.Text;
             if (radioButton7.Checked) //Manual derating input or not
             {
                 dtr[24] = true;
@@ -6033,7 +6126,7 @@ namespace Test1
             dtr[33] = textBox8.Text;
             dtr[35] = textBox29.Text;
             dtr[36] = textBox12.Text;
-            dtr[37] = comboBox5.SelectedIndex;
+            dtr[37] = comboBox5.Text;
             dtr[38] = textBox37.Text;
             if (loadtype == "DC")
             {
@@ -6072,7 +6165,7 @@ namespace Test1
             dtr[46] = textBox15.Text;
             dtr[47] = textBox24.Text;
             dtr[48] = textBox22.Text;
-            dtr[49] = comboBox12.SelectedIndex;
+            dtr[49] = comboBox12.Text;
             if (radioButton5.Checked)
             {
                 dtr[50] = "vendor";
@@ -6084,10 +6177,17 @@ namespace Test1
             dtr[51] = comboBox10.Text;
             dtr[52] = comboBox11.Text;
             dtr[54] = i;
+            dtr[56] = textBox35.Text;
+            dtr[57] = tbResult.Text;
 
             dtReset.Rows.Add(dtr);
 
+            
+            //reset all the  data
             ResetData();
+
+            //enable the undo reset button
+            undoResetToolStripMenuItem.Enabled = true;
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -6159,6 +6259,7 @@ namespace Test1
                 pvc4coreDB = null;
             }
 
+            DisabeUndoReset();
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
@@ -6345,9 +6446,245 @@ namespace Test1
             }
         }
 
+        private void UndoResetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            UndoReset();
+            DisabeUndoReset();
+        }
+
+        private void UndoReset()
+        {
+            DataRow dtx = dtReset.Rows[0];
+            bool noDatabase = false;
+            if (Convert.ToString(dtx[32]) == "vendor")
+            {
+                radioButton4.Checked = true;
+                if (comboBoxVendor.Items.Contains(Convert.ToString(dtx[55])))
+                {
+                    comboBoxVendor.SelectedItem = Convert.ToString(dtx[55]);
+                }
+                else
+                {
+                    MessageBox.Show("Error: Cable Database \"" + Convert.ToString(dtx[55]) + "\" not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    EditingState = false;
+                    f5.Enabled = true;
+
+                    if (!f5.Visible)
+                    {
+                        f5.Show();
+                    }
+                    else if (f5.WindowState == FormWindowState.Minimized)
+                    {
+                        f5.WindowState = FormWindowState.Normal;
+                    }
+                    else
+                    {
+                        f5.BringToFront();
+                    }
+
+                    button4.Text = "Add to Result";
+                    addToolStripMenuItem.Text = "Add to Result";
+                    button3.Text = "Add and Save";
+                    button5.Text = "Open Calculation Result";
+                    EditingState = false;
+                    noDatabase = true;
+                }
+            }
+            else if (Convert.ToString(dtx[32]) == "manual")
+            {
+                radioButton3.Checked = true;
+                comboBoxVendor.SelectedIndex = -1;
+            }
+
+            if (!noDatabase)
+            {
+                textBox13.Text = Convert.ToString(dtx[1]); //tagno
+                textBox26.Text = Convert.ToString(dtx[2]); //from
+                textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
+                textBox27.Text = Convert.ToString(dtx[4]); //to
+                textBox31.Text = Convert.ToString(dtx[5]); //todesc
+                comboBox3.Text = Convert.ToString(dtx[6]); //phase
+                comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
+                comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
+                if (Convert.ToString(dtx[9]) == "True")
+                {
+                    radioButton8.Checked = true;
+                }
+                else
+                {
+                    radioButton8.Checked = false;
+                }
+                cbPower.Text = Convert.ToString(dtx[10]); // power unit
+                TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
+                textBox3.Text = DtrToDoubleText(dtx, 12); // FL Current
+                if(DtrToDoubleText(dtx, 12) != "")
+                {
+
+                    current = Convert.ToDouble(dtx[12]);
+                }
+                textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
+                textBox5.Text = DtrToDoubleText(dtx, 14); //eff
+                textBox4.Text = DtrToDoubleText(dtx, 15); //pf
+                textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
+                textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
+                comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
+                comboBox4.Text = Convert.ToString(dtx[19]);//material
+                comboBox6.Text = Convert.ToString(dtx[20]); //insulation
+                comboBox7.Text = Convert.ToString(dtx[21]); //armour
+                comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
+                comboBox9.Text = Convert.ToString(dtx[23]); //installation
+                if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
+                {
+                    radioButton7.Checked = true;
+                }
+                else
+                {
+                    radioButton7.Checked = false;
+                }
+                textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
+                textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
+                textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
+                textBox19.Text = DtrToDoubleText(dtx, 28); //ktmain
+                if (DtrToDoubleText(dtx, 28) != "")
+                {
+
+                    ktmain = Convert.ToDouble(dtx[28]);
+                }
+                textBox6.Text = DtrToDoubleText(dtx, 29); //length
+                textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
+                textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
+                
+                textBox8.Text = DtrToDoubleText(dtx, 33); //vdrun
+                if (DtrToDoubleText(dtx, 33) != "")
+                {
+                    vdrun = Convert.ToDouble(dtx[33]);
+                }
+                textBox10.Text = DtrToDoubleText(dtx, 34); //vdstart
+                if (textBox10.Text != "")
+                {
+                    vdstart = Convert.ToDouble(dtx[34]);
+                }
+                else
+                {
+                    textBox10.Text = "";
+                }
+                textBox29.Text = DtrToDoubleText(dtx, 35);  //lmax
+                if (DtrToDoubleText(dtx, 35) != "")
+                {
+                    lmax = Convert.ToDouble(dtx[35]);
+                }
+                textBox12.Text = Convert.ToString(dtx[36]); //no of run
+                comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
+                textBox37.Text = DtrToDoubleText(dtx, 38); //wirearea
+                if (DtrToDoubleText(dtx, 38) != "")
+                {
+
+                    wirearea = Convert.ToDouble(dtx[38]);
+                    //Disable all inputs before vd calculation
+                    panel4.Enabled = true;
+                    panel5.Enabled = false;
+                    panel6.Enabled = false;
+
+                    //enable vd calculate & edit data buttons
+                    button7.Enabled = true;
+                    button8.Enabled = true;
+
+                    i = Convert.ToInt32(dtx[54]);
+                    Update_size();
+                }
+                if ((Convert.ToString(dtx[6]) == "DC") && (DtrToDoubleText(dtx,39) != ""))
+                {
+                    Rdc = Convert.ToDouble(dtx[39]);
+                    textBox34.Text = Rac.ToString("0.####"); //Rdc
+                }
+                else if (((Convert.ToString(dtx[6]) == "Single-Phase AC") || (Convert.ToString(dtx[6]) == "Three-Phase AC")) && (DtrToDoubleText(dtx, 39) != ""))
+                {
+                    Rac = Convert.ToDouble(dtx[39]);
+                    textBox34.Text = Rac.ToString("0.####"); //Rac
+                    X = Convert.ToDouble(dtx[40]);
+                    textBox33.Text = X.ToString("0.####"); //X
+                }
+                textBox32.Text = Convert.ToString(dtx[41]); //irated
+                if (DtrToDoubleText(dtx,41) != "")
+                {
+                    Irated = Convert.ToDouble(dtx[41]);
+                    iderated = Convert.ToDouble(dtx[42]); //iderated
+                }
+                if (Convert.ToString(dtx[43]) == "sc")
+                {
+                    radioButton2.Checked = true;
+                }
+                else if (Convert.ToString(dtx[43]) == "lte")
+                {
+                    radioButton1.Checked = true;
+                }
+                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+                textBox15.Text = DtrToDoubleText(dtx, 46); //initialtemp
+                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
+                textBox22.Text = DtrToDoubleText(dtx,48); //CLTE
+                if (DtrToDoubleText(dtx, 48) != "")
+                {
+                    cLTE = Convert.ToDouble(dtx[48]);
+                }
+                if (Convert.ToString(dtx[49]) != "")
+                {
+                    comboBox12.Text = Convert.ToString(dtx[49]); //protection type
+                    if (Convert.ToString(dtx[50]) == "vendor")
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else if (Convert.ToString(dtx[50]) == "manual")
+                    {
+                        radioButton6.Checked = true;
+                    }
+                    comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                    comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                }
+                else
+                {
+                    comboBox12.SelectedIndex = -1; //protection type
+                    if (Convert.ToString(dtx[50]) == "vendor")
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else if (Convert.ToString(dtx[50]) == "manual")
+                    {
+                        radioButton6.Checked = true;
+                    }
+                    comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                    comboBox10.SelectedIndex = -1;
+                    comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                    comboBox11.SelectedIndex = -1;
+                }
+                textBox35.Text = Convert.ToString(dtx[56]); //remarks
+                tbResult.Text = Convert.ToString(dtx[57]);
+
+                if (comboBox11.Text == "") //data being edited is vd calculated only
+                {
+                    button2.Enabled = false;
+                }
+                else //data being edited is complete with SC/LTE consideration
+                {
+                    button2.Enabled = false;
+                }
+
+
+                disable_save();
+                enable_result_btn();
+            }
+        }
+
+        private void DisabeUndoReset()
+        {
+            undoResetToolStripMenuItem.Enabled = false;
+        }
+
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
+            DisabeUndoReset();
         }
 
         private void TextBox13_TextChanged(object sender, EventArgs e)
@@ -6377,7 +6714,7 @@ namespace Test1
                 label60.Enabled = true;
                 panel13.BackColor = Color.Transparent;
             }
-
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -6393,21 +6730,18 @@ namespace Test1
 
         private void TextBox11_TextChanged(object sender, EventArgs e)
         {
+
+            PfVDStartChange();
+
             if (textBox11.Text != "")
             {
                 vdstartmax = double.Parse(textBox11.Text);
-                panel27.BackColor = Color.Transparent;
-            }
-            else if ((textBox11.Text == "") && (comboBox2.Text == "Motor"))
-            {
-                vdstartmax = 0;
-                panel27.BackColor = Color.Red;
             }
             else
             {
                 vdstartmax = 0;
-                panel27.BackColor = Color.Transparent;
             }
+            DisabeUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }

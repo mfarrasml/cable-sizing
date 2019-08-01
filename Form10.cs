@@ -401,18 +401,27 @@ namespace Test1
             {
 
                 maxTemp = double.Parse(comboBox1.Text);
+                double Number;
 
                 for (int i = 0; i < nMax; i++)
                 {
-                    if (Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) != 0)
+                    if (double.TryParse(Convert.ToString(dataGridView1.Rows[i].Cells[1].Value),out Number) )
                     {
-                        dataGridView1.Rows[i].Cells[2].Value = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) * (k_material + maxTemp) / (k_material + 20);
+
+                        if (Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) != 0)
+                        {
+                            dataGridView1.Rows[i].Cells[2].Value = Convert.ToDouble(dataGridView1.Rows[i].Cells[1].Value) * (k_material + maxTemp) / (k_material + 20);
+                        }
+                        else
+                        {
+
+                            dataGridView1.Rows[i].Cells[2].Value = null;
+
+                        }
                     }
                     else
                     {
-
                         dataGridView1.Rows[i].Cells[2].Value = null;
-
                     }
                 }
             }
@@ -458,11 +467,7 @@ namespace Test1
             inValid = cekValidasiTable();
             if (!inValid)
             {
-                finalCableData();
                 SaveData();
-                Form9.cableCount = cablecount;
-                PrevCable();
-                Close();
             }
             else
             {
@@ -472,18 +477,7 @@ namespace Test1
 
         private void SaveData()
         {
-            DataTable dt = new DataTable();
-            dt.Columns.Add("Size");
-            dt.Columns.Add("Rac20");
-            dt.Columns.Add("Rac");
-            dt.Columns.Add("X");
-            dt.Columns.Add("CCC");
-            dt.Columns.Add("OD");
-
-            StringArrayToDT(confirmedcabledata_nec, cablecount, 6, dt);
-
-            DataSet ds = new DataSet();
-            ds.Tables.Add(dt);
+            
 
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Filter = "MCI|*.mci";
@@ -491,11 +485,29 @@ namespace Test1
             {
                 try
                 {
+                    finalCableData();
+
+                    //copying datagridview to datatable
+                    DataTable dt = new DataTable();
+                    dt.Columns.Add("Size");
+                    dt.Columns.Add("Rac20");
+                    dt.Columns.Add("Rac");
+                    dt.Columns.Add("X");
+                    dt.Columns.Add("CCC");
+                    dt.Columns.Add("OD");
+
+                    StringArrayToDT(confirmedcabledata_nec, cablecount, 6, dt);
+
+                    DataSet ds = new DataSet();
+                    ds.Tables.Add(dt);
+
                     XmlTextWriter xmlSave = new XmlTextWriter(sfd.FileName, Encoding.UTF8);
                     xmlSave.Formatting = Formatting.Indented;
                     ds.DataSetName = "Manual_NEC_Input";
                     ds.WriteXml(xmlSave);
                     xmlSave.Close();
+                    Form9.cableCount = cablecount;
+                    PrevCable();
                 }
                 catch (Exception ex)
                 {
@@ -582,7 +594,6 @@ namespace Test1
                 {
                     Console.WriteLine(ex);
                 }
-                dataGridView1.ClearSelection();
             }
         }
     }
