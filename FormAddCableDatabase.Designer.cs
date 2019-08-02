@@ -44,6 +44,7 @@
             this.radioButtonIEC = new System.Windows.Forms.RadioButton();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabView = new System.Windows.Forms.TabPage();
+            this.radioButtonNECView = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.buttonCancel2 = new System.Windows.Forms.Button();
@@ -136,9 +137,6 @@
             // 
             this.comboBoxInsulation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxInsulation.FormattingEnabled = true;
-            this.comboBoxInsulation.Items.AddRange(new object[] {
-            "XLPE",
-            "PVC"});
             this.comboBoxInsulation.Location = new System.Drawing.Point(104, 100);
             this.comboBoxInsulation.Name = "comboBoxInsulation";
             this.comboBoxInsulation.Size = new System.Drawing.Size(98, 21);
@@ -148,7 +146,7 @@
             // labelCores
             // 
             this.labelCores.AutoSize = true;
-            this.labelCores.Location = new System.Drawing.Point(214, 104);
+            this.labelCores.Location = new System.Drawing.Point(419, 104);
             this.labelCores.Margin = new System.Windows.Forms.Padding(3);
             this.labelCores.Name = "labelCores";
             this.labelCores.Size = new System.Drawing.Size(66, 13);
@@ -163,7 +161,7 @@
             "2",
             "3",
             "4"});
-            this.comboBoxCores.Location = new System.Drawing.Point(286, 100);
+            this.comboBoxCores.Location = new System.Drawing.Point(491, 100);
             this.comboBoxCores.Name = "comboBoxCores";
             this.comboBoxCores.Size = new System.Drawing.Size(62, 21);
             this.comboBoxCores.TabIndex = 10;
@@ -172,7 +170,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(362, 104);
+            this.label1.Location = new System.Drawing.Point(219, 104);
             this.label1.Margin = new System.Windows.Forms.Padding(3);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(83, 13);
@@ -183,9 +181,7 @@
             // 
             this.comboBoxConductor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxConductor.FormattingEnabled = true;
-            this.comboBoxConductor.Items.AddRange(new object[] {
-            "Copper"});
-            this.comboBoxConductor.Location = new System.Drawing.Point(447, 100);
+            this.comboBoxConductor.Location = new System.Drawing.Point(304, 100);
             this.comboBoxConductor.Name = "comboBoxConductor";
             this.comboBoxConductor.Size = new System.Drawing.Size(98, 21);
             this.comboBoxConductor.TabIndex = 12;
@@ -251,7 +247,7 @@
             // tabView
             // 
             this.tabView.BackColor = System.Drawing.Color.White;
-            this.tabView.Controls.Add(this.radioButtonNEC);
+            this.tabView.Controls.Add(this.radioButtonNECView);
             this.tabView.Controls.Add(this.label8);
             this.tabView.Controls.Add(this.buttonDelete);
             this.tabView.Controls.Add(this.buttonCancel2);
@@ -275,6 +271,16 @@
             this.tabView.Size = new System.Drawing.Size(616, 534);
             this.tabView.TabIndex = 1;
             this.tabView.Text = "View Database";
+            // 
+            // radioButtonNECView
+            // 
+            this.radioButtonNECView.AutoSize = true;
+            this.radioButtonNECView.Location = new System.Drawing.Point(123, 4);
+            this.radioButtonNECView.Name = "radioButtonNECView";
+            this.radioButtonNECView.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonNECView.TabIndex = 37;
+            this.radioButtonNECView.Text = "NEC";
+            this.radioButtonNECView.UseVisualStyleBackColor = true;
             // 
             // label8
             // 
@@ -415,7 +421,7 @@
             this.comboBox2.FormattingEnabled = true;
             this.comboBox2.Items.AddRange(new object[] {
             "Copper"});
-            this.comboBox2.Location = new System.Drawing.Point(447, 100);
+            this.comboBox2.Location = new System.Drawing.Point(304, 100);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(98, 21);
             this.comboBox2.TabIndex = 30;
@@ -424,7 +430,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(214, 104);
+            this.label6.Location = new System.Drawing.Point(419, 104);
             this.label6.Margin = new System.Windows.Forms.Padding(3);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(66, 13);
@@ -434,7 +440,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(362, 104);
+            this.label7.Location = new System.Drawing.Point(219, 104);
             this.label7.Margin = new System.Windows.Forms.Padding(3);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(83, 13);
@@ -449,7 +455,7 @@
             "2",
             "3",
             "4"});
-            this.comboBox3.Location = new System.Drawing.Point(286, 100);
+            this.comboBox3.Location = new System.Drawing.Point(491, 100);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(62, 21);
             this.comboBox3.TabIndex = 28;
@@ -463,6 +469,7 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(42, 17);
             this.radioButton2.TabIndex = 19;
+            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "IEC";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
@@ -480,6 +487,7 @@
             // tabAdd
             // 
             this.tabAdd.BackColor = System.Drawing.Color.White;
+            this.tabAdd.Controls.Add(this.radioButtonNEC);
             this.tabAdd.Controls.Add(this.labelName);
             this.tabAdd.Controls.Add(this.textBoxName);
             this.tabAdd.Controls.Add(this.radioButtonIEC);
@@ -507,7 +515,7 @@
             this.radioButtonNEC.Location = new System.Drawing.Point(123, 4);
             this.radioButtonNEC.Name = "radioButtonNEC";
             this.radioButtonNEC.Size = new System.Drawing.Size(47, 17);
-            this.radioButtonNEC.TabIndex = 37;
+            this.radioButtonNEC.TabIndex = 17;
             this.radioButtonNEC.Text = "NEC";
             this.radioButtonNEC.UseVisualStyleBackColor = true;
             // 
@@ -570,6 +578,7 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Label label8;
         internal System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.RadioButton radioButtonNECView;
         private System.Windows.Forms.RadioButton radioButtonNEC;
     }
 }

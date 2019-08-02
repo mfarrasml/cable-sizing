@@ -31,19 +31,56 @@ namespace Test1
         public static DataTable dtPVC3final;
         public static DataTable dtPVC4final;
 
+        private DataTable dtNEC00;
+        private DataTable dtNEC10;
+        private DataTable dtNEC20;
+        private DataTable dtNEC01;
+        private DataTable dtNEC11;
+        private DataTable dtNEC21;
+
+        private DataTable dtNEC00final;
+        private DataTable dtNEC10final;
+        private DataTable dtNEC20final;
+        private DataTable dtNEC01final;
+        private DataTable dtNEC11final;
+        private DataTable dtNEC21final;
+
         int noCores;
         string insulation, conductor;
         string saveName;
 
         bool inValid;
 
-        int XLPE2, XLPE3, XLPE4, PVC2, PVC3, PVC4;
 
         bool IECStandard, NECStandard;
 
         internal static bool databaseEdited; //used to alert main form whether database is edited
 
         double[] cablesize = new double[17];
+        string[] nec_cablesize = new string[21]
+        {
+            "14",
+            "12",
+            "10",
+            "8",
+            "6",
+            "4",
+            "3",
+            "2",
+            "1",
+            "1/0",
+            "2/0",
+            "3/0",
+            "4/0",
+            "250",
+            "300",
+            "350",
+            "400",
+            "500",
+            "600",
+            "750",
+            "1000"
+        };
 
         public FormAddCableDatabase()
         {
@@ -84,12 +121,12 @@ namespace Test1
             cablesize[16] = 400;
 
             //initializing XLPE2 table column
-            dtXLPE2.Columns.Add("Size (mm²)");
-            dtXLPE2.Columns.Add("AC Resistance at 90°C(Ω/km)");
-            dtXLPE2.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtXLPE2.Columns.Add("DC Resistance at 90°C(Ω/km)");
-            dtXLPE2.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtXLPE2.Columns.Add("Above Ground CCC at 30°C(A)");
+            dtXLPE2.Columns.Add("Size");
+            dtXLPE2.Columns.Add("AC_Resistance");
+            dtXLPE2.Columns.Add("Reactance");
+            dtXLPE2.Columns.Add("DC_Resistance");
+            dtXLPE2.Columns.Add("UG_CCC");
+            dtXLPE2.Columns.Add("AG_CCC");
             /*
             dtXLPE2.Columns[0].ColumnName = "Size";
             dtXLPE2.Columns[1].ColumnName = "AC_Resistance";
@@ -102,12 +139,12 @@ namespace Test1
 
 
             //initializing XLPE3 table column
-            dtXLPE3.Columns.Add("Size (mm²)");
-            dtXLPE3.Columns.Add("AC Resistance at 90°C(Ω/km)");
-            dtXLPE3.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtXLPE3.Columns.Add("DC Resistance at 90°C(Ω/km)");
-            dtXLPE3.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtXLPE3.Columns.Add("Above Ground CCC at 30°C(A)");
+            dtXLPE3.Columns.Add("Size");
+            dtXLPE3.Columns.Add("AC_Resistance");
+            dtXLPE3.Columns.Add("Reactance");
+            dtXLPE3.Columns.Add("DC_Resistance");
+            dtXLPE3.Columns.Add("UG_CCC");
+            dtXLPE3.Columns.Add("AG_CCC");
             /*
             dtXLPE3.Columns[0].ColumnName = "Size";
             dtXLPE3.Columns[1].ColumnName = "AC_Resistance";
@@ -119,12 +156,12 @@ namespace Test1
             dtXLPE3.TableName = "XLPE_3CORE";
 
             //initializing XLPE4 table column
-            dtXLPE4.Columns.Add("Size (mm²)");
-            dtXLPE4.Columns.Add("AC Resistance at 90°C(Ω/km)");
-            dtXLPE4.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtXLPE4.Columns.Add("DC Resistance at 90°C(Ω/km)");
-            dtXLPE4.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtXLPE4.Columns.Add("Above Ground CCC at 30°C(A)");
+            dtXLPE4.Columns.Add("Size");
+            dtXLPE4.Columns.Add("AC_Resistance");
+            dtXLPE4.Columns.Add("Reactance");
+            dtXLPE4.Columns.Add("DC_Resistance");
+            dtXLPE4.Columns.Add("UG_CCC");
+            dtXLPE4.Columns.Add("AG_CCC");
             /*
             dtXLPE4.Columns[0].ColumnName = "Size";
             dtXLPE4.Columns[1].ColumnName = "AC_Resistance";
@@ -137,12 +174,12 @@ namespace Test1
 
 
             //initializing PVC2 table column
-            dtPVC2.Columns.Add("Size (mm²)");
-            dtPVC2.Columns.Add("AC Resistance at 70°C(Ω/km)");
-            dtPVC2.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtPVC2.Columns.Add("DC Resistance at 70°C(Ω/km)");
-            dtPVC2.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtPVC2.Columns.Add("Above Ground CCC at 30°C(A)");
+            dtPVC2.Columns.Add("Size");
+            dtPVC2.Columns.Add("AC_Resistance");
+            dtPVC2.Columns.Add("Reactance");
+            dtPVC2.Columns.Add("DC_Resistance");
+            dtPVC2.Columns.Add("UG_CCC");
+            dtPVC2.Columns.Add("AG_CCC");
             /*
             dtPVC2.Columns[0].ColumnName = "Size";
             dtPVC2.Columns[1].ColumnName = "AC_Resistance";
@@ -154,12 +191,12 @@ namespace Test1
             dtPVC2.TableName = "PVC_2CORE";
 
             //initializing PVC3 table column
-            dtPVC3.Columns.Add("Size (mm²)");
-            dtPVC3.Columns.Add("AC Resistance at 70°C(Ω/km)");
-            dtPVC3.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtPVC3.Columns.Add("DC Resistance at 70°C(Ω/km)");
-            dtPVC3.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtPVC3.Columns.Add("Above Ground CCC at 30°C(A)");
+            dtPVC3.Columns.Add("Size");
+            dtPVC3.Columns.Add("AC_Resistance");
+            dtPVC3.Columns.Add("Reactance");
+            dtPVC3.Columns.Add("DC_Resistance");
+            dtPVC3.Columns.Add("UG_CCC");
+            dtPVC3.Columns.Add("AG_CCC");
             /*
             dtPVC3.Columns[0].ColumnName = "Size";
             dtPVC3.Columns[1].ColumnName = "AC_Resistance";
@@ -171,12 +208,12 @@ namespace Test1
             dtPVC3.TableName = "PVC_3CORE";
 
             //initializing PVC4 table column
-            dtPVC4.Columns.Add("Size (mm²)");
-            dtPVC4.Columns.Add("AC Resistance at 70°C(Ω/km)");
-            dtPVC4.Columns.Add("Reactance at 50Hz(Ω/km)");
-            dtPVC4.Columns.Add("DC Resistance at 70°C(Ω/km)");
-            dtPVC4.Columns.Add("Under Ground CCC at 20°C(A)");
-            dtPVC4.Columns.Add("Above Ground CCC at 30°C(A)");
+            dtPVC4.Columns.Add("Size");
+            dtPVC4.Columns.Add("AC_Resistance");
+            dtPVC4.Columns.Add("Reactance");
+            dtPVC4.Columns.Add("DC_Resistance");
+            dtPVC4.Columns.Add("UG_CCC");
+            dtPVC4.Columns.Add("AG_CCC");
             /*
             dtPVC4.Columns[0].ColumnName = "Size";
             dtPVC4.Columns[1].ColumnName = "AC_Resistance";
@@ -219,6 +256,9 @@ namespace Test1
                 IECStandard = false;
                 NECStandard = true;
             }
+            FillEditCB();
+
+
 
             //checking standard used
             if (radioButtonIEC.Checked)
@@ -231,6 +271,78 @@ namespace Test1
                 IECSelected = false;
                 NECSelected = true;
             }
+
+
+            //NEC
+            dtNEC00 = new DataTable();
+            dtNEC10 = new DataTable();
+            dtNEC20 = new DataTable();
+            dtNEC01 = new DataTable();
+            dtNEC11 = new DataTable();
+            dtNEC21 = new DataTable();
+
+            //initializing NEC0 table column
+            dtNEC00.Columns.Add("Size");
+            dtNEC00.Columns.Add("Resistance");
+            dtNEC00.Columns.Add("Reactance");
+            dtNEC00.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC00.TableName = "NEC00";
+
+            //initializing NEC1 table column
+            dtNEC10.Columns.Add("Size");
+            dtNEC10.Columns.Add("Resistance");
+            dtNEC10.Columns.Add("Reactance");
+            dtNEC10.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC10.TableName = "NEC10";
+
+
+            //initializing NEC2 table column
+            dtNEC20.Columns.Add("Size");
+            dtNEC20.Columns.Add("Resistance");
+            dtNEC20.Columns.Add("Reactance");
+            dtNEC20.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC20.TableName = "NEC20";
+
+            //initializing NEC0 table column
+            dtNEC01.Columns.Add("Size");
+            dtNEC01.Columns.Add("Resistance");
+            dtNEC01.Columns.Add("Reactance");
+            dtNEC01.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC01.TableName = "NEC01";
+
+            //initializing NEC1 table column
+            dtNEC11.Columns.Add("Size");
+            dtNEC11.Columns.Add("Resistance");
+            dtNEC11.Columns.Add("Reactance");
+            dtNEC11.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC11.TableName = "NEC11";
+
+
+            //initializing NEC2 table column
+            dtNEC21.Columns.Add("Size");
+            dtNEC21.Columns.Add("Resistance");
+            dtNEC21.Columns.Add("Reactance");
+            dtNEC21.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC21.TableName = "NEC_21";
+
+
+            //initialize NEC wiresize
+            for (int i = 0; i < 21; i++)
+            {
+                dtNEC00.Rows.Add(nec_cablesize[i]);
+                dtNEC10.Rows.Add(nec_cablesize[i]);
+                dtNEC20.Rows.Add(nec_cablesize[i]);
+                dtNEC01.Rows.Add(nec_cablesize[i]);
+                dtNEC11.Rows.Add(nec_cablesize[i]);
+                dtNEC21.Rows.Add(nec_cablesize[i]);
+            }
+
 
             //initialize datagridview properties
             dataGridView1.DoubleBuffered(true);
@@ -322,18 +434,79 @@ namespace Test1
             dtPVC4view.TableName = "PVC_4CORE";
 
             //LOADING DATATABLE FOR NEC DATABASE
+            dtNEC00view = new DataTable();
+            dtNEC10view = new DataTable();
+            dtNEC20view = new DataTable();
+            dtNEC01view = new DataTable();
+            dtNEC11view = new DataTable();
+            dtNEC21view = new DataTable();
+
+            //initializing NEC0 table column
+            dtNEC00view.Columns.Add("Size");
+            dtNEC00view.Columns.Add("Resistance");
+            dtNEC00view.Columns.Add("Reactance");
+            dtNEC00view.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC00view.TableName = "NEC00";
+
+            //initializing NEC1 table column
+            dtNEC10view.Columns.Add("Size");
+            dtNEC10view.Columns.Add("Resistance");
+            dtNEC10view.Columns.Add("Reactance");
+            dtNEC10view.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC10view.TableName = "NEC10";
+
+
+            //initializing NEC2 table column
+            dtNEC20view.Columns.Add("Size");
+            dtNEC20view.Columns.Add("Resistance");
+            dtNEC20view.Columns.Add("Reactance");
+            dtNEC20view.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC20view.TableName = "NEC20";
+
+            //initializing NEC0 table column
+            dtNEC01view.Columns.Add("Size");
+            dtNEC01view.Columns.Add("Resistance");
+            dtNEC01view.Columns.Add("Reactance");
+            dtNEC01view.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC01view.TableName = "NEC01";
+
+            //initializing NEC1 table column
+            dtNEC11view.Columns.Add("Size");
+            dtNEC11view.Columns.Add("Resistance");
+            dtNEC11view.Columns.Add("Reactance");
+            dtNEC11view.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC11view.TableName = "NEC11";
+
+
+            //initializing NEC2 table column
+            dtNEC21view.Columns.Add("Size");
+            dtNEC21view.Columns.Add("Resistance");
+            dtNEC21view.Columns.Add("Reactance");
+            dtNEC21view.Columns.Add("CurrentCarryingCapacity");
+
+            dtNEC21view.TableName = "NEC_21";
+
         }
 
         private void ComboBoxInsulation_SelectedIndexChanged(object sender, EventArgs e)
         {
             insulation = comboBoxInsulation.Text;
+
             EnableSave();
             ChooseDatabase();
         }
 
         private void ComboBoxCores_SelectedIndexChanged(object sender, EventArgs e)
         {
-            noCores = int.Parse(comboBoxCores.Text);
+            if (comboBoxCores.Text != "")
+            {
+                noCores = int.Parse(comboBoxCores.Text);
+            }
             EnableSave();
             ChooseDatabase();
         }
@@ -349,7 +522,7 @@ namespace Test1
         {
             saveName = textBoxName.Text;
 
-            if ((saveName != "") && IECStandard)
+            if ((saveName != "") && IECStandard) //save IEC cable database
             {
                 dtXLPE2final = new DataTable();
                 dtXLPE3final = new DataTable();
@@ -374,6 +547,7 @@ namespace Test1
                         if (!File.Exists(saveDir))
                         {
                             SaveIECDatabase();
+                            LoadIECDatabase();
                             databaseEdited = true;
                         }
                         else //file with the same name detected
@@ -403,8 +577,64 @@ namespace Test1
                     MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+            else if ((saveName != "") && NECStandard) //save NEC cable database
+            {
+                dtNEC00final = new DataTable();
+                dtNEC10final = new DataTable();
+                dtNEC20final = new DataTable();
+                dtNEC01final = new DataTable();
+                dtNEC11final = new DataTable();
+                dtNEC21final = new DataTable();
+
+
+                inValid = cekValidasiTableNEC();
+                if (!inValid)
+                {
+                    checkAvailabilityNEC();
+                    finalCableDataNEC();
+                    if ((dtNEC00final.Rows.Count > 0) || (dtNEC10final.Rows.Count > 0) || (dtNEC20final.Rows.Count > 0) || (dtNEC01final.Rows.Count > 0)
+                        || (dtNEC11final.Rows.Count > 0) || (dtNEC21final.Rows.Count > 0))
+                    {
+                        var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                        Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+                        var saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", saveName + ".xml");
+
+                        if (!File.Exists(saveDir))
+                        {
+                            SaveNECDatabase();
+                            LoadNECDatabase();
+                            databaseEdited = true;
+                        }
+                        else //file with the same name detected
+                        {
+                            DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
+                                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                            if (dr == DialogResult.OK)
+                            {
+                                SaveNECDatabase();
+                                LoadNECDatabase();
+                                databaseEdited = true;
+                            }
+                            else
+                            {
+                                MessageBox.Show("Failed to save data!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
+        //Save the new IEC Database
         private void SaveIECDatabase()
         {
             var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
@@ -421,13 +651,36 @@ namespace Test1
 
             XmlTextWriter xmlSave = new XmlTextWriter(saveDir, Encoding.UTF8);
             xmlSave.Formatting = Formatting.Indented;
-            ds.DataSetName = "Cable_Database";
+            ds.DataSetName = "IEC_Cable_Database";
             ds.WriteXml(xmlSave);
             xmlSave.Close();
 
             MessageBox.Show("Data Saved!", "Cable Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        //save the new NEC database
+        private void SaveNECDatabase()
+        {
+            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+            var saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", saveName + ".xml");
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dtNEC00final);
+            ds.Tables.Add(dtNEC10final);
+            ds.Tables.Add(dtNEC20final);
+            ds.Tables.Add(dtNEC01final);
+            ds.Tables.Add(dtNEC11final);
+            ds.Tables.Add(dtNEC21final);
+
+            XmlTextWriter xmlSave = new XmlTextWriter(saveDir, Encoding.UTF8);
+            xmlSave.Formatting = Formatting.Indented;
+            ds.DataSetName = "NEC_Cable_Database";
+            ds.WriteXml(xmlSave);
+            xmlSave.Close();
+
+            MessageBox.Show("Data Saved!", "Cable Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
         private void DataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
@@ -452,6 +705,54 @@ namespace Test1
             {
                 IECStandard = false;
                 NECStandard = true;
+            }
+            FillEditCB();
+        }
+
+        private void FillEditCB()
+        {
+            if (IECStandard)
+            {
+                dataGridView1.DataSource = null;
+                comboBoxInsulation.Items.Clear();
+                comboBoxConductor.Items.Clear();
+
+                //fill insulation combobox
+                comboBoxInsulation.SelectedIndex = -1;
+                comboBoxInsulation.Items.Insert(0, "XLPE");
+                comboBoxInsulation.Items.Insert(1, "PVC");
+
+                //fill conductor type
+                comboBoxConductor.SelectedIndex = -1;
+                comboBoxConductor.Items.Insert(0, "Copper");
+
+                //show no of cores option
+                comboBoxCores.SelectedIndex = -1;
+                comboBoxCores.Visible = true;
+                labelCores.Visible = true;
+
+            }
+            else if (NECStandard)
+            {
+                dataGridView1.DataSource = null;
+                comboBoxInsulation.Items.Clear();
+                comboBoxConductor.Items.Clear();
+
+                //fill insulation combobox
+                comboBoxInsulation.SelectedIndex = -1;
+                comboBoxInsulation.Items.Insert(0, "TW/UF");
+                comboBoxInsulation.Items.Insert(1, "RHW/THW/THWN/USE/ZW");
+                comboBoxInsulation.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2");
+
+                //fill conductor type
+                comboBoxConductor.SelectedIndex = -1;
+                comboBoxConductor.Items.Insert(0, "Copper");
+                comboBoxConductor.Items.Insert(1, "Aluminium");
+
+                //hide no of cores option
+                comboBoxCores.SelectedIndex = -1;
+                comboBoxCores.Visible = false;
+                labelCores.Visible = false;
             }
         }
 
@@ -485,6 +786,19 @@ namespace Test1
 
         private void ChooseDatabase()
         {
+            if (IECStandard)
+            {
+                ChooseIECDatabase();
+            }
+            else if (NECStandard)
+            {
+                ChooseNECDatabase();
+            }
+        }
+
+        private void ChooseIECDatabase()
+        {
+
             if (conductor == "Copper")
             {
                 if (insulation == "XLPE")
@@ -500,7 +814,7 @@ namespace Test1
                             dataGridView1.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
                             dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView1);
+                            SetDGVRuntimeProperties(dataGridView1, 6);
                             break;
                         case 3:
                             //bound datagridview to datatable
@@ -511,7 +825,7 @@ namespace Test1
                             dataGridView1.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
                             dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView1);
+                            SetDGVRuntimeProperties(dataGridView1, 6);
                             break;
                         case 4:
                             //bound datagridview to datatable
@@ -522,7 +836,7 @@ namespace Test1
                             dataGridView1.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
                             dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView1);
+                            SetDGVRuntimeProperties(dataGridView1, 6);
                             break;
                         default:
                             dataGridView1.DataSource = null;
@@ -542,7 +856,7 @@ namespace Test1
                             dataGridView1.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
                             dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView1);
+                            SetDGVRuntimeProperties(dataGridView1, 6);
                             break;
                         case 3:
                             //bound datagridview to datatable
@@ -553,7 +867,7 @@ namespace Test1
                             dataGridView1.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
                             dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView1);
+                            SetDGVRuntimeProperties(dataGridView1, 6);
                             break;
                         case 4:
                             //bound datagridview to datatable
@@ -564,13 +878,95 @@ namespace Test1
                             dataGridView1.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
                             dataGridView1.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView1.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView1);
+                            SetDGVRuntimeProperties(dataGridView1, 6);
                             break;
                         default:
                             dataGridView1.DataSource = null;
                             break;
                     }
 
+                }
+                else
+                {
+                    dataGridView1.DataSource = null;
+                }
+            }
+            else
+            {
+                dataGridView1.DataSource = null;
+            }
+        }
+
+        private void ChooseNECDatabase()
+        {
+            dataGridView1.DataSource = null;
+            if (conductor == "Copper")
+            {
+                switch (insulation)
+                {
+                    case "TW/UF":
+                        dataGridView1.DataSource = dtNEC00;
+                        dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView1, 4);
+                        break;
+
+                    case "RHW/THW/THWN/USE/ZW":
+                        dataGridView1.DataSource = dtNEC10;
+                        dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView1, 4);
+                        break;
+                    case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
+                        dataGridView1.DataSource = dtNEC20;
+                        dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView1, 4);
+                        break;
+                    default:
+                        dataGridView1.DataSource = null;
+                        break;
+                }
+            }
+            else if (conductor == "Aluminium")
+            {
+
+                switch (insulation)
+                {
+                    case "TW/UF":
+                        dataGridView1.DataSource = dtNEC01;
+                        dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView1, 4);
+                        break;
+
+                    case "RHW/THW/THWN/USE/ZW":
+                        dataGridView1.DataSource = dtNEC11;
+                        dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView1, 4);
+                        break;
+                    case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
+                        dataGridView1.DataSource = dtNEC21;
+                        dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView1, 4);
+                        break;
+                    default:
+                        dataGridView1.DataSource = null;
+                        break;
                 }
             }
             else
@@ -580,10 +976,10 @@ namespace Test1
         }
 
         //Disable DataGridView Column Sorting and makes first column (wire size data) Read only 
-        private void SetDGVRuntimeProperties(DataGridView dgv)
+        private void SetDGVRuntimeProperties(DataGridView dgv, int len)
         {
             //disable column sorting
-            for (int i = 0; i < 6; i++)
+            for (int i = 0; i < len; i++)
             {
                 dgv.Columns[i].SortMode = DataGridViewColumnSortMode.NotSortable;
             }
@@ -614,7 +1010,7 @@ namespace Test1
         //Enable/disable save button
         private void EnableSave()
         {
-            if ((textBoxName.Text != "") && (comboBoxInsulation.Text != "") && (comboBoxConductor.Text != "") && (comboBoxCores.Text != ""))
+            if ((textBoxName.Text != "") && (comboBoxInsulation.Text != "") && (comboBoxConductor.Text != "") && ((IECStandard && (comboBoxCores.Text != "")) || (NECStandard)))
             {
                 buttonSave.Enabled = true;
             }
@@ -628,12 +1024,15 @@ namespace Test1
 
         //
         //
-        //VALIDATION FUNCTIONS
+        //  VALIDATION FUNCTIONS
         //
         //
 
         //variables
         bool[,] datAvailable = new bool[17, 6];
+        bool[,] datAvailableNEC = new bool[21, 6];
+        int lengthColNEC = 4;
+        int lengthRowNEC = 21;
 
         private void checkAvailability()
         {
@@ -778,7 +1177,156 @@ namespace Test1
 
         }
 
-        private bool cekValidasiTable()
+        private void checkAvailabilityNEC()
+        {
+            bool terisi;
+            //NEC00
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC00.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 0] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 0] = false;
+                }
+            }
+
+
+            //NEC10
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC10.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 1] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 1] = false;
+                }
+            }
+
+
+            //NEC20
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC20.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 2] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 2] = false;
+                }
+            }
+
+
+            //NEC01
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC01.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 3] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 3] = false;
+                }
+            }
+
+
+            //NEC11
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC11.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 4] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 4] = false;
+                }
+            }
+
+
+            //NEC21
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC21.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 5] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 5] = false;
+                }
+            }
+
+        }
+
+        //check if the new IEC database input is valid
+        private bool cekValidasiTable() 
         {
             bool inVal;
             int count;
@@ -914,6 +1462,150 @@ namespace Test1
             return inVal;
         }
 
+        //check whether the new NEC database input is valid
+        private bool cekValidasiTableNEC()
+        {
+            bool inVal;
+            int count;
+            inVal = false;
+            int i = 0;
+            int j;
+
+            //validate NEC00
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC00.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC10
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC10.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC20
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC20.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC01
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC01.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC011
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC11.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC21
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC21.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //return the validity of NEC database input
+            return inVal;
+        }
+
+        //finalizing IEC cable database
         private void finalCableData()
         {
             int k; 
@@ -1009,6 +1701,107 @@ namespace Test1
             }
         }
 
+        //finalizing NEC cable database
+        private void finalCableDataNEC()
+        {
+            int k;
+
+            //Save NEC00 Cable Data
+            k = 0;
+            dtNEC00final = dtNEC00.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 0])
+                {
+                    dtNEC00final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC10 Cable Data
+            k = 0;
+            dtNEC10final = dtNEC10.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 1])
+                {
+                    dtNEC10final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC20 Cable Data
+            k = 0;
+            dtNEC20final = dtNEC20.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 2])
+                {
+                    dtNEC20final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC01 Cable Data
+            k = 0;
+            dtNEC01final = dtNEC01.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 3])
+                {
+                    dtNEC01final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC11 Cable Data
+            k = 0;
+            dtNEC11final = dtNEC11.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 4])
+                {
+                    dtNEC11final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC10 Cable Data
+            k = 0;
+            dtNEC21final = dtNEC21.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 5])
+                {
+                    dtNEC21final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+        }
+
         //
         //
         // TAB VIEW Database
@@ -1018,6 +1811,7 @@ namespace Test1
         bool IECSelected;
         bool NECSelected;
 
+        string sysPath, oldFile, NewFile;
         DirectoryInfo di;
 
         DataSet viewCableDS;
@@ -1028,9 +1822,18 @@ namespace Test1
         DataTable dtPVC3view;
         DataTable dtPVC4view;
 
+
+        DataTable dtNEC00view;
+        DataTable dtNEC10view;
+        DataTable dtNEC20view;
+        DataTable dtNEC01view;
+        DataTable dtNEC11view;
+        DataTable dtNEC21view;
+
         int xlpe2coreLength, xlpe3coreLength, xlpe4coreLength, pvc2coreLength, pvc3coreLength, pvc4coreLength;
 
-        int IECFiles;
+        // reflect the number of IEC/NEC database count
+        int IECFiles, NECFiles;
 
 
         int viewCores;
@@ -1073,12 +1876,21 @@ namespace Test1
         {
             buttonEdit.Text = "Edit";
             dataGridView2.ReadOnly = true;
-            ReadIECDatabase();
+            if (IECSelected)
+            {
+                ReadIECDatabase();
+            }
+            else if (NECSelected)
+            {
+                ReadNECDatabase();
+            }
             ChooseDatabaseView();
             comboBoxDatabase.Enabled = true;
             buttonRename.Enabled = true;
             buttonDelete.Enabled = true;
             buttonCancel2.Visible = false;
+            radioButton2.Enabled = true;
+            radioButtonNECView.Enabled = true;
         }
 
         private void DataGridView2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -1115,7 +1927,17 @@ namespace Test1
                 comboBoxDatabase.Enabled = false;
                 buttonRename.Enabled = false;
                 buttonDelete.Enabled = false;
-                FillDataTableEdit();
+                comboBoxDatabase.Enabled = false;
+                radioButton2.Enabled = false;
+                radioButtonNECView.Enabled = false;
+                if (IECSelected)
+                {
+                    FillDataTableEdit();
+                }
+                else if (NECSelected)
+                {
+                    FillDataTableNECEdit();
+                }
 
                 //Make data editable
                 dataGridView2.ReadOnly = false;
@@ -1155,6 +1977,53 @@ namespace Test1
                                 buttonDelete.Enabled = true;
                                 buttonCancel2.Visible = false;
                                 databaseEdited = true;
+                                radioButton2.Enabled = true;
+                                radioButtonNECView.Enabled = true;
+                            }
+
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else if ((fileName != "") && NECSelected)
+                {
+                    dtNEC00final = new DataTable();
+                    dtNEC10final = new DataTable();
+                    dtNEC20final = new DataTable();
+                    dtNEC01final = new DataTable();
+                    dtNEC11final = new DataTable();
+                    dtNEC21final = new DataTable();
+
+
+                    inValid = CheckEditTableValidationNEC();
+                    if (!inValid)
+                    {
+                        CheckEditAvailabilityNEC();
+                        FinalCableDataEditNEC();
+                        if ((dtNEC00final.Rows.Count > 0) || (dtNEC10final.Rows.Count > 0) || (dtNEC20final.Rows.Count > 0) || (dtNEC01final.Rows.Count > 0)
+                            || (dtNEC11final.Rows.Count > 0) || (dtNEC21final.Rows.Count > 0))
+                        {
+                            DialogResult dr = MessageBox.Show("Edit existing database?", "Confirm Edit",
+                                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                            if (dr == DialogResult.OK)
+                            {
+                                SaveNECDatabaseView();
+                                buttonEdit.Text = "Edit";
+                                dataGridView2.ReadOnly = true;
+                                ReadNECDatabase();
+                                ChooseDatabaseView();
+                                comboBoxDatabase.Enabled = true;
+                                buttonRename.Enabled = true;
+                                buttonDelete.Enabled = true;
+                                buttonCancel2.Visible = false;
+                                databaseEdited = true;
                             }
 
                         }
@@ -1187,7 +2056,32 @@ namespace Test1
 
             XmlTextWriter xmlSave = new XmlTextWriter(saveDir, Encoding.UTF8);
             xmlSave.Formatting = Formatting.Indented;
-            ds.DataSetName = "Cable_Database";
+            ds.DataSetName = "IEC_Cable_Database";
+            ds.WriteXml(xmlSave);
+            xmlSave.Close();
+
+            MessageBox.Show("Data Saved!", "Cable Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+
+        //save the edited NEC database
+        private void SaveNECDatabaseView()
+        {
+            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+            var saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", fileName + ".xml");
+
+            DataSet ds = new DataSet();
+            ds.Tables.Add(dtNEC00final);
+            ds.Tables.Add(dtNEC10final);
+            ds.Tables.Add(dtNEC20final);
+            ds.Tables.Add(dtNEC01final);
+            ds.Tables.Add(dtNEC11final);
+            ds.Tables.Add(dtNEC21final);
+
+            XmlTextWriter xmlSave = new XmlTextWriter(saveDir, Encoding.UTF8);
+            xmlSave.Formatting = Formatting.Indented;
+            ds.DataSetName = "NEC_Cable_Database";
             ds.WriteXml(xmlSave);
             xmlSave.Close();
 
@@ -1329,17 +2223,181 @@ namespace Test1
             return inVal;
         }
 
+
+        //check whether the new NEC database input is valid
+        private bool CheckEditTableValidationNEC()
+        {
+            bool inVal;
+            int count;
+            inVal = false;
+            int i = 0;
+            int j;
+
+            //validate NEC00
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC00view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC10
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC10view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC20
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC20view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC01
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC01view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC011
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC11view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+
+            //validate NEC21
+            i = 0;
+            while ((i < lengthRowNEC) && !inVal)
+            {
+                j = 1;
+                count = 0;
+                while (j < 4)
+                {
+                    if (Convert.ToString(dtNEC21view.Rows[i].ItemArray[j]) == "")
+                    {
+                        count++;
+                    }
+                    j++;
+                }
+                if ((count < 3) && (count > 0))
+                {
+                    inVal = true;
+                }
+                i++;
+            }
+
+            //return the validity of NEC database input
+            return inVal;
+        }
+
+        string deleteDir;
         private void ButtonDelete_Click(object sender, EventArgs e)
         {
             DialogResult dr = MessageBox.Show("Delete cable data file \"" + fileName + "\"?", "Confirm Delete", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             if (dr == DialogResult.OK)
             {
-                string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
-                string deleteDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", fileName + ".xml");
+                if (IECSelected)
+                {
+                    sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    Directory.CreateDirectory(sysPath + "/Cable Sizing/IEC_database");
+                    deleteDir = Path.Combine(sysPath + "/Cable Sizing/IEC_database", fileName + ".xml");
+                }
+                else if (NECSelected)
+                {
+
+                    sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    Directory.CreateDirectory(sysPath + "/Cable Sizing/NEC_database");
+                    deleteDir = Path.Combine(sysPath + "/Cable Sizing/NEC_database", fileName + ".xml");
+                }
+                
                 File.Delete(deleteDir);
                 MessageBox.Show("Data \"" + fileName + "\" deleted successfully!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadIECDatabase();
+                if (IECSelected)
+                {
+                    LoadIECDatabase();
+                }
+                else if (NECSelected)
+                {
+                    LoadNECDatabase();
+                }
+                
                 databaseEdited = true;
             }
         }
@@ -1367,13 +2425,25 @@ namespace Test1
             }
         }
 
+
         private void RenameFile(object sender, FormClosedEventArgs e)
         {
             if (FormRename.saveClicked)
             {
-                string sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                string oldFile = Path.Combine(sysPath + "/Cable Sizing/IEC_database", fileName + ".xml");
-                string NewFile = Path.Combine(sysPath + "/Cable Sizing/IEC_database", FormRename.NewName + ".xml");
+                if (IECSelected)
+                {
+                    sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    oldFile = Path.Combine(sysPath + "/Cable Sizing/IEC_database", fileName + ".xml");
+                    NewFile = Path.Combine(sysPath + "/Cable Sizing/IEC_database", FormRename.NewName + ".xml");
+                }
+                else if (NECSelected)
+                {
+
+                    sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                    oldFile = Path.Combine(sysPath + "/Cable Sizing/NEC_database", fileName + ".xml");
+                    NewFile = Path.Combine(sysPath + "/Cable Sizing/NEC_database", FormRename.NewName + ".xml");
+                }
+
 
                 File.Move(oldFile, NewFile);
                 LoadIECDatabase();
@@ -1526,6 +2596,155 @@ namespace Test1
 
         }
 
+
+        private void CheckEditAvailabilityNEC()
+        {
+            bool terisi;
+            //NEC00
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC00view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 0] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 0] = false;
+                }
+            }
+
+
+            //NEC10
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC10view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 1] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 1] = false;
+                }
+            }
+
+
+            //NEC20
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC20view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 2] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 2] = false;
+                }
+            }
+
+
+            //NEC01
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC01view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 3] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 3] = false;
+                }
+            }
+
+
+            //NEC11
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC11view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 4] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 4] = false;
+                }
+            }
+
+
+            //NEC21
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                int j = 0;
+                terisi = true;
+                while (j < lengthColNEC)
+                {
+                    if (Convert.ToString(dtNEC21view.Rows[i].ItemArray[j]) == "")
+                    {
+                        terisi = false;
+                    }
+                    j++;
+                }
+                if (terisi)
+                {
+                    datAvailableNEC[i, 5] = true;
+                }
+                else
+                {
+                    datAvailableNEC[i, 5] = false;
+                }
+            }
+
+        }
+
         //Function to fill all data table with all the sizes available
         private void FillDataTableEdit()
         {
@@ -1628,6 +2847,108 @@ namespace Test1
 
         }
 
+        //Fill selected NEC database to the table
+        private void FillDataTableNECEdit()
+        {
+            //For XLPE 2 Core
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                DataRow row = dtNEC00view.NewRow();
+                if (i > dtNEC00view.Rows.Count - 1)
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC00view.Rows.InsertAt(row, i);
+                }
+                else if (nec_cablesize[i] != Convert.ToString(dtNEC00view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC00view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For XLPE 3 Core
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                DataRow row = dtNEC10view.NewRow();
+                if (i > dtNEC10view.Rows.Count - 1)
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC10view.Rows.InsertAt(row, i);
+                }
+                else if (nec_cablesize[i] != Convert.ToString(dtNEC10view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC10view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For XLPE 4 Core
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                DataRow row = dtNEC20view.NewRow();
+                if (i > dtNEC20view.Rows.Count - 1)
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC20view.Rows.InsertAt(row, i);
+                }
+                else if (nec_cablesize[i] != Convert.ToString(dtNEC20view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC20view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For PVC 2 Core
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                DataRow row = dtNEC01view.NewRow();
+                if (i > dtNEC01view.Rows.Count - 1)
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC01view.Rows.InsertAt(row, i);
+                }
+                else if (nec_cablesize[i] != Convert.ToString(dtNEC01view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC01view.Rows.InsertAt(row, i);
+                }
+            }
+
+            //For PVC 3 Core
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                DataRow row = dtNEC11view.NewRow();
+                if (i > dtNEC11view.Rows.Count - 1)
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC11view.Rows.InsertAt(row, i);
+                }
+                else if (nec_cablesize[i] != Convert.ToString(dtNEC11view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC11view.Rows.InsertAt(row, i);
+                }
+            }
+
+
+            //For PVC 4 Core
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                DataRow row = dtNEC21view.NewRow();
+                if (i > dtNEC21view.Rows.Count - 1)
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC21view.Rows.InsertAt(row, i);
+                }
+                else if (nec_cablesize[i] != Convert.ToString(dtNEC21view.Rows[i].ItemArray[0]))
+                {
+                    row[0] = nec_cablesize[i];
+                    dtNEC21view.Rows.InsertAt(row, i);
+                }
+            }
+
+        }
+
         private void FinalCableDataEdit()
         {
             int k;
@@ -1723,17 +3044,164 @@ namespace Test1
             }
         }
 
+
+        //finalizing Edit on NEC cable database
+        private void FinalCableDataEditNEC()
+        {
+            int k;
+
+            //Save NEC00 Cable Data
+            k = 0;
+            dtNEC00final = dtNEC00view.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 0])
+                {
+                    dtNEC00final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC10 Cable Data
+            k = 0;
+            dtNEC10final = dtNEC10view.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 1])
+                {
+                    dtNEC10final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC20 Cable Data
+            k = 0;
+            dtNEC20final = dtNEC20view.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 2])
+                {
+                    dtNEC20final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC01 Cable Data
+            k = 0;
+            dtNEC01final = dtNEC01view.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 3])
+                {
+                    dtNEC01final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC11 Cable Data
+            k = 0;
+            dtNEC11final = dtNEC11view.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 4])
+                {
+                    dtNEC11final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+
+
+            //Save NEC10 Cable Data
+            k = 0;
+            dtNEC21final = dtNEC21view.Copy();
+            for (int i = 0; i < lengthRowNEC; i++)
+            {
+                if (!datAvailableNEC[i, 5])
+                {
+                    dtNEC21final.Rows.RemoveAt(k);
+                }
+                else
+                {
+                    k++;
+                }
+            }
+        }
+
         private void RadioButton2_CheckedChanged(object sender, EventArgs e)
         {
             if (radioButton2.Checked)
             {
                 IECSelected = true;
                 NECSelected = false;
+                LoadIECDatabase();
             }
             else
             {
                 IECSelected = false;
                 NECSelected = true;
+                LoadNECDatabase();
+            }
+            FillEditCbView();
+            buttonEdit.Enabled = false;
+            buttonRename.Enabled = false;
+            buttonDelete.Enabled = false;
+        }
+        private void FillEditCbView()
+        {
+            if (IECSelected)
+            {
+                //fill insulation combobox
+                dataGridView2.DataSource = null;
+                comboBox1.Items.Clear();
+                comboBox1.Items.Insert(0, "XLPE");
+                comboBox1.Items.Insert(1, "PVC");
+
+                //fill conductor type
+                comboBox2.Items.Clear();
+                comboBox2.Items.Insert(0, "Copper");
+
+                //show no of cores option
+                comboBox3.Visible = true;
+                label6.Visible = true;
+
+            }
+            else if (NECSelected)
+            {
+                //fill insulation combobox
+                dataGridView2.DataSource = null;
+                comboBox1.Items.Clear();
+                comboBox1.Items.Insert(0, "TW/UF");
+                comboBox1.Items.Insert(1, "RHW/THW/THWN/USE/ZW");
+                comboBox1.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2");
+
+                //fill conductor type
+                comboBox2.Items.Clear();
+                comboBox2.Items.Insert(0, "Copper");
+                comboBox2.Items.Insert(1, "Aluminium");
+
+                //hide no of cores option
+                comboBox3.SelectedIndex = -1;
+                comboBox3.Visible = false;
+                label6.Visible = false;
             }
         }
 
@@ -1750,6 +3218,8 @@ namespace Test1
             IECFiles = files.Length;
             //fill vendor data from database
             comboBoxDatabase.Items.Clear();
+            comboBoxDatabase.ResetText();
+            fileName = "";
             comboBoxDatabase.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
             //fill all saved database created by user
             for (int z = 0; z < IECFiles; z++)
@@ -1761,49 +3231,95 @@ namespace Test1
             }
         }
 
+        private void LoadNECDatabase()
+        {
+            //read all file in database directory
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+            string saveDir = (systemPath + "/Cable Sizing/NEC_database");
+
+            di = new DirectoryInfo(saveDir);
+            //get all file name in database directory
+            FileInfo[] files = di.GetFiles("*.xml");
+            NECFiles = files.Length;
+            //fill vendor data from database
+            comboBoxDatabase.Items.Clear();
+            comboBoxDatabase.ResetText();
+            fileName = "";
+            //fill all saved database created by users
+            for (int z = 0; z < NECFiles; z++)
+            {
+                string tempstring;
+                tempstring = files[z].ToString();
+                tempstring = tempstring.Replace(".xml", "");
+                comboBoxDatabase.Items.Insert(z, tempstring);
+            }
+        }
 
         private void ComboBoxDatabase_SelectedIndexChanged(object sender, EventArgs e)
         {
             fileName = comboBoxDatabase.Text;
+            if (IECSelected)
+            {
+                if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
+                {
+                    ReadIECDatabase();
+                }
+                else if (fileName == "Sumi Indo Cable (Default)")
+                {
+                    DoubleArrayToDT(Form1.xlpe2core, 17, 6, dtXLPE2view);
+                    DoubleArrayToDT(Form1.xlpe3core, 17, 6, dtXLPE3view);
+                    DoubleArrayToDT(Form1.xlpe4core, 17, 6, dtXLPE4view);
+                    DoubleArrayToDT(Form1.pvc2core, 16, 6, dtPVC2view);
+                    DoubleArrayToDT(Form1.pvc3core, 16, 6, dtPVC3view);
+                    DoubleArrayToDT(Form1.pvc4core, 16, 6, dtPVC4view);
+                    //Insert default-hard-coded array table (sumi indo) to data table used here
+                    xlpe2coreLength = 17;
+                    xlpe3coreLength = 17;
+                    xlpe4coreLength = 17;
+                    pvc2coreLength = 16;
+                    pvc3coreLength = 16;
+                    pvc4coreLength = 16;
+                }
+                else if (fileName != "")
+                {
+                    dtXLPE2view = null;
+                    dtXLPE3view = null;
+                    dtXLPE4view = null;
+                    dtPVC2view = null;
+                    dtPVC3view = null;
+                    dtPVC4view = null;
+                }
 
-            if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
-            {
-                ReadIECDatabase();
+                EnableRenameDelete();
+                ChooseDatabaseView();
+                EnableEdit();
             }
-            else if (fileName == "Sumi Indo Cable (Default)")
+            else if (NECSelected)
             {
-                DoubleArrayToDT(Form1.xlpe2core, 17, 6, dtXLPE2view);
-                DoubleArrayToDT(Form1.xlpe3core, 17, 6, dtXLPE3view);
-                DoubleArrayToDT(Form1.xlpe4core, 17, 6, dtXLPE4view);
-                DoubleArrayToDT(Form1.pvc2core, 16, 6, dtPVC2view);
-                DoubleArrayToDT(Form1.pvc3core, 16, 6, dtPVC3view);
-                DoubleArrayToDT(Form1.pvc4core, 16, 6, dtPVC4view);
-                //Insert default-hard-coded array table (sumi indo) to data table used here
-                xlpe2coreLength = 17;
-                xlpe3coreLength = 17;
-                xlpe4coreLength = 17;
-                pvc2coreLength = 16;
-                pvc3coreLength = 16;
-                pvc4coreLength = 16;
-            }
-            else if (fileName != "")
-            {
-                dtXLPE2view = null;
-                dtXLPE3view = null;
-                dtXLPE4view = null;
-                dtPVC2view = null;
-                dtPVC3view = null;
-                dtPVC4view = null;
-            }
+                if (fileName != "")
+                {
+                    ReadNECDatabase();
+                }
+                else
+                {
+                    dtNEC00view = null;
+                    dtNEC10view = null;
+                    dtNEC20view = null;
+                    dtNEC01view = null;
+                    dtNEC11view = null;
+                    dtNEC21view = null;
+                }
 
-            EnableRenameDelete();
-            ChooseDatabaseView();
-            EnableEdit();
+                EnableRenameDelete();
+                ChooseDatabaseView();
+                EnableEdit();
+            }
         }
 
         private void EnableEdit()
         {
-            if ((fileName != "") && (fileName != "Sumi Indo Cable (Default)") && (viewconductor != "") && (viewinsulation != "") && (viewCores != 0))
+            if ((fileName != "") && (fileName != "Sumi Indo Cable (Default)") && (viewconductor != "") && (viewinsulation != "") && ((IECSelected && (viewCores != 0)) ||(NECSelected)) )
             {
                 buttonEdit.Enabled = true;
             }
@@ -1824,8 +3340,11 @@ namespace Test1
 
         private void ComboBox3_SelectedIndexChanged(object sender, EventArgs e)
         {
-
-            viewCores = int.Parse(comboBox3.Text);
+            if (comboBox3.Text != "")
+            {
+                viewCores = int.Parse(comboBox3.Text);
+            }
+            
             ChooseDatabaseView();
             EnableEdit();
         }
@@ -1912,7 +3431,81 @@ namespace Test1
             }
         }
 
+        //Read the selected NEC database data
+        internal void ReadNECDatabase()
+        {
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", fileName + ".xml");
+
+            //save database to a new dataset
+            viewCableDS = new DataSet();
+            viewCableDS.ReadXml(saveDir);
+
+            //save each cable data table to their respective datatable
+            if (viewCableDS.Tables.Contains("NEC00"))
+            {
+                dtNEC00view = viewCableDS.Tables["NEC00"].Copy();
+            }
+            else
+            {
+                dtNEC00view.Rows.Clear();
+            }
+            if (viewCableDS.Tables.Contains("NEC10"))
+            {
+                dtNEC10view = viewCableDS.Tables["NEC10"].Copy();
+            }
+            else
+            {
+                dtNEC10view.Rows.Clear();
+            }
+            if (viewCableDS.Tables.Contains("NEC20"))
+            {
+                dtNEC20view = viewCableDS.Tables["NEC20"].Copy();
+            }
+            else
+            {
+                dtNEC20view.Rows.Clear();
+            }
+            if (viewCableDS.Tables.Contains("NEC01"))
+            {
+                dtNEC01view = viewCableDS.Tables["NEC01"].Copy();
+            }
+            else
+            {
+                dtNEC01view.Rows.Clear();
+            }
+            if (viewCableDS.Tables.Contains("NEC11"))
+            {
+                dtNEC11view = viewCableDS.Tables["NEC11"].Copy();
+            }
+            else
+            {
+                dtNEC11view.Rows.Clear();
+            }
+            if (viewCableDS.Tables.Contains("NEC21"))
+            {
+                dtNEC21view = viewCableDS.Tables["NEC21"].Copy();
+            }
+            else
+            {
+                dtNEC21view.Rows.Clear();
+            }
+        }
+
         private void ChooseDatabaseView()
+        {
+            if (IECSelected)
+            {
+                ChooseIECDatabaseView();
+            }
+            else if (NECSelected)
+            {
+                ChooseNECDatabaseView();
+            }
+        }
+
+        private void ChooseIECDatabaseView()
         {
             if (viewconductor == "Copper")
             {
@@ -1929,7 +3522,7 @@ namespace Test1
                             dataGridView2.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
                             dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView2);
+                            SetDGVRuntimeProperties(dataGridView2, 6);
                             break;
                         case 3:
                             //bound datagridview to datatable
@@ -1940,7 +3533,7 @@ namespace Test1
                             dataGridView2.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
                             dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView2);
+                            SetDGVRuntimeProperties(dataGridView2, 6);
                             break;
                         case 4:
                             //bound datagridview to datatable
@@ -1951,7 +3544,7 @@ namespace Test1
                             dataGridView2.Columns[3].HeaderText = "DC Resistance at 90°C(Ω/km)";
                             dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView2);
+                            SetDGVRuntimeProperties(dataGridView2, 6);
                             break;
                         default:
                             dataGridView2.DataSource = null;
@@ -1971,7 +3564,7 @@ namespace Test1
                             dataGridView2.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
                             dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView2);
+                            SetDGVRuntimeProperties(dataGridView2, 6);
                             break;
                         case 3:
                             //bound datagridview to datatable
@@ -1981,7 +3574,7 @@ namespace Test1
                             dataGridView2.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
                             dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView2);
+                            SetDGVRuntimeProperties(dataGridView2, 6);
                             break;
                         case 4:
                             //bound datagridview to datatable
@@ -1991,7 +3584,7 @@ namespace Test1
                             dataGridView2.Columns[3].HeaderText = "DC Resistance at 70°C(Ω/km)";
                             dataGridView2.Columns[4].HeaderText = "In Ground CCC(A)";
                             dataGridView2.Columns[5].HeaderText = "In Air CCC(A)";
-                            SetDGVRuntimeProperties(dataGridView2);
+                            SetDGVRuntimeProperties(dataGridView2, 6);
                             break;
                         default:
                             dataGridView2.DataSource = null;
@@ -2006,6 +3599,76 @@ namespace Test1
             }
         }
 
+        private void ChooseNECDatabaseView()
+        {
+            if (viewconductor == "Copper")
+            {
+                switch (viewinsulation)
+                {
+                    case "TW/UF":
+                        dataGridView2.DataSource = dtNEC00view;
+                        dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        break;
+
+                    case "RHW/THW/THWN/USE/ZW":
+                        dataGridView2.DataSource = dtNEC10view;
+                        dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        break;
+                    case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
+                        dataGridView2.DataSource = dtNEC20view;
+                        dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        break;
+                    default:
+                        dataGridView2.DataSource = null;
+                        break;
+                }
+            }
+            else if (viewconductor == "Aluminium")
+            {
+
+                switch (viewinsulation)
+                {
+                    case "TW/UF":
+                        dataGridView2.DataSource = dtNEC01view;
+                        dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        break;
+
+                    case "RHW/THW/THWN/USE/ZW":
+                        dataGridView2.DataSource = dtNEC11view;
+                        dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        break;
+                    case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
+                        dataGridView2.DataSource = dtNEC21view;
+                        dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        break;
+                    default:
+                        dataGridView2.DataSource = null;
+                        break;
+                }
+            }
+            else
+            {
+                dataGridView2.DataSource = null;
+            }
+        }
         /*
         private void FillDataTable()
         {

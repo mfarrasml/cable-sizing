@@ -6452,7 +6452,7 @@ namespace Test1
                 pvc3coreLength = 16;
                 pvc4coreLength = 16;
             }
-            else if (SelectedDatabase != "")
+            else if (SelectedDatabase == "")
             {
                 xlpe2coreDB = null;
                 xlpe3coreDB = null;
