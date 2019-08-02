@@ -880,6 +880,13 @@ namespace Test1
             comboBox1.SelectedIndex = 1;
 
             Form5.Standard = 2;
+
+            //save default ktmain position
+
+            kttextboxX = textBox19.Location.X;
+            kttextboxY = textBox19.Location.Y;
+            ktlabelX = label43.Location.X;
+            ktlabelY = label43.Location.Y;
         }
 
 
@@ -3713,10 +3720,6 @@ namespace Test1
 
         private void Updatekt()
         {
-            kttextboxX = 433;
-            kttextboxY = 458;
-            ktlabelX = 310;
-            ktlabelY = 460;
 
             if (radioButton7.Checked)
             {
@@ -5496,11 +5499,6 @@ namespace Test1
                 label94.Visible = false;
                 label95.Visible = false;
 
-                kttextboxX = 433;
-                kttextboxY = 458;
-                ktlabelX = 310;
-                ktlabelY = 460;
-
                 textBox17.ReadOnly = false;
                 textBox18.ReadOnly = false;
                 textBox36.ReadOnly = false;
@@ -7190,6 +7188,16 @@ namespace Test1
         private void DisableUndoReset()
         {
             undoResetToolStripMenuItem.Enabled = false;
+        }
+
+        private void Panel21_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void Panel37_Paint(object sender, PaintEventArgs e)
+        {
+
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)

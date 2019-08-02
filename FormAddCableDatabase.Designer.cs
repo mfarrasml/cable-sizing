@@ -62,6 +62,7 @@
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.tabAdd = new System.Windows.Forms.TabPage();
+            this.radioButtonNEC = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabView.SuspendLayout();
@@ -250,6 +251,7 @@
             // tabView
             // 
             this.tabView.BackColor = System.Drawing.Color.White;
+            this.tabView.Controls.Add(this.radioButtonNEC);
             this.tabView.Controls.Add(this.label8);
             this.tabView.Controls.Add(this.buttonDelete);
             this.tabView.Controls.Add(this.buttonCancel2);
@@ -461,7 +463,6 @@
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(42, 17);
             this.radioButton2.TabIndex = 19;
-            this.radioButton2.TabStop = true;
             this.radioButton2.Text = "IEC";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.RadioButton2_CheckedChanged);
@@ -499,6 +500,16 @@
             this.tabAdd.Size = new System.Drawing.Size(616, 534);
             this.tabAdd.TabIndex = 0;
             this.tabAdd.Text = "Add Database";
+            // 
+            // radioButtonNEC
+            // 
+            this.radioButtonNEC.AutoSize = true;
+            this.radioButtonNEC.Location = new System.Drawing.Point(123, 4);
+            this.radioButtonNEC.Name = "radioButtonNEC";
+            this.radioButtonNEC.Size = new System.Drawing.Size(47, 17);
+            this.radioButtonNEC.TabIndex = 37;
+            this.radioButtonNEC.Text = "NEC";
+            this.radioButtonNEC.UseVisualStyleBackColor = true;
             // 
             // FormAddCableDatabase
             // 
@@ -559,5 +570,6 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Label label8;
         internal System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.RadioButton radioButtonNEC;
     }
 }

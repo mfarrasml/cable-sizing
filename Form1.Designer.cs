@@ -238,7 +238,6 @@
             this.button7 = new System.Windows.Forms.Button();
             this.comboBox15 = new System.Windows.Forms.ComboBox();
             this.label83 = new System.Windows.Forms.Label();
-            this.label82 = new System.Windows.Forms.Label();
             this.panel33 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.label86 = new System.Windows.Forms.Label();
@@ -265,18 +264,18 @@
             this.label21.Location = new System.Drawing.Point(9, 608);
             this.label21.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(37, 13);
+            this.label21.Size = new System.Drawing.Size(88, 13);
             this.label21.TabIndex = 26;
-            this.label21.Text = "Result";
+            this.label21.Text = "Suggested Cable";
             // 
             // tbResult
             // 
             this.tbResult.BackColor = System.Drawing.Color.White;
-            this.tbResult.Location = new System.Drawing.Point(50, 599);
+            this.tbResult.Location = new System.Drawing.Point(101, 599);
             this.tbResult.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.tbResult.Name = "tbResult";
             this.tbResult.ReadOnly = true;
-            this.tbResult.Size = new System.Drawing.Size(1140, 30);
+            this.tbResult.Size = new System.Drawing.Size(1089, 30);
             this.tbResult.TabIndex = 27;
             this.tbResult.TabStop = false;
             this.tbResult.Text = "";
@@ -350,14 +349,14 @@
             this.returnToTitleToolStripMenuItem.Image = global::Test1.Properties.Resources.Home_16x;
             this.returnToTitleToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.returnToTitleToolStripMenuItem.Name = "returnToTitleToolStripMenuItem";
-            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.returnToTitleToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.returnToTitleToolStripMenuItem.Text = "Home";
             this.returnToTitleToolStripMenuItem.Click += new System.EventHandler(this.ReturnToTitleToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
             // 
             // openToolStripMenuItem
             // 
@@ -365,7 +364,7 @@
             this.openToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -375,7 +374,7 @@
             this.addToolStripMenuItem.Image = global::Test1.Properties.Resources.Add_grey_16xMD;
             this.addToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.addToolStripMenuItem.Name = "addToolStripMenuItem";
-            this.addToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.addToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.addToolStripMenuItem.Text = "Add to Result";
             this.addToolStripMenuItem.Click += new System.EventHandler(this.AddToolStripMenuItem1_Click);
             // 
@@ -385,7 +384,7 @@
             this.saveToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
@@ -394,34 +393,34 @@
             this.saveAsToolStripMenuItem.Image = global::Test1.Properties.Resources.SaveAs_16x;
             this.saveAsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem.Text = "Save As";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(143, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Image = global::Test1.Properties.Resources.Settings_16x;
             this.settingsToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.SettingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
             this.exitToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.ExitToolStripMenuItem_Click);
             // 
@@ -441,7 +440,7 @@
             this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
             this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
@@ -451,7 +450,7 @@
             this.undoResetToolStripMenuItem.Image = global::Test1.Properties.Resources.Refresh_16x;
             this.undoResetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoResetToolStripMenuItem.Name = "undoResetToolStripMenuItem";
-            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.undoResetToolStripMenuItem.Text = "Undo Reset";
             this.undoResetToolStripMenuItem.Click += new System.EventHandler(this.UndoResetToolStripMenuItem_Click);
             // 
@@ -461,7 +460,7 @@
             this.cableDatabaseToolStripMenuItem,
             this.addCableDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.databaseToolStripMenuItem.Text = "Database";
             // 
             // cableDatabaseToolStripMenuItem
@@ -749,7 +748,7 @@
             this.label20.AutoSize = true;
             this.label20.BackColor = System.Drawing.Color.Transparent;
             this.label20.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label20.Location = new System.Drawing.Point(24, 153);
+            this.label20.Location = new System.Drawing.Point(8, 137);
             this.label20.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label20.Name = "label20";
             this.label20.Size = new System.Drawing.Size(59, 13);
@@ -890,7 +889,7 @@
             this.label31.AutoSize = true;
             this.label31.BackColor = System.Drawing.Color.Transparent;
             this.label31.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label31.Location = new System.Drawing.Point(24, 179);
+            this.label31.Location = new System.Drawing.Point(8, 163);
             this.label31.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label31.Name = "label31";
             this.label31.Size = new System.Drawing.Size(66, 13);
@@ -905,7 +904,7 @@
             "2",
             "3",
             "4"});
-            this.comboBox5.Location = new System.Drawing.Point(122, 175);
+            this.comboBox5.Location = new System.Drawing.Point(122, 159);
             this.comboBox5.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox5.Name = "comboBox5";
             this.comboBox5.Size = new System.Drawing.Size(100, 21);
@@ -1584,7 +1583,7 @@
             this.label74.AutoSize = true;
             this.label74.BackColor = System.Drawing.Color.Transparent;
             this.label74.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label74.Location = new System.Drawing.Point(24, 231);
+            this.label74.Location = new System.Drawing.Point(8, 215);
             this.label74.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label74.Name = "label74";
             this.label74.Size = new System.Drawing.Size(60, 13);
@@ -1596,7 +1595,7 @@
             this.label73.AutoSize = true;
             this.label73.BackColor = System.Drawing.Color.Transparent;
             this.label73.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label73.Location = new System.Drawing.Point(24, 257);
+            this.label73.Location = new System.Drawing.Point(8, 241);
             this.label73.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label73.Name = "label73";
             this.label73.Size = new System.Drawing.Size(60, 13);
@@ -1608,7 +1607,7 @@
             this.label72.AutoSize = true;
             this.label72.BackColor = System.Drawing.Color.Transparent;
             this.label72.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label72.Location = new System.Drawing.Point(24, 276);
+            this.label72.Location = new System.Drawing.Point(8, 260);
             this.label72.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label72.Name = "label72";
             this.label72.Size = new System.Drawing.Size(82, 26);
@@ -1617,7 +1616,7 @@
             // 
             // textBox34
             // 
-            this.textBox34.Location = new System.Drawing.Point(122, 227);
+            this.textBox34.Location = new System.Drawing.Point(122, 211);
             this.textBox34.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox34.Name = "textBox34";
             this.textBox34.ReadOnly = true;
@@ -1627,7 +1626,7 @@
             // 
             // textBox33
             // 
-            this.textBox33.Location = new System.Drawing.Point(122, 253);
+            this.textBox33.Location = new System.Drawing.Point(122, 237);
             this.textBox33.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox33.Name = "textBox33";
             this.textBox33.ReadOnly = true;
@@ -1637,7 +1636,7 @@
             // 
             // textBox32
             // 
-            this.textBox32.Location = new System.Drawing.Point(122, 279);
+            this.textBox32.Location = new System.Drawing.Point(122, 263);
             this.textBox32.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox32.Name = "textBox32";
             this.textBox32.ReadOnly = true;
@@ -1650,7 +1649,7 @@
             this.label75.AutoSize = true;
             this.label75.BackColor = System.Drawing.Color.Transparent;
             this.label75.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label75.Location = new System.Drawing.Point(188, 231);
+            this.label75.Location = new System.Drawing.Point(188, 215);
             this.label75.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label75.Name = "label75";
             this.label75.Size = new System.Drawing.Size(35, 13);
@@ -1662,7 +1661,7 @@
             this.label76.AutoSize = true;
             this.label76.BackColor = System.Drawing.Color.Transparent;
             this.label76.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label76.Location = new System.Drawing.Point(188, 257);
+            this.label76.Location = new System.Drawing.Point(188, 241);
             this.label76.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label76.Name = "label76";
             this.label76.Size = new System.Drawing.Size(75, 13);
@@ -1674,7 +1673,7 @@
             this.label77.AutoSize = true;
             this.label77.BackColor = System.Drawing.Color.Transparent;
             this.label77.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label77.Location = new System.Drawing.Point(188, 283);
+            this.label77.Location = new System.Drawing.Point(188, 267);
             this.label77.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label77.Name = "label77";
             this.label77.Size = new System.Drawing.Size(14, 13);
@@ -2632,7 +2631,6 @@
             this.panel32.Controls.Add(this.label73);
             this.panel32.Controls.Add(this.label83);
             this.panel32.Controls.Add(this.label72);
-            this.panel32.Controls.Add(this.label82);
             this.panel32.Controls.Add(this.textBox34);
             this.panel32.Controls.Add(this.textBox33);
             this.panel32.Controls.Add(this.textBox32);
@@ -2659,7 +2657,7 @@
             // 
             // panel31
             // 
-            this.panel31.Location = new System.Drawing.Point(118, 149);
+            this.panel31.Location = new System.Drawing.Point(118, 133);
             this.panel31.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.panel31.Name = "panel31";
             this.panel31.Size = new System.Drawing.Size(4, 20);
@@ -2668,7 +2666,7 @@
             // panel30
             // 
             this.panel30.BackColor = System.Drawing.Color.Red;
-            this.panel30.Location = new System.Drawing.Point(118, 175);
+            this.panel30.Location = new System.Drawing.Point(118, 159);
             this.panel30.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.panel30.Name = "panel30";
             this.panel30.Size = new System.Drawing.Size(4, 21);
@@ -2676,7 +2674,7 @@
             // 
             // panel29
             // 
-            this.panel29.Location = new System.Drawing.Point(118, 149);
+            this.panel29.Location = new System.Drawing.Point(118, 133);
             this.panel29.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.panel29.Name = "panel29";
             this.panel29.Size = new System.Drawing.Size(4, 21);
@@ -2684,7 +2682,7 @@
             // 
             // textBox12
             // 
-            this.textBox12.Location = new System.Drawing.Point(122, 149);
+            this.textBox12.Location = new System.Drawing.Point(122, 133);
             this.textBox12.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox12.Name = "textBox12";
             this.textBox12.Size = new System.Drawing.Size(100, 20);
@@ -2694,7 +2692,7 @@
             // 
             // textBox37
             // 
-            this.textBox37.Location = new System.Drawing.Point(122, 202);
+            this.textBox37.Location = new System.Drawing.Point(122, 186);
             this.textBox37.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox37.Name = "textBox37";
             this.textBox37.ReadOnly = true;
@@ -2707,7 +2705,7 @@
             this.label85.AutoSize = true;
             this.label85.BackColor = System.Drawing.Color.Transparent;
             this.label85.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label85.Location = new System.Drawing.Point(158, 206);
+            this.label85.Location = new System.Drawing.Point(158, 190);
             this.label85.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label85.Name = "label85";
             this.label85.Size = new System.Drawing.Size(26, 13);
@@ -2742,7 +2740,7 @@
             // 
             this.comboBox15.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox15.FormattingEnabled = true;
-            this.comboBox15.Location = new System.Drawing.Point(188, 202);
+            this.comboBox15.Location = new System.Drawing.Point(188, 186);
             this.comboBox15.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBox15.Name = "comboBox15";
             this.comboBox15.Size = new System.Drawing.Size(84, 21);
@@ -2755,24 +2753,12 @@
             this.label83.AutoSize = true;
             this.label83.BackColor = System.Drawing.Color.Transparent;
             this.label83.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label83.Location = new System.Drawing.Point(24, 206);
+            this.label83.Location = new System.Drawing.Point(8, 190);
             this.label83.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label83.Name = "label83";
             this.label83.Size = new System.Drawing.Size(27, 13);
             this.label83.TabIndex = 153;
             this.label83.Text = "Size";
-            // 
-            // label82
-            // 
-            this.label82.AutoSize = true;
-            this.label82.BackColor = System.Drawing.Color.Transparent;
-            this.label82.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label82.Location = new System.Drawing.Point(8, 127);
-            this.label82.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
-            this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(88, 13);
-            this.label82.TabIndex = 152;
-            this.label82.Text = "Suggested Cable";
             // 
             // panel33
             // 
@@ -2969,7 +2955,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Button button7;
         private System.Windows.Forms.Label label83;
-        private System.Windows.Forms.Label label82;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label85;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -62,6 +63,7 @@ namespace Test1
 
         private void OpenForm_Load(object sender, EventArgs e)
         {
+
             //Apply Settings
 
             //Apply Decimal separator setting
@@ -87,5 +89,9 @@ namespace Test1
             //Apply toolbar text activated setting
             Form5.toolbarTextActivated = Properties.Settings.Default.ToolbarTextProperties;
         }
+
+
     }
+
+
 }
