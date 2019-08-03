@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form5));
             this.button2 = new System.Windows.Forms.Button();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
@@ -74,6 +75,7 @@
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.clipboardCopy = new System.Windows.Forms.ToolStripButton();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.label1 = new System.Windows.Forms.Label();
             this.No = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CableTagNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.From = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -114,7 +116,6 @@
             this.CLTE = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.SelectedCable = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Remarks = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -194,7 +195,7 @@
             this.newToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.newToolStripMenuItem1.Name = "newToolStripMenuItem1";
             this.newToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-            this.newToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.newToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.newToolStripMenuItem1.Text = "New";
             this.newToolStripMenuItem1.Click += new System.EventHandler(this.NewToolStripMenuItem_Click);
             // 
@@ -204,7 +205,7 @@
             this.openToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.openToolStripMenuItem1.Name = "openToolStripMenuItem1";
             this.openToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.openToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.openToolStripMenuItem1.Text = "Open";
             this.openToolStripMenuItem1.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
@@ -214,7 +215,7 @@
             this.saveToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
             this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.saveToolStripMenuItem1.Text = "Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
@@ -223,33 +224,33 @@
             this.saveAsToolStripMenuItem1.Image = global::Test1.Properties.Resources.SaveAs_16x;
             this.saveAsToolStripMenuItem1.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.saveAsToolStripMenuItem1.Name = "saveAsToolStripMenuItem1";
-            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.saveAsToolStripMenuItem1.Size = new System.Drawing.Size(146, 22);
             this.saveAsToolStripMenuItem1.Text = "Save As";
             this.saveAsToolStripMenuItem1.Click += new System.EventHandler(this.SaveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator6
             // 
             this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator6.Size = new System.Drawing.Size(143, 6);
             // 
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
             this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.PrintToolStripMenuItem_Click);
             // 
             // toolStripSeparator5
             // 
             this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator5.Size = new System.Drawing.Size(143, 6);
             // 
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
             this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.F4)));
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.closeToolStripMenuItem.Text = "Close";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.CloseToolStripMenuItem_Click);
             // 
@@ -367,14 +368,14 @@
             this.toolbarMenuDescriptionToolStripMenuItem.Checked = true;
             this.toolbarMenuDescriptionToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.toolbarMenuDescriptionToolStripMenuItem.Name = "toolbarMenuDescriptionToolStripMenuItem";
-            this.toolbarMenuDescriptionToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.toolbarMenuDescriptionToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.toolbarMenuDescriptionToolStripMenuItem.Text = "Toolbar Menu Description";
             this.toolbarMenuDescriptionToolStripMenuItem.Click += new System.EventHandler(this.ToolbarMenuDescriptionToolStripMenuItem_Click);
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(210, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(211, 22);
             this.showToolStripMenuItem.Text = "Hide Toolbar";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.ShowToolStripMenuItem_Click);
             // 
@@ -516,8 +517,15 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.dataGridView1.BackgroundColor = System.Drawing.Color.White;
-            this.dataGridView1.ColumnHeadersHeight = 29;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.No,
             this.CableTagNo,
@@ -559,14 +567,14 @@
             this.CLTE,
             this.SelectedCable,
             this.Remarks});
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridView1.Location = new System.Drawing.Point(13, 82);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -577,6 +585,20 @@
             this.dataGridView1.Size = new System.Drawing.Size(775, 360);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.DataGridView1_SelectionChanged);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(322, 58);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(156, 17);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Selected Cable Data";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // No
             // 
@@ -594,7 +616,7 @@
             this.CableTagNo.Name = "CableTagNo";
             this.CableTagNo.ReadOnly = true;
             this.CableTagNo.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CableTagNo.Width = 82;
+            this.CableTagNo.Width = 59;
             // 
             // From
             // 
@@ -648,7 +670,7 @@
             this.LoadType.Name = "LoadType";
             this.LoadType.ReadOnly = true;
             this.LoadType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.LoadType.Width = 64;
+            this.LoadType.Width = 58;
             // 
             // Voltage
             // 
@@ -657,7 +679,7 @@
             this.Voltage.Name = "Voltage";
             this.Voltage.ReadOnly = true;
             this.Voltage.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Voltage.Width = 65;
+            this.Voltage.Width = 59;
             // 
             // Installation
             // 
@@ -675,7 +697,7 @@
             this.Power.Name = "Power";
             this.Power.ReadOnly = true;
             this.Power.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Power.Width = 69;
+            this.Power.Width = 62;
             // 
             // Efficiency
             // 
@@ -684,7 +706,7 @@
             this.Efficiency.Name = "Efficiency";
             this.Efficiency.ReadOnly = true;
             this.Efficiency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Efficiency.Width = 83;
+            this.Efficiency.Width = 75;
             // 
             // CosPhi
             // 
@@ -693,7 +715,7 @@
             this.CosPhi.Name = "CosPhi";
             this.CosPhi.ReadOnly = true;
             this.CosPhi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CosPhi.Width = 66;
+            this.CosPhi.Width = 59;
             // 
             // SinPhi
             // 
@@ -702,7 +724,7 @@
             this.SinPhi.Name = "SinPhi";
             this.SinPhi.ReadOnly = true;
             this.SinPhi.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SinPhi.Width = 63;
+            this.SinPhi.Width = 57;
             // 
             // CosBeta
             // 
@@ -711,7 +733,7 @@
             this.CosBeta.Name = "CosBeta";
             this.CosBeta.ReadOnly = true;
             this.CosBeta.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CosBeta.Width = 64;
+            this.CosBeta.Width = 58;
             // 
             // Ifl
             // 
@@ -720,7 +742,7 @@
             this.Ifl.Name = "Ifl";
             this.Ifl.ReadOnly = true;
             this.Ifl.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Ifl.Width = 109;
+            this.Ifl.Width = 86;
             // 
             // Istart
             // 
@@ -729,7 +751,7 @@
             this.Istart.Name = "Istart";
             this.Istart.ReadOnly = true;
             this.Istart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Istart.Width = 88;
+            this.Istart.Width = 68;
             // 
             // NoOfRun
             // 
@@ -738,7 +760,7 @@
             this.NoOfRun.Name = "NoOfRun";
             this.NoOfRun.ReadOnly = true;
             this.NoOfRun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.NoOfRun.Width = 65;
+            this.NoOfRun.Width = 59;
             // 
             // WireSize
             // 
@@ -747,7 +769,7 @@
             this.WireSize.Name = "WireSize";
             this.WireSize.ReadOnly = true;
             this.WireSize.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.WireSize.Width = 61;
+            this.WireSize.Width = 55;
             // 
             // Rac
             // 
@@ -756,14 +778,15 @@
             this.Rac.Name = "Rac";
             this.Rac.ReadOnly = true;
             this.Rac.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Rac.Width = 70;
+            this.Rac.Width = 63;
             // 
             // Rdc
             // 
             this.Rdc.HeaderText = "Rdc (Ω/km)";
             this.Rdc.Name = "Rdc";
             this.Rdc.ReadOnly = true;
-            this.Rdc.Width = 89;
+            this.Rdc.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Rdc.Width = 63;
             // 
             // X
             // 
@@ -772,6 +795,7 @@
             this.X.Name = "X";
             this.X.ReadOnly = true;
             this.X.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.X.Width = 90;
             // 
             // Irated
             // 
@@ -780,7 +804,7 @@
             this.Irated.Name = "Irated";
             this.Irated.ReadOnly = true;
             this.Irated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Irated.Width = 64;
+            this.Irated.Width = 58;
             // 
             // Kt
             // 
@@ -789,7 +813,7 @@
             this.Kt.Name = "Kt";
             this.Kt.ReadOnly = true;
             this.Kt.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Kt.Width = 113;
+            this.Kt.Width = 87;
             // 
             // Iderated
             // 
@@ -798,7 +822,7 @@
             this.Iderated.Name = "Iderated";
             this.Iderated.ReadOnly = true;
             this.Iderated.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Iderated.Width = 73;
+            this.Iderated.Width = 66;
             // 
             // Protection
             // 
@@ -807,7 +831,7 @@
             this.Protection.Name = "Protection";
             this.Protection.ReadOnly = true;
             this.Protection.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Protection.Width = 88;
+            this.Protection.Width = 79;
             // 
             // NomBreakCurrent
             // 
@@ -816,7 +840,7 @@
             this.NomBreakCurrent.Name = "NomBreakCurrent";
             this.NomBreakCurrent.ReadOnly = true;
             this.NomBreakCurrent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.NomBreakCurrent.Width = 144;
+            this.NomBreakCurrent.Width = 115;
             // 
             // Length
             // 
@@ -825,7 +849,7 @@
             this.Length.Name = "Length";
             this.Length.ReadOnly = true;
             this.Length.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Length.Width = 63;
+            this.Length.Width = 57;
             // 
             // Lmax
             // 
@@ -834,7 +858,7 @@
             this.Lmax.Name = "Lmax";
             this.Lmax.ReadOnly = true;
             this.Lmax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Lmax.Width = 55;
+            this.Lmax.Width = 50;
             // 
             // Vdrun
             // 
@@ -843,7 +867,7 @@
             this.Vdrun.Name = "Vdrun";
             this.Vdrun.ReadOnly = true;
             this.Vdrun.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Vdrun.Width = 61;
+            this.Vdrun.Width = 55;
             // 
             // VdrunMax
             // 
@@ -852,7 +876,7 @@
             this.VdrunMax.Name = "VdrunMax";
             this.VdrunMax.ReadOnly = true;
             this.VdrunMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.VdrunMax.Width = 83;
+            this.VdrunMax.Width = 62;
             // 
             // Vdstart
             // 
@@ -861,7 +885,7 @@
             this.Vdstart.Name = "Vdstart";
             this.Vdstart.ReadOnly = true;
             this.Vdstart.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Vdstart.Width = 66;
+            this.Vdstart.Width = 59;
             // 
             // VdstartMax
             // 
@@ -870,7 +894,7 @@
             this.VdstartMax.Name = "VdstartMax";
             this.VdstartMax.ReadOnly = true;
             this.VdstartMax.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.VdstartMax.Width = 88;
+            this.VdstartMax.Width = 67;
             // 
             // SCCurrent
             // 
@@ -879,7 +903,7 @@
             this.SCCurrent.Name = "SCCurrent";
             this.SCCurrent.ReadOnly = true;
             this.SCCurrent.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SCCurrent.Width = 92;
+            this.SCCurrent.Width = 83;
             // 
             // tFault
             // 
@@ -888,7 +912,7 @@
             this.tFault.Name = "tFault";
             this.tFault.ReadOnly = true;
             this.tFault.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.tFault.Width = 93;
+            this.tFault.Width = 74;
             // 
             // Smin
             // 
@@ -897,7 +921,7 @@
             this.Smin.Name = "Smin";
             this.Smin.ReadOnly = true;
             this.Smin.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Smin.Width = 193;
+            this.Smin.Width = 117;
             // 
             // BLTE
             // 
@@ -906,7 +930,7 @@
             this.BLTE.Name = "BLTE";
             this.BLTE.ReadOnly = true;
             this.BLTE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.BLTE.Width = 97;
+            this.BLTE.Width = 68;
             // 
             // CLTE
             // 
@@ -915,7 +939,7 @@
             this.CLTE.Name = "CLTE";
             this.CLTE.ReadOnly = true;
             this.CLTE.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.CLTE.Width = 87;
+            this.CLTE.Width = 59;
             // 
             // SelectedCable
             // 
@@ -924,7 +948,7 @@
             this.SelectedCable.Name = "SelectedCable";
             this.SelectedCable.ReadOnly = true;
             this.SelectedCable.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.SelectedCable.Width = 85;
+            this.SelectedCable.Width = 77;
             // 
             // Remarks
             // 
@@ -934,20 +958,6 @@
             this.Remarks.ReadOnly = true;
             this.Remarks.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.Remarks.Width = 55;
-            // 
-            // label1
-            // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.Transparent;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(322, 58);
-            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(156, 17);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Selected Cable Data";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Form5
             // 
@@ -1024,6 +1034,7 @@
         private System.Windows.Forms.ToolStripButton btnDeleteAll;
         private System.Windows.Forms.ToolStripButton clipboardCopy;
         public System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridViewTextBoxColumn No;
         private System.Windows.Forms.DataGridViewTextBoxColumn CableTagNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn From;
@@ -1064,6 +1075,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CLTE;
         private System.Windows.Forms.DataGridViewTextBoxColumn SelectedCable;
         private System.Windows.Forms.DataGridViewTextBoxColumn Remarks;
-        private System.Windows.Forms.Label label1;
     }
 }

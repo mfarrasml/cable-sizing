@@ -548,6 +548,7 @@ namespace Test1
                         {
                             SaveIECDatabase();
                             LoadIECDatabase();
+                            ResetStateAfterSave();
                             databaseEdited = true;
                         }
                         else //file with the same name detected
@@ -558,6 +559,7 @@ namespace Test1
                             {
                                 SaveIECDatabase();
                                 LoadIECDatabase();
+                                ResetStateAfterSave();
                                 databaseEdited = true;
                             }
                             else
@@ -603,6 +605,7 @@ namespace Test1
                         {
                             SaveNECDatabase();
                             LoadNECDatabase();
+                            ResetStateAfterSave();
                             databaseEdited = true;
                         }
                         else //file with the same name detected
@@ -613,6 +616,7 @@ namespace Test1
                             {
                                 SaveNECDatabase();
                                 LoadNECDatabase();
+                                ResetStateAfterSave();
                                 databaseEdited = true;
                             }
                             else
@@ -682,6 +686,19 @@ namespace Test1
             MessageBox.Show("Data Saved!", "Cable Database", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        private void ResetStateAfterSave()
+        {
+            dataGridView1.DataSource = null;
+            comboBoxInsulation.SelectedIndex = -1;
+            insulation = "";
+            comboBoxConductor.SelectedIndex = -1;
+            conductor = "";
+            comboBoxCores.SelectedIndex = -1;
+            noCores = 0;
+            textBoxName.Text = "";
+            saveName = "";
+        }
+
         private void DataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
         {
             try
@@ -719,15 +736,18 @@ namespace Test1
 
                 //fill insulation combobox
                 comboBoxInsulation.SelectedIndex = -1;
+                insulation = "";
                 comboBoxInsulation.Items.Insert(0, "XLPE");
                 comboBoxInsulation.Items.Insert(1, "PVC");
 
                 //fill conductor type
                 comboBoxConductor.SelectedIndex = -1;
+                conductor = "";
                 comboBoxConductor.Items.Insert(0, "Copper");
 
                 //show no of cores option
                 comboBoxCores.SelectedIndex = -1;
+                noCores =  0;
                 comboBoxCores.Visible = true;
                 labelCores.Visible = true;
 
@@ -740,17 +760,20 @@ namespace Test1
 
                 //fill insulation combobox
                 comboBoxInsulation.SelectedIndex = -1;
+                insulation = "";
                 comboBoxInsulation.Items.Insert(0, "TW/UF");
                 comboBoxInsulation.Items.Insert(1, "RHW/THW/THWN/USE/ZW");
                 comboBoxInsulation.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2");
 
                 //fill conductor type
                 comboBoxConductor.SelectedIndex = -1;
+                conductor = "";
                 comboBoxConductor.Items.Insert(0, "Copper");
                 comboBoxConductor.Items.Insert(1, "Aluminium");
 
                 //hide no of cores option
                 comboBoxCores.SelectedIndex = -1;
+                noCores = 0;
                 comboBoxCores.Visible = false;
                 labelCores.Visible = false;
             }
@@ -799,9 +822,9 @@ namespace Test1
         private void ChooseIECDatabase()
         {
 
-            if (conductor == "Copper")
+            if (comboBoxConductor.Text == "Copper")
             {
-                if (insulation == "XLPE")
+                if (comboBoxInsulation.Text == "XLPE")
                 {
                     switch (noCores)
                     {
@@ -843,7 +866,7 @@ namespace Test1
                             break;
                     }
                 }
-                else if (insulation == "PVC")
+                else if (comboBoxInsulation.Text == "PVC")
                 {
                     switch (noCores)
                     {
@@ -900,9 +923,9 @@ namespace Test1
         private void ChooseNECDatabase()
         {
             dataGridView1.DataSource = null;
-            if (conductor == "Copper")
+            if (comboBoxConductor.Text == "Copper")
             {
-                switch (insulation)
+                switch (comboBoxInsulation.Text)
                 {
                     case "TW/UF":
                         dataGridView1.DataSource = dtNEC00;
@@ -934,10 +957,10 @@ namespace Test1
                         break;
                 }
             }
-            else if (conductor == "Aluminium")
+            else if (comboBoxConductor.Text == "Aluminium")
             {
 
-                switch (insulation)
+                switch (comboBoxInsulation.Text)
                 {
                     case "TW/UF":
                         dataGridView1.DataSource = dtNEC01;
@@ -2024,6 +2047,8 @@ namespace Test1
                                 buttonDelete.Enabled = true;
                                 buttonCancel2.Visible = false;
                                 databaseEdited = true;
+                                radioButton2.Enabled = true;
+                                radioButtonNECView.Enabled = true;
                             }
 
                         }
@@ -3171,15 +3196,21 @@ namespace Test1
             {
                 //fill insulation combobox
                 dataGridView2.DataSource = null;
+                comboBox1.SelectedIndex = -1;
+                viewinsulation = "";
                 comboBox1.Items.Clear();
                 comboBox1.Items.Insert(0, "XLPE");
                 comboBox1.Items.Insert(1, "PVC");
 
                 //fill conductor type
+                comboBox2.SelectedIndex = -1;
+                viewconductor = "";
                 comboBox2.Items.Clear();
                 comboBox2.Items.Insert(0, "Copper");
 
                 //show no of cores option
+                comboBox3.SelectedIndex = -1;
+                viewCores = 0;
                 comboBox3.Visible = true;
                 label6.Visible = true;
 
@@ -3188,18 +3219,23 @@ namespace Test1
             {
                 //fill insulation combobox
                 dataGridView2.DataSource = null;
+                comboBox1.SelectedIndex = -1;
+                viewinsulation = "";
                 comboBox1.Items.Clear();
                 comboBox1.Items.Insert(0, "TW/UF");
                 comboBox1.Items.Insert(1, "RHW/THW/THWN/USE/ZW");
                 comboBox1.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2");
 
                 //fill conductor type
+                comboBox2.SelectedIndex = -1;
+                viewconductor = "";
                 comboBox2.Items.Clear();
                 comboBox2.Items.Insert(0, "Copper");
                 comboBox2.Items.Insert(1, "Aluminium");
 
                 //hide no of cores option
                 comboBox3.SelectedIndex = -1;
+                viewCores = 0;
                 comboBox3.Visible = false;
                 label6.Visible = false;
             }
@@ -3333,6 +3369,7 @@ namespace Test1
         private void ComboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             viewinsulation = comboBox1.Text;
+            
             ChooseDatabaseView();
             EnableEdit();
         }
@@ -3343,6 +3380,10 @@ namespace Test1
             if (comboBox3.Text != "")
             {
                 viewCores = int.Parse(comboBox3.Text);
+            }
+            else
+            {
+                viewCores = 0;
             }
             
             ChooseDatabaseView();
@@ -3611,6 +3652,7 @@ namespace Test1
                         dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
                         dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
 
                     case "RHW/THW/THWN/USE/ZW":
@@ -3619,6 +3661,7 @@ namespace Test1
                         dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
                         dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
                         dataGridView2.DataSource = dtNEC20view;
@@ -3626,6 +3669,7 @@ namespace Test1
                         dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
                         dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
                     default:
                         dataGridView2.DataSource = null;
@@ -3643,6 +3687,7 @@ namespace Test1
                         dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
                         dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
 
                     case "RHW/THW/THWN/USE/ZW":
@@ -3651,6 +3696,7 @@ namespace Test1
                         dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
                         dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
                         dataGridView2.DataSource = dtNEC21view;
@@ -3658,6 +3704,7 @@ namespace Test1
                         dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
                         dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
+                        SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
                     default:
                         dataGridView2.DataSource = null;

@@ -58,6 +58,9 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.undoResetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.databaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.viewEditCableDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addCableDatabaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cableDataTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,9 +69,8 @@
             this.panel37 = new System.Windows.Forms.Panel();
             this.label88 = new System.Windows.Forms.Label();
             this.label87 = new System.Windows.Forms.Label();
-            this.panel31 = new System.Windows.Forms.Panel();
-            this.panel30 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.comboBoxVendor = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel27 = new System.Windows.Forms.Panel();
             this.panel26 = new System.Windows.Forms.Panel();
@@ -224,6 +226,8 @@
             this.label36 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.label33 = new System.Windows.Forms.Label();
+            this.panel30 = new System.Windows.Forms.Panel();
+            this.panel31 = new System.Windows.Forms.Panel();
             this.comboBox5 = new System.Windows.Forms.ComboBox();
             this.label31 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
@@ -522,7 +526,8 @@
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.resetToolStripMenuItem,
-            this.undoResetToolStripMenuItem});
+            this.undoResetToolStripMenuItem,
+            this.databaseToolStripMenuItem});
             this.editToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
             this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 18);
@@ -539,12 +544,35 @@
             // 
             // undoResetToolStripMenuItem
             // 
+            this.undoResetToolStripMenuItem.Enabled = false;
             this.undoResetToolStripMenuItem.Image = global::Test1.Properties.Resources.Refresh_16x;
             this.undoResetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoResetToolStripMenuItem.Name = "undoResetToolStripMenuItem";
             this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.undoResetToolStripMenuItem.Text = "Undo Reset";
             this.undoResetToolStripMenuItem.Click += new System.EventHandler(this.UndoResetToolStripMenuItem_Click);
+            // 
+            // databaseToolStripMenuItem
+            // 
+            this.databaseToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.viewEditCableDatabaseToolStripMenuItem,
+            this.addCableDatabaseToolStripMenuItem});
+            this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.databaseToolStripMenuItem.Text = "Database";
+            // 
+            // viewEditCableDatabaseToolStripMenuItem
+            // 
+            this.viewEditCableDatabaseToolStripMenuItem.Name = "viewEditCableDatabaseToolStripMenuItem";
+            this.viewEditCableDatabaseToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.viewEditCableDatabaseToolStripMenuItem.Text = "View/Edit Cable Database";
+            // 
+            // addCableDatabaseToolStripMenuItem
+            // 
+            this.addCableDatabaseToolStripMenuItem.Name = "addCableDatabaseToolStripMenuItem";
+            this.addCableDatabaseToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.addCableDatabaseToolStripMenuItem.Text = "Add Cable Database";
+            this.addCableDatabaseToolStripMenuItem.Click += new System.EventHandler(this.AddCableDatabaseToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -639,26 +667,10 @@
             this.label87.Text = "label87";
             this.label87.Visible = false;
             // 
-            // panel31
-            // 
-            this.panel31.Location = new System.Drawing.Point(118, 133);
-            this.panel31.Margin = new System.Windows.Forms.Padding(2);
-            this.panel31.Name = "panel31";
-            this.panel31.Size = new System.Drawing.Size(4, 20);
-            this.panel31.TabIndex = 163;
-            // 
-            // panel30
-            // 
-            this.panel30.BackColor = System.Drawing.Color.Red;
-            this.panel30.Location = new System.Drawing.Point(118, 159);
-            this.panel30.Margin = new System.Windows.Forms.Padding(2);
-            this.panel30.Name = "panel30";
-            this.panel30.Size = new System.Drawing.Size(4, 21);
-            this.panel30.TabIndex = 159;
-            // 
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.Transparent;
+            this.panel6.Controls.Add(this.comboBoxVendor);
             this.panel6.Controls.Add(this.comboBox1);
             this.panel6.Controls.Add(this.panel27);
             this.panel6.Controls.Add(this.panel26);
@@ -681,6 +693,17 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(282, 173);
             this.panel6.TabIndex = 161;
+            // 
+            // comboBoxVendor
+            // 
+            this.comboBoxVendor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBoxVendor.FormattingEnabled = true;
+            this.comboBoxVendor.Location = new System.Drawing.Point(81, 76);
+            this.comboBoxVendor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
+            this.comboBoxVendor.Name = "comboBoxVendor";
+            this.comboBoxVendor.Size = new System.Drawing.Size(120, 21);
+            this.comboBoxVendor.TabIndex = 167;
+            this.comboBoxVendor.SelectedIndexChanged += new System.EventHandler(this.ComboBoxVendor_SelectedIndexChanged);
             // 
             // comboBox1
             // 
@@ -2594,6 +2617,23 @@
             this.label33.Text = "label33";
             this.label33.Visible = false;
             // 
+            // panel30
+            // 
+            this.panel30.BackColor = System.Drawing.Color.Red;
+            this.panel30.Location = new System.Drawing.Point(118, 159);
+            this.panel30.Margin = new System.Windows.Forms.Padding(2);
+            this.panel30.Name = "panel30";
+            this.panel30.Size = new System.Drawing.Size(4, 21);
+            this.panel30.TabIndex = 159;
+            // 
+            // panel31
+            // 
+            this.panel31.Location = new System.Drawing.Point(118, 133);
+            this.panel31.Margin = new System.Windows.Forms.Padding(2);
+            this.panel31.Name = "panel31";
+            this.panel31.Size = new System.Drawing.Size(4, 20);
+            this.panel31.TabIndex = 163;
+            // 
             // comboBox5
             // 
             this.comboBox5.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -3201,6 +3241,10 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem undoResetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem databaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem viewEditCableDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem addCableDatabaseToolStripMenuItem;
+        private System.Windows.Forms.ComboBox comboBoxVendor;
     }
 }
 

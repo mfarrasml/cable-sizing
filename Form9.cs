@@ -10,10 +10,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-
-
-
-
+using System.IO;
 
 namespace Test1
 {
@@ -104,12 +101,71 @@ namespace Test1
 
         string voltageLv;
 
+        DirectoryInfo di;
+        int NECDatabaseFiles;
+        string SelectedDatabase;
+        DataSet cableDS;
+
+        DataTable NEC00DB;
+        DataTable NEC10DB;
+        DataTable NEC20DB;
+        DataTable NEC01DB;
+        DataTable NEC11DB;
+        DataTable NEC21DB;
+
+        //save custom NEC database electrical data
+        double[,] nec00DB_data_electrical;
+        double[,] nec10DB_data_electrical;
+        double[,] nec20DB_data_electrical;
+        double[,] nec01DB_data_electrical;
+        double[,] nec11DB_data_electrical;
+        double[,] nec21DB_data_electrical;
+
+        //save custom NEC database wirearea in AWG/kcmil
+        string[] nec00DB_wirearea;
+        string[] nec10DB_wirearea;
+        string[] nec20DB_wirearea;
+        string[] nec01DB_wirearea;
+        string[] nec11DB_wirearea;
+        string[] nec21DB_wirearea;
+
+        //save custom NEC database wire area units(AWG/kcmil)
+        string[] nec00DB_wirearea_unit;
+        string[] nec10DB_wirearea_unit;
+        string[] nec20DB_wirearea_unit;
+        string[] nec01DB_wirearea_unit;
+        string[] nec11DB_wirearea_unit;
+        string[] nec21DB_wirearea_unit;
+
+
+        //save custom NEC database wirearea in mm²
+        double[] nec00DB_wirearea_metric;
+        double[] nec10DB_wirearea_metric;
+        double[] nec20DB_wirearea_metric;
+        double[] nec01DB_wirearea_metric;
+        double[] nec11DB_wirearea_metric;
+        double[] nec21DB_wirearea_metric;
+
+
+
+
+        double nec00Length;
+        double nec10Length;
+        double nec20Length;
+        double nec01Length;
+        double nec11Length;
+        double nec21Length;
+
+        //store currently used datalength for size updating purpose while using custom database
+        double currentDataLength;
+
         //public static int j = -1;
         Form5 f5 = new Form5();
         Form6 f6 = new Form6();
         Form10 f10 = new Form10();
         FSettings fSettings = new FSettings();
         FormAbout fAbout = new FormAbout();
+        FormAddCableDatabase faddcable;
 
         public static string[] results = new string[39];
 
@@ -753,7 +809,7 @@ namespace Test1
 
         private void ComboBox5_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox5.Text != "") 
+            if (comboBox5.Text != "")
             {
                 cores = int.Parse(comboBox5.Text);
                 panel30.BackColor = Color.Transparent;
@@ -875,6 +931,8 @@ namespace Test1
 
             Form5.f7.dataGridView1.Columns[2].HeaderText = "Cable Total Length (ft)";
 
+            //Load Custom NEC Database
+            LoadNECDatabase();
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = 1;
@@ -891,9 +949,9 @@ namespace Test1
 
 
 
-        
 
-        
+
+
 
         private void ComboBox4_SelectedIndexChanged_1(object sender, EventArgs e)
         {
@@ -927,17 +985,17 @@ namespace Test1
                 comboBox17.Items.Clear();
                 comboBox17.Items.Insert(0, "60");
                 comboBox17.SelectedIndex = 0;
-                
+
                 panel20.BackColor = Color.Transparent;
             }
-            else if ((insulation == "RHW") || (insulation == "THW") || (insulation == "THWN") 
+            else if ((insulation == "RHW") || (insulation == "THW") || (insulation == "THWN")
                 || (insulation == "USE") || (insulation == "ZW"))
             {
                 insulindex = 2;
                 comboBox17.Items.Clear();
                 comboBox17.Items.Insert(0, "75");
                 comboBox17.SelectedIndex = 0;
-                
+
                 panel20.BackColor = Color.Transparent;
             }
             else if ((insulation == "TBS") || (insulation == "SA") || (insulation == "SIS") || (insulation == "FEP")
@@ -950,7 +1008,7 @@ namespace Test1
                 comboBox17.Items.Clear();
                 comboBox17.Items.Insert(0, "90");
                 comboBox17.SelectedIndex = 0;
-                
+
                 panel20.BackColor = Color.Transparent;
             }
             else if ((insulation == "XHHW") || (insulation == "THHW"))
@@ -967,7 +1025,7 @@ namespace Test1
                 insulindex = 0;
                 comboBox17.SelectedIndex = -1;
                 comboBox17.Items.Clear();
-                
+
                 textBox21.Text = "";
                 panel20.BackColor = Color.Red;
             }
@@ -1193,7 +1251,7 @@ namespace Test1
                     panel22.BackColor = Color.Red;
                 }
             }
-            else if(radioButton7.Checked)
+            else if (radioButton7.Checked)
             {
                 if (installation == "Raceways")
                 {
@@ -1206,7 +1264,7 @@ namespace Test1
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = true;
                     comboBox20.Enabled = false;
-                    
+
                     panel22.BackColor = Color.Transparent;
                 }
                 else if (installation == "Cable Tray / Ladder")
@@ -1220,7 +1278,7 @@ namespace Test1
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = true;
-                    
+
                     panel22.BackColor = Color.Transparent;
                 }
                 else if (installation == "Earth (Direct Buried)")
@@ -1234,7 +1292,7 @@ namespace Test1
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
-                    
+
                     panel22.BackColor = Color.Transparent;
                 }
                 else if (installation == "Free Air")
@@ -1248,7 +1306,7 @@ namespace Test1
                     comboBox18.Enabled = true;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
-                    
+
                     panel22.BackColor = Color.Transparent;
                 }
                 else
@@ -1262,7 +1320,7 @@ namespace Test1
                     comboBox18.Enabled = false;
                     comboBox19.Enabled = false;
                     comboBox20.Enabled = false;
-                    
+
                     panel22.BackColor = Color.Red;
                 }
             }
@@ -1299,12 +1357,12 @@ namespace Test1
                 label91.Enabled = false;
                 panel36.BackColor = Color.Transparent;
             }
-            
+
         }
 
         private void calc_vd()
         {
-            
+
             n = int.Parse(textBox12.Text);
             complete = false;
 
@@ -1933,7 +1991,7 @@ namespace Test1
 
                 tbResult.Text = readtemp;
 
-                save_vd_result(); 
+                save_vd_result();
 
                 Update_size();
 
@@ -1991,7 +2049,7 @@ namespace Test1
             }
         }
 
-        
+
 
         //validate vd and fl current
         private void validasi_vd()
@@ -2554,7 +2612,7 @@ namespace Test1
                             solvableOrNPlus();
                         }
 
-                        
+
                     }
                     else if (radioButton3.Checked) //manual cable database input
                     {
@@ -2724,7 +2782,7 @@ namespace Test1
             }
         }
 
-        
+
 
         // show selected size + 2 size above
         private void Update_size()
@@ -2809,8 +2867,8 @@ namespace Test1
         private void validasi()
         {
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
-                (((radioButton1.Checked) && (cLTE > bLTE)) || 
-                ((radioButton2.Checked) && 
+                (((radioButton1.Checked) && (cLTE > bLTE)) ||
+                ((radioButton2.Checked) &&
                 (((radioButton4.Checked) && (data_wirearea_metric[i] > cablesizemin)) || ((radioButton3.Checked) && (inputCableData_nec_metric[i] > cablesizemin)))
                 )))
             {
@@ -4662,8 +4720,8 @@ namespace Test1
         {
             calculated = false;
             if ((voltage == 0) || (eff == 0) || (length == 0) || ((power == 0) && (!radioButton8.Checked)) || (current == 0) ||
-                ((comboBox2.Text == "Motor") && ConsiderVdStart && (multiplier == 0)) || (pf > 1) || (pfstart > 1) || 
-                (vdrunmax > 100) || (vdrunmax <= 0) || ((comboBox2.Text == "Motor") && ConsiderVdStart && ((vdstartmax > 100) || (vdstartmax <= 0)))) 
+                ((comboBox2.Text == "Motor") && ConsiderVdStart && (multiplier == 0)) || (pf > 1) || (pfstart > 1) ||
+                (vdrunmax > 100) || (vdrunmax <= 0) || ((comboBox2.Text == "Motor") && ConsiderVdStart && ((vdstartmax > 100) || (vdstartmax <= 0))))
             {
                 string msgbox;
                 msgbox = "Invalid value on following input: ";
@@ -4687,7 +4745,7 @@ namespace Test1
                 {
                     msgbox += "\n- Multiplier";
                 }
-                    if (pf > 1)
+                if (pf > 1)
                 {
                     msgbox += "\n- P.F. full load";
                 }
@@ -4814,7 +4872,7 @@ namespace Test1
 
             if (!((comboBox15.Text == "Update Size") || (comboBox15.Text == "")))
             {
-                
+
                 if (comboBox15.SelectedIndex == 1)
                 {
                     m = i;
@@ -4840,7 +4898,7 @@ namespace Test1
                 }
             }
 
-            if (!((textBox37.Text == wirearea_nec) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") || 
+            if (!((textBox37.Text == wirearea_nec) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") ||
                 (comboBox15.Text == "")))
             {
                 if (initialTemp == 60)
@@ -5290,7 +5348,7 @@ namespace Test1
 
                         }
                     }
-                    
+
                 }
                 else if (radioButton3.Checked) //manual cable database input
                 {
@@ -5404,7 +5462,7 @@ namespace Test1
                     disable_save();
                 }
             }
-            
+
         }
 
 
@@ -5503,7 +5561,7 @@ namespace Test1
                 textBox18.ReadOnly = false;
                 textBox36.ReadOnly = false;
 
-                if (((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == "")) || 
+                if (((textBox17.Text == "") && (textBox18.Text == "") && (textBox36.Text == "")) ||
                     ((textBox17.Text != "") && (textBox18.Text == "") && (textBox36.Text == "")))
                 {
                     label42.Visible = false;
@@ -6130,7 +6188,7 @@ namespace Test1
 
         private void ComboBox16_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+
 
             if (comboBox16.SelectedIndex != -1)
             {
@@ -6151,7 +6209,7 @@ namespace Test1
             enable_vd_btn();
         }
 
-        
+
 
 
         private void ComboBox17_SelectedIndexChanged(object sender, EventArgs e)
@@ -6338,7 +6396,7 @@ namespace Test1
                             temperature = temperature + 14;
                         }
 
-                        
+
                         if (temperature <= 25)
                         {
                             tempindex = 1;
@@ -6379,11 +6437,11 @@ namespace Test1
                         {
                             tempindex = 10;
                         }
-                        
+
                     }
                 }
 
-                
+
 
                 if ((insulindex != 0) && (tempindex != 0))
                 {
@@ -6476,7 +6534,7 @@ namespace Test1
             }
         }
 
-        
+
 
         private void TextBox9_Leave(object sender, EventArgs e)
         {
@@ -6523,7 +6581,7 @@ namespace Test1
 
         private void ComboBox4_TextChanged(object sender, EventArgs e)
         {
-            if (comboBox4.Text != "") 
+            if (comboBox4.Text != "")
             {
                 if ((radioButton3.Checked) && (comboBox17.Text != ""))
                 {
@@ -6549,7 +6607,7 @@ namespace Test1
         {
             if (textBox24.Text != "")
             {
-                
+
                 if (finalTemp > initialTemp)
                 {
                     if (material == "Copper")
@@ -6653,7 +6711,7 @@ namespace Test1
             SCLTEchanged();
             Calc_k();
             enable_vd_btn();
-            
+
 
         }
 
@@ -6994,7 +7052,7 @@ namespace Test1
             }
             cbPower.Text = Convert.ToString(dtx[10]); // power unit
             TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
-            if (DtrToDoubleText(dtx,12) != "")
+            if (DtrToDoubleText(dtx, 12) != "")
             {
                 if (radioButton8.Checked)
                 {
@@ -7062,14 +7120,14 @@ namespace Test1
             {
                 textBox10.Text = "";
             }
-            if (DtrToDoubleText(dtx,35) != "")
+            if (DtrToDoubleText(dtx, 35) != "")
             {
                 lmax = Convert.ToDouble(dtx[35]);
                 textBox29.Text = lmax.ToString("0.##");  //lmax
             }
             textBox12.Text = Convert.ToString(dtx[36]); //no of run
             comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
-            if (DtrToDoubleText(dtx,38) != "")
+            if (DtrToDoubleText(dtx, 38) != "")
             {
                 //Disable all inputs before vd calculation
                 panel4.Enabled = true;
@@ -7158,7 +7216,7 @@ namespace Test1
 
             textBox35.Text = Convert.ToString(dtx[63]);
             tbResult.Text = Convert.ToString(dtx[64]);
-            if (DtrToDoubleText(dtx,55) != "")
+            if (DtrToDoubleText(dtx, 55) != "")
             {
                 temperature = Convert.ToDouble(dtx[55]);
                 comboBox16.Text = temperature.ToString();
@@ -7198,6 +7256,228 @@ namespace Test1
         private void Panel37_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void AddCableDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            faddcable = new FormAddCableDatabase();
+            faddcable.FormClosed += AddDatabaseClosed;
+            faddcable.tabControl1.SelectedIndex = 1;
+            faddcable.ShowDialog();
+        }
+        private void AddDatabaseClosed(object sender, FormClosedEventArgs e)
+        {
+            if (FormAddCableDatabase.databaseEdited)
+            {
+                LoadNECDatabase();
+                FormAddCableDatabase.databaseEdited = false;
+            }
+        }
+
+        internal void LoadNECDatabase()
+        {
+            //read all file in database directory
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+            string saveDir = (systemPath + "/Cable Sizing/NEC_database");
+
+            di = new DirectoryInfo(saveDir);
+            //get all file name in database directory
+            FileInfo[] files = di.GetFiles("*.xml");
+            NECDatabaseFiles = files.Length;
+            //fill vendor data from database
+            comboBoxVendor.Items.Clear();
+            //fill all saved database created by user
+            for (int z = 0; z < NECDatabaseFiles; z++)
+            {
+                string tempstring;
+                tempstring = files[z].ToString();
+                tempstring = tempstring.Replace(".xml", "");
+                comboBoxVendor.Items.Insert(z, tempstring);
+            }
+            comboBoxVendor.SelectedIndex = 0;
+        }
+
+        private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            toolTip1.SetToolTip(comboBoxVendor, comboBoxVendor.Text);
+
+            SelectedDatabase = comboBoxVendor.Text;
+            //Gather cable specification of the selected database
+            if ((SelectedDatabase != "Sumi Indo Cable (Default)") && (SelectedDatabase != ""))
+            {
+                ReadNECDatabase();
+            }
+            else if (SelectedDatabase == "")
+            {
+                NEC00DB = null;
+                NEC10DB = null;
+                NEC20DB = null;
+                NEC01DB = null;
+                NEC11DB = null;
+                NEC21DB = null;
+            }
+
+            DisableUndoReset();
+        }
+
+        internal void ReadNECDatabase()
+        {
+            string systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+            string saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", SelectedDatabase + ".xml");
+
+            //save database to a new dataset
+            cableDS = new DataSet();
+            cableDS.ReadXml(saveDir);
+
+            //save each cable data table to their respective datatable
+            if (cableDS.Tables.Contains("NEC00"))
+            {
+                NEC00DB = cableDS.Tables["NEC00"].Copy();
+                nec00DB_data_electrical = new double[NEC00DB.Rows.Count, NEC00DB.Columns.Count];
+                DTToArrayDouble_SelectStart(NEC00DB, nec00DB_data_electrical, 1);
+                DTToArrayString_SelectColumn(NEC00DB, nec00DB_wirearea, 0);
+                nec00DB_wirearea_unit = new string[nec00DB_wirearea.Length];
+                nec00DB_wirearea_metric = new double[nec00DB_wirearea.Length];
+                SynchronizeAreaUnitAndMetric(nec00DB_wirearea, nec00DB_wirearea_unit, nec00DB_wirearea_metric);
+                nec00Length = NEC00DB.Rows.Count;
+            }
+            else
+            {
+                nec00Length = 0;
+            }
+            if (cableDS.Tables.Contains("NEC10"))
+            {
+                NEC10DB = cableDS.Tables["NEC10"].Copy();
+                nec10DB_data_electrical = new double[NEC10DB.Rows.Count, NEC10DB.Columns.Count];
+                DTToArrayDouble_SelectStart(NEC10DB, nec10DB_data_electrical, 1);
+                DTToArrayString_SelectColumn(NEC10DB, nec10DB_wirearea, 0);
+                SynchronizeAreaUnitAndMetric(nec10DB_wirearea, nec10DB_wirearea_unit, nec10DB_wirearea_metric);
+                nec10Length = NEC10DB.Rows.Count;
+            }
+            else
+            {
+                nec10Length = 0;
+            }
+            if (cableDS.Tables.Contains("NEC20"))
+            {
+                NEC20DB = cableDS.Tables["NEC20"].Copy();
+                nec20DB_data_electrical = new double[NEC20DB.Rows.Count, NEC20DB.Columns.Count];
+                DTToArrayDouble_SelectStart(NEC20DB, nec20DB_data_electrical, 1);
+                DTToArrayString_SelectColumn(NEC20DB, nec20DB_wirearea, 0);
+                SynchronizeAreaUnitAndMetric(nec20DB_wirearea, nec20DB_wirearea_unit, nec20DB_wirearea_metric);
+                nec20Length = NEC20DB.Rows.Count;
+            }
+            else
+            {
+                nec20Length = 0;
+            }
+            if (cableDS.Tables.Contains("NEC01"))
+            {
+                NEC01DB = cableDS.Tables["NEC01"].Copy();
+                nec01DB_data_electrical = new double[NEC01DB.Rows.Count, NEC01DB.Columns.Count];
+                DTToArrayDouble_SelectStart(NEC01DB, nec01DB_data_electrical, 1);
+                DTToArrayString_SelectColumn(NEC01DB, nec01DB_wirearea, 0);
+                SynchronizeAreaUnitAndMetric(nec01DB_wirearea, nec01DB_wirearea_unit, nec01DB_wirearea_metric);
+                nec01Length = NEC01DB.Rows.Count;
+            }
+            else
+            {
+                nec01Length = 0;
+            }
+            if (cableDS.Tables.Contains("NEC11"))
+            {
+                NEC11DB = cableDS.Tables["NEC11"].Copy();
+                nec11DB_data_electrical = new double[NEC11DB.Rows.Count, NEC11DB.Columns.Count];
+                DTToArrayDouble_SelectStart(NEC11DB, nec11DB_data_electrical, 1);
+                DTToArrayString_SelectColumn(NEC11DB, nec11DB_wirearea, 0);
+                SynchronizeAreaUnitAndMetric(nec11DB_wirearea, nec11DB_wirearea_unit, nec11DB_wirearea_metric);
+                nec11Length = NEC11DB.Rows.Count;
+            }
+            else
+            {
+                nec11Length = 0;
+            }
+            if (cableDS.Tables.Contains("NEC21"))
+            {
+                NEC21DB = cableDS.Tables["NEC21"].Copy();
+                nec21DB_data_electrical = new double[NEC21DB.Rows.Count, NEC21DB.Columns.Count];
+                DTToArrayDouble_SelectStart(NEC21DB, nec21DB_data_electrical, 1);
+                DTToArrayString_SelectColumn(NEC21DB, nec21DB_wirearea, 0);
+                SynchronizeAreaUnitAndMetric(nec21DB_wirearea, nec21DB_wirearea_unit, nec21DB_wirearea_metric);
+                nec21Length = NEC21DB.Rows.Count;
+            }
+            else
+            {
+                nec21Length = 0;
+            }
+        }
+
+        //Fill matrix of double with data from a datatable, assuming that matrix size is at least the same size as the datatable
+        private void DTToArrayDouble(DataTable dt, double[,] arr)
+        {
+            int dtColumn = dt.Columns.Count;
+
+            int row = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                for (int col = 0; col < dtColumn; col++)
+                {
+                    arr[row, col] = Convert.ToDouble(dr[col]);
+                }
+                row++;
+            }
+        }
+
+        //Fill a matrix of double with data from a datatable starting from selected column index,
+        //assuming that matrix size is at least the same size as the datatable
+        private void DTToArrayDouble_SelectStart(DataTable dt, double[,] arr, int start)
+        {
+            int dtColumn = dt.Columns.Count;
+
+            int row = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                for (int col = start; col < dtColumn; col++)
+                {
+                    arr[row, col] = Convert.ToDouble(dr[col]);
+                }
+                row++;
+            }
+        }
+
+        //Fill an array of string with data from a specific column of a datatable, 
+        //assuming that the matrix size is at least the same size as the datatable
+        private void DTToArrayString_SelectColumn(DataTable dt, string[] arr, int selectCol)
+        {
+            int row = 0;
+            foreach (DataRow dr in dt.Rows)
+            {
+                arr[row] = Convert.ToString(dr[selectCol]);
+                row++;
+            }
+        }
+
+        //synchronize the wire area unit and mectric wirea area to the wireare of the selected custom database, 
+        //asumming that wireare_unit and wirearea_metric have suitable sizes
+        private void SynchronizeAreaUnitAndMetric(string[] wirearea, string[] wirearea_unit, double[] wirearea_metric)
+        {
+            int length;
+            int l = 0;
+            int k = 0;
+            length = wirearea.Length;
+
+            while ((l < length) && (k < 21))
+            {
+                if (wirearea[l] == data_wirearea[k])
+                {
+                    wirearea_unit[l] = data_wirearea_unit[k];
+                    wirearea_metric[l] = data_wirearea_metric[k];
+                    l++;
+                }
+                k++;
+            }
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)

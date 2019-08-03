@@ -596,7 +596,7 @@ namespace Test1
                 panel14.BackColor = Color.Transparent;
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -651,7 +651,7 @@ namespace Test1
                 comboBox2.Items.Insert(0, "Feeder");
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -735,7 +735,7 @@ namespace Test1
                 ConsiderVdStart = false;
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -775,7 +775,7 @@ namespace Test1
                 power = 0;
                 panel14.BackColor = Color.Transparent;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             calc_current();
         }
 
@@ -797,7 +797,7 @@ namespace Test1
                 length = 0;
                 panel25.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -813,7 +813,7 @@ namespace Test1
             {
                 panel31.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -830,7 +830,7 @@ namespace Test1
                 panel30.BackColor = Color.Red;
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -1605,7 +1605,7 @@ namespace Test1
             {
                 panel19.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             Calc_k();
             enable_vd_btn();
             enable_result_btn();
@@ -1637,7 +1637,7 @@ namespace Test1
                 panel20.BackColor = Color.Red;
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             reset_correction();
             enable_correction();
             enable_vd_btn();
@@ -1655,7 +1655,7 @@ namespace Test1
             {
                 panel21.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -1684,7 +1684,7 @@ namespace Test1
                 panel22.BackColor = Color.Red;
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             reset_correction();
             enable_correction();
             enable_vd_btn();
@@ -3473,7 +3473,7 @@ namespace Test1
             {
                 calc_power();
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3498,7 +3498,7 @@ namespace Test1
             {
                 calc_power();
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             calc_current();
             enable_vd_btn();
             enable_result_btn();
@@ -3525,7 +3525,7 @@ namespace Test1
             {
                 calc_power();
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3634,7 +3634,7 @@ namespace Test1
             {
                 pfstart = 0;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
 
@@ -3945,7 +3945,7 @@ namespace Test1
                 vdrunmax = 0;
                 panel26.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -3962,7 +3962,7 @@ namespace Test1
             {
                 panel23.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4073,7 +4073,7 @@ namespace Test1
             {
                 calc_current();
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4187,7 +4187,7 @@ namespace Test1
                 textBox18.Visible = false;
                 label42.Visible = false;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             Updatekt();
             enable_result_btn();
         }
@@ -4219,7 +4219,7 @@ namespace Test1
 
 
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             Updatekt();
             enable_result_btn();
         }
@@ -4234,7 +4234,7 @@ namespace Test1
             {
                 panel24.BackColor = Color.Red;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4271,7 +4271,7 @@ namespace Test1
         private void TextBox26_TextChanged(object sender, EventArgs e)
         {
             from = textBox26.Text;
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void ComboBox12_SelectedIndexChanged(object sender, EventArgs e)
@@ -4333,7 +4333,7 @@ namespace Test1
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
         {
             fromdesc = textBox16.Text;
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
@@ -4368,7 +4368,7 @@ namespace Test1
         private void TextBox31_TextChanged(object sender, EventArgs e)
         {
             todesc = textBox31.Text;
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void TextBox30_TextChanged(object sender, EventArgs e)
@@ -4688,7 +4688,7 @@ namespace Test1
                 comboBoxVendor.Visible = false;
                 labelVendor.Visible = false;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -4715,7 +4715,7 @@ namespace Test1
                 comboBoxVendor.Visible = true;
                 labelVendor.Visible = true;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -5038,7 +5038,7 @@ namespace Test1
                 panel16.BackColor = Color.Red;
             }
             ratedvoltage = comboBox14.Text;
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -5171,7 +5171,7 @@ namespace Test1
             }
             else
             {
-                DisabeUndoReset();
+                DisableUndoReset();
                 vd_size_calc();
             }
         }
@@ -5221,7 +5221,7 @@ namespace Test1
                 k3main = double.Parse(textBox36.Text);
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
             Updatekt();
             enable_result_btn();
         }
@@ -5983,7 +5983,7 @@ namespace Test1
 
         private void RadioButton7_CheckedChanged(object sender, EventArgs e)
         {
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_correction();
             reset_correction();
             if (!radioButton7.Checked)
@@ -6072,7 +6072,7 @@ namespace Test1
                 }
                 calc_current();
             }
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void RadioButton8_Click(object sender, EventArgs e)
@@ -6107,7 +6107,7 @@ namespace Test1
                 enable_vd_btn();
                 enable_result_btn();
             }
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void calc_currentstart()
@@ -6462,7 +6462,7 @@ namespace Test1
                 pvc4coreDB = null;
             }
 
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void TextBox9_Leave(object sender, EventArgs e)
@@ -6652,7 +6652,7 @@ namespace Test1
         private void UndoResetToolStripMenuItem_Click(object sender, EventArgs e)
         {
             UndoReset();
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void UndoReset()
@@ -6878,7 +6878,7 @@ namespace Test1
             }
         }
 
-        private void DisabeUndoReset()
+        private void DisableUndoReset()
         {
             undoResetToolStripMenuItem.Enabled = false;
         }
@@ -6886,7 +6886,7 @@ namespace Test1
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
-            DisabeUndoReset();
+            DisableUndoReset();
         }
 
         private void TextBox13_TextChanged(object sender, EventArgs e)
@@ -6916,7 +6916,7 @@ namespace Test1
                 label60.Enabled = true;
                 panel13.BackColor = Color.Transparent;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
@@ -6979,7 +6979,7 @@ namespace Test1
             {
                 vdstartmax = 0;
             }
-            DisabeUndoReset();
+            DisableUndoReset();
             enable_vd_btn();
             enable_result_btn();
         }
