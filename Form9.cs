@@ -113,6 +113,12 @@ namespace Test1
         DataTable NEC11DB;
         DataTable NEC21DB;
 
+        //selected custom database type
+        double[,] nec_selected_data_electrical;
+        string[] nec_selected_wirearea;
+        string[] nec_selected_wirearea_unit;
+        double[] nec_selected_wirearea_metric;
+
         //save custom NEC database electrical data
         double[,] nec00DB_data_electrical;
         double[,] nec10DB_data_electrical;
@@ -932,7 +938,7 @@ namespace Test1
             Form5.f7.dataGridView1.Columns[2].HeaderText = "Cable Total Length (ft)";
 
             //Load Custom NEC Database
-            LoadNECDatabase();
+           LoadNECDatabase();
 
             cbPower.Text = "kW";
             comboBox1.SelectedIndex = 1;
@@ -2768,6 +2774,606 @@ namespace Test1
             }
         }
 
+        // vd calculation if custom NEC database is selected
+        private void calc_vd_custom()
+        {
+
+            n = int.Parse(textBox12.Text);
+            complete = false;
+
+            if (initialTemp == 60)
+            {
+                insulindex = 1;
+            }
+            else if (initialTemp == 75)
+            {
+                insulindex = 2;
+            }
+            else if (initialTemp == 90)
+            {
+                insulindex = 3;
+            }
+            else
+            {
+                insulindex = 0;
+            }
+
+            //get selected database base on its insulation and material type
+            SelectedDatabaseType();
+            //get the database length
+            SelectedDataLength();
+
+            while (!complete)
+            {
+                i = 0;
+                if (radioButton4.Checked) //vendor data
+                {
+                    while ((!complete) && (i < 21))
+                    {
+                        wirearea_nec = nec_selected_wirearea[i];
+                        wirearea_unit = nec_selected_wirearea_unit[i];
+                        wirearea_metric = nec_selected_wirearea_metric[i];
+
+                        if (phase == "DC")
+                        {
+                            Rdc = nec_selected_data_electrical[i, 0];
+                            vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                        }
+                        else //AC
+                        {
+                            Rac = nec_selected_data_electrical[i, 0];
+                            X = nec_selected_data_electrical[i, 1];
+
+                            if (phase == "Single-Phase AC")
+                            {
+                                vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if ((loadtype == "Motor") && ConsiderVdStart)
+                                {
+                                    vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
+                                }
+                            }
+                            else if (phase == "Three-Phase AC")
+                            {
+                                vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if ((loadtype == "Motor") && ConsiderVdStart)
+                                {
+                                    vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
+                                }
+                            }
+                        }
+
+                        //get irated value
+                        Irated = nec_selected_data_electrical[i, 2] * n;
+                                
+
+                        iderated = Irated * ktmain;
+
+                        //cLTE = data_wirearea_metric[i] * data_wirearea_metric[i] * k * k;
+                        cable_lte();
+
+                        // Validasi
+                        validasi_vd();
+
+                        i++;
+                    }
+                     
+
+                    if (!complete)
+                    {
+                        solvableOrNPlus_Vd();
+                    }
+                }
+                else if (radioButton3.Checked) //manual data
+                {
+                    while ((!complete) && (i < cableCount))
+                    {
+                        wirearea_nec = inputCableData_nec[i, 0];
+                        wirearea_unit = inputCableData_nec_unit[i];
+                        wirearea_metric = inputCableData_nec_metric[i];
+
+                        if (phase == "DC")
+                        {
+                            Rdc = Convert.ToDouble(inputCableData_nec[i, 2]);
+                            Rac = 0;
+
+                            vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                        }
+                        else
+                        {
+                            Rac = Convert.ToDouble(inputCableData_nec[i, 2]);
+                            Rdc = 0;
+                            X = Convert.ToDouble(inputCableData_nec[i, 3]);
+
+                            if (phase == "Single-Phase AC")
+                            {
+                                vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if ((loadtype == "Motor") && ConsiderVdStart)
+                                {
+                                    vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
+                                }
+                            }
+                            else if (phase == "Three-Phase AC")
+                            {
+                                vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                / (n * 1000 * voltage);
+
+                                lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                if ((loadtype == "Motor") && ConsiderVdStart)
+                                {
+                                    vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                    / (n * 1000 * voltage);
+                                }
+                                else
+                                {
+                                    vdstart = 0;
+                                }
+                            }
+                        }
+
+                        Irated = Convert.ToDouble(inputCableData_nec[i, 4]) * n;
+                        diameter = Convert.ToDouble(inputCableData_nec[i, 5]);
+
+                        iderated = Irated * ktmain;
+                        cable_lte();
+
+                        // Validasi
+                        validasi_vd();
+
+                        i++;
+                    }
+                    if (!complete)
+                    {
+                        solvableOrNPlus_Vd();
+                    }
+                }
+
+                label85.Text = wirearea_unit;
+            }
+
+            if (inputValid)
+            {
+                textBox12.Text = n.ToString();
+                textBox8.Text = vdrun.ToString("0.##");
+                textBox29.Text = lmax.ToString("0.##");
+                //textBox22.Text = cLTE.ToString("0.##");
+
+                if (material == "Copper")
+                {
+                    materialname = "Cu";
+                }
+                else if (material == "Aluminium")
+                {
+                    materialname = "Al";
+                }
+
+                if ((loadtype == "Motor") && ConsiderVdStart)
+                {
+                    textBox10.Text = vdstart.ToString("0.##");
+                }
+
+                readtemp = "";
+
+                readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea_nec +
+                    " " + wirearea_unit + "    " + ratedvoltage + " / " + materialname + " / " + insulation;
+
+
+
+                tbResult.Text = readtemp;
+
+                save_vd_result();
+
+                Update_size();
+
+                enable_save();
+                if (phase == "DC")
+                {
+                    textBox34.Text = Rdc.ToString("0.####");
+                    textBox33.Text = "";
+                }
+                else //AC
+                {
+                    textBox34.Text = Rac.ToString("0.####");
+                    textBox33.Text = X.ToString("0.####");
+                }
+                textBox32.Text = Irated.ToString("0.##");
+
+                label86.Visible = true;
+                timer1.Enabled = true;
+
+                //enable sc/lte panel
+                panel4.Enabled = true;
+
+                // reset s.c & breaker
+                textBox28.Text = "";
+                textBox23.Text = "";
+                textBox30.Text = "";
+                bLTE = 0;
+                textBox20.Text = "";
+
+                comboBox12.SelectedIndex = -1;
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+                comboBox5.Enabled = false;
+                comboBox21.Enabled = false;
+                textBox12.ReadOnly = true;
+
+                button8.Enabled = true;
+                panel5.Enabled = false;
+                panel6.Enabled = false;
+
+                label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
+                label87.Visible = true;
+                timer2.Enabled = true;
+            }
+            else
+            {
+                tbResult.Text = "Failed to get a suitable cable size";
+                disable_save();
+                textBox8.Text = "";
+                textBox10.Text = "";
+                textBox29.Text = "";
+                textBox22.Text = "";
+            }
+        }
+
+        public void calc_area_custom()
+        {
+            if (finalTemp < initialTemp)
+            {
+                MessageBox.Show("Invalid value on following input: \n- Final temperature must be greated than the initial temperature",
+                    "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                n = int.Parse(textBox12.Text);
+                complete = false;
+
+                if (initialTemp == 60)
+                {
+                    insulindex = 1;
+                }
+                else if (initialTemp == 75)
+                {
+                    insulindex = 2;
+                }
+                else if (initialTemp == 90)
+                {
+                    insulindex = 3;
+                }
+                else
+                {
+                    insulindex = 0;
+                }
+
+                //get selected database base on its insulation and material type
+                SelectedDatabaseType();
+                //get the database length
+                SelectedDataLength();
+
+                while (!complete)
+                {
+                    i = m;
+                    if (radioButton4.Checked)
+                    {
+                        while ((!complete) && (i < currentDataLength))
+                        {
+                            wirearea_nec = nec_selected_wirearea[i];
+                            wirearea_unit = nec_selected_wirearea_unit[i];
+                            wirearea_metric = nec_selected_wirearea_metric[i];
+
+                            if (phase == "DC")
+                            {
+                                Rdc = nec_selected_data_electrical[i, 0];
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else //AC
+                            {
+                                Rac = nec_selected_data_electrical[i, 0];
+                                X = nec_selected_data_electrical[i, 1];
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
+                                }
+                            }
+                                    
+                            //get irated
+                            Irated = nec_selected_data_electrical[i, 2] * n;
+
+                            iderated = Irated * ktmain;
+
+                            //cLTE = data_wirearea_metric[i] * data_wirearea_metric[i] * k * k;
+                            cable_lte();
+
+                            // Validasi
+                            validasi();
+
+                            i++;
+                        }
+
+                        if (!complete)
+                        {
+                            solvableOrNPlus();
+                        }
+
+
+                    }
+                    else if (radioButton3.Checked) //manual cable database input
+                    {
+                        while ((!complete) && (i < cableCount))
+                        {
+                            wirearea_nec = inputCableData_nec[i, 0];
+                            wirearea_unit = inputCableData_nec_unit[i];
+                            wirearea_metric = inputCableData_nec_metric[i];
+
+                            if (phase == "DC")
+                            {
+                                Rdc = Convert.ToDouble(inputCableData_nec[i, 2]);
+                                Rac = 0;
+
+                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                            }
+                            else
+                            {
+                                Rac = Convert.ToDouble(inputCableData_nec[i, 2]);
+                                Rdc = 0;
+                                X = Convert.ToDouble(inputCableData_nec[i, 3]);
+
+                                if (phase == "Single-Phase AC")
+                                {
+                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
+                                    {
+                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
+                                }
+                                else if (phase == "Three-Phase AC")
+                                {
+                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                                    / (n * 1000 * voltage);
+
+                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                                    if ((loadtype == "Motor") && ConsiderVdStart)
+                                    {
+                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                        / (n * 1000 * voltage);
+                                    }
+                                    else
+                                    {
+                                        vdstart = 0;
+                                    }
+                                }
+                            }
+
+                            Irated = Convert.ToDouble(inputCableData_nec[i, 4]) * n;
+                            diameter = Convert.ToDouble(inputCableData_nec[i, 5]);
+
+                            iderated = Irated * ktmain;
+                            cable_lte();
+
+                            // Validasi
+                            validasi();
+
+                            i++;
+                        }
+                        if (!complete)
+                        {
+                            solvableOrNPlus();
+                        }
+
+                    }
+
+                    label85.Text = wirearea_unit;
+
+                }
+                if (inputValid)
+                {
+                    calculated = true;
+                    textBox12.Text = n.ToString();
+                    textBox8.Text = vdrun.ToString("0.##");
+                    textBox29.Text = lmax.ToString("0.##");
+
+                    if (material == "Copper")
+                    {
+                        materialname = "Cu";
+                    }
+                    else if (material == "Aluminium")
+                    {
+                        materialname = "Al";
+                    }
+
+                    if ((loadtype == "Motor") && ConsiderVdStart)
+                    {
+                        textBox10.Text = vdstart.ToString("0.##");
+                    }
+
+                    readtemp = "";
+
+                    readtemp += n.ToString() + "  ×  " + cores.ToString("0.##") + "/C  #  " + wirearea_nec +
+                    " " + wirearea_unit + "    " + ratedvoltage + " / " + materialname + " / " + insulation;
+
+
+
+                    tbResult.Text = readtemp;
+                    cable_lte();
+                    save_result();
+                    Update_size();
+                    enable_save();
+                    if (phase == "DC")
+                    {
+                        textBox34.Text = Rdc.ToString("0.####");
+                        textBox33.Text = "";
+                    }
+                    else //AC
+                    {
+                        textBox34.Text = Rac.ToString("0.####");
+                        textBox33.Text = X.ToString("0.####");
+                    }
+                    textBox32.Text = Irated.ToString("0.##");
+
+                    label86.Visible = true;
+                    timer1.Enabled = true;
+
+
+                    if (radioButton1.Checked)
+                    {
+                        label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
+                            " therefore cable size of" + wirearea_nec + " " + wirearea_unit + " is acceptable";
+                    }
+                    else if (radioButton2.Checked)
+                    {
+                        label88.Text = "Since the minimum cable size due to S.C. is lower than the \nselected cable size," +
+                            " therefore cable size of " + wirearea_nec + " " + wirearea_unit + " is acceptable";
+                    }
+
+                    label88.Visible = true;
+                    timer3.Enabled = true;
+
+                }
+                else
+                {
+                    tbResult.Text = "Failed to get a suitable cable size";
+                    disable_save();
+                    i = m;
+                }
+            }
+        }
+
+        private void SelectedDatabaseType()
+        {
+            if (material == "Copper")
+            {
+                switch (insulindex)
+                {
+                    case 1:
+                        Array.Copy(nec00DB_data_electrical, nec_selected_data_electrical, nec00DB_data_electrical.Length);
+                        Array.Copy(nec00DB_wirearea, nec_selected_wirearea, nec00DB_wirearea.Length);
+                        Array.Copy(nec00DB_wirearea_unit, nec_selected_wirearea_unit, nec00DB_wirearea_unit.Length);
+                        Array.Copy(nec00DB_wirearea_metric, nec_selected_wirearea_metric, nec00DB_wirearea_metric.Length);
+                        break;
+                    case 2:
+                        Array.Copy(nec10DB_data_electrical, nec_selected_data_electrical, nec10DB_data_electrical.Length);
+                        Array.Copy(nec10DB_wirearea, nec_selected_wirearea, nec10DB_wirearea.Length);
+                        Array.Copy(nec10DB_wirearea_unit, nec_selected_wirearea_unit, nec10DB_wirearea_unit.Length);
+                        Array.Copy(nec10DB_wirearea_metric, nec_selected_wirearea_metric, nec10DB_wirearea_metric.Length);
+                        break;
+                    case 3:
+                        Array.Copy(nec20DB_data_electrical, nec_selected_data_electrical, nec20DB_data_electrical.Length);
+                        Array.Copy(nec20DB_wirearea, nec_selected_wirearea, nec20DB_wirearea.Length);
+                        Array.Copy(nec20DB_wirearea_unit, nec_selected_wirearea_unit, nec20DB_wirearea_unit.Length);
+                        Array.Copy(nec20DB_wirearea_metric, nec_selected_wirearea_metric, nec20DB_wirearea_metric.Length);
+                        break;
+                }
+            }
+            else if (material == "Aluminium")
+            {
+
+                switch (insulindex)
+                {
+                    case 1:
+                        Array.Copy(nec01DB_data_electrical, nec_selected_data_electrical, nec01DB_data_electrical.Length);
+                        Array.Copy(nec01DB_wirearea, nec_selected_wirearea, nec01DB_wirearea.Length);
+                        Array.Copy(nec01DB_wirearea_unit, nec_selected_wirearea_unit, nec01DB_wirearea_unit.Length);
+                        Array.Copy(nec01DB_wirearea_metric, nec_selected_wirearea_metric, nec01DB_wirearea_metric.Length);
+                        break;
+                    case 2:
+                        Array.Copy(nec11DB_data_electrical, nec_selected_data_electrical, nec11DB_data_electrical.Length);
+                        Array.Copy(nec11DB_wirearea, nec_selected_wirearea, nec11DB_wirearea.Length);
+                        Array.Copy(nec11DB_wirearea_unit, nec_selected_wirearea_unit, nec11DB_wirearea_unit.Length);
+                        Array.Copy(nec11DB_wirearea_metric, nec_selected_wirearea_metric, nec11DB_wirearea_metric.Length);
+                        break;
+                    case 3:
+                        Array.Copy(nec21DB_data_electrical, nec_selected_data_electrical, nec21DB_data_electrical.Length);
+                        Array.Copy(nec21DB_wirearea, nec_selected_wirearea, nec21DB_wirearea.Length);
+                        Array.Copy(nec21DB_wirearea_unit, nec_selected_wirearea_unit, nec21DB_wirearea_unit.Length);
+                        Array.Copy(nec21DB_wirearea_metric, nec_selected_wirearea_metric, nec21DB_wirearea_metric.Length);
+                        break;
+                }
+            }
+        }
+
         private void solvableOrNPlus_Vd()
         {
             if (n > 2147482)
@@ -2790,39 +3396,39 @@ namespace Test1
             string size_temp_update = "";
 
             textBox37.Text = wirearea_nec;
-            i--;
+            int c = i - 1;
             comboBox15.Items.Clear();
             comboBox15.Items.Insert(0, "Update Size");
             if (radioButton4.Checked)
             {
-                size_temp_update = data_wirearea[i] + " " + data_wirearea_unit[i];
+                size_temp_update = data_wirearea[c] + " " + data_wirearea_unit[c];
                 comboBox15.Items.Insert(1, size_temp_update);
-                if (i < 20)
+                if (c < 20)
                 {
-                    size_temp_update = data_wirearea[i + 1] + " " + data_wirearea_unit[i + 1];
+                    size_temp_update = data_wirearea[c + 1] + " " + data_wirearea_unit[c + 1];
                     comboBox15.Items.Insert(2, size_temp_update);
                 }
-                if (i < 19)
+                if (c < 19)
                 {
-                    size_temp_update = data_wirearea[i + 2] + " " + data_wirearea_unit[i + 2];
+                    size_temp_update = data_wirearea[c + 2] + " " + data_wirearea_unit[c + 2];
                     comboBox15.Items.Insert(3, size_temp_update);
                 }
             }
             else if (radioButton3.Checked)
             {
-                comboBox15.Items.Insert(1, inputCableData_nec[i, 0]);
-                if (i + 1 < cableCount)
+                comboBox15.Items.Insert(1, inputCableData_nec[c, 0]);
+                if (c + 1 < cableCount)
                 {
-                    comboBox15.Items.Insert(2, inputCableData_nec[i + 1, 0]);
+                    comboBox15.Items.Insert(2, inputCableData_nec[c + 1, 0]);
 
                 }
-                if (i + 2 < cableCount)
+                if (c + 2 < cableCount)
                 {
-                    comboBox15.Items.Insert(3, inputCableData_nec[i + 2, 0]);
+                    comboBox15.Items.Insert(3, inputCableData_nec[c + 2, 0]);
                 }
             }
             comboBox15.SelectedIndex = 0;
-            m = i;
+            m = c;
         }
 
         private void solvableOrNPlus()
@@ -4875,15 +5481,15 @@ namespace Test1
 
                 if (comboBox15.SelectedIndex == 1)
                 {
-                    m = i;
+                    m = i - 1;
                 }
                 else if (comboBox15.SelectedIndex == 2)
                 {
-                    m = i + 1;
+                    m = i;
                 }
                 else if (comboBox15.SelectedIndex == 3)
                 {
-                    m = i + 2;
+                    m = i + 1;
                 }
 
                 if (radioButton4.Checked)
@@ -7336,6 +7942,9 @@ namespace Test1
             {
                 NEC00DB = cableDS.Tables["NEC00"].Copy();
                 nec00DB_data_electrical = new double[NEC00DB.Rows.Count, NEC00DB.Columns.Count];
+                nec00DB_wirearea = new string[NEC00DB.Rows.Count];
+                nec00DB_wirearea_unit = new string[NEC00DB.Rows.Count];
+                nec00DB_wirearea_metric = new double[NEC00DB.Rows.Count];
                 DTToArrayDouble_SelectStart(NEC00DB, nec00DB_data_electrical, 1);
                 DTToArrayString_SelectColumn(NEC00DB, nec00DB_wirearea, 0);
                 nec00DB_wirearea_unit = new string[nec00DB_wirearea.Length];
@@ -7351,6 +7960,9 @@ namespace Test1
             {
                 NEC10DB = cableDS.Tables["NEC10"].Copy();
                 nec10DB_data_electrical = new double[NEC10DB.Rows.Count, NEC10DB.Columns.Count];
+                nec10DB_wirearea = new string[NEC10DB.Rows.Count];
+                nec10DB_wirearea_unit = new string[NEC10DB.Rows.Count];
+                nec10DB_wirearea_metric = new double[NEC10DB.Rows.Count];
                 DTToArrayDouble_SelectStart(NEC10DB, nec10DB_data_electrical, 1);
                 DTToArrayString_SelectColumn(NEC10DB, nec10DB_wirearea, 0);
                 SynchronizeAreaUnitAndMetric(nec10DB_wirearea, nec10DB_wirearea_unit, nec10DB_wirearea_metric);
@@ -7364,6 +7976,9 @@ namespace Test1
             {
                 NEC20DB = cableDS.Tables["NEC20"].Copy();
                 nec20DB_data_electrical = new double[NEC20DB.Rows.Count, NEC20DB.Columns.Count];
+                nec20DB_wirearea = new string[NEC20DB.Rows.Count];
+                nec20DB_wirearea_unit = new string[NEC20DB.Rows.Count];
+                nec20DB_wirearea_metric = new double[NEC20DB.Rows.Count];
                 DTToArrayDouble_SelectStart(NEC20DB, nec20DB_data_electrical, 1);
                 DTToArrayString_SelectColumn(NEC20DB, nec20DB_wirearea, 0);
                 SynchronizeAreaUnitAndMetric(nec20DB_wirearea, nec20DB_wirearea_unit, nec20DB_wirearea_metric);
@@ -7377,6 +7992,9 @@ namespace Test1
             {
                 NEC01DB = cableDS.Tables["NEC01"].Copy();
                 nec01DB_data_electrical = new double[NEC01DB.Rows.Count, NEC01DB.Columns.Count];
+                nec01DB_wirearea = new string[NEC01DB.Rows.Count];
+                nec01DB_wirearea_unit = new string[NEC01DB.Rows.Count];
+                nec01DB_wirearea_metric = new double[NEC01DB.Rows.Count];
                 DTToArrayDouble_SelectStart(NEC01DB, nec01DB_data_electrical, 1);
                 DTToArrayString_SelectColumn(NEC01DB, nec01DB_wirearea, 0);
                 SynchronizeAreaUnitAndMetric(nec01DB_wirearea, nec01DB_wirearea_unit, nec01DB_wirearea_metric);
@@ -7390,6 +8008,9 @@ namespace Test1
             {
                 NEC11DB = cableDS.Tables["NEC11"].Copy();
                 nec11DB_data_electrical = new double[NEC11DB.Rows.Count, NEC11DB.Columns.Count];
+                nec11DB_wirearea = new string[NEC11DB.Rows.Count];
+                nec11DB_wirearea_unit = new string[NEC11DB.Rows.Count];
+                nec11DB_wirearea_metric = new double[NEC11DB.Rows.Count];
                 DTToArrayDouble_SelectStart(NEC11DB, nec11DB_data_electrical, 1);
                 DTToArrayString_SelectColumn(NEC11DB, nec11DB_wirearea, 0);
                 SynchronizeAreaUnitAndMetric(nec11DB_wirearea, nec11DB_wirearea_unit, nec11DB_wirearea_metric);
@@ -7403,6 +8024,9 @@ namespace Test1
             {
                 NEC21DB = cableDS.Tables["NEC21"].Copy();
                 nec21DB_data_electrical = new double[NEC21DB.Rows.Count, NEC21DB.Columns.Count];
+                nec21DB_wirearea = new string[NEC21DB.Rows.Count];
+                nec21DB_wirearea_unit = new string[NEC21DB.Rows.Count];
+                nec21DB_wirearea_metric = new double[NEC21DB.Rows.Count];
                 DTToArrayDouble_SelectStart(NEC21DB, nec21DB_data_electrical, 1);
                 DTToArrayString_SelectColumn(NEC21DB, nec21DB_wirearea, 0);
                 SynchronizeAreaUnitAndMetric(nec21DB_wirearea, nec21DB_wirearea_unit, nec21DB_wirearea_metric);
@@ -7411,6 +8035,41 @@ namespace Test1
             else
             {
                 nec21Length = 0;
+            }
+        }
+
+        private void SelectedDataLength()
+        {
+            if (material == "Copper")
+            {
+                switch (insulindex)
+                {
+                    case 1:
+                        currentDataLength = nec00Length;
+                        break;
+                    case 2:
+                        currentDataLength = nec10Length;
+                        break;
+                    case 3:
+                        currentDataLength = nec20Length;
+                        break;
+                }
+            }
+            else if (material == "Aluminium")
+            {
+
+                switch (insulindex)
+                {
+                    case 1:
+                        currentDataLength = nec01Length;
+                        break;
+                    case 2:
+                        currentDataLength = nec11Length;
+                        break;
+                    case 3:
+                        currentDataLength = nec21Length;
+                        break;
+                }
             }
         }
 
@@ -7459,8 +8118,8 @@ namespace Test1
             }
         }
 
-        //synchronize the wire area unit and mectric wirea area to the wireare of the selected custom database, 
-        //asumming that wireare_unit and wirearea_metric have suitable sizes
+        //synchronize the wire area unit and mectric wire area to the wire area of the selected custom database, 
+        //asumming that wirearea_unit and wirearea_metric have suitable sizes
         private void SynchronizeAreaUnitAndMetric(string[] wirearea, string[] wirearea_unit, double[] wirearea_metric)
         {
             int length;

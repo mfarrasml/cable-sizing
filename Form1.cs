@@ -3275,7 +3275,7 @@ namespace Test1
         private void Update_size()
         {
             textBox37.Text = wirearea.ToString();
-            i--;
+            int c = i - 1;
             comboBox15.Items.Clear();
             comboBox15.Items.Insert(0, "Update Size");
             if (radioButton4.Checked)
@@ -3284,38 +3284,38 @@ namespace Test1
                 {
                     if (cores == 2)
                     {
-                        comboBox15.Items.Insert(1, xlpe2coreDB[i, 0]);
-                        if (i < currentDataLength - 1)
+                        comboBox15.Items.Insert(1, xlpe2coreDB[c, 0]);
+                        if (c < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, xlpe2coreDB[i + 1, 0]);
+                            comboBox15.Items.Insert(2, xlpe2coreDB[c + 1, 0]);
                         }
-                        if (i < currentDataLength - 2)
+                        if (c < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, xlpe2coreDB[i + 2, 0]);
+                            comboBox15.Items.Insert(3, xlpe2coreDB[c + 2, 0]);
                         }
                     }
                     else if (cores == 3)
                     {
-                        comboBox15.Items.Insert(1, xlpe3coreDB[i, 0]);
-                        if (i < currentDataLength - 1)
+                        comboBox15.Items.Insert(1, xlpe3coreDB[c, 0]);
+                        if (c < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, xlpe3coreDB[i + 1, 0]);
+                            comboBox15.Items.Insert(2, xlpe3coreDB[c + 1, 0]);
                         }
-                        if (i < currentDataLength - 2)
+                        if (c < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, xlpe3coreDB[i + 2, 0]);
+                            comboBox15.Items.Insert(3, xlpe3coreDB[c + 2, 0]);
                         }
                     }
                     else if (cores == 4)
                     {
-                        comboBox15.Items.Insert(1, xlpe4coreDB[i, 0]);
-                        if (i < currentDataLength - 1)
+                        comboBox15.Items.Insert(1, xlpe4coreDB[c, 0]);
+                        if (c < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, xlpe4coreDB[i + 1, 0]);
+                            comboBox15.Items.Insert(2, xlpe4coreDB[c + 1, 0]);
                         }
-                        if (i < currentDataLength - 2)
+                        if (c < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, xlpe4coreDB[i + 2, 0]);
+                            comboBox15.Items.Insert(3, xlpe4coreDB[c + 2, 0]);
                         }
                     }
                 }
@@ -3323,57 +3323,57 @@ namespace Test1
                 {
                     if (cores == 2)
                     {
-                        comboBox15.Items.Insert(1, pvc2coreDB[i, 0]);
-                        if (i < currentDataLength - 1)
+                        comboBox15.Items.Insert(1, pvc2coreDB[c, 0]);
+                        if (c < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, pvc2coreDB[i + 1, 0]);
+                            comboBox15.Items.Insert(2, pvc2coreDB[c + 1, 0]);
                         }
-                        if (i < currentDataLength - 2)
+                        if (c < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, pvc2coreDB[i + 2, 0]);
+                            comboBox15.Items.Insert(3, pvc2coreDB[c + 2, 0]);
                         }
                     }
                     else if (cores == 3)
                     {
-                        comboBox15.Items.Insert(1, pvc3coreDB[i, 0]);
-                        if (i < currentDataLength - 1)
+                        comboBox15.Items.Insert(1, pvc3coreDB[c, 0]);
+                        if (c < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, pvc3coreDB[i + 1, 0]);
+                            comboBox15.Items.Insert(2, pvc3coreDB[c + 1, 0]);
                         }
-                        if (i < currentDataLength - 2)
+                        if (c < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, pvc3coreDB[i + 2, 0]);
+                            comboBox15.Items.Insert(3, pvc3coreDB[c + 2, 0]);
                         }
                     }
                     else if (cores == 4)
                     {
-                        comboBox15.Items.Insert(1, pvc4coreDB[i, 0]);
-                        if (i < currentDataLength - 1)
+                        comboBox15.Items.Insert(1, pvc4coreDB[c, 0]);
+                        if (c < currentDataLength - 1)
                         {
-                            comboBox15.Items.Insert(2, pvc4coreDB[i + 1, 0]);
+                            comboBox15.Items.Insert(2, pvc4coreDB[c + 1, 0]);
                         }
-                        if (i < currentDataLength - 2)
+                        if (c < currentDataLength - 2)
                         {
-                            comboBox15.Items.Insert(3, pvc4coreDB[i + 2, 0]);
+                            comboBox15.Items.Insert(3, pvc4coreDB[c + 2, 0]);
                         }
                     }
                 }
             }
             else if (radioButton3.Checked)
             {
-                comboBox15.Items.Insert(1, inputCableData[i, 0]);
-                if (i < cableCount - 1)
+                comboBox15.Items.Insert(1, inputCableData[c, 0]);
+                if (c < cableCount - 1)
                 {
                     comboBox15.Items.Insert(2, inputCableData[i + 1, 0]);
 
                 }
-                if (i < cableCount - 2)
+                if (c < cableCount - 2)
                 {
-                    comboBox15.Items.Insert(3, inputCableData[i + 2, 0]);
+                    comboBox15.Items.Insert(3, inputCableData[c + 2, 0]);
                 }
             }
             comboBox15.SelectedIndex = 0;
-            m = i;
+            m = c;
         }
 
         private void solvableOrNPlus()
@@ -4605,6 +4605,7 @@ namespace Test1
                 textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
                 tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
                 i = Convert.ToInt32(dtx[54]);
+                SelectedDataLength();
                 Update_size();
 
                 if ((textBox11.Text != "") || (textBox14.Text != ""))
@@ -5307,15 +5308,15 @@ namespace Test1
                 textBox37.Text = comboBox15.Text;
                 if (comboBox15.SelectedIndex == 1)
                 {
-                    m = i;
+                    m = i - 1;
                 }
                 else if (comboBox15.SelectedIndex == 2)
                 {
-                    m = i + 1;
+                    m = i;
                 }
                 else if (comboBox15.SelectedIndex == 3)
                 {
-                    m = i + 2;
+                    m = i + 1;
                 }
             }
 
@@ -6793,6 +6794,7 @@ namespace Test1
                     button8.Enabled = true;
 
                     i = Convert.ToInt32(dtx[54]);
+                    SelectedDataLength();
                     Update_size();
                 }
                 if ((Convert.ToString(dtx[6]) == "DC") && (DtrToDoubleText(dtx,39) != ""))

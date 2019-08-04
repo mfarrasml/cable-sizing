@@ -698,7 +698,7 @@
             // 
             this.comboBoxVendor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxVendor.FormattingEnabled = true;
-            this.comboBoxVendor.Location = new System.Drawing.Point(81, 76);
+            this.comboBoxVendor.Location = new System.Drawing.Point(138, 149);
             this.comboBoxVendor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBoxVendor.Name = "comboBoxVendor";
             this.comboBoxVendor.Size = new System.Drawing.Size(120, 21);
