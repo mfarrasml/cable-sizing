@@ -9413,7 +9413,7 @@ namespace Test1
                 results[32] = "";
                 results[33] = "";
             }
-            results[34] = smin.ToString("0.##");
+            results[34] = smin_nec;
             if (radioButton1.Checked)
             {
                 results[35] = bLTE.ToString("0.##");
