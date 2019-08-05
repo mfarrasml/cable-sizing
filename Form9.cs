@@ -155,20 +155,21 @@ namespace Test1
 
 
 
-        double nec00Length;
-        double nec10Length;
-        double nec20Length;
-        double nec01Length;
-        double nec11Length;
-        double nec21Length;
+        int nec00Length;
+        int nec10Length;
+        int nec20Length;
+        int nec01Length;
+        int nec11Length;
+        int nec21Length;
 
         //store currently used datalength for size updating purpose while using custom database
-        double currentDataLength;
+        int currentDataLength;
 
         //public static int j = -1;
         Form5 f5 = new Form5();
         Form6 f6 = new Form6();
         Form10 f10 = new Form10();
+        Form8 f8;
         FSettings fSettings = new FSettings();
         FormAbout fAbout = new FormAbout();
         FormAddCableDatabase faddcable;
@@ -918,6 +919,9 @@ namespace Test1
             Form1.dtdiameter.Columns.Add("Conduit");
             Form1.dtdiameter.Columns.Add("IndexConduit");
             Form1.dtdiameter.Columns.Add("IndexLength");
+            Form1.dtdiameter.Columns.Add("Remarks");
+            Form1.dtdiameter.Columns.Add("Result");
+            Form1.dtdiameter.Columns.Add("CustomDatabase");
 
 
             //load saved/default settings
@@ -2798,17 +2802,17 @@ namespace Test1
                 insulindex = 0;
             }
 
-            //get selected database base on its insulation and material type
-            SelectedDatabaseType();
             //get the database length
             SelectedDataLength();
-
-            while (!complete)
+            if (currentDataLength > 0)
             {
-                i = 0;
-                if (radioButton4.Checked) //vendor data
+                //get selected database base on its insulation and material type
+                SelectedDatabaseType();
+
+                while (!complete)
                 {
-                    while ((!complete) && (i < 21))
+                    i = 0;
+                    while ((!complete) && (i < currentDataLength))
                     {
                         wirearea_nec = nec_selected_wirearea[i];
                         wirearea_unit = nec_selected_wirearea_unit[i];
@@ -2865,7 +2869,7 @@ namespace Test1
 
                         //get irated value
                         Irated = nec_selected_data_electrical[i, 2] * n;
-                                
+
 
                         iderated = Irated * ktmain;
 
@@ -2877,92 +2881,22 @@ namespace Test1
 
                         i++;
                     }
-                     
 
                     if (!complete)
                     {
                         solvableOrNPlus_Vd();
                     }
+                    label85.Text = wirearea_unit;
                 }
-                else if (radioButton3.Checked) //manual data
-                {
-                    while ((!complete) && (i < cableCount))
-                    {
-                        wirearea_nec = inputCableData_nec[i, 0];
-                        wirearea_unit = inputCableData_nec_unit[i];
-                        wirearea_metric = inputCableData_nec_metric[i];
-
-                        if (phase == "DC")
-                        {
-                            Rdc = Convert.ToDouble(inputCableData_nec[i, 2]);
-                            Rac = 0;
-
-                            vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                        }
-                        else
-                        {
-                            Rac = Convert.ToDouble(inputCableData_nec[i, 2]);
-                            Rdc = 0;
-                            X = Convert.ToDouble(inputCableData_nec[i, 3]);
-
-                            if (phase == "Single-Phase AC")
-                            {
-                                vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                / (n * 1000 * voltage);
-
-                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                if ((loadtype == "Motor") && ConsiderVdStart)
-                                {
-                                    vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                    / (n * 1000 * voltage);
-                                }
-                                else
-                                {
-                                    vdstart = 0;
-                                }
-                            }
-                            else if (phase == "Three-Phase AC")
-                            {
-                                vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                / (n * 1000 * voltage);
-
-                                lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                    (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                if ((loadtype == "Motor") && ConsiderVdStart)
-                                {
-                                    vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                    / (n * 1000 * voltage);
-                                }
-                                else
-                                {
-                                    vdstart = 0;
-                                }
-                            }
-                        }
-
-                        Irated = Convert.ToDouble(inputCableData_nec[i, 4]) * n;
-                        diameter = Convert.ToDouble(inputCableData_nec[i, 5]);
-
-                        iderated = Irated * ktmain;
-                        cable_lte();
-
-                        // Validasi
-                        validasi_vd();
-
-                        i++;
-                    }
-                    if (!complete)
-                    {
-                        solvableOrNPlus_Vd();
-                    }
-                }
-
-                label85.Text = wirearea_unit;
             }
+            else
+            {
+                MessageBox.Show("Selected cable data specification for cable with " + material + " cable material and " + insulation + " insulation doesn't exist!",
+                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                complete = true;
+                inputValid = false;
+            }
+
 
             if (inputValid)
             {
@@ -3081,16 +3015,16 @@ namespace Test1
                     insulindex = 0;
                 }
 
-                //get selected database base on its insulation and material type
-                SelectedDatabaseType();
                 //get the database length
                 SelectedDataLength();
 
-                while (!complete)
+                if (currentDataLength > 0)
                 {
-                    i = m;
-                    if (radioButton4.Checked)
+                    //get selected database base on its insulation and material type
+                    SelectedDatabaseType();
+                    while (!complete)
                     {
+                        i = m;
                         while ((!complete) && (i < currentDataLength))
                         {
                             wirearea_nec = nec_selected_wirearea[i];
@@ -3145,7 +3079,7 @@ namespace Test1
                                     }
                                 }
                             }
-                                    
+
                             //get irated
                             Irated = nec_selected_data_electrical[i, 2] * n;
 
@@ -3160,93 +3094,22 @@ namespace Test1
                             i++;
                         }
 
+
                         if (!complete)
                         {
                             solvableOrNPlus();
                         }
 
+                        label85.Text = wirearea_unit;
 
                     }
-                    else if (radioButton3.Checked) //manual cable database input
-                    {
-                        while ((!complete) && (i < cableCount))
-                        {
-                            wirearea_nec = inputCableData_nec[i, 0];
-                            wirearea_unit = inputCableData_nec_unit[i];
-                            wirearea_metric = inputCableData_nec_metric[i];
-
-                            if (phase == "DC")
-                            {
-                                Rdc = Convert.ToDouble(inputCableData_nec[i, 2]);
-                                Rac = 0;
-
-                                vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
-                                lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
-                            }
-                            else
-                            {
-                                Rac = Convert.ToDouble(inputCableData_nec[i, 2]);
-                                Rdc = 0;
-                                X = Convert.ToDouble(inputCableData_nec[i, 3]);
-
-                                if (phase == "Single-Phase AC")
-                                {
-                                    vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                    / (n * 1000 * voltage);
-
-                                    lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
-                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                    if ((loadtype == "Motor") && ConsiderVdStart)
-                                    {
-                                        vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                        / (n * 1000 * voltage);
-                                    }
-                                    else
-                                    {
-                                        vdstart = 0;
-                                    }
-                                }
-                                else if (phase == "Three-Phase AC")
-                                {
-                                    vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
-                                    / (n * 1000 * voltage);
-
-                                    lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
-                                        (X * Math.Sqrt(1 - pf * pf))) * 100);
-
-                                    if ((loadtype == "Motor") && ConsiderVdStart)
-                                    {
-                                        vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
-                                        / (n * 1000 * voltage);
-                                    }
-                                    else
-                                    {
-                                        vdstart = 0;
-                                    }
-                                }
-                            }
-
-                            Irated = Convert.ToDouble(inputCableData_nec[i, 4]) * n;
-                            diameter = Convert.ToDouble(inputCableData_nec[i, 5]);
-
-                            iderated = Irated * ktmain;
-                            cable_lte();
-
-                            // Validasi
-                            validasi();
-
-                            i++;
-                        }
-                        if (!complete)
-                        {
-                            solvableOrNPlus();
-                        }
-
-                    }
-
-                    label85.Text = wirearea_unit;
-
+                }
+                else
+                {
+                    MessageBox.Show("Selected cable data specification for cable with " + material + " cable material and " + insulation + " insulation doesn't exist!",
+                     "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    complete = true;
+                    inputValid = false;
                 }
                 if (inputValid)
                 {
@@ -3328,22 +3191,46 @@ namespace Test1
                 switch (insulindex)
                 {
                     case 1:
-                        Array.Copy(nec00DB_data_electrical, nec_selected_data_electrical, nec00DB_data_electrical.Length);
-                        Array.Copy(nec00DB_wirearea, nec_selected_wirearea, nec00DB_wirearea.Length);
-                        Array.Copy(nec00DB_wirearea_unit, nec_selected_wirearea_unit, nec00DB_wirearea_unit.Length);
-                        Array.Copy(nec00DB_wirearea_metric, nec_selected_wirearea_metric, nec00DB_wirearea_metric.Length);
+                        if (nec00Length > 0)
+                        {
+                            nec_selected_data_electrical = new double[nec00Length, 3];
+                            nec_selected_wirearea = new string[nec00Length];
+                            nec_selected_wirearea_unit = new string[nec00Length];
+                            nec_selected_wirearea_metric = new double[nec00Length];
+
+                            Array.Copy(nec00DB_data_electrical, nec_selected_data_electrical, nec00DB_data_electrical.Length);
+                            Array.Copy(nec00DB_wirearea, nec_selected_wirearea, nec00DB_wirearea.Length);
+                            Array.Copy(nec00DB_wirearea_unit, nec_selected_wirearea_unit, nec00DB_wirearea_unit.Length);
+                            Array.Copy(nec00DB_wirearea_metric, nec_selected_wirearea_metric, nec00DB_wirearea_metric.Length);
+                        }
                         break;
                     case 2:
-                        Array.Copy(nec10DB_data_electrical, nec_selected_data_electrical, nec10DB_data_electrical.Length);
-                        Array.Copy(nec10DB_wirearea, nec_selected_wirearea, nec10DB_wirearea.Length);
-                        Array.Copy(nec10DB_wirearea_unit, nec_selected_wirearea_unit, nec10DB_wirearea_unit.Length);
-                        Array.Copy(nec10DB_wirearea_metric, nec_selected_wirearea_metric, nec10DB_wirearea_metric.Length);
+                        if (nec10Length > 0)
+                        {
+                            nec_selected_data_electrical = new double[nec10Length, 3];
+                            nec_selected_wirearea = new string[nec10Length];
+                            nec_selected_wirearea_unit = new string[nec10Length];
+                            nec_selected_wirearea_metric = new double[nec10Length];
+
+                            Array.Copy(nec10DB_data_electrical, nec_selected_data_electrical, nec10DB_data_electrical.Length);
+                            Array.Copy(nec10DB_wirearea, nec_selected_wirearea, nec10DB_wirearea.Length);
+                            Array.Copy(nec10DB_wirearea_unit, nec_selected_wirearea_unit, nec10DB_wirearea_unit.Length);
+                            Array.Copy(nec10DB_wirearea_metric, nec_selected_wirearea_metric, nec10DB_wirearea_metric.Length);
+                        }
                         break;
                     case 3:
-                        Array.Copy(nec20DB_data_electrical, nec_selected_data_electrical, nec20DB_data_electrical.Length);
-                        Array.Copy(nec20DB_wirearea, nec_selected_wirearea, nec20DB_wirearea.Length);
-                        Array.Copy(nec20DB_wirearea_unit, nec_selected_wirearea_unit, nec20DB_wirearea_unit.Length);
-                        Array.Copy(nec20DB_wirearea_metric, nec_selected_wirearea_metric, nec20DB_wirearea_metric.Length);
+                        if (nec20Length > 0)
+                        {
+                            nec_selected_data_electrical = new double[nec20Length, 3];
+                            nec_selected_wirearea = new string[nec20Length];
+                            nec_selected_wirearea_unit = new string[nec20Length];
+                            nec_selected_wirearea_metric = new double[nec20Length];
+
+                            Array.Copy(nec20DB_data_electrical, nec_selected_data_electrical, nec20DB_data_electrical.Length);
+                            Array.Copy(nec20DB_wirearea, nec_selected_wirearea, nec20DB_wirearea.Length);
+                            Array.Copy(nec20DB_wirearea_unit, nec_selected_wirearea_unit, nec20DB_wirearea_unit.Length);
+                            Array.Copy(nec20DB_wirearea_metric, nec_selected_wirearea_metric, nec20DB_wirearea_metric.Length);
+                        }
                         break;
                 }
             }
@@ -3353,22 +3240,46 @@ namespace Test1
                 switch (insulindex)
                 {
                     case 1:
-                        Array.Copy(nec01DB_data_electrical, nec_selected_data_electrical, nec01DB_data_electrical.Length);
-                        Array.Copy(nec01DB_wirearea, nec_selected_wirearea, nec01DB_wirearea.Length);
-                        Array.Copy(nec01DB_wirearea_unit, nec_selected_wirearea_unit, nec01DB_wirearea_unit.Length);
-                        Array.Copy(nec01DB_wirearea_metric, nec_selected_wirearea_metric, nec01DB_wirearea_metric.Length);
+                        if (nec01Length > 0)
+                        {
+                            nec_selected_data_electrical = new double[nec01Length, 3];
+                            nec_selected_wirearea = new string[nec01Length];
+                            nec_selected_wirearea_unit = new string[nec01Length];
+                            nec_selected_wirearea_metric = new double[nec01Length];
+
+                            Array.Copy(nec01DB_data_electrical, nec_selected_data_electrical, nec01DB_data_electrical.Length);
+                            Array.Copy(nec01DB_wirearea, nec_selected_wirearea, nec01DB_wirearea.Length);
+                            Array.Copy(nec01DB_wirearea_unit, nec_selected_wirearea_unit, nec01DB_wirearea_unit.Length);
+                            Array.Copy(nec01DB_wirearea_metric, nec_selected_wirearea_metric, nec01DB_wirearea_metric.Length);
+                        }
                         break;
                     case 2:
-                        Array.Copy(nec11DB_data_electrical, nec_selected_data_electrical, nec11DB_data_electrical.Length);
-                        Array.Copy(nec11DB_wirearea, nec_selected_wirearea, nec11DB_wirearea.Length);
-                        Array.Copy(nec11DB_wirearea_unit, nec_selected_wirearea_unit, nec11DB_wirearea_unit.Length);
-                        Array.Copy(nec11DB_wirearea_metric, nec_selected_wirearea_metric, nec11DB_wirearea_metric.Length);
+                        if (nec11Length > 0)
+                        {
+                            nec_selected_data_electrical = new double[nec11Length, 3];
+                            nec_selected_wirearea = new string[nec11Length];
+                            nec_selected_wirearea_unit = new string[nec11Length];
+                            nec_selected_wirearea_metric = new double[nec11Length];
+
+                            Array.Copy(nec11DB_data_electrical, nec_selected_data_electrical, nec11DB_data_electrical.Length);
+                            Array.Copy(nec11DB_wirearea, nec_selected_wirearea, nec11DB_wirearea.Length);
+                            Array.Copy(nec11DB_wirearea_unit, nec_selected_wirearea_unit, nec11DB_wirearea_unit.Length);
+                            Array.Copy(nec11DB_wirearea_metric, nec_selected_wirearea_metric, nec11DB_wirearea_metric.Length);
+                        }
                         break;
                     case 3:
-                        Array.Copy(nec21DB_data_electrical, nec_selected_data_electrical, nec21DB_data_electrical.Length);
-                        Array.Copy(nec21DB_wirearea, nec_selected_wirearea, nec21DB_wirearea.Length);
-                        Array.Copy(nec21DB_wirearea_unit, nec_selected_wirearea_unit, nec21DB_wirearea_unit.Length);
-                        Array.Copy(nec21DB_wirearea_metric, nec_selected_wirearea_metric, nec21DB_wirearea_metric.Length);
+                        if (nec21Length > 0)
+                        {
+                            nec_selected_data_electrical = new double[nec21Length, 3];
+                            nec_selected_wirearea = new string[nec21Length];
+                            nec_selected_wirearea_unit = new string[nec21Length];
+                            nec_selected_wirearea_metric = new double[nec21Length];
+
+                            Array.Copy(nec21DB_data_electrical, nec_selected_data_electrical, nec21DB_data_electrical.Length);
+                            Array.Copy(nec21DB_wirearea, nec_selected_wirearea, nec21DB_wirearea.Length);
+                            Array.Copy(nec21DB_wirearea_unit, nec_selected_wirearea_unit, nec21DB_wirearea_unit.Length);
+                            Array.Copy(nec21DB_wirearea_metric, nec_selected_wirearea_metric, nec21DB_wirearea_metric.Length);
+                        }
                         break;
                 }
             }
@@ -3391,7 +3302,7 @@ namespace Test1
 
 
         // show selected size + 2 size above
-        private void Update_size()
+        private void Update_size() //update buat custom database
         {
             string size_temp_update = "";
 
@@ -3439,13 +3350,7 @@ namespace Test1
                 complete = true;
                 inputValid = false;
             }
-            else if ((radioButton2.Enabled) && (radioButton4.Checked) && (cablesizemin > data_wirearea_metric[20]))
-            {
-                MessageBox.Show("Failed to get a suitable cable size: Minimum cable size exceeds the maximum available cable size!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                complete = true;
-                inputValid = false;
-            }
-            else if ((radioButton2.Enabled) && (radioButton3.Checked) && (cablesizemin > inputCableData_nec_metric[cableCount - 1]))
+            else if (cablesizemin > wirearea_metric)
             {
                 MessageBox.Show("Failed to get a suitable cable size: Minimum cable size exceeds the maximum available cable size!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
@@ -3475,8 +3380,8 @@ namespace Test1
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
                 (((radioButton1.Checked) && (cLTE > bLTE)) ||
                 ((radioButton2.Checked) &&
-                (((radioButton4.Checked) && (data_wirearea_metric[i] > cablesizemin)) || ((radioButton3.Checked) && (inputCableData_nec_metric[i] > cablesizemin)))
-                )))
+                (((radioButton4.Checked) && (data_wirearea_metric[i] > cablesizemin)) || ((radioButton3.Checked) && (inputCableData_nec_metric[i] > cablesizemin)) ||
+                ((radioButtonVendor.Checked) && (nec_selected_wirearea_metric[i] > cablesizemin))))))
             {
                 if ((loadtype == "Motor") && ConsiderVdStart)
                 {
@@ -3508,7 +3413,14 @@ namespace Test1
 
         private void Button2_Click(object sender, EventArgs e)
         {
-            calc_area();
+            if (radioButtonVendor.Checked)
+            {
+                calc_area_custom();
+            }
+            else
+            {
+                calc_area();
+            }
         }
 
         private void TextBox5_Leave(object sender, EventArgs e)
@@ -4586,6 +4498,10 @@ namespace Test1
             else
             {
                 Properties.Settings.Default.Save();
+                if (EditingState)
+                {
+                    f5.Enabled = true;
+                }
             }
             OpenForm.formMainClose = false;
         }
@@ -4660,188 +4576,237 @@ namespace Test1
             }
 
             DataRow dtx = Form1.dtdiameter.Rows[Form5.currentrow];
-            textBox13.Text = Convert.ToString(dtx[1]); //tagno
-            textBox26.Text = Convert.ToString(dtx[2]); //from
-            textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
-            textBox27.Text = Convert.ToString(dtx[4]); //to
-            textBox31.Text = Convert.ToString(dtx[5]); //todesc
-            comboBox3.Text = Convert.ToString(dtx[6]); //phase
-            comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
-            comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
-            if (Convert.ToString(dtx[9]) == "True")
+            bool noDatabase = false;
+            if (Convert.ToString(dtx[32]) == "custom")
             {
-                radioButton8.Checked = true;
-            }
-            else
-            {
-                radioButton8.Checked = false;
-            }
-            cbPower.Text = Convert.ToString(dtx[10]); // power unit
-            TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
-            current = Convert.ToDouble(dtx[12]);
-            textBox3.Text = current.ToString("0.##"); // FL Current
-            textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
-            textBox5.Text = DtrToDoubleText(dtx, 14); //eff
-            textBox4.Text = DtrToDoubleText(dtx, 15); //pf
-            textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
-            textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
-            comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
-            comboBox4.Text = Convert.ToString(dtx[19]);//material
-            comboBox6.Text = Convert.ToString(dtx[20]); //insulation
-            //comboBox7.Text = Convert.ToString(dtx[21]); //armour
-            //comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
-            comboBox9.Text = Convert.ToString(dtx[23]); //installation
-            if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
-            {
-                radioButton7.Checked = true;
-            }
-            else
-            {
-                radioButton7.Checked = false;
-            }
-            textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
-            textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
-            textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
-            textBox19.Text = DtrToDoubleText(dtx, 28); //ktmain
-            ktmain = Convert.ToDouble(dtx[28]);
-            textBox6.Text = DtrToDoubleText(dtx, 29); //length
-            textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
-            textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
-            if (Convert.ToString(dtx[32]) == "vendor")
-            {
-                radioButton4.Checked = true;
+                radioButtonVendor.Checked = true;
+                if (comboBoxVendor.Items.Contains(Convert.ToString(dtx[65])))
+                {
+                    comboBoxVendor.SelectedItem = Convert.ToString(dtx[65]);
+                }
+                else
+                {
+                    MessageBox.Show("Error: Cable Database \"" + Convert.ToString(dtx[65]) + "\" not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    EditingState = false;
+                    f5.Enabled = true;
+
+                    if (!f5.Visible)
+                    {
+                        f5.Show();
+                    }
+                    else if (f5.WindowState == FormWindowState.Minimized)
+                    {
+                        f5.WindowState = FormWindowState.Normal;
+                    }
+                    else
+                    {
+                        f5.BringToFront();
+                    }
+
+                    button4.Text = "Add to Result";
+                    addToolStripMenuItem.Text = "Add to Result";
+                    button3.Text = "Add and Save";
+                    button5.Text = "Open Calculation Result";
+                    EditingState = false;
+                    noDatabase = true;
+                }
             }
             else if (Convert.ToString(dtx[32]) == "manual")
             {
                 radioButton3.Checked = true;
+                comboBoxVendor.SelectedIndex = -1;
             }
-            vdrun = Convert.ToDouble(dtx[33]);
-            textBox8.Text = vdrun.ToString("0.##"); //vdrun
-            if (DtrToDoubleText(dtx, 34) != "")
+            else if (Convert.ToString(dtx[32]) == "vendor")
             {
-                vdstart = Convert.ToDouble(dtx[34]);
-                textBox10.Text = vdstart.ToString("0.##"); //vdstart
+                radioButton4.Checked = true;
+                comboBoxVendor.SelectedIndex = -1;
+
             }
-            else
+
+
+            if (!noDatabase)
             {
-                textBox10.Text = "";
-            }
-            lmax = Convert.ToDouble(dtx[35]);
-            textBox29.Text = lmax.ToString("0.##");  //lmax
-            textBox12.Text = Convert.ToString(dtx[36]); //no of run
-            comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
-            textBox37.Text = Convert.ToString(dtx[38]); //wirearea
-            wirearea_nec = Convert.ToString(dtx[38]);
-            if (Convert.ToString(dtx[6]) == "DC")
-            {
-                Rdc = Convert.ToDouble(dtx[39]);
-                textBox34.Text = Rac.ToString("0.####"); //Rdc
-            }
-            else
-            {
-                Rac = Convert.ToDouble(dtx[39]);
-                textBox34.Text = Rac.ToString("0.####"); //Rac
-            }
-            X = Convert.ToDouble(dtx[40]);
-            textBox33.Text = X.ToString("0.####"); //X
-            textBox32.Text = Convert.ToString(dtx[41]); //irated
-            Irated = Convert.ToDouble(dtx[41]);
-            iderated = Convert.ToDouble(dtx[42]); //iderated
-            if (Convert.ToString(dtx[43]) == "sc")
-            {
-                radioButton2.Checked = true;
-            }
-            else if (Convert.ToString(dtx[43]) == "lte")
-            {
-                radioButton1.Checked = true;
-            }
-            textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
-            textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
-            textBox20.Text = DtrToDoubleText(dtx, 53); //blte
-            comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
-            textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
-            cLTE = Convert.ToDouble(dtx[48]);
-            textBox22.Text = cLTE.ToString("0.##"); //CLTE
-            if (Convert.ToString(dtx[49]) != "")
-            {
-                comboBox12.Text = Convert.ToString(dtx[49]); //protection type
-                if (Convert.ToString(dtx[50]) == "vendor")
+                textBox13.Text = Convert.ToString(dtx[1]); //tagno
+                textBox26.Text = Convert.ToString(dtx[2]); //from
+                textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
+                textBox27.Text = Convert.ToString(dtx[4]); //to
+                textBox31.Text = Convert.ToString(dtx[5]); //todesc
+                comboBox3.Text = Convert.ToString(dtx[6]); //phase
+                comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
+                comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
+                if (Convert.ToString(dtx[9]) == "True")
                 {
-                    radioButton5.Checked = true;
+                    radioButton8.Checked = true;
                 }
-                else if (Convert.ToString(dtx[50]) == "manual")
+                else
                 {
-                    radioButton6.Checked = true;
+                    radioButton8.Checked = false;
                 }
-                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
-                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
-            }
-            else
-            {
-                comboBox12.SelectedIndex = -1; //protection type
-                if (Convert.ToString(dtx[50]) == "vendor")
+                cbPower.Text = Convert.ToString(dtx[10]); // power unit
+                TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
+                current = Convert.ToDouble(dtx[12]);
+                textBox3.Text = current.ToString("0.##"); // FL Current
+                textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
+                textBox5.Text = DtrToDoubleText(dtx, 14); //eff
+                textBox4.Text = DtrToDoubleText(dtx, 15); //pf
+                textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
+                textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
+                comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
+                comboBox4.Text = Convert.ToString(dtx[19]);//material
+                comboBox6.Text = Convert.ToString(dtx[20]); //insulation
+                                                            //comboBox7.Text = Convert.ToString(dtx[21]); //armour
+                                                            //comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
+                if (radioButtonVendor.Checked)
                 {
-                    radioButton5.Checked = true;
+                    SelectedDatabaseType();
+                    SelectedDataLength();
                 }
-                else if (Convert.ToString(dtx[50]) == "manual")
+                comboBox9.Text = Convert.ToString(dtx[23]); //installation
+                if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
                 {
-                    radioButton6.Checked = true;
+                    radioButton7.Checked = true;
                 }
-                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
-                comboBox10.SelectedIndex = -1;
-                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
-                comboBox11.SelectedIndex = -1;
+                else
+                {
+                    radioButton7.Checked = false;
+                }
+                textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
+                textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
+                textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
+                textBox19.Text = DtrToDoubleText(dtx, 28); //ktmain
+                ktmain = Convert.ToDouble(dtx[28]);
+                textBox6.Text = DtrToDoubleText(dtx, 29); //length
+                textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
+                textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
+                vdrun = Convert.ToDouble(dtx[33]);
+                textBox8.Text = vdrun.ToString("0.##"); //vdrun
+                if (DtrToDoubleText(dtx, 34) != "")
+                {
+                    vdstart = Convert.ToDouble(dtx[34]);
+                    textBox10.Text = vdstart.ToString("0.##"); //vdstart
+                }
+                else
+                {
+                    textBox10.Text = "";
+                }
+                lmax = Convert.ToDouble(dtx[35]);
+                textBox29.Text = lmax.ToString("0.##");  //lmax
+                textBox12.Text = Convert.ToString(dtx[36]); //no of run
+                comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
+                textBox37.Text = Convert.ToString(dtx[38]); //wirearea
+                wirearea_nec = Convert.ToString(dtx[38]);
+                if (Convert.ToString(dtx[6]) == "DC")
+                {
+                    Rdc = Convert.ToDouble(dtx[39]);
+                    textBox34.Text = Rac.ToString("0.####"); //Rdc
+                }
+                else
+                {
+                    Rac = Convert.ToDouble(dtx[39]);
+                    textBox34.Text = Rac.ToString("0.####"); //Rac
+                }
+                X = Convert.ToDouble(dtx[40]);
+                textBox33.Text = X.ToString("0.####"); //X
+                textBox32.Text = Convert.ToString(dtx[41]); //irated
+                Irated = Convert.ToDouble(dtx[41]);
+                iderated = Convert.ToDouble(dtx[42]); //iderated
+                if (Convert.ToString(dtx[43]) == "sc")
+                {
+                    radioButton2.Checked = true;
+                }
+                else if (Convert.ToString(dtx[43]) == "lte")
+                {
+                    radioButton1.Checked = true;
+                }
+                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+                comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
+                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
+                cLTE = Convert.ToDouble(dtx[48]);
+                textBox22.Text = cLTE.ToString("0.##"); //CLTE
+                if (Convert.ToString(dtx[49]) != "")
+                {
+                    comboBox12.Text = Convert.ToString(dtx[49]); //protection type
+                    if (Convert.ToString(dtx[50]) == "vendor")
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else if (Convert.ToString(dtx[50]) == "manual")
+                    {
+                        radioButton6.Checked = true;
+                    }
+                    comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                    comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                }
+                else
+                {
+                    comboBox12.SelectedIndex = -1; //protection type
+                    if (Convert.ToString(dtx[50]) == "vendor")
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else if (Convert.ToString(dtx[50]) == "manual")
+                    {
+                        radioButton6.Checked = true;
+                    }
+                    comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                    comboBox10.SelectedIndex = -1;
+                    comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                    comboBox11.SelectedIndex = -1;
+                }
+                textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
+                tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
+                i = Convert.ToInt32(dtx[54]);
+
+                temperature = Convert.ToDouble(dtx[55]);
+                comboBox16.Text = temperature.ToString();
+                comboBox16.SelectedIndex = Convert.ToInt32(dtx[56]);
+                comboBox18.SelectedIndex = Convert.ToInt32(dtx[57]);
+                comboBox19.SelectedIndex = Convert.ToInt32(dtx[58]);
+                comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
+                conduit = Convert.ToString(dtx[60]);
+                comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
+                comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
+                textBox35.Text = Convert.ToString(dtx[63]);
+                tbResult.Text = Convert.ToString(dtx[64]);
+
+                Update_size();
+
+                if ((textBox11.Text != "") || (textBox14.Text != ""))
+                {
+                    ConsiderVdStart = true;
+                }
+                else
+                {
+                    ConsiderVdStart = false;
+                }
+
+                if (comboBox11.Text == "") //data being edited is vd calculated only
+                {
+                    button2.Enabled = false;
+                }
+                else //data being edited is complete with SC/LTE consideration
+                {
+                    button2.Enabled = false;
+                }
+                //Disable all inputs before vd calculation
+                panel4.Enabled = true;
+                panel5.Enabled = false;
+                panel6.Enabled = false;
+
+                //enable vd calculate & edit data buttons
+                button7.Enabled = true;
+                button8.Enabled = true;
+
+
+                button4.Text = "Confirm Edit";
+                button3.Text = "Confirm Edit and Save";
+                addToolStripMenuItem.Text = "Confirm Edit";
+                disable_save();
+                enable_result_btn();
+                button5.Text = "Cancel";
             }
-            textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
-            tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
-            i = Convert.ToInt32(dtx[54]);
-
-            temperature = Convert.ToDouble(dtx[55]);
-            comboBox16.Text = temperature.ToString();
-            comboBox16.SelectedIndex = Convert.ToInt32(dtx[56]);
-            comboBox18.SelectedIndex = Convert.ToInt32(dtx[57]);
-            comboBox19.SelectedIndex = Convert.ToInt32(dtx[58]);
-            comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
-            conduit = Convert.ToString(dtx[60]);
-            comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
-            comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
-
-
-            Update_size();
-
-            if ((textBox11.Text != "") || (textBox14.Text != ""))
-            {
-                ConsiderVdStart = true;
-            }
-            else
-            {
-                ConsiderVdStart = false;
-            }
-
-            if (comboBox11.Text == "") //data being edited is vd calculated only
-            {
-                button2.Enabled = false;
-            }
-            else //data being edited is complete with SC/LTE consideration
-            {
-                button2.Enabled = false;
-            }
-            //Disable all inputs before vd calculation
-            panel4.Enabled = true;
-            panel5.Enabled = false;
-            panel6.Enabled = false;
-
-            //enable vd calculate & edit data buttons
-            button7.Enabled = true;
-            button8.Enabled = true;
-
-
-            button4.Text = "Confirm Edit";
-            button3.Text = "Confirm Edit and Save";
-            addToolStripMenuItem.Text = "Confirm Edit";
-            disable_save();
-            enable_result_btn();
-            button5.Text = "Cancel";
 
         }
 
@@ -4870,14 +4835,28 @@ namespace Test1
                 }
                 else
                 {
-                    button6.Enabled = false;
-                    label78.Enabled = false;
+                    button6.Visible = false;
+                    label78.Visible = false;
+                    labelVendor.Visible = false;
+                    comboBoxVendor.Visible = false;
+                    comboBoxVendor.SelectedIndex = -1;
                 }
+            }
+            else if (radioButton3.Checked)
+            {
+                button6.Visible = true;
+                label78.Visible = true;
+                labelVendor.Visible = false;
+                comboBoxVendor.Visible = false;
+                comboBoxVendor.SelectedIndex = -1;
             }
             else
             {
-                button6.Enabled = true;
-                label78.Enabled = true;
+                button6.Visible = false;
+                label78.Visible = false;
+                labelVendor.Visible = true;
+                comboBoxVendor.Visible = true;
+                comboBoxVendor.SelectedIndex = -1;
             }
             DisableUndoReset();
             enable_vd_btn();
@@ -4888,6 +4867,13 @@ namespace Test1
         {
             if (radioButton3.Checked)
             {
+                button6.Visible = true;
+                label78.Visible = true;
+                labelVendor.Visible = false;
+                comboBoxVendor.Visible = false;
+                comboBoxVendor.SelectedIndex = -1;
+
+
                 if ((comboBox4.Text != "") && (comboBox17.Text != ""))
                 {
                     button6.Enabled = true;
@@ -4899,10 +4885,21 @@ namespace Test1
                     label78.Enabled = false;
                 }
             }
+            else if (radioButton4.Checked)
+            {
+                button6.Visible = false;
+                label78.Visible = false;
+                labelVendor.Visible = false;
+                comboBoxVendor.Visible = false;
+                comboBoxVendor.SelectedIndex = -1;
+            }
             else
             {
-                button6.Enabled = false;
-                label78.Enabled = false;
+                button6.Visible = false;
+                label78.Visible = false;
+                labelVendor.Visible = true;
+                comboBoxVendor.Visible = true;
+                comboBoxVendor.SelectedIndex = -1;
             }
             DisableUndoReset();
             enable_vd_btn();
@@ -5375,7 +5372,14 @@ namespace Test1
             }
             else
             {
-                calc_vd();
+                if (radioButtonVendor.Checked)
+                {
+                    calc_vd_custom();
+                }
+                else
+                {
+                    calc_vd();
+                }
             }
         }
 
@@ -5501,6 +5505,11 @@ namespace Test1
                 {
                     textBox37.Text = inputCableData_nec[m, 0];
                     label85.Text = inputCableData_nec_unit[m];
+                }
+                else if (radioButtonVendor.Checked)
+                {
+                    textBox37.Text = nec_selected_wirearea[m];
+                    label85.Text = nec_selected_wirearea_unit[m];
                 }
             }
 
@@ -5958,6 +5967,7 @@ namespace Test1
                 }
                 else if (radioButton3.Checked) //manual cable database input
                 {
+
                     wirearea_nec = inputCableData_nec[m, 0];
                     wirearea_unit = inputCableData_nec_unit[m];
                     wirearea_metric = inputCableData_nec_metric[m];
@@ -6019,6 +6029,76 @@ namespace Test1
 
                     iderated = Irated * ktmain;
                     cable_lte();
+                }
+                else if (radioButtonVendor.Checked)
+                {
+
+                    //get selected database base on its insulation and material type
+                    SelectedDatabaseType();
+                    //get the database length
+                    SelectedDataLength();
+                    wirearea_nec = nec_selected_wirearea[m];
+                    wirearea_unit = nec_selected_wirearea_unit[m];
+                    wirearea_metric = nec_selected_wirearea_metric[m];
+
+                    if (phase == "DC")
+                    {
+                        Rdc = nec_selected_data_electrical[m, 0];
+                        vdrun = 2 * current * (Rdc * pf) * length * 100 / (n * 1000 * voltage);
+                        lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * Rdc * 100);
+                    }
+                    else //AC
+                    {
+                        Rac = nec_selected_data_electrical[m, 0];
+                        X = nec_selected_data_electrical[m, 1];
+
+                        if (phase == "Single-Phase AC")
+                        {
+                            vdrun = 2 * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                            / (n * 1000 * voltage);
+
+                            lmax = (n * vdrunmax * 1000 * voltage) / (2 * current * ((Rac * pf) +
+                                (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                            if ((loadtype == "Motor") && ConsiderVdStart)
+                            {
+                                vdstart = 2 * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                / (n * 1000 * voltage);
+                            }
+                            else
+                            {
+                                vdstart = 0;
+                            }
+                        }
+                        else if (phase == "Three-Phase AC")
+                        {
+                            vdrun = Math.Sqrt(3) * current * (Rac * pf + X * Math.Sqrt(1 - pf * pf)) * length * 100
+                            / (n * 1000 * voltage);
+
+                            lmax = (n * vdrunmax * 1000 * voltage) / (Math.Sqrt(3) * current * ((Rac * pf) +
+                                (X * Math.Sqrt(1 - pf * pf))) * 100);
+
+                            if ((loadtype == "Motor") && ConsiderVdStart)
+                            {
+                                vdstart = Math.Sqrt(3) * currentstart * (Rac * pfstart + X * Math.Sqrt(1 - pfstart * pfstart)) * length * 100
+                                / (n * 1000 * voltage);
+                            }
+                            else
+                            {
+                                vdstart = 0;
+                            }
+                        }
+                    }
+
+                    //get irated value
+                    Irated = nec_selected_data_electrical[m, 2] * n;
+
+
+                    iderated = Irated * ktmain;
+
+                    //cLTE = data_wirearea_metric[i] * data_wirearea_metric[i] * k * k;
+                    cable_lte();
+
                 }
 
                 textBox12.Text = n.ToString();
@@ -7424,6 +7504,7 @@ namespace Test1
             dtReset.Columns.Add("IndexLength");
             dtReset.Columns.Add("Remarks");
             dtReset.Columns.Add("Result");
+            dtReset.Columns.Add("CustomDatabase");
 
             dtr = dtReset.NewRow();
 
@@ -7503,10 +7584,17 @@ namespace Test1
             if (radioButton4.Checked) //vendor/manual cable properties input
             {
                 dtr[32] = "vendor";
+                dtr[65] = "";
             }
             else if (radioButton3.Checked)
             {
                 dtr[32] = "manual";
+                dtr[65] = "";
+            }
+            else if (radioButtonVendor.Checked)
+            {
+                dtr[32] = "custom";
+                dtr[65] = comboBoxVendor.Text;
             }
             dtr[33] = textBox8.Text;
             dtr[35] = textBox29.Text;
@@ -7640,213 +7728,274 @@ namespace Test1
         private void UndoReset()
         {
             DataRow dtx = dtReset.Rows[0];
-            textBox13.Text = Convert.ToString(dtx[1]); //tagno
-            textBox26.Text = Convert.ToString(dtx[2]); //from
-            textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
-            textBox27.Text = Convert.ToString(dtx[4]); //to
-            textBox31.Text = Convert.ToString(dtx[5]); //todesc
-            comboBox3.Text = Convert.ToString(dtx[6]); //phase
-            comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
-            comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
-            if (Convert.ToString(dtx[9]) == "True")
+
+            bool noDatabase = false;
+            if (Convert.ToString(dtx[32]) == "custom")
             {
-                radioButton8.Checked = true;
-            }
-            else
-            {
-                radioButton8.Checked = false;
-            }
-            cbPower.Text = Convert.ToString(dtx[10]); // power unit
-            TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
-            if (DtrToDoubleText(dtx, 12) != "")
-            {
-                if (radioButton8.Checked)
+                radioButtonVendor.Checked = true;
+                if (comboBoxVendor.Items.Contains(Convert.ToString(dtx[65])))
                 {
-                    current = Convert.ToDouble(dtx[12]);
-                    textBox3.Text = current.ToString("0.##"); // FL Current
+                    comboBoxVendor.SelectedItem = Convert.ToString(dtx[65]);
                 }
                 else
                 {
-                    textBox3.Text = DtrToDoubleText(dtx, 12);
+                    MessageBox.Show("Error: Cable Database \"" + Convert.ToString(dtx[65]) + "\" not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    EditingState = false;
+                    f5.Enabled = true;
+
+                    if (!f5.Visible)
+                    {
+                        f5.Show();
+                    }
+                    else if (f5.WindowState == FormWindowState.Minimized)
+                    {
+                        f5.WindowState = FormWindowState.Normal;
+                    }
+                    else
+                    {
+                        f5.BringToFront();
+                    }
+
+                    button4.Text = "Add to Result";
+                    addToolStripMenuItem.Text = "Add to Result";
+                    button3.Text = "Add and Save";
+                    button5.Text = "Open Calculation Result";
+                    EditingState = false;
+                    noDatabase = true;
                 }
-            }
-            textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
-            textBox5.Text = DtrToDoubleText(dtx, 14); //eff
-            textBox4.Text = DtrToDoubleText(dtx, 15); //pf
-            textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
-            textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
-            comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
-            comboBox4.Text = Convert.ToString(dtx[19]);//material
-            comboBox6.Text = Convert.ToString(dtx[20]); //insulation
-            //comboBox7.Text = Convert.ToString(dtx[21]); //armour
-            //comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
-            comboBox9.Text = Convert.ToString(dtx[23]); //installation
-            if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
-            {
-                radioButton7.Checked = true;
-            }
-            else
-            {
-                radioButton7.Checked = false;
-            }
-            textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
-            textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
-            textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
-            if (DtrToDoubleText(dtx, 28) != "")
-            {
-                ktmain = Convert.ToDouble(dtx[28]);
-                textBox19.Text = ktmain.ToString("0.##");
-            }
-            textBox6.Text = DtrToDoubleText(dtx, 29); //length
-            textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
-            textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
-            if (Convert.ToString(dtx[32]) == "vendor")
-            {
-                radioButton4.Checked = true;
             }
             else if (Convert.ToString(dtx[32]) == "manual")
             {
                 radioButton3.Checked = true;
+                comboBoxVendor.SelectedIndex = -1;
             }
-            if (DtrToDoubleText(dtx, 33) != "")
+            else if (Convert.ToString(dtx[32]) == "vendor")
             {
-                vdrun = Convert.ToDouble(dtx[33]);
-                textBox8.Text = vdrun.ToString("0.##"); //vdrun
-            }
-            else
-            {
-                textBox8.Text = "";
-            }
-            if (DtrToDoubleText(dtx, 34) != "")
-            {
-                vdstart = Convert.ToDouble(dtx[34]);
-                textBox10.Text = vdstart.ToString("0.##"); //vdstart
-            }
-            else
-            {
-                textBox10.Text = "";
-            }
-            if (DtrToDoubleText(dtx, 35) != "")
-            {
-                lmax = Convert.ToDouble(dtx[35]);
-                textBox29.Text = lmax.ToString("0.##");  //lmax
-            }
-            textBox12.Text = Convert.ToString(dtx[36]); //no of run
-            comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
-            if (DtrToDoubleText(dtx, 38) != "")
-            {
-                //Disable all inputs before vd calculation
-                panel4.Enabled = true;
-                panel5.Enabled = false;
-                panel6.Enabled = false;
+                radioButton4.Checked = true;
+                comboBoxVendor.SelectedIndex = -1;
 
-                //enable vd calculate & edit data buttons
-                button7.Enabled = true;
-                button8.Enabled = true;
+            }
 
-                textBox37.Text = Convert.ToString(dtx[38]); //wirearea
-                wirearea_nec = Convert.ToString(dtx[38]);
-                i = Convert.ToInt32(dtx[54]);
-                Update_size();
-            }
-            else
+            if (!noDatabase)
             {
-                textBox37.Text = "";
-            }
-            if ((Convert.ToString(dtx[6]) == "DC") && (DtrToDoubleText(dtx, 39) != ""))
-            {
-                Rdc = Convert.ToDouble(dtx[39]);
-                textBox34.Text = Rac.ToString("0.####"); //Rdc
-            }
-            else if (((Convert.ToString(dtx[6]) == "Single-Phase AC") || (Convert.ToString(dtx[6]) == "Three-Phase AC")) && (DtrToDoubleText(dtx, 39) != ""))
-            {
-                Rac = Convert.ToDouble(dtx[39]);
-                textBox34.Text = Rac.ToString("0.####"); //Rac
-                X = Convert.ToDouble(dtx[40]);
-                textBox33.Text = X.ToString("0.####"); //X
-            }
-            if (DtrToDoubleText(dtx, 41) != "")
-            {
-                Irated = Convert.ToDouble(dtx[41]);
-                textBox32.Text = Irated.ToString("0.##"); //irated
-                iderated = Convert.ToDouble(dtx[42]); //iderated
-            }
-            if (Convert.ToString(dtx[43]) == "sc")
-            {
-                radioButton2.Checked = true;
-            }
-            else if (Convert.ToString(dtx[43]) == "lte")
-            {
-                radioButton1.Checked = true;
-            }
-            textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
-            textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
-            textBox20.Text = DtrToDoubleText(dtx, 53); //blte
-            comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
-            textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
-            if (DtrToDoubleText(dtx, 48) != "")
-            {
-                cLTE = Convert.ToDouble(dtx[48]);
-                textBox22.Text = cLTE.ToString("0.##"); //CLTE
-            }
-            if (Convert.ToString(dtx[49]) != "")
-            {
-                comboBox12.Text = Convert.ToString(dtx[49]); //protection type
-                if (Convert.ToString(dtx[50]) == "vendor")
+                textBox13.Text = Convert.ToString(dtx[1]); //tagno
+                textBox26.Text = Convert.ToString(dtx[2]); //from
+                textBox16.Text = Convert.ToString(dtx[3]); //fromdesc
+                textBox27.Text = Convert.ToString(dtx[4]); //to
+                textBox31.Text = Convert.ToString(dtx[5]); //todesc
+                comboBox3.Text = Convert.ToString(dtx[6]); //phase
+                comboBox2.Text = Convert.ToString(dtx[7]); //loadtype
+                comboBox13.Text = Convert.ToString(dtx[8]); //voltage system
+                if (Convert.ToString(dtx[9]) == "True")
                 {
-                    radioButton5.Checked = true;
+                    radioButton8.Checked = true;
                 }
-                else if (Convert.ToString(dtx[50]) == "manual")
+                else
                 {
-                    radioButton6.Checked = true;
+                    radioButton8.Checked = false;
                 }
-                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
-                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
-            }
-            else
-            {
-                comboBox12.SelectedIndex = -1; //protection type
-                if (Convert.ToString(dtx[50]) == "vendor")
+                cbPower.Text = Convert.ToString(dtx[10]); // power unit
+                TextBox1.Text = DtrToDoubleText(dtx, 11); //Power
+                if (DtrToDoubleText(dtx, 12) != "")
                 {
-                    radioButton5.Checked = true;
+                    if (radioButton8.Checked)
+                    {
+                        current = Convert.ToDouble(dtx[12]);
+                        textBox3.Text = current.ToString("0.##"); // FL Current
+                    }
+                    else
+                    {
+                        textBox3.Text = DtrToDoubleText(dtx, 12);
+                    }
                 }
-                else if (Convert.ToString(dtx[50]) == "manual")
+                textBox2.Text = DtrToDoubleText(dtx, 13); //Voltage
+                textBox5.Text = DtrToDoubleText(dtx, 14); //eff
+                textBox4.Text = DtrToDoubleText(dtx, 15); //pf
+                textBox14.Text = DtrToDoubleText(dtx, 16); //pfstart
+                textBox25.Text = DtrToDoubleText(dtx, 17); //multiplier
+                comboBox14.Text = DtrToDoubleText(dtx, 18);//ratedvoltage
+                comboBox4.Text = Convert.ToString(dtx[19]);//material
+                comboBox6.Text = Convert.ToString(dtx[20]); //insulation
+                                                            //comboBox7.Text = Convert.ToString(dtx[21]); //armour
+                                                            //comboBox8.Text = Convert.ToString(dtx[22]); //outer Sheath
+                comboBox9.Text = Convert.ToString(dtx[23]); //installation
+
+                if (radioButtonVendor.Checked)
                 {
-                    radioButton6.Checked = true;
+                    SelectedDatabaseType();
+                    SelectedDataLength();
                 }
-                comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
-                comboBox10.SelectedIndex = -1;
-                comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
-                comboBox11.SelectedIndex = -1;
-            }
+                if (Convert.ToString(dtx[24]) == "True") //manual input correction factor
+                {
+                    radioButton7.Checked = true;
+                }
+                else
+                {
+                    radioButton7.Checked = false;
+                }
+                textBox17.Text = DtrToDoubleText(dtx, 25); //k1main
+                textBox18.Text = DtrToDoubleText(dtx, 26); //k2main
+                textBox36.Text = DtrToDoubleText(dtx, 27); //k3main
+                if (DtrToDoubleText(dtx, 28) != "")
+                {
+                    ktmain = Convert.ToDouble(dtx[28]);
+                    textBox19.Text = ktmain.ToString("0.##");
+                }
+                textBox6.Text = DtrToDoubleText(dtx, 29); //length
+                textBox9.Text = DtrToDoubleText(dtx, 30); //vdrunmax
+                textBox11.Text = DtrToDoubleText(dtx, 31); //vdstartmax
+                if (Convert.ToString(dtx[32]) == "vendor")
+                {
+                    radioButton4.Checked = true;
+                }
+                else if (Convert.ToString(dtx[32]) == "manual")
+                {
+                    radioButton3.Checked = true;
+                }
+                else if (Convert.ToString(dtx[32]) == "custom")
+                {
+                    radioButtonVendor.Checked = true;
+                }
+                if (DtrToDoubleText(dtx, 33) != "")
+                {
+                    vdrun = Convert.ToDouble(dtx[33]);
+                    textBox8.Text = vdrun.ToString("0.##"); //vdrun
+                }
+                else
+                {
+                    textBox8.Text = "";
+                }
+                if (DtrToDoubleText(dtx, 34) != "")
+                {
+                    vdstart = Convert.ToDouble(dtx[34]);
+                    textBox10.Text = vdstart.ToString("0.##"); //vdstart
+                }
+                else
+                {
+                    textBox10.Text = "";
+                }
+                if (DtrToDoubleText(dtx, 35) != "")
+                {
+                    lmax = Convert.ToDouble(dtx[35]);
+                    textBox29.Text = lmax.ToString("0.##");  //lmax
+                }
+                textBox12.Text = Convert.ToString(dtx[36]); //no of run
+                comboBox5.Text = Convert.ToString(dtx[37]); //no of cores
+                if (Convert.ToString(dtx[38]) != "")
+                {
+                    //Disable all inputs before vd calculation
+                    panel4.Enabled = true;
+                    panel5.Enabled = false;
+                    panel6.Enabled = false;
 
-            textBox35.Text = Convert.ToString(dtx[63]);
-            tbResult.Text = Convert.ToString(dtx[64]);
-            if (DtrToDoubleText(dtx, 55) != "")
-            {
-                temperature = Convert.ToDouble(dtx[55]);
-                comboBox16.Text = temperature.ToString();
-            }
-            comboBox16.SelectedIndex = Convert.ToInt32(dtx[56]);
-            comboBox18.SelectedIndex = Convert.ToInt32(dtx[57]);
-            comboBox19.SelectedIndex = Convert.ToInt32(dtx[58]);
-            comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
-            conduit = Convert.ToString(dtx[60]);
-            comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
-            comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
+                    //enable vd calculate & edit data buttons
+                    button7.Enabled = true;
+                    button8.Enabled = true;
 
-            if (comboBox11.Text == "") //data being edited is vd calculated only
-            {
-                button2.Enabled = false;
-            }
-            else //data being edited is complete with SC/LTE consideration
-            {
-                button2.Enabled = false;
-            }
+                    textBox37.Text = Convert.ToString(dtx[38]); //wirearea
+                    wirearea_nec = Convert.ToString(dtx[38]);
+                    i = Convert.ToInt32(dtx[54]);
+                    Update_size();
+                }
+                else
+                {
+                    textBox37.Text = "";
+                }
+                if ((Convert.ToString(dtx[6]) == "DC") && (DtrToDoubleText(dtx, 39) != ""))
+                {
+                    Rdc = Convert.ToDouble(dtx[39]);
+                    textBox34.Text = Rac.ToString("0.####"); //Rdc
+                }
+                else if (((Convert.ToString(dtx[6]) == "Single-Phase AC") || (Convert.ToString(dtx[6]) == "Three-Phase AC")) && (DtrToDoubleText(dtx, 39) != ""))
+                {
+                    Rac = Convert.ToDouble(dtx[39]);
+                    textBox34.Text = Rac.ToString("0.####"); //Rac
+                    X = Convert.ToDouble(dtx[40]);
+                    textBox33.Text = X.ToString("0.####"); //X
+                }
+                if (DtrToDoubleText(dtx, 41) != "")
+                {
+                    Irated = Convert.ToDouble(dtx[41]);
+                    textBox32.Text = Irated.ToString("0.##"); //irated
+                    iderated = Convert.ToDouble(dtx[42]); //iderated
+                }
+                if (Convert.ToString(dtx[43]) == "sc")
+                {
+                    radioButton2.Checked = true;
+                }
+                else if (Convert.ToString(dtx[43]) == "lte")
+                {
+                    radioButton1.Checked = true;
+                }
+                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+                comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
+                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
+                if (DtrToDoubleText(dtx, 48) != "")
+                {
+                    cLTE = Convert.ToDouble(dtx[48]);
+                    textBox22.Text = cLTE.ToString("0.##"); //CLTE
+                }
+                if (Convert.ToString(dtx[49]) != "")
+                {
+                    comboBox12.Text = Convert.ToString(dtx[49]); //protection type
+                    if (Convert.ToString(dtx[50]) == "vendor")
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else if (Convert.ToString(dtx[50]) == "manual")
+                    {
+                        radioButton6.Checked = true;
+                    }
+                    comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                    comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                }
+                else
+                {
+                    comboBox12.SelectedIndex = -1; //protection type
+                    if (Convert.ToString(dtx[50]) == "vendor")
+                    {
+                        radioButton5.Checked = true;
+                    }
+                    else if (Convert.ToString(dtx[50]) == "manual")
+                    {
+                        radioButton6.Checked = true;
+                    }
+                    comboBox10.Text = DtrToDoubleText(dtx, 51); //breaker rating
+                    comboBox10.SelectedIndex = -1;
+                    comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
+                    comboBox11.SelectedIndex = -1;
+                }
+
+                textBox35.Text = Convert.ToString(dtx[63]);
+                tbResult.Text = Convert.ToString(dtx[64]);
+                if (DtrToDoubleText(dtx, 55) != "")
+                {
+                    temperature = Convert.ToDouble(dtx[55]);
+                    comboBox16.Text = temperature.ToString();
+                }
+                comboBox16.SelectedIndex = Convert.ToInt32(dtx[56]);
+                comboBox18.SelectedIndex = Convert.ToInt32(dtx[57]);
+                comboBox19.SelectedIndex = Convert.ToInt32(dtx[58]);
+                comboBox20.SelectedIndex = Convert.ToInt32(dtx[59]);
+                conduit = Convert.ToString(dtx[60]);
+                comboBox21.SelectedIndex = Convert.ToInt32(dtx[61]);
+                comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
+
+                if (comboBox11.Text == "") //data being edited is vd calculated only
+                {
+                    button2.Enabled = false;
+                }
+                else //data being edited is complete with SC/LTE consideration
+                {
+                    button2.Enabled = false;
+                }
 
 
-            disable_save();
-            enable_result_btn();
+                disable_save();
+                enable_result_btn();
+            }
         }
 
         private void DisableUndoReset()
@@ -7869,6 +8018,8 @@ namespace Test1
             faddcable = new FormAddCableDatabase();
             faddcable.FormClosed += AddDatabaseClosed;
             faddcable.tabControl1.SelectedIndex = 1;
+            faddcable.radioButtonNECView.Checked = true;
+            faddcable.radioButtonNEC.Checked = true;
             faddcable.ShowDialog();
         }
         private void AddDatabaseClosed(object sender, FormClosedEventArgs e)
@@ -7901,7 +8052,6 @@ namespace Test1
                 tempstring = tempstring.Replace(".xml", "");
                 comboBoxVendor.Items.Insert(z, tempstring);
             }
-            comboBoxVendor.SelectedIndex = 0;
         }
 
         private void ComboBoxVendor_SelectedIndexChanged(object sender, EventArgs e)
@@ -7925,6 +8075,7 @@ namespace Test1
             }
 
             DisableUndoReset();
+            enable_vd_btn();
         }
 
         internal void ReadNECDatabase()
@@ -7941,7 +8092,7 @@ namespace Test1
             if (cableDS.Tables.Contains("NEC00"))
             {
                 NEC00DB = cableDS.Tables["NEC00"].Copy();
-                nec00DB_data_electrical = new double[NEC00DB.Rows.Count, NEC00DB.Columns.Count];
+                nec00DB_data_electrical = new double[NEC00DB.Rows.Count, NEC00DB.Columns.Count-1];
                 nec00DB_wirearea = new string[NEC00DB.Rows.Count];
                 nec00DB_wirearea_unit = new string[NEC00DB.Rows.Count];
                 nec00DB_wirearea_metric = new double[NEC00DB.Rows.Count];
@@ -7959,7 +8110,7 @@ namespace Test1
             if (cableDS.Tables.Contains("NEC10"))
             {
                 NEC10DB = cableDS.Tables["NEC10"].Copy();
-                nec10DB_data_electrical = new double[NEC10DB.Rows.Count, NEC10DB.Columns.Count];
+                nec10DB_data_electrical = new double[NEC10DB.Rows.Count, NEC10DB.Columns.Count-1];
                 nec10DB_wirearea = new string[NEC10DB.Rows.Count];
                 nec10DB_wirearea_unit = new string[NEC10DB.Rows.Count];
                 nec10DB_wirearea_metric = new double[NEC10DB.Rows.Count];
@@ -7975,7 +8126,7 @@ namespace Test1
             if (cableDS.Tables.Contains("NEC20"))
             {
                 NEC20DB = cableDS.Tables["NEC20"].Copy();
-                nec20DB_data_electrical = new double[NEC20DB.Rows.Count, NEC20DB.Columns.Count];
+                nec20DB_data_electrical = new double[NEC20DB.Rows.Count, NEC20DB.Columns.Count-1];
                 nec20DB_wirearea = new string[NEC20DB.Rows.Count];
                 nec20DB_wirearea_unit = new string[NEC20DB.Rows.Count];
                 nec20DB_wirearea_metric = new double[NEC20DB.Rows.Count];
@@ -7991,7 +8142,7 @@ namespace Test1
             if (cableDS.Tables.Contains("NEC01"))
             {
                 NEC01DB = cableDS.Tables["NEC01"].Copy();
-                nec01DB_data_electrical = new double[NEC01DB.Rows.Count, NEC01DB.Columns.Count];
+                nec01DB_data_electrical = new double[NEC01DB.Rows.Count, NEC01DB.Columns.Count-1];
                 nec01DB_wirearea = new string[NEC01DB.Rows.Count];
                 nec01DB_wirearea_unit = new string[NEC01DB.Rows.Count];
                 nec01DB_wirearea_metric = new double[NEC01DB.Rows.Count];
@@ -8007,7 +8158,7 @@ namespace Test1
             if (cableDS.Tables.Contains("NEC11"))
             {
                 NEC11DB = cableDS.Tables["NEC11"].Copy();
-                nec11DB_data_electrical = new double[NEC11DB.Rows.Count, NEC11DB.Columns.Count];
+                nec11DB_data_electrical = new double[NEC11DB.Rows.Count, NEC11DB.Columns.Count-1];
                 nec11DB_wirearea = new string[NEC11DB.Rows.Count];
                 nec11DB_wirearea_unit = new string[NEC11DB.Rows.Count];
                 nec11DB_wirearea_metric = new double[NEC11DB.Rows.Count];
@@ -8023,7 +8174,7 @@ namespace Test1
             if (cableDS.Tables.Contains("NEC21"))
             {
                 NEC21DB = cableDS.Tables["NEC21"].Copy();
-                nec21DB_data_electrical = new double[NEC21DB.Rows.Count, NEC21DB.Columns.Count];
+                nec21DB_data_electrical = new double[NEC21DB.Rows.Count, NEC21DB.Columns.Count-1];
                 nec21DB_wirearea = new string[NEC21DB.Rows.Count];
                 nec21DB_wirearea_unit = new string[NEC21DB.Rows.Count];
                 nec21DB_wirearea_metric = new double[NEC21DB.Rows.Count];
@@ -8096,11 +8247,14 @@ namespace Test1
             int dtColumn = dt.Columns.Count;
 
             int row = 0;
+            int c;
             foreach (DataRow dr in dt.Rows)
             {
+                c = 0;
                 for (int col = start; col < dtColumn; col++)
                 {
-                    arr[row, col] = Convert.ToDouble(dr[col]);
+                    arr[row, c] = Convert.ToDouble(dr[col]);
+                    c++;
                 }
                 row++;
             }
@@ -8137,6 +8291,22 @@ namespace Test1
                 }
                 k++;
             }
+        }
+
+        private void ViewEditCableDatabaseToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            faddcable = new FormAddCableDatabase();
+            faddcable.FormClosed += AddDatabaseClosed;
+            faddcable.tabControl1.SelectedIndex = 0;
+            faddcable.radioButtonNECView.Checked = true;
+            faddcable.radioButtonNEC.Checked = true;
+            faddcable.ShowDialog();
+        }
+
+        private void NECStandardCableDataToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            f8 = new Form8();
+            f8.Show();
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)
@@ -8367,7 +8537,7 @@ namespace Test1
                 (comboBox4.Text != "") && (textBox13.Text != "") && (comboBox17.Text != "") && (comboBox16.Text != "") &&
                 (comboBox21.Text != ""))
             {
-                if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
+                if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked) || (radioButtonVendor.Checked && (comboBoxVendor.Text != "")))
                 {
                     if ((loadtype == "Motor") && ConsiderVdStart)
                     {
@@ -8478,7 +8648,7 @@ namespace Test1
                 (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && 
                 (comboBox14.Text != "") && (textBox13.Text!= "") && (textBox24.Text != ""))
                 {
-                    if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
+                    if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked) || (radioButtonVendor.Checked && (comboBoxVendor.Text != "")))
                     {
                         if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "")) ||
                                 ((radioButton1.Checked) && (textBox20.Text != "")))
@@ -8945,6 +9115,34 @@ namespace Test1
                     }
                 }
             }
+            else if (radioButtonVendor.Checked)
+            {
+                if (smin > nec_selected_wirearea_metric[currentDataLength - 1])
+                {
+                    smin = 0;
+                    MessageBox.Show("Cable size minimum shall not greater than " + nec_selected_wirearea[currentDataLength - 1]
+                        + " " + nec_selected_wirearea_unit[currentDataLength - 1] + " (" + nec_selected_wirearea_metric[currentDataLength - 1] + " Sqmm) !",
+                        "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    textBox28.Text = "";
+                    textBox23.Text = "";
+                    textBox30.Text = "";
+                }
+                else
+                {
+                    cablesizemin = smin;
+
+                    for (int d = 0; d < currentDataLength; d++)
+                    {
+                        if (smin <= nec_selected_wirearea_metric[d])
+                        {
+                            smin_nec = nec_selected_wirearea[d];
+                            label68.Text = nec_selected_wirearea_unit[d];
+                            break;
+                        }
+                    }
+                }
+            }
 
 
             if (smin != 0)
@@ -9103,10 +9301,17 @@ namespace Test1
             if (radioButton4.Checked) //vendor/manual cable properties input
             {
                 dtr[32] = "vendor";
+                dtr[65] = "";
             }
             else if (radioButton3.Checked)
             {
                 dtr[32] = "manual";
+                dtr[65] = "";
+            }
+            else if (radioButtonVendor.Checked)
+            {
+                dtr[32] = "custom";
+                dtr[65] = comboBoxVendor.Text;
             }
             dtr[33] = vdrun;
             dtr[35] = lmax;
@@ -9132,6 +9337,8 @@ namespace Test1
             dtr[60] = conduit;
             dtr[61] = comboBox21.SelectedIndex;
             dtr[62] = comboBox1.SelectedIndex;
+            dtr[63] = textBox35.Text;
+            dtr[64] = tbResult.Text;
 
             for (int i = 49; i < 54; i++)
             {
@@ -9299,10 +9506,17 @@ namespace Test1
             if (radioButton4.Checked) //vendor/manual cable properties input
             {
                 dtr[32] = "vendor";
+                dtr[65] = "";
             }
             else if (radioButton3.Checked)
             {
                 dtr[32] = "manual";
+                dtr[65] = "";
+            }
+            else if (radioButtonVendor.Checked)
+            {
+                dtr[32] = "custom";
+                dtr[65] = comboBoxVendor.Text;
             }
             dtr[33] = vdrun;
             dtr[35] = lmax;
@@ -9350,6 +9564,8 @@ namespace Test1
             dtr[60] = conduit;
             dtr[61] = index_conduit;
             dtr[62] = comboBox1.SelectedIndex;
+            dtr[63] = textBox35.Text;
+            dtr[64] = tbResult.Text;
 
         }
 

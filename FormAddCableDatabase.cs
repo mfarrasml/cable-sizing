@@ -350,8 +350,14 @@ namespace Test1
 
 
             //initialize edit/view tab
-            LoadIECDatabase();
-            comboBoxDatabase.SelectedIndex = 0;
+            if (radioButton2.Checked)
+            {
+                LoadIECDatabase();
+            }
+            else
+            {
+                LoadNECDatabase();
+            }
 
         }
 
@@ -736,6 +742,7 @@ namespace Test1
 
                 //fill insulation combobox
                 comboBoxInsulation.SelectedIndex = -1;
+                comboBoxInsulation.DropDownWidth = 98;
                 insulation = "";
                 comboBoxInsulation.Items.Insert(0, "XLPE");
                 comboBoxInsulation.Items.Insert(1, "PVC");
@@ -760,10 +767,11 @@ namespace Test1
 
                 //fill insulation combobox
                 comboBoxInsulation.SelectedIndex = -1;
+                comboBoxInsulation.DropDownWidth = 500;
                 insulation = "";
                 comboBoxInsulation.Items.Insert(0, "TW/UF");
                 comboBoxInsulation.Items.Insert(1, "RHW/THW/THWN/USE/ZW");
-                comboBoxInsulation.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2");
+                comboBoxInsulation.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/\nTHHN/THW-2/THWN-2/USE-2/XHH/\nXHHW-2/ZW-2");
 
                 //fill conductor type
                 comboBoxConductor.SelectedIndex = -1;
@@ -2471,7 +2479,14 @@ namespace Test1
 
 
                 File.Move(oldFile, NewFile);
-                LoadIECDatabase();
+                if (IECSelected)
+                {
+                    LoadIECDatabase();
+                }
+                else
+                {
+                    LoadNECDatabase();
+                }
                 comboBoxDatabase.Text = FormRename.NewName;
                 databaseEdited = true;
             }
@@ -3197,6 +3212,7 @@ namespace Test1
                 //fill insulation combobox
                 dataGridView2.DataSource = null;
                 comboBox1.SelectedIndex = -1;
+                comboBox1.DropDownWidth = 98;
                 viewinsulation = "";
                 comboBox1.Items.Clear();
                 comboBox1.Items.Insert(0, "XLPE");
@@ -3220,6 +3236,7 @@ namespace Test1
                 //fill insulation combobox
                 dataGridView2.DataSource = null;
                 comboBox1.SelectedIndex = -1;
+                comboBox1.DropDownWidth = 500;
                 viewinsulation = "";
                 comboBox1.Items.Clear();
                 comboBox1.Items.Insert(0, "TW/UF");

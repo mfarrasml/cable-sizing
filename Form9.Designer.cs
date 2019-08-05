@@ -70,6 +70,8 @@
             this.label88 = new System.Windows.Forms.Label();
             this.label87 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
+            this.labelVendor = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.comboBoxVendor = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.panel27 = new System.Windows.Forms.Panel();
@@ -87,9 +89,9 @@
             this.label78 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.radioButtonVendor = new System.Windows.Forms.RadioButton();
             this.radioButton4 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.button6 = new System.Windows.Forms.Button();
             this.panel5 = new System.Windows.Forms.Panel();
             this.label95 = new System.Windows.Forms.Label();
             this.label94 = new System.Windows.Forms.Label();
@@ -259,6 +261,7 @@
             this.panel23 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
+            this.nECStandardCableDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel6.SuspendLayout();
@@ -538,7 +541,7 @@
             this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
             this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
@@ -548,7 +551,7 @@
             this.undoResetToolStripMenuItem.Image = global::Test1.Properties.Resources.Refresh_16x;
             this.undoResetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoResetToolStripMenuItem.Name = "undoResetToolStripMenuItem";
-            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoResetToolStripMenuItem.Text = "Undo Reset";
             this.undoResetToolStripMenuItem.Click += new System.EventHandler(this.UndoResetToolStripMenuItem_Click);
             // 
@@ -558,7 +561,7 @@
             this.viewEditCableDatabaseToolStripMenuItem,
             this.addCableDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.databaseToolStripMenuItem.Text = "Database";
             // 
             // viewEditCableDatabaseToolStripMenuItem
@@ -566,6 +569,7 @@
             this.viewEditCableDatabaseToolStripMenuItem.Name = "viewEditCableDatabaseToolStripMenuItem";
             this.viewEditCableDatabaseToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.viewEditCableDatabaseToolStripMenuItem.Text = "View/Edit Cable Database";
+            this.viewEditCableDatabaseToolStripMenuItem.Click += new System.EventHandler(this.ViewEditCableDatabaseToolStripMenuItem_Click);
             // 
             // addCableDatabaseToolStripMenuItem
             // 
@@ -577,7 +581,8 @@
             // viewToolStripMenuItem
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cableDataTableToolStripMenuItem});
+            this.cableDataTableToolStripMenuItem,
+            this.nECStandardCableDataToolStripMenuItem});
             this.viewToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 18);
@@ -588,7 +593,7 @@
             this.cableDataTableToolStripMenuItem.Image = global::Test1.Properties.Resources.Table_16x;
             this.cableDataTableToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.cableDataTableToolStripMenuItem.Name = "cableDataTableToolStripMenuItem";
-            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
+            this.cableDataTableToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.cableDataTableToolStripMenuItem.Text = "Cable Calculation Result";
             this.cableDataTableToolStripMenuItem.Click += new System.EventHandler(this.CableDataTableToolStripMenuItem_Click);
             // 
@@ -634,7 +639,7 @@
             // panel37
             // 
             this.panel37.BackColor = System.Drawing.Color.Red;
-            this.panel37.Location = new System.Drawing.Point(696, 359);
+            this.panel37.Location = new System.Drawing.Point(696, 384);
             this.panel37.Margin = new System.Windows.Forms.Padding(2);
             this.panel37.Name = "panel37";
             this.panel37.Size = new System.Drawing.Size(4, 21);
@@ -670,6 +675,8 @@
             // panel6
             // 
             this.panel6.BackColor = System.Drawing.Color.Transparent;
+            this.panel6.Controls.Add(this.labelVendor);
+            this.panel6.Controls.Add(this.button6);
             this.panel6.Controls.Add(this.comboBoxVendor);
             this.panel6.Controls.Add(this.comboBox1);
             this.panel6.Controls.Add(this.panel27);
@@ -687,22 +694,45 @@
             this.panel6.Controls.Add(this.label78);
             this.panel6.Controls.Add(this.label71);
             this.panel6.Controls.Add(this.panel1);
-            this.panel6.Controls.Add(this.button6);
             this.panel6.Location = new System.Drawing.Point(578, 0);
             this.panel6.Margin = new System.Windows.Forms.Padding(0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(282, 173);
+            this.panel6.Size = new System.Drawing.Size(282, 198);
             this.panel6.TabIndex = 161;
+            // 
+            // labelVendor
+            // 
+            this.labelVendor.AutoSize = true;
+            this.labelVendor.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelVendor.Location = new System.Drawing.Point(19, 169);
+            this.labelVendor.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
+            this.labelVendor.Name = "labelVendor";
+            this.labelVendor.Size = new System.Drawing.Size(76, 26);
+            this.labelVendor.TabIndex = 169;
+            this.labelVendor.Text = "Choose Cable \r\nDatabase";
+            this.labelVendor.Visible = false;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(173, 171);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(49, 23);
+            this.button6.TabIndex = 168;
+            this.button6.Text = "Insert";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Visible = false;
+            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // comboBoxVendor
             // 
             this.comboBoxVendor.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxVendor.FormattingEnabled = true;
-            this.comboBoxVendor.Location = new System.Drawing.Point(138, 149);
+            this.comboBoxVendor.Location = new System.Drawing.Point(138, 172);
             this.comboBoxVendor.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.comboBoxVendor.Name = "comboBoxVendor";
             this.comboBoxVendor.Size = new System.Drawing.Size(120, 21);
             this.comboBoxVendor.TabIndex = 167;
+            this.comboBoxVendor.Visible = false;
             this.comboBoxVendor.SelectedIndexChanged += new System.EventHandler(this.ComboBoxVendor_SelectedIndexChanged);
             // 
             // comboBox1
@@ -848,12 +878,13 @@
             this.label78.AutoSize = true;
             this.label78.Enabled = false;
             this.label78.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label78.Location = new System.Drawing.Point(22, 152);
+            this.label78.Location = new System.Drawing.Point(22, 176);
             this.label78.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label78.Name = "label78";
             this.label78.Size = new System.Drawing.Size(89, 13);
             this.label78.TabIndex = 143;
-            this.label78.Text = "Insert Cable Data";
+            this.label78.Text = "Insert Cable Data\r\n";
+            this.label78.Visible = false;
             // 
             // label71
             // 
@@ -868,32 +899,44 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.radioButtonVendor);
             this.panel1.Controls.Add(this.radioButton4);
             this.panel1.Controls.Add(this.radioButton3);
-            this.panel1.Location = new System.Drawing.Point(92, 124);
+            this.panel1.Location = new System.Drawing.Point(75, 124);
             this.panel1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(189, 22);
+            this.panel1.Size = new System.Drawing.Size(206, 45);
             this.panel1.TabIndex = 141;
+            // 
+            // radioButtonVendor
+            // 
+            this.radioButtonVendor.AutoSize = true;
+            this.radioButtonVendor.Location = new System.Drawing.Point(9, 25);
+            this.radioButtonVendor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.radioButtonVendor.Name = "radioButtonVendor";
+            this.radioButtonVendor.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonVendor.TabIndex = 131;
+            this.radioButtonVendor.Text = "Vendor Data";
+            this.radioButtonVendor.UseVisualStyleBackColor = true;
             // 
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
             this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(4, 4);
+            this.radioButton4.Location = new System.Drawing.Point(9, 4);
             this.radioButton4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(85, 17);
+            this.radioButton4.Size = new System.Drawing.Size(93, 17);
             this.radioButton4.TabIndex = 129;
             this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Vendor Data";
+            this.radioButton4.Text = "NEC Standard";
             this.radioButton4.UseVisualStyleBackColor = true;
             this.radioButton4.CheckedChanged += new System.EventHandler(this.RadioButton4_CheckedChanged);
             // 
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(94, 4);
+            this.radioButton3.Location = new System.Drawing.Point(110, 4);
             this.radioButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(87, 17);
@@ -901,19 +944,6 @@
             this.radioButton3.Text = "Manual Input";
             this.radioButton3.UseVisualStyleBackColor = true;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.RadioButton3_CheckedChanged);
-            // 
-            // button6
-            // 
-            this.button6.Enabled = false;
-            this.button6.ForeColor = System.Drawing.Color.Black;
-            this.button6.Location = new System.Drawing.Point(158, 149);
-            this.button6.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(51, 22);
-            this.button6.TabIndex = 142;
-            this.button6.Text = "Insert";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.Button6_Click);
             // 
             // panel5
             // 
@@ -2579,9 +2609,9 @@
             this.panel21.Controls.Add(this.label83);
             this.panel21.Controls.Add(this.label76);
             this.panel21.Controls.Add(this.label77);
-            this.panel21.Location = new System.Drawing.Point(578, 174);
+            this.panel21.Location = new System.Drawing.Point(578, 199);
             this.panel21.Name = "panel21";
-            this.panel21.Size = new System.Drawing.Size(282, 339);
+            this.panel21.Size = new System.Drawing.Size(282, 314);
             this.panel21.TabIndex = 186;
             this.panel21.Paint += new System.Windows.Forms.PaintEventHandler(this.Panel21_Paint);
             // 
@@ -2968,6 +2998,13 @@
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.Button4_Click);
             // 
+            // nECStandardCableDataToolStripMenuItem
+            // 
+            this.nECStandardCableDataToolStripMenuItem.Name = "nECStandardCableDataToolStripMenuItem";
+            this.nECStandardCableDataToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.nECStandardCableDataToolStripMenuItem.Text = "NEC Standard Cable Data";
+            this.nECStandardCableDataToolStripMenuItem.Click += new System.EventHandler(this.NECStandardCableDataToolStripMenuItem_Click);
+            // 
             // Form9
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -3022,7 +3059,6 @@
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.Label label78;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.RadioButton radioButton4;
         private System.Windows.Forms.RadioButton radioButton3;
@@ -3245,6 +3281,10 @@
         private System.Windows.Forms.ToolStripMenuItem viewEditCableDatabaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem addCableDatabaseToolStripMenuItem;
         private System.Windows.Forms.ComboBox comboBoxVendor;
+        private System.Windows.Forms.RadioButton radioButtonVendor;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Label labelVendor;
+        private System.Windows.Forms.ToolStripMenuItem nECStandardCableDataToolStripMenuItem;
     }
 }
 

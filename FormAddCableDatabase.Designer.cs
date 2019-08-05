@@ -556,10 +556,8 @@
         private System.Windows.Forms.ComboBox comboBoxConductor;
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Label labelStandard;
-        private System.Windows.Forms.RadioButton radioButtonIEC;
         private System.Windows.Forms.TabPage tabAdd;
         private System.Windows.Forms.TabPage tabView;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxDatabase;
         private System.Windows.Forms.Label label3;
@@ -578,7 +576,9 @@
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.Label label8;
         internal System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.RadioButton radioButtonNECView;
-        private System.Windows.Forms.RadioButton radioButtonNEC;
+        internal System.Windows.Forms.RadioButton radioButtonIEC;
+        internal System.Windows.Forms.RadioButton radioButton2;
+        internal System.Windows.Forms.RadioButton radioButtonNECView;
+        internal System.Windows.Forms.RadioButton radioButtonNEC;
     }
 }
