@@ -3338,6 +3338,20 @@ namespace Test1
                     comboBox15.Items.Insert(3, inputCableData_nec[c + 2, 0]);
                 }
             }
+            else if (radioButtonVendor.Checked)
+            {
+
+                comboBox15.Items.Insert(1, nec_selected_wirearea[c]);
+                if (c + 1 < currentDataLength)
+                {
+                    comboBox15.Items.Insert(2, nec_selected_wirearea[c + 1]);
+
+                }
+                if (c + 2 < currentDataLength)
+                {
+                    comboBox15.Items.Insert(3, nec_selected_wirearea[c + 2]);
+                }
+            }
             comboBox15.SelectedIndex = 0;
             m = c;
         }

@@ -771,7 +771,7 @@ namespace Test1
                 insulation = "";
                 comboBoxInsulation.Items.Insert(0, "TW/UF");
                 comboBoxInsulation.Items.Insert(1, "RHW/THW/THWN/USE/ZW");
-                comboBoxInsulation.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/\nTHHN/THW-2/THWN-2/USE-2/XHH/\nXHHW-2/ZW-2");
+                comboBoxInsulation.Items.Insert(2, "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2");
 
                 //fill conductor type
                 comboBoxConductor.SelectedIndex = -1;
