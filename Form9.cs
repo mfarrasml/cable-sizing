@@ -42,6 +42,10 @@ namespace Test1
         double length;
         double maxtemp;
 
+        double number;
+        double cmil;
+
+        double n_cmil;
 
         int n = 1;
         string volSys, powerUnit;
@@ -1370,6 +1374,46 @@ namespace Test1
 
         }
 
+        private void calc_cmil()
+        {
+            if ((double.TryParse(wirearea_nec, out number)) && (wirearea_unit == "AWG"))
+            {
+                n_cmil = Convert.ToDouble(wirearea_nec);
+                cmil = Math.Pow((5 * Math.Pow(92.00, ((36 - n_cmil) / 39))), 2);
+            }
+            else if ((double.TryParse(wirearea_nec, out number)) && (wirearea_unit == "kcmil"))
+            {
+                cmil = Convert.ToDouble(wirearea_nec) * 1000;
+            }
+            else
+            {
+                switch (wirearea_nec)
+                {
+                    case "1/0":
+                        {
+                            n_cmil = 0;
+                            break;
+                        }
+                    case "2/0":
+                        {
+                            n_cmil = -1;
+                            break;
+                        }
+                    case "3/0":
+                        {
+                            n_cmil = -2;
+                            break;
+                        }
+                    case "4/0":
+                        {
+                            n_cmil = -3;
+                            break;
+                        }
+                };
+                cmil = Math.Pow((5 * Math.Pow(92.00, ((36 - n_cmil) / 39))), 2);
+            }
+        }
+
         private void calc_vd()
         {
 
@@ -1407,6 +1451,9 @@ namespace Test1
                                 wirearea_nec = data_wirearea[i];
                                 wirearea_unit = data_wirearea_unit[i];
                                 wirearea_metric = data_wirearea_metric[i];
+
+                                calc_cmil();
+
 
                                 if (phase == "DC")
                                 {
@@ -1486,6 +1533,8 @@ namespace Test1
                                 wirearea_unit = data_wirearea_unit[i];
                                 wirearea_metric = data_wirearea_metric[i];
 
+                                calc_cmil();
+
                                 if (phase == "DC")
                                 {
                                     Rdc = data_electrical[i, 3];
@@ -1563,6 +1612,7 @@ namespace Test1
                                 wirearea_nec = data_wirearea[i];
                                 wirearea_unit = data_wirearea_unit[i];
                                 wirearea_metric = data_wirearea_metric[i];
+                                calc_cmil();
 
                                 if (phase == "DC")
                                 {
@@ -1657,6 +1707,7 @@ namespace Test1
                                 wirearea_nec = data_wirearea[i];
                                 wirearea_unit = data_wirearea_unit[i];
                                 wirearea_metric = data_wirearea_metric[i];
+                                calc_cmil();
 
                                 if (phase == "DC")
                                 {
@@ -1735,6 +1786,7 @@ namespace Test1
                                 wirearea_nec = data_wirearea[i];
                                 wirearea_unit = data_wirearea_unit[i];
                                 wirearea_metric = data_wirearea_metric[i];
+                                calc_cmil();
 
                                 if (phase == "DC")
                                 {
@@ -1813,6 +1865,7 @@ namespace Test1
                                 wirearea_nec = data_wirearea[i];
                                 wirearea_unit = data_wirearea_unit[i];
                                 wirearea_metric = data_wirearea_metric[i];
+                                calc_cmil();
 
                                 if (phase == "DC")
                                 {
@@ -1898,6 +1951,7 @@ namespace Test1
                         wirearea_nec = inputCableData_nec[i, 0];
                         wirearea_unit = inputCableData_nec_unit[i];
                         wirearea_metric = inputCableData_nec_metric[i];
+                        calc_cmil();
 
                         if (phase == "DC")
                         {
@@ -2138,6 +2192,7 @@ namespace Test1
                                     wirearea_nec = data_wirearea[i];
                                     wirearea_unit = data_wirearea_unit[i];
                                     wirearea_metric = data_wirearea_metric[i];
+                                    calc_cmil();
 
                                     if (phase == "DC")
                                     {
@@ -2216,6 +2271,7 @@ namespace Test1
                                     wirearea_nec = data_wirearea[i];
                                     wirearea_unit = data_wirearea_unit[i];
                                     wirearea_metric = data_wirearea_metric[i];
+                                    calc_cmil();
 
                                     if (phase == "DC")
                                     {
@@ -2294,6 +2350,7 @@ namespace Test1
                                     wirearea_nec = data_wirearea[i];
                                     wirearea_unit = data_wirearea_unit[i];
                                     wirearea_metric = data_wirearea_metric[i];
+                                    calc_cmil();
 
                                     if (phase == "DC")
                                     {
@@ -2389,6 +2446,8 @@ namespace Test1
                                     wirearea_unit = data_wirearea_unit[i];
                                     wirearea_metric = data_wirearea_metric[i];
 
+                                    calc_cmil();
+
                                     if (phase == "DC")
                                     {
                                         Rdc = data_electrical[i, 5];
@@ -2466,6 +2525,7 @@ namespace Test1
                                     wirearea_nec = data_wirearea[i];
                                     wirearea_unit = data_wirearea_unit[i];
                                     wirearea_metric = data_wirearea_metric[i];
+                                    calc_cmil();
 
                                     if (phase == "DC")
                                     {
@@ -2544,6 +2604,8 @@ namespace Test1
                                     wirearea_nec = data_wirearea[i];
                                     wirearea_unit = data_wirearea_unit[i];
                                     wirearea_metric = data_wirearea_metric[i];
+
+                                    calc_cmil();
 
                                     if (phase == "DC")
                                     {
@@ -2818,6 +2880,8 @@ namespace Test1
                         wirearea_unit = nec_selected_wirearea_unit[i];
                         wirearea_metric = nec_selected_wirearea_metric[i];
 
+                        calc_cmil();
+
                         if (phase == "DC")
                         {
                             Rdc = nec_selected_data_electrical[i, 0];
@@ -3030,6 +3094,8 @@ namespace Test1
                             wirearea_nec = nec_selected_wirearea[i];
                             wirearea_unit = nec_selected_wirearea_unit[i];
                             wirearea_metric = nec_selected_wirearea_metric[i];
+
+                            calc_cmil();
 
                             if (phase == "DC")
                             {
@@ -3307,6 +3373,8 @@ namespace Test1
             string size_temp_update = "";
 
             textBox37.Text = wirearea_nec;
+            textBox15.Text = cmil.ToString("0.##");
+
             int c = i - 1;
             comboBox15.Items.Clear();
             comboBox15.Items.Insert(0, "Update Size");
@@ -3364,7 +3432,7 @@ namespace Test1
                 complete = true;
                 inputValid = false;
             }
-            else if (cablesizemin > wirearea_metric)
+            else if (cablesizemin > cmil)
             {
                 MessageBox.Show("Failed to get a suitable cable size: Minimum cable size exceeds the maximum available cable size!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
@@ -3394,8 +3462,8 @@ namespace Test1
             if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
                 (((radioButton1.Checked) && (cLTE > bLTE)) ||
                 ((radioButton2.Checked) &&
-                (((radioButton4.Checked) && (data_wirearea_metric[i] > cablesizemin)) || ((radioButton3.Checked) && (inputCableData_nec_metric[i] > cablesizemin)) ||
-                ((radioButtonVendor.Checked) && (nec_selected_wirearea_metric[i] > cablesizemin))))))
+                (((radioButton4.Checked) && /*(data_wirearea_metric[i] > cablesizemin))*/ (cmil > smin)) || ((radioButton3.Checked) && /*(inputCableData_nec_metric[i] > cablesizemin)*/ (cmil > smin)) ||
+                ((radioButtonVendor.Checked) && /*(nec_selected_wirearea_metric[i] > cablesizemin)*/(cmil > smin))))))
             {
                 if ((loadtype == "Motor") && ConsiderVdStart)
                 {
@@ -3924,6 +3992,7 @@ namespace Test1
             textBox34.Text = "";
             textBox35.Text = "";
             textBox37.Text = "";
+            textBox15.Text = "";
 
 
             cbPower.Text = "kW";
@@ -4530,11 +4599,11 @@ namespace Test1
         {
             if (textBox30.Text != "")
             {
-                cablesizemin_nec = textBox30.Text;
+                cablesizemin = double.Parse(textBox30.Text);
             }
             else
             {
-                cablesizemin_nec = "";
+                cablesizemin = 0;
             }
         }
 
@@ -5060,9 +5129,9 @@ namespace Test1
             {
                 textBox23.Text = tbreaker.ToString();
             }
-            if (cablesizemin_nec != "")
+            if (cablesizemin != 0)
             {
-                textBox30.Text = cablesizemin_nec;
+                textBox30.Text = cablesizemin.ToString("0.##");
             }
             if (vdrun != 0)
             {
@@ -5512,19 +5581,21 @@ namespace Test1
 
                 if (radioButton4.Checked)
                 {
-                    textBox37.Text = data_wirearea[m];
                     label85.Text = data_wirearea_unit[m];
+                    textBox37.Text = data_wirearea[m];
+                    
                 }
                 else if (radioButton3.Checked)
                 {
-                    textBox37.Text = inputCableData_nec[m, 0];
                     label85.Text = inputCableData_nec_unit[m];
+                    textBox37.Text = inputCableData_nec[m, 0];
                 }
                 else if (radioButtonVendor.Checked)
                 {
-                    textBox37.Text = nec_selected_wirearea[m];
                     label85.Text = nec_selected_wirearea_unit[m];
+                    textBox37.Text = nec_selected_wirearea[m];
                 }
+                textBox15.Text = cmil.ToString("0.##");
             }
 
             if (!((textBox37.Text == wirearea_nec) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") ||
@@ -5556,6 +5627,8 @@ namespace Test1
                             wirearea_nec = data_wirearea[m];
                             wirearea_unit = data_wirearea_unit[m];
                             wirearea_metric = data_wirearea_metric[m];
+
+                            calc_cmil(); 
 
                             if (phase == "DC")
                             {
@@ -5625,6 +5698,8 @@ namespace Test1
                             wirearea_unit = data_wirearea_unit[m];
                             wirearea_metric = data_wirearea_metric[m];
 
+                            calc_cmil();
+
                             if (phase == "DC")
                             {
                                 Rdc = data_electrical[m, 3];
@@ -5692,6 +5767,8 @@ namespace Test1
                             wirearea_nec = data_wirearea[m];
                             wirearea_unit = data_wirearea_unit[m];
                             wirearea_metric = data_wirearea_metric[m];
+
+                            calc_cmil();
 
                             if (phase == "DC")
                             {
@@ -5777,6 +5854,8 @@ namespace Test1
                             wirearea_unit = data_wirearea_unit[m];
                             wirearea_metric = data_wirearea_metric[m];
 
+                            calc_cmil();
+
                             if (phase == "DC")
                             {
                                 Rdc = data_electrical[m, 5];
@@ -5845,6 +5924,8 @@ namespace Test1
                             wirearea_unit = data_wirearea_unit[m];
                             wirearea_metric = data_wirearea_metric[m];
 
+                            calc_cmil();
+
                             if (phase == "DC")
                             {
                                 Rdc = data_electrical[m, 6];
@@ -5912,6 +5993,7 @@ namespace Test1
                             wirearea_nec = data_wirearea[m];
                             wirearea_unit = data_wirearea_unit[m];
                             wirearea_metric = data_wirearea_metric[m];
+                            calc_cmil();
 
                             if (phase == "DC")
                             {
@@ -5986,6 +6068,8 @@ namespace Test1
                     wirearea_unit = inputCableData_nec_unit[m];
                     wirearea_metric = inputCableData_nec_metric[m];
 
+                    calc_cmil();
+
                     if (phase == "DC")
                     {
                         Rdc = Convert.ToDouble(inputCableData_nec[m, 2]);
@@ -6054,6 +6138,8 @@ namespace Test1
                     wirearea_nec = nec_selected_wirearea[m];
                     wirearea_unit = nec_selected_wirearea_unit[m];
                     wirearea_metric = nec_selected_wirearea_metric[m];
+
+                    calc_cmil();
 
                     if (phase == "DC")
                     {
@@ -6177,6 +6263,7 @@ namespace Test1
             textBox29.Text = "";
             textBox12.Text = "1";
             textBox37.Text = "";
+            textBox15.Text = "";
             textBox34.Text = "";
             textBox33.Text = "";
             textBox32.Text = "";
@@ -7312,11 +7399,12 @@ namespace Test1
                 {
                     if (material == "Copper")
                     {
-                        k = 226 * Math.Sqrt(Math.Log(1 + ((finalTemp - initialTemp) / (234.5 + initialTemp))));
+                        k = Math.Sqrt(0.0297 * Math.Log(1 + ((finalTemp - initialTemp) / (234 + initialTemp))));
+                        //k = 226 * Math.Sqrt(Math.Log(1 + ((finalTemp - initialTemp) / (234.5 + initialTemp))));
                     }
                     else if (material == "Aluminium")
                     {
-                        k = 148 * Math.Sqrt(Math.Log(1 + ((finalTemp - initialTemp) / (228.1 + initialTemp))));
+                        k = Math.Sqrt(0.0125 * Math.Log(1 + ((finalTemp - initialTemp) / (228  + initialTemp))));
                     }
                 }
                 else
@@ -8323,6 +8411,22 @@ namespace Test1
             f8.Show();
         }
 
+        private void TextBox37_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox37.Text != "")
+            {
+                wirearea_nec = textBox37.Text;
+                wirearea_unit = label85.Text;
+                calc_cmil();
+            }
+            else
+            {
+                wirearea_nec = "";
+                wirearea_unit = "";
+                cmil = 0;
+            }
+        }
+
         private void TextBox27_TextChanged(object sender, EventArgs e)
         {
             to = textBox27.Text;
@@ -9076,92 +9180,57 @@ namespace Test1
 
             if (radioButton4.Checked)
             {
-                if (smin > 507)
-                {
-                    smin = 0;
-                    MessageBox.Show("Cable size minimum shall not greater than 1000 kcmil (507 Sqmm) !",
-                        "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                cablesizemin = smin;
 
-                    textBox28.Text = "";
-                    textBox23.Text = "";
-                    textBox30.Text = "";
-                }
-                else
+                for (int d = 0; d < 21; d++)
                 {
-                    cablesizemin = smin;
-
-                    for (int d = 0; d < 21; d++)
+                    if (smin <= data_wirearea_metric[d])
                     {
-                        if (smin <= data_wirearea_metric[d])
-                        {
-                            smin_nec = data_wirearea[d];
-                            label68.Text = data_wirearea_unit[d];
-                            break;
-                        }
+                        smin_nec = data_wirearea[d];
+                        label68.Text = "cmil";
+                        break;
                     }
                 }
+                
             }
             else if (radioButton3.Checked) //manual data
             {
-                if (smin > inputCableData_nec_metric[cableCount - 1])
-                {
-                    smin = 0;
-                    MessageBox.Show("Cable size minimum shall not greater than " + inputCableData_nec[cableCount - 1, 0] 
-                        + " " + inputCableData_nec_unit[cableCount - 1] + " (" + inputCableData_nec_metric[cableCount - 1] + " Sqmm) !",
-                        "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                cablesizemin = smin;
 
-                    textBox28.Text = "";
-                    textBox23.Text = "";
-                    textBox30.Text = "";
-                }
-                else
+                for (int d = 0; d < cableCount; d++)
                 {
-                    cablesizemin = smin;
-
-                    for (int d = 0; d < cableCount; d++)
+                    if (smin <= inputCableData_nec_metric[d])
                     {
-                        if (smin <= inputCableData_nec_metric[d])
-                        {
-                            smin_nec = inputCableData_nec[d, 0];
-                            label68.Text = inputCableData_nec_unit[d];
-                            break;
-                        }
+                        smin_nec = inputCableData_nec[d, 0];
+                        label68.Text = "cmil";
+                        break;
                     }
                 }
+                
             }
             else if (radioButtonVendor.Checked)
             {
-                if (smin > nec_selected_wirearea_metric[currentDataLength - 1])
-                {
-                    smin = 0;
-                    MessageBox.Show("Cable size minimum shall not greater than " + nec_selected_wirearea[currentDataLength - 1]
-                        + " " + nec_selected_wirearea_unit[currentDataLength - 1] + " (" + nec_selected_wirearea_metric[currentDataLength - 1] + " Sqmm) !",
-                        "Input Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                
+                cablesizemin = smin;
 
-                    textBox28.Text = "";
-                    textBox23.Text = "";
-                    textBox30.Text = "";
-                }
-                else
+                for (int d = 0; d < currentDataLength; d++)
                 {
-                    cablesizemin = smin;
-
-                    for (int d = 0; d < currentDataLength; d++)
+                    if (smin <= nec_selected_wirearea_metric[d])
                     {
-                        if (smin <= nec_selected_wirearea_metric[d])
-                        {
-                            smin_nec = nec_selected_wirearea[d];
-                            label68.Text = nec_selected_wirearea_unit[d];
-                            break;
-                        }
+                        smin_nec = nec_selected_wirearea[d];
+                        label68.Text = "cmil";
+                        break;
                     }
                 }
+                
             }
 
 
             if (smin != 0)
             {
-                textBox30.Text = smin_nec;
+                textBox30.Text = smin.ToString("0.##");
             }
             else
             {
@@ -9413,7 +9482,7 @@ namespace Test1
                 results[32] = "";
                 results[33] = "";
             }
-            results[34] = smin_nec;
+            results[34] = smin.ToString("0.##");
             if (radioButton1.Checked)
             {
                 results[35] = bLTE.ToString("0.##");
