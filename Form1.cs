@@ -4309,7 +4309,7 @@ namespace Test1
 
                 f5.Update_summary();
             }
-            else
+            else //Form is on editing state
             {
 
                 for (int k = 0; k < 39; k++)
@@ -4326,6 +4326,11 @@ namespace Test1
                 addToolStripMenuItem.Text = "Add to Result";
                 button3.Text = "Add and Save";
                 button5.Text = "Open Calculation Result";
+
+                //Re-enable saving and opening new file when form exits editing state
+                openToolStripMenuItem.Enabled = true;
+                saveToolStripMenuItem.Enabled = true;
+                saveAsToolStripMenuItem.Enabled = true;
 
             }
         }
@@ -4641,6 +4646,11 @@ namespace Test1
                 disable_save();
                 enable_result_btn();
                 button5.Text = "Cancel";
+
+                //disable saving and opening new file while form is on editing state
+                openToolStripMenuItem.Enabled = false;
+                saveToolStripMenuItem.Enabled = false;
+                saveAsToolStripMenuItem.Enabled = false;
             }
         }
 

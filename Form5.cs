@@ -599,9 +599,11 @@ namespace Test1
         {
             DGVPrinter printer = new DGVPrinter();
 
+            //add title
             printer.Title = "Cable Sizing Result";
 
-            printer.SubTitle = "By: Rauf Abror";
+            //add subtitle
+            /*printer.SubTitle = ""; */
 
             printer.SubTitleFormatFlags = StringFormatFlags.LineLimit |
 
@@ -613,7 +615,7 @@ namespace Test1
 
             printer.HeaderCellAlignment = StringAlignment.Near;
 
-            printer.Footer = "Rauf Abror";
+            /*printer.Footer = ""; */
 
             printer.FooterSpacing = 15;
 
