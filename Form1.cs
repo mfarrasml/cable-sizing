@@ -2447,9 +2447,8 @@ namespace Test1
                 panel5.Enabled = false;
                 panel6.Enabled = false;
 
-                label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea + " mm²\nis acceptable";
+                label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea + " mm² is acceptable";
                 label87.Visible = true;
-                timer2.Enabled = true;
             }
             else
             {
@@ -3236,16 +3235,16 @@ namespace Test1
                     if (radioButton1.Checked)
                     {
                         label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
-                            " therefore cable size of" + wirearea + " mm²  is acceptable";
+                            " therefore cable size of " + wirearea + " mm²  is acceptable";
                     }
                     else if (radioButton2.Checked)
                     {
-                        label88.Text = "Since the minimum cable size due to S.C. is lower than the \nselected cable size," +
-                            " therefore cable size of " + wirearea + " mm²  is acceptable";
+                        label88.Text = "During Short Circuit condition, the minimum cable size is " + smin.ToString("0.##") + " mm²,\n" +
+                            "therefore cable size of " + wirearea + " mm²  is acceptable";
+
                     }
 
                     label88.Visible = true;
-                    timer3.Enabled = true;
 
                 }
                 else
@@ -4041,6 +4040,11 @@ namespace Test1
             panel6.Enabled = true;
             panel30.BackColor = Color.Red;
 
+            label87.Visible = false;
+            label87.Text = "";
+            label88.Visible = false;
+            label88.Text = "";
+
             ConsiderVdStart = false;
         }
 
@@ -4667,6 +4671,10 @@ namespace Test1
                 //disable save and open toolstrip menu when form is on editing state
                 ChangeSaveOpenState();
 
+                label87.Visible = false;
+                label87.Text = "";
+                label88.Visible = false;
+                label88.Text = "";
             }
         }
 
@@ -5990,6 +5998,10 @@ namespace Test1
 
             panel4.Enabled = false;
             button8.Enabled = false;
+            label87.Visible = false;
+            label87.Text = "";
+            label88.Visible = false;
+            label88.Text = "";
 
             disable_save();
         }
@@ -7031,7 +7043,8 @@ namespace Test1
                 {
                     if (cbPower.Text == "kVA")
                     {
-                        current = power * 1000 / (Math.Sqrt(3) * voltage * eff);
+                        power = cplxpower * pf;
+                        current = cplxpower * 1000 / (Math.Sqrt(3) * voltage * eff);
                     }
                     else
                     {
@@ -7692,7 +7705,7 @@ namespace Test1
                 {
                     dtr[11] = power;
                 }
-                else if (Convert.ToString(dtr[10]) == "kV")
+                else if (Convert.ToString(dtr[10]) == "kVA")
                 {
                     dtr[11] = cplxpower;
                 }
@@ -7892,7 +7905,7 @@ namespace Test1
                 {
                     dtr[11] = power;
                 }
-                else if (Convert.ToString(dtr[10]) == "kV")
+                else if (Convert.ToString(dtr[10]) == "kVA")
                 {
                     dtr[11] = cplxpower;
                 }

@@ -193,19 +193,18 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label48 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.label51 = new System.Windows.Forms.Label();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label38 = new System.Windows.Forms.Label();
             this.panel3 = new System.Windows.Forms.Panel();
             this.radioButton5 = new System.Windows.Forms.RadioButton();
             this.radioButton6 = new System.Windows.Forms.RadioButton();
             this.textBox20 = new Test1.DoubleTextBox();
-            this.textBox21 = new System.Windows.Forms.TextBox();
             this.textBox22 = new System.Windows.Forms.TextBox();
             this.label50 = new System.Windows.Forms.Label();
             this.comboBox10 = new Test1.DoubleComboBox();
             this.label52 = new System.Windows.Forms.Label();
             this.label53 = new System.Windows.Forms.Label();
+            this.label70 = new System.Windows.Forms.Label();
             this.textBox23 = new Test1.DoubleTextBox();
             this.label54 = new System.Windows.Forms.Label();
             this.comboBox11 = new Test1.DoubleComboBox();
@@ -221,7 +220,6 @@
             this.textBox30 = new System.Windows.Forms.TextBox();
             this.label68 = new System.Windows.Forms.Label();
             this.label69 = new System.Windows.Forms.Label();
-            this.label70 = new System.Windows.Forms.Label();
             this.comboBox12 = new System.Windows.Forms.ComboBox();
             this.textBox35 = new System.Windows.Forms.TextBox();
             this.label55 = new System.Windows.Forms.Label();
@@ -345,7 +343,7 @@
             this.label79.AutoSize = true;
             this.label79.BackColor = System.Drawing.Color.Transparent;
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label79.Location = new System.Drawing.Point(886, 488);
+            this.label79.Location = new System.Drawing.Point(881, 645);
             this.label79.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(49, 13);
@@ -544,7 +542,7 @@
             this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
             this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
@@ -554,7 +552,7 @@
             this.undoResetToolStripMenuItem.Image = global::Test1.Properties.Resources.Refresh_16x;
             this.undoResetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoResetToolStripMenuItem.Name = "undoResetToolStripMenuItem";
-            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.undoResetToolStripMenuItem.Text = "Undo Reset";
             this.undoResetToolStripMenuItem.Click += new System.EventHandler(this.UndoResetToolStripMenuItem_Click);
             // 
@@ -564,7 +562,7 @@
             this.viewEditCableDatabaseToolStripMenuItem,
             this.addCableDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.databaseToolStripMenuItem.Text = "Database";
             // 
             // viewEditCableDatabaseToolStripMenuItem
@@ -634,8 +632,6 @@
             this.panel2.Controls.Add(this.panel6);
             this.panel2.Controls.Add(this.panel5);
             this.panel2.Controls.Add(this.panel4);
-            this.panel2.Controls.Add(this.textBox35);
-            this.panel2.Controls.Add(this.label79);
             this.panel2.Controls.Add(this.label55);
             this.panel2.Controls.Add(this.panel21);
             this.panel2.Controls.Add(this.panel23);
@@ -661,7 +657,7 @@
             this.label88.AutoSize = true;
             this.label88.BackColor = System.Drawing.Color.Transparent;
             this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label88.Location = new System.Drawing.Point(872, 451);
+            this.label88.Location = new System.Drawing.Point(870, 471);
             this.label88.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(41, 13);
@@ -674,7 +670,7 @@
             this.label87.AutoSize = true;
             this.label87.BackColor = System.Drawing.Color.Transparent;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(733, 516);
+            this.label87.Location = new System.Drawing.Point(870, 435);
             this.label87.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(41, 13);
@@ -2135,17 +2131,16 @@
             this.panel4.Controls.Add(this.label8);
             this.panel4.Controls.Add(this.label48);
             this.panel4.Controls.Add(this.label49);
-            this.panel4.Controls.Add(this.label51);
             this.panel4.Controls.Add(this.radioButton1);
             this.panel4.Controls.Add(this.label38);
             this.panel4.Controls.Add(this.panel3);
             this.panel4.Controls.Add(this.textBox20);
-            this.panel4.Controls.Add(this.textBox21);
             this.panel4.Controls.Add(this.textBox22);
             this.panel4.Controls.Add(this.label50);
             this.panel4.Controls.Add(this.comboBox10);
             this.panel4.Controls.Add(this.label52);
             this.panel4.Controls.Add(this.label53);
+            this.panel4.Controls.Add(this.label70);
             this.panel4.Controls.Add(this.textBox23);
             this.panel4.Controls.Add(this.label54);
             this.panel4.Controls.Add(this.comboBox11);
@@ -2161,20 +2156,19 @@
             this.panel4.Controls.Add(this.textBox30);
             this.panel4.Controls.Add(this.label68);
             this.panel4.Controls.Add(this.label69);
-            this.panel4.Controls.Add(this.label70);
             this.panel4.Controls.Add(this.comboBox12);
             this.panel4.Enabled = false;
             this.panel4.Location = new System.Drawing.Point(862, 0);
             this.panel4.Margin = new System.Windows.Forms.Padding(2);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(318, 449);
+            this.panel4.Size = new System.Drawing.Size(318, 427);
             this.panel4.TabIndex = 158;
             // 
             // button2
             // 
             this.button2.Enabled = false;
             this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.button2.Location = new System.Drawing.Point(75, 418);
+            this.button2.Location = new System.Drawing.Point(75, 392);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(166, 23);
@@ -2203,7 +2197,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(268, 314);
+            this.label8.Location = new System.Drawing.Point(268, 244);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(14, 13);
             this.label8.TabIndex = 77;
@@ -2214,7 +2208,7 @@
             this.label48.AutoSize = true;
             this.label48.Enabled = false;
             this.label48.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label48.Location = new System.Drawing.Point(24, 383);
+            this.label48.Location = new System.Drawing.Point(24, 307);
             this.label48.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label48.Name = "label48";
             this.label48.Size = new System.Drawing.Size(90, 26);
@@ -2226,35 +2220,24 @@
             this.label49.AutoSize = true;
             this.label49.Enabled = false;
             this.label49.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label49.Location = new System.Drawing.Point(24, 193);
+            this.label49.Location = new System.Drawing.Point(24, 342);
             this.label49.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label49.Name = "label49";
             this.label49.Size = new System.Drawing.Size(106, 26);
             this.label49.TabIndex = 85;
-            this.label49.Text = "Withstand Energy of \r\nCable( S² k² )";
-            // 
-            // label51
-            // 
-            this.label51.AutoSize = true;
-            this.label51.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label51.Location = new System.Drawing.Point(24, 113);
-            this.label51.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
-            this.label51.Name = "label51";
-            this.label51.Size = new System.Drawing.Size(13, 13);
-            this.label51.TabIndex = 87;
-            this.label51.Text = "k";
+            this.label49.Text = "Withstand Energy of \r\nCable";
             // 
             // radioButton1
             // 
             this.radioButton1.AutoCheck = false;
             this.radioButton1.AutoSize = true;
             this.radioButton1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton1.Location = new System.Drawing.Point(10, 355);
+            this.radioButton1.Location = new System.Drawing.Point(10, 281);
             this.radioButton1.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(180, 17);
+            this.radioButton1.Size = new System.Drawing.Size(145, 17);
             this.radioButton1.TabIndex = 0;
-            this.radioButton1.Text = "Withstand Energy Level of Cable";
+            this.radioButton1.Text = "LTE of Protective Device";
             this.radioButton1.UseVisualStyleBackColor = true;
             this.radioButton1.CheckedChanged += new System.EventHandler(this.RadioButton1_CheckedChanged);
             this.radioButton1.Click += new System.EventHandler(this.RadioButton1_Click_1);
@@ -2263,7 +2246,7 @@
             // 
             this.label38.AutoSize = true;
             this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label38.Location = new System.Drawing.Point(24, 316);
+            this.label38.Location = new System.Drawing.Point(24, 246);
             this.label38.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label38.Name = "label38";
             this.label38.Size = new System.Drawing.Size(88, 26);
@@ -2274,7 +2257,7 @@
             // 
             this.panel3.Controls.Add(this.radioButton5);
             this.panel3.Controls.Add(this.radioButton6);
-            this.panel3.Location = new System.Drawing.Point(27, 258);
+            this.panel3.Location = new System.Drawing.Point(27, 188);
             this.panel3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(189, 22);
@@ -2309,7 +2292,7 @@
             // textBox20
             // 
             this.textBox20.Enabled = false;
-            this.textBox20.Location = new System.Drawing.Point(164, 379);
+            this.textBox20.Location = new System.Drawing.Point(164, 310);
             this.textBox20.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox20.Name = "textBox20";
             this.textBox20.ReadOnly = true;
@@ -2318,20 +2301,10 @@
             this.textBox20.TextChanged += new System.EventHandler(this.TextBox20_TextChanged);
             this.textBox20.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TextBox20_KeyPress);
             // 
-            // textBox21
-            // 
-            this.textBox21.Location = new System.Drawing.Point(164, 111);
-            this.textBox21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.textBox21.Name = "textBox21";
-            this.textBox21.ReadOnly = true;
-            this.textBox21.Size = new System.Drawing.Size(100, 20);
-            this.textBox21.TabIndex = 89;
-            this.textBox21.TextChanged += new System.EventHandler(this.TextBox21_TextChanged);
-            // 
             // textBox22
             // 
             this.textBox22.Enabled = false;
-            this.textBox22.Location = new System.Drawing.Point(164, 199);
+            this.textBox22.Location = new System.Drawing.Point(164, 348);
             this.textBox22.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox22.Name = "textBox22";
             this.textBox22.ReadOnly = true;
@@ -2342,7 +2315,7 @@
             // 
             this.label50.AutoSize = true;
             this.label50.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label50.Location = new System.Drawing.Point(24, 290);
+            this.label50.Location = new System.Drawing.Point(24, 220);
             this.label50.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label50.Name = "label50";
             this.label50.Size = new System.Drawing.Size(61, 13);
@@ -2356,7 +2329,7 @@
             this.comboBox10.Items.AddRange(new object[] {
             "10",
             "25"});
-            this.comboBox10.Location = new System.Drawing.Point(164, 284);
+            this.comboBox10.Location = new System.Drawing.Point(164, 214);
             this.comboBox10.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox10.Name = "comboBox10";
             this.comboBox10.Size = new System.Drawing.Size(100, 21);
@@ -2367,7 +2340,7 @@
             // label52
             // 
             this.label52.AutoSize = true;
-            this.label52.Location = new System.Drawing.Point(268, 288);
+            this.label52.Location = new System.Drawing.Point(268, 218);
             this.label52.Name = "label52";
             this.label52.Size = new System.Drawing.Size(20, 13);
             this.label52.TabIndex = 93;
@@ -2383,6 +2356,16 @@
             this.label53.Size = new System.Drawing.Size(85, 13);
             this.label53.TabIndex = 94;
             this.label53.Text = "Duration of Fault";
+            // 
+            // label70
+            // 
+            this.label70.AutoSize = true;
+            this.label70.Enabled = false;
+            this.label70.Location = new System.Drawing.Point(268, 351);
+            this.label70.Name = "label70";
+            this.label70.Size = new System.Drawing.Size(37, 13);
+            this.label70.TabIndex = 123;
+            this.label70.Text = "A²sec.";
             // 
             // textBox23
             // 
@@ -2407,7 +2390,7 @@
             // 
             this.comboBox11.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox11.FormattingEnabled = true;
-            this.comboBox11.Location = new System.Drawing.Point(164, 310);
+            this.comboBox11.Location = new System.Drawing.Point(164, 240);
             this.comboBox11.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox11.Name = "comboBox11";
             this.comboBox11.Size = new System.Drawing.Size(100, 21);
@@ -2480,18 +2463,18 @@
             // 
             this.label66.AutoSize = true;
             this.label66.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label66.Location = new System.Drawing.Point(8, 167);
+            this.label66.Location = new System.Drawing.Point(8, 141);
             this.label66.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label66.Name = "label66";
-            this.label66.Size = new System.Drawing.Size(92, 13);
+            this.label66.Size = new System.Drawing.Size(144, 13);
             this.label66.TabIndex = 118;
-            this.label66.Text = "Protection Device";
+            this.label66.Text = "Conductor Protection Device";
             // 
             // label37
             // 
             this.label37.AutoSize = true;
             this.label37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label37.Location = new System.Drawing.Point(24, 232);
+            this.label37.Location = new System.Drawing.Point(24, 162);
             this.label37.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label37.Name = "label37";
             this.label37.Size = new System.Drawing.Size(82, 13);
@@ -2502,7 +2485,7 @@
             // 
             this.label67.AutoSize = true;
             this.label67.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label67.Location = new System.Drawing.Point(24, 139);
+            this.label67.Location = new System.Drawing.Point(24, 113);
             this.label67.Margin = new System.Windows.Forms.Padding(3, 6, 3, 6);
             this.label67.Name = "label67";
             this.label67.Size = new System.Drawing.Size(80, 13);
@@ -2511,7 +2494,7 @@
             // 
             // textBox30
             // 
-            this.textBox30.Location = new System.Drawing.Point(164, 137);
+            this.textBox30.Location = new System.Drawing.Point(164, 111);
             this.textBox30.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox30.Name = "textBox30";
             this.textBox30.ReadOnly = true;
@@ -2522,7 +2505,7 @@
             // label68
             // 
             this.label68.AutoSize = true;
-            this.label68.Location = new System.Drawing.Point(268, 141);
+            this.label68.Location = new System.Drawing.Point(268, 115);
             this.label68.Name = "label68";
             this.label68.Size = new System.Drawing.Size(25, 13);
             this.label68.TabIndex = 121;
@@ -2532,21 +2515,11 @@
             // 
             this.label69.AutoSize = true;
             this.label69.Enabled = false;
-            this.label69.Location = new System.Drawing.Point(268, 383);
+            this.label69.Location = new System.Drawing.Point(268, 314);
             this.label69.Name = "label69";
             this.label69.Size = new System.Drawing.Size(37, 13);
             this.label69.TabIndex = 122;
             this.label69.Text = "A²sec.";
-            // 
-            // label70
-            // 
-            this.label70.AutoSize = true;
-            this.label70.Enabled = false;
-            this.label70.Location = new System.Drawing.Point(268, 202);
-            this.label70.Name = "label70";
-            this.label70.Size = new System.Drawing.Size(37, 13);
-            this.label70.TabIndex = 123;
-            this.label70.Text = "A²sec.";
             // 
             // comboBox12
             // 
@@ -2557,7 +2530,7 @@
             "MCB",
             "MCCB",
             "ACB"});
-            this.comboBox12.Location = new System.Drawing.Point(164, 230);
+            this.comboBox12.Location = new System.Drawing.Point(164, 160);
             this.comboBox12.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.comboBox12.Name = "comboBox12";
             this.comboBox12.Size = new System.Drawing.Size(100, 21);
@@ -2566,11 +2539,11 @@
             // 
             // textBox35
             // 
-            this.textBox35.Location = new System.Drawing.Point(960, 485);
+            this.textBox35.Location = new System.Drawing.Point(955, 638);
             this.textBox35.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.textBox35.Multiline = true;
             this.textBox35.Name = "textBox35";
-            this.textBox35.Size = new System.Drawing.Size(164, 49);
+            this.textBox35.Size = new System.Drawing.Size(164, 26);
             this.textBox35.TabIndex = 145;
             this.textBox35.TextChanged += new System.EventHandler(this.TextBox35_TextChanged);
             // 
@@ -3051,6 +3024,8 @@
             this.Controls.Add(this.tbResult);
             this.Controls.Add(this.label21);
             this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.textBox35);
+            this.Controls.Add(this.label79);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3131,7 +3106,6 @@
         private System.Windows.Forms.Label label59;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label55;
-        private DoubleTextBox textBox24;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label56;
         private DoubleComboBox comboBox11;
@@ -3142,9 +3116,7 @@
         private DoubleComboBox comboBox10;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.TextBox textBox22;
-        private System.Windows.Forms.TextBox textBox21;
         private DoubleTextBox textBox20;
-        private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Label label49;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label label46;
@@ -3322,6 +3294,7 @@
         private System.Windows.Forms.Label label97;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.TextBox textBox15;
+        private DoubleTextBox textBox24;
     }
 }
 

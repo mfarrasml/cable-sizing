@@ -941,7 +941,7 @@ namespace Test1
             f5.dataGridView1.Columns[27].HeaderText = "Length (ft)";
             f5.dataGridView1.Columns[28].HeaderText = "Lmax (ft)";
             f5.dataGridView1.Columns[27].HeaderText = "Length (ft)";
-            f5.dataGridView1.Columns[35].HeaderText = "Minimum Cable Size Due to S.C. (AWG or kcmil)";
+            f5.dataGridView1.Columns[35].HeaderText = "Minimum Cable Size Due to S.C. (cmil)";
 
             Form5.f7.dataGridView1.Columns[2].HeaderText = "Cable Total Length (ft)";
 
@@ -1040,7 +1040,8 @@ namespace Test1
                 comboBox17.SelectedIndex = -1;
                 comboBox17.Items.Clear();
 
-                textBox21.Text = "";
+                
+                //textBox21.Text = "";
                 panel20.BackColor = Color.Red;
             }
 
@@ -2100,7 +2101,6 @@ namespace Test1
 
                 label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
                 label87.Visible = true;
-                timer2.Enabled = true;
             }
             else
             {
@@ -2819,16 +2819,15 @@ namespace Test1
                     if (radioButton1.Checked)
                     {
                         label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
-                            " therefore cable size of" + wirearea_nec + " " + wirearea_unit + " is acceptable";
+                            " therefore cable size of " + wirearea_nec + " " + wirearea_unit + " is acceptable";
                     }
                     else if (radioButton2.Checked)
                     {
-                        label88.Text = "Since the minimum cable size due to S.C. is lower than the \nselected cable size," +
-                            " therefore cable size of " + wirearea_nec + " " + wirearea_unit + " is acceptable";
+                        label88.Text = "During Short Circuit condition, the minimum cable size is " + smin.ToString("0.##") + " cmil,\n" +
+                            "therefore cable size of " + cmil.ToString("0.##") + " cmil (" + wirearea_nec + " " + wirearea_unit + ") is acceptable";
                     }
 
                     label88.Visible = true;
-                    timer3.Enabled = true;
 
                 }
                 else
@@ -3037,7 +3036,6 @@ namespace Test1
 
                 label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
                 label87.Visible = true;
-                timer2.Enabled = true;
             }
             else
             {
@@ -3238,7 +3236,6 @@ namespace Test1
                     }
 
                     label88.Visible = true;
-                    timer3.Enabled = true;
 
                 }
                 else
@@ -3978,7 +3975,7 @@ namespace Test1
             textBox9.Text = "";
             bLTE = 0;
             textBox20.Text = "";
-            textBox21.Text = "";
+            //textBox21.Text = "";
             textBox22.Text = "";
             tbResult.Text = "";
             textBox10.Text = "";
@@ -4036,6 +4033,12 @@ namespace Test1
             radioButton7.Checked = false;
             radioButton3.Checked = false;
             radioButton4.Checked = true;
+
+
+            label87.Visible = false;
+            label87.Text = "";
+            label88.Visible = false;
+            label88.Text = "";
 
             insulindex = 0;
             button8.Enabled = false;
@@ -4919,7 +4922,13 @@ namespace Test1
                 button5.Text = "Cancel";
 
                 ChangeSaveOpenState();
+
+                label87.Visible = false;
+                label87.Text = "";
+                label88.Visible = false;
+                label88.Text = "";
             }
+
 
         }
 
@@ -5198,7 +5207,7 @@ namespace Test1
             }
             if (k != 0)
             {
-                textBox21.Text = k.ToString("0.###");
+                //textBox21.Text = k.ToString("0.###");
             }
             if (Rac != 0)
             {
@@ -5429,6 +5438,7 @@ namespace Test1
             SCLTEchanged();
             Calc_k();
             enable_result_btn();
+            cable_lte();
 
         }
 
@@ -6303,7 +6313,7 @@ namespace Test1
             textBox22.Text = "";
             finalTemp = 0;
             textBox24.Text = "";
-            textBox21.Text = "";
+            //textBox21.Text = "";
 
             bLTE = 0;
             textBox20.Text = "";
@@ -6321,6 +6331,12 @@ namespace Test1
 
             panel4.Enabled = false;
             button8.Enabled = false;
+
+            label87.Visible = false;
+            label87.Text = "";
+            label88.Visible = false;
+            label88.Text = "";
+
             disable_save();
         }
 
@@ -7449,12 +7465,13 @@ namespace Test1
 
             if (k != 0)
             {
-                textBox21.Text = k.ToString("0.###");
+                //textBox21.Text = k.ToString("0.###");
             }
             else
             {
-                textBox21.Text = "";
+                //textBox21.Text = "";
             }
+            calc_smin();
         }
 
         private void ComboBox17_TextChanged(object sender, EventArgs e)
@@ -8475,6 +8492,7 @@ namespace Test1
             enable_result_btn();
         }
 
+        /*
         private void TextBox21_TextChanged(object sender, EventArgs e)
         {
             if (textBox21.Text != "")
@@ -8484,7 +8502,7 @@ namespace Test1
 
             cable_lte();
             calc_smin();
-        }
+        } */
 
         private void TextBox11_TextChanged(object sender, EventArgs e)
         {
@@ -8578,7 +8596,8 @@ namespace Test1
                 {
                     if (cbPower.Text == "kVA")
                     {
-                        current = power * 1000 / (Math.Sqrt(3) * voltage * eff);
+                        power = cplxpower * pf;
+                        current = cplxpower * 1000 / (Math.Sqrt(3) * voltage * eff);
                     }
                     else
                     {
@@ -9158,7 +9177,7 @@ namespace Test1
 
         private void cable_lte()
         {
-            if (textBox21.Text != "")
+            if (k != 0)
             {
                 cLTE = cmil * cmil * k * k;
             }
@@ -9179,7 +9198,7 @@ namespace Test1
 
         private void calc_smin()
         {
-            if ((textBox28.Text != "") && (textBox23.Text != "") && (textBox21.Text != ""))
+            if ((textBox28.Text != "") && (textBox23.Text != "") && (k != 0))
             {
                 smin = sccurrent * 1000 * Math.Sqrt(tbreaker) / k;
             }
@@ -9335,7 +9354,7 @@ namespace Test1
                 {
                     dtr[11] = power;
                 }
-                else if (Convert.ToString(dtr[10]) == "kV")
+                else if (Convert.ToString(dtr[10]) == "kVA")
                 {
                     dtr[11] = cplxpower;
                 }
@@ -9540,7 +9559,7 @@ namespace Test1
                 {
                     dtr[11] = power;
                 }
-                else if (Convert.ToString(dtr[10]) == "kV")
+                else if (Convert.ToString(dtr[10]) == "kVA")
                 {
                     dtr[11] = cplxpower;
                 }

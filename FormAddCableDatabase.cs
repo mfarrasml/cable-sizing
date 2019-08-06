@@ -938,8 +938,8 @@ namespace Test1
                     case "TW/UF":
                         dataGridView1.DataSource = dtNEC00;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
-                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/kfeet)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
@@ -947,16 +947,16 @@ namespace Test1
                     case "RHW/THW/THWN/USE/ZW":
                         dataGridView1.DataSource = dtNEC10;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
-                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/kfeet)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
                         dataGridView1.DataSource = dtNEC20;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
-                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/kfeet)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
@@ -973,8 +973,8 @@ namespace Test1
                     case "TW/UF":
                         dataGridView1.DataSource = dtNEC01;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
-                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/kfeet)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
@@ -982,16 +982,16 @@ namespace Test1
                     case "RHW/THW/THWN/USE/ZW":
                         dataGridView1.DataSource = dtNEC11;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
-                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/kfeet)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
                         dataGridView1.DataSource = dtNEC21;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
-                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/kfeet)";
+                        dataGridView1.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView1.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
@@ -3666,8 +3666,8 @@ namespace Test1
                     case "TW/UF":
                         dataGridView2.DataSource = dtNEC00view;
                         dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
-                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/kfeet)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
@@ -3675,16 +3675,16 @@ namespace Test1
                     case "RHW/THW/THWN/USE/ZW":
                         dataGridView2.DataSource = dtNEC10view;
                         dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
-                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/kfeet)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
                         dataGridView2.DataSource = dtNEC20view;
                         dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
-                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/kfeet)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
@@ -3701,8 +3701,8 @@ namespace Test1
                     case "TW/UF":
                         dataGridView2.DataSource = dtNEC01view;
                         dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/km)";
-                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/kfeet)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
@@ -3710,16 +3710,16 @@ namespace Test1
                     case "RHW/THW/THWN/USE/ZW":
                         dataGridView2.DataSource = dtNEC11view;
                         dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/km)";
-                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/kfeet)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
                         dataGridView2.DataSource = dtNEC21view;
                         dataGridView2.Columns[0].HeaderText = "Size (AWM/kcmil)";
-                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
-                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/km)";
+                        dataGridView2.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/kfeet)";
+                        dataGridView2.Columns[2].HeaderText = "Reactance at 60Hz(Ω/kfeet)";
                         dataGridView2.Columns[3].HeaderText = "Current Carrying Capacity (A)";
                         SetDGVRuntimeProperties(dataGridView2, 4);
                         break;
