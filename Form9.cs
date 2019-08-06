@@ -5598,7 +5598,7 @@ namespace Test1
                 textBox15.Text = cmil.ToString("0.##");
             }
 
-            if (!((textBox37.Text == wirearea_nec) || (comboBox15.Text == "Update Size") || (textBox37.Text == "") ||
+            if (!((comboBox15.Text == "Update Size") || (textBox37.Text == "") ||
                 (comboBox15.Text == "")))
             {
                 if (initialTemp == 60)
