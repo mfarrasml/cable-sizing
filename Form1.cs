@@ -4327,11 +4327,27 @@ namespace Test1
                 button3.Text = "Add and Save";
                 button5.Text = "Open Calculation Result";
 
-                //Re-enable saving and opening new file when form exits editing state
+                //enable save and open toolstrip menu when form is no longer editing
+                ChangeSaveOpenState();
+
+            }
+        }
+
+        //enable or disable save and open toolstrip menu based on the current editing state
+        private void ChangeSaveOpenState()
+        {
+            if (!EditingState)
+            {
                 openToolStripMenuItem.Enabled = true;
                 saveToolStripMenuItem.Enabled = true;
                 saveAsToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
 
+                openToolStripMenuItem.Enabled = false;
+                saveToolStripMenuItem.Enabled = false;
+                saveAsToolStripMenuItem.Enabled = false;
             }
         }
 
@@ -4403,6 +4419,7 @@ namespace Test1
                 addToolStripMenuItem.Text = "Add to Result";
                 button3.Text = "Add and Save";
                 button5.Text = "Open Calculation Result";
+                ChangeSaveOpenState();
             }
         }
 
@@ -4570,11 +4587,6 @@ namespace Test1
                 {
                     radioButton1.Checked = true;
                 }
-                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
-                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
-                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
-                textBox15.Text = DtrToDoubleText(dtx, 46); //initialtemp
-                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
                 cLTE = Convert.ToDouble(dtx[48]);
                 textBox22.Text = cLTE.ToString("0.##"); //CLTE
                 if (Convert.ToString(dtx[49]) != "")
@@ -4607,6 +4619,11 @@ namespace Test1
                     comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
                     comboBox11.SelectedIndex = -1;
                 }
+                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+                textBox15.Text = DtrToDoubleText(dtx, 46); //initialtemp
+                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
                 textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
                 tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
                 i = Convert.ToInt32(dtx[54]);
@@ -4647,10 +4664,9 @@ namespace Test1
                 enable_result_btn();
                 button5.Text = "Cancel";
 
-                //disable saving and opening new file while form is on editing state
-                openToolStripMenuItem.Enabled = false;
-                saveToolStripMenuItem.Enabled = false;
-                saveAsToolStripMenuItem.Enabled = false;
+                //disable save and open toolstrip menu when form is on editing state
+                ChangeSaveOpenState();
+
             }
         }
 
@@ -6680,27 +6696,7 @@ namespace Test1
                 else
                 {
                     MessageBox.Show("Error: Cable Database \"" + Convert.ToString(dtx[55]) + "\" not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    EditingState = false;
-                    f5.Enabled = true;
 
-                    if (!f5.Visible)
-                    {
-                        f5.Show();
-                    }
-                    else if (f5.WindowState == FormWindowState.Minimized)
-                    {
-                        f5.WindowState = FormWindowState.Normal;
-                    }
-                    else
-                    {
-                        f5.BringToFront();
-                    }
-
-                    button4.Text = "Add to Result";
-                    addToolStripMenuItem.Text = "Add to Result";
-                    button3.Text = "Add and Save";
-                    button5.Text = "Open Calculation Result";
-                    EditingState = false;
                     noDatabase = true;
                 }
             }
@@ -6939,6 +6935,7 @@ namespace Test1
             {
                 k = double.Parse(textBox21.Text);
             }
+            cable_lte();
             calc_smin();
         }
 

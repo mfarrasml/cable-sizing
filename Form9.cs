@@ -4553,6 +4553,25 @@ namespace Test1
                 button3.Text = "Add and Save";
                 button5.Text = "Open Calculation Result";
 
+                ChangeSaveOpenState();
+
+            }
+        }
+
+        private void ChangeSaveOpenState()
+        {
+            if (!EditingState)
+            {
+                openToolStripMenuItem.Enabled = true;
+                saveToolStripMenuItem.Enabled = true;
+                saveAsToolStripMenuItem.Enabled = true;
+            }
+            else
+            {
+
+                openToolStripMenuItem.Enabled = false;
+                saveToolStripMenuItem.Enabled = false;
+                saveAsToolStripMenuItem.Enabled = false;
             }
         }
         private void TextBox16_TextChanged_1(object sender, EventArgs e)
@@ -4622,6 +4641,8 @@ namespace Test1
                 addToolStripMenuItem.Text = "Add to Result";
                 button3.Text = "Add and Save";
                 button5.Text = "Open Calculation Result";
+
+                ChangeSaveOpenState();
             }
         }
 
@@ -4801,11 +4822,6 @@ namespace Test1
                 {
                     radioButton1.Checked = true;
                 }
-                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
-                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
-                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
-                comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
-                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
                 cLTE = Convert.ToDouble(dtx[48]);
                 textBox22.Text = cLTE.ToString("0.##"); //CLTE
                 if (Convert.ToString(dtx[49]) != "")
@@ -4838,6 +4854,13 @@ namespace Test1
                     comboBox11.Text = DtrToDoubleText(dtx, 52); //nominal current
                     comboBox11.SelectedIndex = -1;
                 }
+
+                textBox28.Text = DtrToDoubleText(dtx, 44); //sccurrent
+                textBox23.Text = DtrToDoubleText(dtx, 45); //tbreak
+                textBox20.Text = DtrToDoubleText(dtx, 53); //blte
+                comboBox17.Text = DtrToDoubleText(dtx, 46); //initialtemp
+                textBox24.Text = DtrToDoubleText(dtx, 47); //finaltemp
+
                 textBox35.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[39].Value); //remarks
                 tbResult.Text = Convert.ToString(f5.dataGridView1.Rows[Form5.currentrow].Cells[38].Value);
                 i = Convert.ToInt32(dtx[54]);
@@ -4853,6 +4876,11 @@ namespace Test1
                 comboBox1.SelectedIndex = Convert.ToInt32(dtx[62]);
                 textBox35.Text = Convert.ToString(dtx[63]);
                 tbResult.Text = Convert.ToString(dtx[64]);
+
+                //get selected database base on its insulation and material type
+                SelectedDatabaseType();
+                //get the database length
+                SelectedDataLength();
 
                 Update_size();
 
@@ -4889,6 +4917,8 @@ namespace Test1
                 disable_save();
                 enable_result_btn();
                 button5.Text = "Cancel";
+
+                ChangeSaveOpenState();
             }
 
         }
@@ -7842,27 +7872,7 @@ namespace Test1
                 else
                 {
                     MessageBox.Show("Error: Cable Database \"" + Convert.ToString(dtx[65]) + "\" not found!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    EditingState = false;
-                    f5.Enabled = true;
-
-                    if (!f5.Visible)
-                    {
-                        f5.Show();
-                    }
-                    else if (f5.WindowState == FormWindowState.Minimized)
-                    {
-                        f5.WindowState = FormWindowState.Normal;
-                    }
-                    else
-                    {
-                        f5.BringToFront();
-                    }
-
-                    button4.Text = "Add to Result";
-                    addToolStripMenuItem.Text = "Add to Result";
-                    button3.Text = "Add and Save";
-                    button5.Text = "Open Calculation Result";
-                    EditingState = false;
+                   
                     noDatabase = true;
                 }
             }
@@ -9150,7 +9160,7 @@ namespace Test1
         {
             if (textBox21.Text != "")
             {
-                cLTE = wirearea_metric * wirearea_metric * k * k;
+                cLTE = cmil * cmil * k * k;
             }
             else
             {

@@ -1770,7 +1770,7 @@
             this.label88.AutoSize = true;
             this.label88.BackColor = System.Drawing.Color.Transparent;
             this.label88.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label88.Location = new System.Drawing.Point(868, 466);
+            this.label88.Location = new System.Drawing.Point(868, 459);
             this.label88.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label88.Name = "label88";
             this.label88.Size = new System.Drawing.Size(41, 13);
@@ -1783,7 +1783,7 @@
             this.label87.AutoSize = true;
             this.label87.BackColor = System.Drawing.Color.Transparent;
             this.label87.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label87.Location = new System.Drawing.Point(737, 508);
+            this.label87.Location = new System.Drawing.Point(738, 510);
             this.label87.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label87.Name = "label87";
             this.label87.Size = new System.Drawing.Size(41, 13);
@@ -2582,7 +2582,7 @@
             // 
             // textBox35
             // 
-            this.textBox35.Location = new System.Drawing.Point(960, 495);
+            this.textBox35.Location = new System.Drawing.Point(960, 487);
             this.textBox35.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.textBox35.Multiline = true;
             this.textBox35.Name = "textBox35";
@@ -2595,7 +2595,7 @@
             this.label79.AutoSize = true;
             this.label79.BackColor = System.Drawing.Color.Transparent;
             this.label79.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label79.Location = new System.Drawing.Point(884, 501);
+            this.label79.Location = new System.Drawing.Point(884, 493);
             this.label79.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.label79.Name = "label79";
             this.label79.Size = new System.Drawing.Size(49, 13);

@@ -2642,9 +2642,9 @@
             this.label82.AutoSize = true;
             this.label82.Location = new System.Drawing.Point(192, 215);
             this.label82.Name = "label82";
-            this.label82.Size = new System.Drawing.Size(32, 13);
+            this.label82.Size = new System.Drawing.Size(25, 13);
             this.label82.TabIndex = 187;
-            this.label82.Text = "CMIL";
+            this.label82.Text = "cmil";
             // 
             // textBox15
             // 
