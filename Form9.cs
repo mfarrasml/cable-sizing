@@ -72,6 +72,7 @@ namespace Test1
         public static double k1main, k2main, k3main, ktmain;
 
         bool ConsiderVdStart;
+        bool NewSave = true;
 
         bool EditingState = false;
 
@@ -2073,8 +2074,6 @@ namespace Test1
                 }
                 textBox32.Text = Irated.ToString("0.##");
 
-                label86.Visible = true;
-                timer1.Enabled = true;
 
                 //enable sc/lte panel
                 panel4.Enabled = true;
@@ -2101,6 +2100,7 @@ namespace Test1
 
                 label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
                 label87.Visible = true;
+                label88.Visible = false;
             }
             else
             {
@@ -2812,10 +2812,10 @@ namespace Test1
                     }
                     textBox32.Text = Irated.ToString("0.##");
 
-                    label86.Visible = true;
-                    timer1.Enabled = true;
 
 
+                    label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
+                    label87.Visible = true;
                     if (radioButton1.Checked)
                     {
                         label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
@@ -3008,8 +3008,6 @@ namespace Test1
                 }
                 textBox32.Text = Irated.ToString("0.##");
 
-                label86.Visible = true;
-                timer1.Enabled = true;
 
                 //enable sc/lte panel
                 panel4.Enabled = true;
@@ -3036,6 +3034,7 @@ namespace Test1
 
                 label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
                 label87.Visible = true;
+                label88.Visible = false;
             }
             else
             {
@@ -3220,9 +3219,9 @@ namespace Test1
                     }
                     textBox32.Text = Irated.ToString("0.##");
 
-                    label86.Visible = true;
-                    timer1.Enabled = true;
 
+                    label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
+                    label87.Visible = true;
 
                     if (radioButton1.Checked)
                     {
@@ -3456,11 +3455,10 @@ namespace Test1
         //validate i fl < i break < i derated, validate vd < vdmax, validate sizemin sc < selected size, validate cLTE < bLTE
         private void validasi()
         {
-            if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
-                (((radioButton1.Checked) && (cLTE > bLTE)) ||
-                ((radioButton2.Checked) &&
+            if (((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) && (radioButton1.Checked) && (cLTE > bLTE)) ||
+                ((radioButton2.Checked) && (current < iderated) &&
                 (((radioButton4.Checked) && /*(data_wirearea_metric[i] > cablesizemin))*/ (cmil > smin)) || ((radioButton3.Checked) && /*(inputCableData_nec_metric[i] > cablesizemin)*/ (cmil > smin)) ||
-                ((radioButtonVendor.Checked) && /*(nec_selected_wirearea_metric[i] > cablesizemin)*/(cmil > smin))))))
+                ((radioButtonVendor.Checked) && /*(nec_selected_wirearea_metric[i] > cablesizemin)*/(cmil > smin)))))
             {
                 if ((loadtype == "Motor") && ConsiderVdStart)
                 {
@@ -3741,6 +3739,18 @@ namespace Test1
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
 
+                //protection device
+                label66.Enabled = true;
+                label37.Enabled = true;
+                label38.Enabled = true;
+                label50.Enabled = true;
+                comboBox10.Enabled = true;
+                comboBox11.Enabled = true;
+                comboBox12.Enabled = true;
+                label8.Enabled = true;
+                label52.Enabled = true;
+                panel3.Enabled = true;
+
                 if (radioButton6.Checked)
                 {
                     textBox20.ReadOnly = false;
@@ -3769,6 +3779,28 @@ namespace Test1
                 label70.Enabled = false;
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
+
+                //protection device
+                label66.Enabled = false;
+                label37.Enabled = false;
+                label38.Enabled = false;
+                label50.Enabled = false;
+                comboBox10.Enabled = false;
+                comboBox11.Enabled = false;
+                comboBox12.Enabled = false;
+                label8.Enabled = false;
+                label52.Enabled = false;
+                panel3.Enabled = false;
+
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox12.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+                comboBox12.Text = "";
+                breakertype = "";
+                scrating = 0;
+                breakcurrent = 0;
             }
 
             break_lte();
@@ -3795,8 +3827,18 @@ namespace Test1
                 label70.Enabled = true;
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
-                textBox28.Text = "";
-                textBox23.Text = "";
+
+                //protection device
+                label66.Enabled = true;
+                label37.Enabled = true;
+                label38.Enabled = true;
+                label50.Enabled = true;
+                comboBox10.Enabled = true;
+                comboBox11.Enabled = true;
+                comboBox12.Enabled = true;
+                label8.Enabled = true;
+                label52.Enabled = true;
+                panel3.Enabled = true;
 
                 if (radioButton6.Checked)
                 {
@@ -3809,6 +3851,7 @@ namespace Test1
             }
             else if ((radioButton2.Checked))
             {
+                comboBox11.DropDownStyle = ComboBoxStyle.DropDown;
                 label53.Enabled = true;
                 label54.Enabled = true;
                 textBox23.Enabled = true;
@@ -3825,6 +3868,28 @@ namespace Test1
                 label70.Enabled = false;
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
+
+                //protection device
+                label66.Enabled = false;
+                label37.Enabled = false;
+                label38.Enabled = false;
+                label50.Enabled = false;
+                comboBox10.Enabled = false;
+                comboBox11.Enabled = false;
+                comboBox12.Enabled = false;
+                label8.Enabled = false;
+                label52.Enabled = false;
+                panel3.Enabled = false;
+
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox12.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+                comboBox12.Text = "";
+                breakertype = "";
+                scrating = 0;
+                breakcurrent = 0;
             }
 
             break_lte();
@@ -4515,29 +4580,44 @@ namespace Test1
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            AddToResult();
+            NewSave = true;
+            EditData();
+            button4.Enabled = false;
         }
 
         private void AddToResult()
         {
             if (!EditingState)
             {
-                f5.dataGridView1.RowCount++;
-                Form1.j++;
-                f5.dataGridView1.Rows[Form1.j].Cells[0].Value = Form1.j + 1;
+                DataRow dtrTemp = Form1.dtdiameter.NewRow();
+                dtrTemp.ItemArray = dtr.ItemArray.Clone() as object[];
+
+                if (NewSave)
+                {
+                    f5.dataGridView1.RowCount++;
+                    Form1.j++;
+                    f5.dataGridView1.Rows[Form1.j].Cells[0].Value = Form1.j + 1;
+
+                    Form1.dtdiameter.Rows.Add(dtrTemp);
+                    NewSave = false;
+                }
+                else
+                {
+                    Form1.dtdiameter.Rows.RemoveAt(Form1.j);
+                    Form1.dtdiameter.Rows.InsertAt(dtrTemp, Form1.j);
+                }
 
                 for (int k = 0; k < 39; k++)
                 {
                     f5.dataGridView1.Rows[Form1.j].Cells[k + 1].Value = results[k];
                 }
-
-                DataRow dtrTemp = Form1.dtdiameter.NewRow();
-                dtrTemp.ItemArray = dtr.ItemArray.Clone() as object[];
-                Form1.dtdiameter.Rows.Add(dtrTemp);
+                
 
                 OpenDataTable();
 
                 f5.Update_summary();
+
+                button4.Enabled = true;
             }
             else
             {
@@ -4551,10 +4631,9 @@ namespace Test1
                 Form1.dtdiameter.Rows.InsertAt(dtr, tempCurrentRow);
                 OpenDataTable();
                 f5.Update_summary();
-                button4.Text = "Add to Result";
-                addToolStripMenuItem.Text = "Add to Result";
-                button3.Text = "Add and Save";
-                button5.Text = "Open Calculation Result";
+                //addToolStripMenuItem.Text = "Save";
+                button3.Text = "Save";
+                button5.Visible = false;
 
                 ChangeSaveOpenState();
 
@@ -4640,10 +4719,9 @@ namespace Test1
                 EditingState = false;
                 f5.Enabled = true;
                 OpenDataTable();
-                button4.Text = "Add to Result";
-                addToolStripMenuItem.Text = "Add to Result";
-                button3.Text = "Add and Save";
-                button5.Text = "Open Calculation Result";
+                //addToolStripMenuItem.Text = "Save";
+                button3.Text = "Save";
+                button5.Visible = false;
 
                 ChangeSaveOpenState();
             }
@@ -4710,10 +4788,9 @@ namespace Test1
                         f5.BringToFront();
                     }
 
-                    button4.Text = "Add to Result";
-                    addToolStripMenuItem.Text = "Add to Result";
-                    button3.Text = "Add and Save";
-                    button5.Text = "Open Calculation Result";
+                    //addToolStripMenuItem.Text = "Save";
+                    button3.Text = "Save";
+                    button5.Visible = false;
                     EditingState = false;
                     noDatabase = true;
                 }
@@ -4914,12 +4991,11 @@ namespace Test1
                 button8.Enabled = true;
 
 
-                button4.Text = "Confirm Edit";
-                button3.Text = "Confirm Edit and Save";
-                addToolStripMenuItem.Text = "Confirm Edit";
+                button3.Text = "Confirm Edit";
+                //addToolStripMenuItem.Text = "Confirm Edit";
                 disable_save();
                 enable_result_btn();
-                button5.Text = "Cancel";
+                button5.Visible = true;
 
                 ChangeSaveOpenState();
 
@@ -6287,12 +6363,21 @@ namespace Test1
                 {
                     disable_save();
                 }
+
+
+                label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea_nec + " " + wirearea_unit + "  is acceptable";
+                label87.Visible = true;
             }
 
         }
 
 
         private void Button8_Click(object sender, EventArgs e)
+        {
+            EditData();
+        }
+
+        private void EditData()
         {
             calculated = false;
             panel6.Enabled = true;
@@ -6350,8 +6435,6 @@ namespace Test1
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            label86.Visible = false;
-            timer1.Enabled = false;
         }
 
         private void RadioButton7_CheckedChanged(object sender, EventArgs e)
@@ -7866,6 +7949,14 @@ namespace Test1
         private void AddToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddToResult();
+            if (Form5.savefile == "")
+            {
+                f5.ExportDgvToXML();
+            }
+            else //safefile == last savepath
+            {
+                f5.saveExportDgvToXML();
+            }
         }
 
         private void UndoResetToolStripMenuItem_Click(object sender, EventArgs e)
@@ -9684,7 +9775,7 @@ namespace Test1
         private void enable_save()
         {
             button4.Enabled = true;
-            addToolStripMenuItem.Enabled = true;
+            //addToolStripMenuItem.Enabled = true;
             button3.Enabled = true;
             toolTip1.SetToolTip(button4, "Add calculated cable size data to data table");
             toolTip1.SetToolTip(button3, "Add calculated cable size data to data table and save the data table");
@@ -9693,7 +9784,7 @@ namespace Test1
         private void disable_save()
         {
             button4.Enabled = false;
-            addToolStripMenuItem.Enabled = false;
+            //addToolStripMenuItem.Enabled = false;
             button3.Enabled = false;
             toolTip1.SetToolTip(button4, null);
             toolTip1.SetToolTip(button3, null);

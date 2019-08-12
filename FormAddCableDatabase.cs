@@ -553,7 +553,12 @@ namespace Test1
                         if (!File.Exists(saveDir))
                         {
                             SaveIECDatabase();
-                            LoadIECDatabase();
+                            if (IECSelected)
+                            {
+                                LoadIECDatabase();
+                                ResetEditView();
+                            }
+                            
                             ResetStateAfterSave();
                             databaseEdited = true;
                         }
@@ -564,7 +569,11 @@ namespace Test1
                             if (dr == DialogResult.OK)
                             {
                                 SaveIECDatabase();
-                                LoadIECDatabase();
+                                if (IECSelected)
+                                {
+                                    LoadIECDatabase();
+                                    ResetEditView();
+                                }
                                 ResetStateAfterSave();
                                 databaseEdited = true;
                             }
@@ -610,9 +619,17 @@ namespace Test1
                         if (!File.Exists(saveDir))
                         {
                             SaveNECDatabase();
-                            LoadNECDatabase();
+                            if (NECSelected)
+                            {
+                                LoadNECDatabase();
+                                ResetEditView();
+                            }
                             ResetStateAfterSave();
                             databaseEdited = true;
+                            if (buttonEdit.Text == "Save")
+                            {
+                                comboBoxDatabase.Text = fileName;
+                            }
                         }
                         else //file with the same name detected
                         {
@@ -621,9 +638,17 @@ namespace Test1
                             if (dr == DialogResult.OK)
                             {
                                 SaveNECDatabase();
-                                LoadNECDatabase();
+                                if (NECSelected)
+                                {
+                                    LoadNECDatabase();
+                                    ResetEditView();
+                                }
                                 ResetStateAfterSave();
                                 databaseEdited = true;
+                                if (buttonEdit.Text == "Save")
+                                {
+                                    comboBoxDatabase.Text = fileName;
+                                }
                             }
                             else
                             {
@@ -642,6 +667,17 @@ namespace Test1
                     MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
+        }
+
+        private void ResetEditView()
+        {
+            dataGridView2.DataSource = null;
+            comboBox1.SelectedIndex = -1;
+            comboBox2.SelectedIndex = -1;
+            comboBox3.SelectedIndex = -1;
+            buttonEdit.Enabled = false;
+            buttonRename.Enabled = false;
+            buttonDelete.Enabled = false;
         }
 
         //Save the new IEC Database
@@ -703,6 +739,7 @@ namespace Test1
             noCores = 0;
             textBoxName.Text = "";
             saveName = "";
+            
         }
 
         private void DataGridView1_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -838,6 +875,7 @@ namespace Test1
                     {
                         case 2:
                             //bound datagridview to datatable
+                            ResetDataTable(dtXLPE2);
                             dataGridView1.DataSource = dtXLPE2;
                             dataGridView1.Columns[0].HeaderText = "Size (mm²)";
                             dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
@@ -849,6 +887,7 @@ namespace Test1
                             break;
                         case 3:
                             //bound datagridview to datatable
+                            ResetDataTable(dtXLPE3);
                             dataGridView1.DataSource = dtXLPE3;
                             dataGridView1.Columns[0].HeaderText = "Size (mm²)";
                             dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
@@ -860,6 +899,7 @@ namespace Test1
                             break;
                         case 4:
                             //bound datagridview to datatable
+                            ResetDataTable(dtXLPE4);
                             dataGridView1.DataSource = dtXLPE4;
                             dataGridView1.Columns[0].HeaderText = "Size (mm²)";
                             dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/km)";
@@ -880,6 +920,7 @@ namespace Test1
                     {
                         case 2:
                             //bound datagridview to datatable
+                            ResetDataTable(dtPVC2);
                             dataGridView1.DataSource = dtPVC2;
                             dataGridView1.Columns[0].HeaderText = "Size (mm²)";
                             dataGridView1.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
@@ -891,6 +932,7 @@ namespace Test1
                             break;
                         case 3:
                             //bound datagridview to datatable
+                            ResetDataTable(dtPVC3);
                             dataGridView1.DataSource = dtPVC3;
                             dataGridView1.Columns[0].HeaderText = "Size (mm²)";
                             dataGridView1.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
@@ -902,6 +944,7 @@ namespace Test1
                             break;
                         case 4:
                             //bound datagridview to datatable
+                            ResetDataTable(dtPVC4);
                             dataGridView1.DataSource = dtPVC4;
                             dataGridView1.Columns[0].HeaderText = "Size (mm²)";
                             dataGridView1.Columns[1].HeaderText = "AC Resistance at 70°C(Ω/km)";
@@ -928,6 +971,17 @@ namespace Test1
             }
         }
 
+        private void ResetDataTable(DataTable dt)
+        {
+            foreach (DataRow dr in dt.Rows)
+            {
+                for (int k = 1; k < dt.Columns.Count; k++)
+                {
+                    dr[k] = null;
+                }
+            }
+        }
+
         private void ChooseNECDatabase()
         {
             dataGridView1.DataSource = null;
@@ -936,6 +990,7 @@ namespace Test1
                 switch (comboBoxInsulation.Text)
                 {
                     case "TW/UF":
+                        ResetDataTable(dtNEC00);
                         dataGridView1.DataSource = dtNEC00;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
                         dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/kfeet)";
@@ -945,6 +1000,7 @@ namespace Test1
                         break;
 
                     case "RHW/THW/THWN/USE/ZW":
+                        ResetDataTable(dtNEC10);
                         dataGridView1.DataSource = dtNEC10;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
                         dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/kfeet)";
@@ -953,6 +1009,7 @@ namespace Test1
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
+                        ResetDataTable(dtNEC20);
                         dataGridView1.DataSource = dtNEC20;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
                         dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/kfeet)";
@@ -971,6 +1028,7 @@ namespace Test1
                 switch (comboBoxInsulation.Text)
                 {
                     case "TW/UF":
+                        ResetDataTable(dtNEC01);
                         dataGridView1.DataSource = dtNEC01;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
                         dataGridView1.Columns[1].HeaderText = "AC Resistance at 60°C(Ω/kfeet)";
@@ -980,6 +1038,7 @@ namespace Test1
                         break;
 
                     case "RHW/THW/THWN/USE/ZW":
+                        ResetDataTable(dtNEC11);
                         dataGridView1.DataSource = dtNEC11;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
                         dataGridView1.Columns[1].HeaderText = "AC Resistance at 75°C(Ω/kfeet)";
@@ -988,6 +1047,7 @@ namespace Test1
                         SetDGVRuntimeProperties(dataGridView1, 4);
                         break;
                     case "TBS/SA/SIS/FEP/FEPB/MI/RHH/RHW-2/THHN/THW-2/THWN-2/USE-2/XHH/XHHW-2/ZW-2":
+                        ResetDataTable(dtNEC21);
                         dataGridView1.DataSource = dtNEC21;
                         dataGridView1.Columns[0].HeaderText = "Size (AWM/kcmil)";
                         dataGridView1.Columns[1].HeaderText = "AC Resistance at 90°C(Ω/kfeet)";
@@ -1922,6 +1982,7 @@ namespace Test1
             buttonCancel2.Visible = false;
             radioButton2.Enabled = true;
             radioButtonNECView.Enabled = true;
+            tabControl1.TabPages[1].Enabled = true;
         }
 
         private void DataGridView2_EditingControlShowing(object sender, DataGridViewEditingControlShowingEventArgs e)
@@ -1973,6 +2034,7 @@ namespace Test1
                 //Make data editable
                 dataGridView2.ReadOnly = false;
                 dataGridView2.Columns[0].ReadOnly = true;
+                tabControl1.TabPages[1].Enabled = false;
             }
             else if (buttonEdit.Text == "Save")
             {
@@ -2010,6 +2072,7 @@ namespace Test1
                                 databaseEdited = true;
                                 radioButton2.Enabled = true;
                                 radioButtonNECView.Enabled = true;
+                                tabControl1.TabPages[1].Enabled = true;
                             }
 
                         }
@@ -2057,6 +2120,7 @@ namespace Test1
                                 databaseEdited = true;
                                 radioButton2.Enabled = true;
                                 radioButtonNECView.Enabled = true;
+                                tabControl1.TabPages[1].Enabled = true;
                             }
 
                         }

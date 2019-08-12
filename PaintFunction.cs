@@ -22,13 +22,12 @@ namespace Test1
             // or
 
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            UpdateStyles();
         }
 
 
         protected override void OnPaint(PaintEventArgs e)
         {
+            if (ClientRectangle.Width == 0 || ClientRectangle.Height == 0) return;
             Graphics g = e.Graphics;
             LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, TopColor, BottomColor, Angle);
             g.FillRectangle(brush, ClientRectangle);
@@ -44,9 +43,11 @@ namespace Test1
         public Color BottomColor { get; set; }
         public float Angle { get; set; }
 
-
         protected override void OnPaint(PaintEventArgs e)
         {
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.ResizeRedraw, true);
+            if (ClientRectangle.Width == 0 || ClientRectangle.Height == 0) return;
             Graphics g = e.Graphics;
             LinearGradientBrush brush = new LinearGradientBrush(ClientRectangle, TopColor, BottomColor, Angle);
             g.FillRectangle(brush, ClientRectangle);

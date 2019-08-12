@@ -76,6 +76,8 @@ namespace Test1
 
         private bool ConsiderVdStart;
 
+        bool NewSave = true;
+
         int m;
 
         public static string voltageLv;
@@ -2423,8 +2425,6 @@ namespace Test1
                 }
                 textBox32.Text = Irated.ToString("0.##");
 
-                label86.Visible = true;
-                timer1.Enabled = true;
 
                 //enable sc/lte panel
                 panel4.Enabled = true;
@@ -2449,6 +2449,7 @@ namespace Test1
 
                 label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea + " mm² is acceptable";
                 label87.Visible = true;
+                label88.Visible = false;
             }
             else
             {
@@ -3228,19 +3229,20 @@ namespace Test1
                     }
                     textBox32.Text = Irated.ToString("0.##");
 
-                    label86.Visible = true;
-                    timer1.Enabled = true;
 
+
+                    label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea + " mm² is acceptable";
+                    label87.Visible = true;
 
                     if (radioButton1.Checked)
                     {
                         label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
-                            " therefore cable size of " + wirearea + " mm²  is acceptable";
+                            " therefore cable size of " + wirearea + " mm² is acceptable";
                     }
                     else if (radioButton2.Checked)
                     {
                         label88.Text = "During Short Circuit condition, the minimum cable size is " + smin.ToString("0.##") + " mm²,\n" +
-                            "therefore cable size of " + wirearea + " mm²  is acceptable";
+                            "therefore cable size of " + wirearea + " mm² is acceptable";
 
                     }
 
@@ -3410,8 +3412,8 @@ namespace Test1
         //validate i fl < i break < i derated, validate vd < vdmax, validate sizemin sc < selected size, validate cLTE < bLTE
         private void validasi()
         {
-            if ((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) &&
-                (((radioButton1.Checked) && (cLTE > bLTE)) || ((radioButton2.Checked) && (wirearea > smin))))
+            if  (((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) && (radioButton1.Checked) && (cLTE > bLTE)) || 
+                ((radioButton2.Checked) && (wirearea > smin) && (current < iderated)))
             {
                 if ((loadtype == "Motor") && ConsiderVdStart)
                 {
@@ -3744,6 +3746,18 @@ namespace Test1
                 textBox28.Text = "";
                 textBox23.Text = "";
 
+                //protection device
+                label66.Enabled = true;
+                label37.Enabled = true;
+                label38.Enabled = true;
+                label50.Enabled = true;
+                comboBox10.Enabled = true;
+                comboBox11.Enabled = true;
+                comboBox12.Enabled = true;
+                label8.Enabled = true;
+                label52.Enabled = true;
+                panel3.Enabled = true;
+
                 if (radioButton6.Checked)
                 {
                     textBox20.ReadOnly = false;
@@ -3771,6 +3785,28 @@ namespace Test1
                 label70.Enabled = false;
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
+
+                //protection device
+                label66.Enabled = false;
+                label37.Enabled = false;
+                label38.Enabled = false;
+                label50.Enabled = false;
+                comboBox10.Enabled = false;
+                comboBox11.Enabled = false;
+                comboBox12.Enabled = false;
+                label8.Enabled = false;
+                label52.Enabled = false;
+                panel3.Enabled = false;
+
+                comboBox10.SelectedIndex = -1;
+                comboBox11.SelectedIndex = -1;
+                comboBox12.SelectedIndex = -1;
+                comboBox10.Text = "";
+                comboBox11.Text = "";
+                comboBox12.Text = "";
+                breakertype = "";
+                scrating = 0;
+                breakcurrent = 0;
             }
 
             break_lte();
@@ -4289,29 +4325,44 @@ namespace Test1
 
         private void Button4_Click(object sender, EventArgs e)
         {
-            AddToResult();
+            NewSave = true;
+            EditData();
+            button4.Enabled = false;
         }
 
         private void AddToResult()
         {
             if (!EditingState)
             {
-                f5.dataGridView1.RowCount++;
-                j++;
-                f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
+                DataRow dtrTemp = dtdiameter.NewRow();
+                dtrTemp.ItemArray = dtr.ItemArray.Clone() as object[];
+
+                if (NewSave)
+                {
+                    f5.dataGridView1.RowCount++;
+                    j++;
+                    f5.dataGridView1.Rows[j].Cells[0].Value = j + 1;
+
+                    dtdiameter.Rows.Add(dtrTemp);
+                    NewSave = false;
+                }
+                else
+                {
+                    dtdiameter.Rows.RemoveAt(j);
+                    dtdiameter.Rows.InsertAt(dtrTemp, j);
+                }
 
                 for (int k = 0; k < 39; k++)
                 {
                     f5.dataGridView1.Rows[j].Cells[k + 1].Value = results[k];
                 }
-
-                DataRow dtrTemp = dtdiameter.NewRow();
-                dtrTemp.ItemArray = dtr.ItemArray.Clone() as object[];
-                dtdiameter.Rows.Add(dtrTemp);
+                
 
                 OpenDataTable();
 
                 f5.Update_summary();
+
+                button4.Enabled = true;
             }
             else //Form is on editing state
             {
@@ -4326,10 +4377,10 @@ namespace Test1
                 dtdiameter.Rows.InsertAt(dtr, tempCurrentRow);
                 OpenDataTable();
                 f5.Update_summary();
-                button4.Text = "Add to Result";
-                addToolStripMenuItem.Text = "Add to Result";
-                button3.Text = "Add and Save";
-                button5.Text = "Open Calculation Result";
+                button4.Text = "Add New Cable";
+                //addToolStripMenuItem.Text = "Save";
+                button3.Text = "Save";
+                button5.Visible = false;
 
                 //enable save and open toolstrip menu when form is no longer editing
                 ChangeSaveOpenState();
@@ -4419,10 +4470,10 @@ namespace Test1
                 EditingState = false;
                 f5.Enabled = true;
                 OpenDataTable();
-                button4.Text = "Add to Result";
-                addToolStripMenuItem.Text = "Add to Result";
-                button3.Text = "Add and Save";
-                button5.Text = "Open Calculation Result";
+                button4.Text = "Add New Cable";
+                //addToolStripMenuItem.Text = "Save";
+                button3.Text = "Save";
+                button5.Visible = false;
                 ChangeSaveOpenState();
             }
         }
@@ -4488,10 +4539,10 @@ namespace Test1
                         f5.BringToFront();
                     }
 
-                    button4.Text = "Add to Result";
-                    addToolStripMenuItem.Text = "Add to Result";
-                    button3.Text = "Add and Save";
-                    button5.Text = "Open Calculation Result";
+                    button4.Text = "Add New Cable";
+                    //addToolStripMenuItem.Text = "Save";
+                    button3.Text = "Save";
+                    button5.Enabled = false;
                     EditingState = false;
                     noDatabase = true;
                 }
@@ -4661,12 +4712,12 @@ namespace Test1
                 button8.Enabled = true;
 
 
-                button4.Text = "Confirm Edit";
-                addToolStripMenuItem.Text = "Confirm Edit";
-                button3.Text = "Confirm Edit and Save";
+                //addToolStripMenuItem.Text = "Confirm Edit";
+                button3.Text = "Confirm Edit";
+                button4.Enabled = false;
                 disable_save();
                 enable_result_btn();
-                button5.Text = "Cancel";
+                button5.Visible = true;
 
                 //disable save and open toolstrip menu when form is on editing state
                 ChangeSaveOpenState();
@@ -5942,6 +5993,9 @@ namespace Test1
 
                 tbResult.Text = readtemp;
 
+                label87.Text = "Since Vd run is lower than Vd run max,\ntherefore cable size of " + wirearea + " mm² is acceptable";
+                label87.Visible = true;
+
                 save_vd_result();
 
                 enable_save();
@@ -5966,6 +6020,11 @@ namespace Test1
 
 
         private void Button8_Click(object sender, EventArgs e)
+        {
+            EditData();
+        }
+
+        private void EditData()
         {
             calculated = false;
             panel6.Enabled = true;
@@ -6016,8 +6075,6 @@ namespace Test1
 
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            label86.Visible = false;
-            timer1.Enabled = false;
         }
 
         private void RadioButton7_CheckedChanged(object sender, EventArgs e)
@@ -6660,6 +6717,14 @@ namespace Test1
         private void AddToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             AddToResult();
+            if (Form5.savefile == "")
+            {
+                f5.ExportDgvToXML();
+            }
+            else //safefile == last savepath
+            {
+                f5.saveExportDgvToXML();
+            }
         }
 
         private void Button9_Click(object sender, EventArgs e)
@@ -7214,17 +7279,17 @@ namespace Test1
                 (textBox3.Text != "") && (textBox4.Text != "") &&
                 (textBox5.Text != "") && (textBox9.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && 
                 (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && (textBox19.Text != "") && 
-                (comboBox11.Text != "") && (comboBox4.Text != "") && (comboBox7.Text != "") && (comboBox8.Text != "") && 
-                (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && (comboBox14.Text != "") && 
+                (comboBox4.Text != "") && (comboBox7.Text != "") && (comboBox8.Text != "") && 
+                (comboBox13.Text != "") && (comboBox14.Text != "") && 
                 (textBox13.Text!= "") && (textBox15.Text != "") && (textBox24.Text != ""))
                 {
                     if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked))
                     {
                         if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "")) ||
-                                ((radioButton1.Checked) && (textBox20.Text != "")))
+                                ((comboBox11.Text != "") && (comboBox10.Text != "") && (comboBox12.Text != "") && (radioButton1.Checked) && (textBox20.Text != "")))
                         {
                             if ((loadtype == "Motor") && ConsiderVdStart)
-                        {
+                            {
                                 if ((textBox7.Text != "") && (textBox14.Text != "") && (textBox11.Text != "") && (textBox25.Text != ""))
                                 {
                                     button2.Enabled = true;
@@ -8022,8 +8087,7 @@ namespace Test1
 
         private void enable_save()
         {
-            button4.Enabled = true;
-            addToolStripMenuItem.Enabled = true;
+            //addToolStripMenuItem.Enabled = true;
             button3.Enabled = true;
             toolTip1.SetToolTip(button4, "Add calculated cable size data to data table");
             toolTip1.SetToolTip(button3, "Add calculated cable size data to data table and save the data table");
@@ -8031,8 +8095,7 @@ namespace Test1
 
         private void disable_save()
         {
-            button4.Enabled = false;
-            addToolStripMenuItem.Enabled = false;
+            //addToolStripMenuItem.Enabled = false;
             button3.Enabled = false;
             toolTip1.SetToolTip(button4, null);
             toolTip1.SetToolTip(button3, null);
