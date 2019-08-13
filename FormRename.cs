@@ -39,27 +39,34 @@ namespace Test1
 
         private void ButtonOK_Click_1(object sender, EventArgs e)
         {
-            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
-            var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", NewName + ".xml");
-            if (File.Exists(saveDir))
+            if (FormAddCableDatabase.CheckFileNameValidity(NewName))
             {
-                DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
-                                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-                if (dr == DialogResult.OK)
+                var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+                var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", NewName + ".xml");
+                if (File.Exists(saveDir))
+                {
+                    DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
+                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                    if (dr == DialogResult.OK)
+                    {
+                        saveClicked = true;
+                        Close();
+                    }
+                    else
+                    {
+                        saveClicked = false;
+                    }
+                }
+                else
                 {
                     saveClicked = true;
                     Close();
                 }
-                else
-                {
-                    saveClicked = false;
-                }
             }
             else
             {
-                saveClicked = true;
-                Close();
+                MessageBox.Show(NewName + "\nInvalid file name", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             
         }

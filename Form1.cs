@@ -76,7 +76,7 @@ namespace Test1
 
         private bool ConsiderVdStart;
 
-        bool NewSave = true;
+        public static bool NewSave = true;
 
         int m;
 

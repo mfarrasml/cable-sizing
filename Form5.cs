@@ -778,6 +778,8 @@ namespace Test1
             {
                 clearTable();
             }
+
+            NewCable();
         }
 
         private void BtnDelete_Click(object sender, EventArgs e)
@@ -788,6 +790,12 @@ namespace Test1
 
         private void DeleteRow()
         {
+            //New cable for form 1 and 9 if deleted row is the last row
+            if (currentrow == Form1.j)
+            {
+                NewCable();
+            }
+
             if (dataGridView1.CurrentCell.Selected)
             {
                 Form1.dtdiameter.Rows.RemoveAt(currentrow);
@@ -798,6 +806,7 @@ namespace Test1
                 }
                 Form1.j--;
             }
+
             // revalidate buttons/toolbar menu enabled status
             ToolsAndButtonsEnabler();
         }
@@ -809,6 +818,12 @@ namespace Test1
 
         private void EditRowUp()
         {
+            //New cable for form 1 and 9 if the moved rows include the last row
+            if (currentrow == Form1.j)
+            {
+                NewCable();
+            }
+
             if (currentrow > 0)
             {
                 RowUp();
@@ -835,6 +850,12 @@ namespace Test1
 
         private void EditRowDown()
         {
+            //New cable for form 1 and 9 if moved rows include the last row
+            if (currentrow == Form1.j - 1)
+            {
+                NewCable();
+            }
+
             if (currentrow < Form1.j)
             {
                 RowDown();
@@ -948,6 +969,18 @@ namespace Test1
         private void CloseToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void NewCable()
+        {
+            if (Standard == 1)
+            {
+                Form1.NewSave = true;
+            }
+            else if (Standard == 2)
+            {
+                Form9.NewSave = true;
+            }
         }
     }
 }

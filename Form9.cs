@@ -72,7 +72,7 @@ namespace Test1
         public static double k1main, k2main, k3main, ktmain;
 
         bool ConsiderVdStart;
-        bool NewSave = true;
+        public static bool NewSave = true;
 
         bool EditingState = false;
 
@@ -3739,6 +3739,9 @@ namespace Test1
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
 
+                textBox28.Text = "";
+                textBox23.Text = "";
+
                 //protection device
                 label66.Enabled = true;
                 label37.Enabled = true;
@@ -3827,6 +3830,9 @@ namespace Test1
                 label70.Enabled = true;
                 textBox20.Enabled = true;
                 textBox22.Enabled = true;
+
+                textBox28.Text = "";
+                textBox23.Text = "";
 
                 //protection device
                 label66.Enabled = true;
@@ -8882,14 +8888,13 @@ namespace Test1
                 (textBox3.Text != "") && (textBox4.Text != "") && (textBox5.Text != "") && 
                 (textBox9.Text != "") && (textBox6.Text != "") && (textBox12.Text != "") && 
                 (comboBox5.Text != "") && (comboBox6.Text != "") && (comboBox9.Text != "") && 
-                (textBox19.Text != "") && (comboBox11.Text != "") && (comboBox4.Text != "") && 
-                (comboBox10.Text != "") && (comboBox12.Text != "")&& (comboBox13.Text != "") && 
+                (textBox19.Text != "") &&  (comboBox4.Text != "") && (comboBox13.Text != "") && 
                 (comboBox14.Text != "") && (textBox13.Text!= "") && (textBox24.Text != ""))
                 {
                     if (((radioButton3.Checked) && (cableCount > 0)) || (radioButton4.Checked) || (radioButtonVendor.Checked && (comboBoxVendor.Text != "")))
                     {
-                        if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "")) ||
-                                ((radioButton1.Checked) && (textBox20.Text != "")))
+                        if (((radioButton2.Checked) && (textBox23.Text != "") && (textBox28.Text != "") && (textBox30.Text != "")) ||
+                                ((radioButton1.Checked) && (textBox20.Text != "") && (comboBox10.Text != "") && (comboBox11.Text != "") && (comboBox12.Text != "")))
                         {
                             if ((loadtype == "Motor") && ConsiderVdStart)
                         {

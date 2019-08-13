@@ -15,6 +15,7 @@ namespace Test1
 {
     public partial class FormAddCableDatabase : Form
     {
+
         // Variables
 
         public static DataTable dtXLPE2;
@@ -527,46 +528,32 @@ namespace Test1
         private void ButtonSave_Click(object sender, EventArgs e)
         {
             saveName = textBoxName.Text;
-
-            if ((saveName != "") && IECStandard) //save IEC cable database
+            bool nameValid = CheckFileNameValidity(saveName);
+            if (nameValid)
             {
-                dtXLPE2final = new DataTable();
-                dtXLPE3final = new DataTable();
-                dtXLPE4final = new DataTable();
-                dtPVC2final = new DataTable();
-                dtPVC3final = new DataTable();
-                dtPVC4final = new DataTable();
-
-                
-                inValid = cekValidasiTable();
-                if (!inValid)
+                if ((saveName != "") && IECStandard) //save IEC cable database
                 {
-                    checkAvailability();
-                    finalCableData();
-                    if ((dtXLPE2final.Rows.Count > 0) || (dtXLPE3final.Rows.Count > 0) || (dtXLPE4final.Rows.Count > 0) || (dtPVC2final.Rows.Count > 0) 
-                        || (dtPVC3final.Rows.Count > 0) || (dtPVC4final.Rows.Count > 0))
-                    {
-                        var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                        Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
-                        var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", saveName + ".xml");
+                    dtXLPE2final = new DataTable();
+                    dtXLPE3final = new DataTable();
+                    dtXLPE4final = new DataTable();
+                    dtPVC2final = new DataTable();
+                    dtPVC3final = new DataTable();
+                    dtPVC4final = new DataTable();
 
-                        if (!File.Exists(saveDir))
+
+                    inValid = cekValidasiTable();
+                    if (!inValid)
+                    {
+                        checkAvailability();
+                        finalCableData();
+                        if ((dtXLPE2final.Rows.Count > 0) || (dtXLPE3final.Rows.Count > 0) || (dtXLPE4final.Rows.Count > 0) || (dtPVC2final.Rows.Count > 0)
+                            || (dtPVC3final.Rows.Count > 0) || (dtPVC4final.Rows.Count > 0))
                         {
-                            SaveIECDatabase();
-                            if (IECSelected)
-                            {
-                                LoadIECDatabase();
-                                ResetEditView();
-                            }
-                            
-                            ResetStateAfterSave();
-                            databaseEdited = true;
-                        }
-                        else //file with the same name detected
-                        {
-                            DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
-                                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-                            if (dr == DialogResult.OK)
+                            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                            Directory.CreateDirectory(systemPath + "/Cable Sizing/IEC_database");
+                            var saveDir = Path.Combine(systemPath + "/Cable Sizing/IEC_database", saveName + ".xml");
+
+                            if (!File.Exists(saveDir))
                             {
                                 SaveIECDatabase();
                                 if (IECSelected)
@@ -574,68 +561,65 @@ namespace Test1
                                     LoadIECDatabase();
                                     ResetEditView();
                                 }
+
                                 ResetStateAfterSave();
                                 databaseEdited = true;
                             }
-                            else
+                            else //file with the same name detected
                             {
-                                MessageBox.Show("Failed to save data!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
+                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                                if (dr == DialogResult.OK)
+                                {
+                                    SaveIECDatabase();
+                                    if (IECSelected)
+                                    {
+                                        LoadIECDatabase();
+                                        ResetEditView();
+                                    }
+                                    ResetStateAfterSave();
+                                    databaseEdited = true;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to save data!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
+
                         }
-                        
+                        else
+                        {
+                            MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
+                else if ((saveName != "") && NECStandard) //save NEC cable database
                 {
-                    MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else if ((saveName != "") && NECStandard) //save NEC cable database
-            {
-                dtNEC00final = new DataTable();
-                dtNEC10final = new DataTable();
-                dtNEC20final = new DataTable();
-                dtNEC01final = new DataTable();
-                dtNEC11final = new DataTable();
-                dtNEC21final = new DataTable();
+                    dtNEC00final = new DataTable();
+                    dtNEC10final = new DataTable();
+                    dtNEC20final = new DataTable();
+                    dtNEC01final = new DataTable();
+                    dtNEC11final = new DataTable();
+                    dtNEC21final = new DataTable();
 
 
-                inValid = cekValidasiTableNEC();
-                if (!inValid)
-                {
-                    checkAvailabilityNEC();
-                    finalCableDataNEC();
-                    if ((dtNEC00final.Rows.Count > 0) || (dtNEC10final.Rows.Count > 0) || (dtNEC20final.Rows.Count > 0) || (dtNEC01final.Rows.Count > 0)
-                        || (dtNEC11final.Rows.Count > 0) || (dtNEC21final.Rows.Count > 0))
+                    inValid = cekValidasiTableNEC();
+                    if (!inValid)
                     {
-                        var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                        Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
-                        var saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", saveName + ".xml");
+                        checkAvailabilityNEC();
+                        finalCableDataNEC();
+                        if ((dtNEC00final.Rows.Count > 0) || (dtNEC10final.Rows.Count > 0) || (dtNEC20final.Rows.Count > 0) || (dtNEC01final.Rows.Count > 0)
+                            || (dtNEC11final.Rows.Count > 0) || (dtNEC21final.Rows.Count > 0))
+                        {
+                            var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                            Directory.CreateDirectory(systemPath + "/Cable Sizing/NEC_database");
+                            var saveDir = Path.Combine(systemPath + "/Cable Sizing/NEC_database", saveName + ".xml");
 
-                        if (!File.Exists(saveDir))
-                        {
-                            SaveNECDatabase();
-                            if (NECSelected)
-                            {
-                                LoadNECDatabase();
-                                ResetEditView();
-                            }
-                            ResetStateAfterSave();
-                            databaseEdited = true;
-                            if (buttonEdit.Text == "Save")
-                            {
-                                comboBoxDatabase.Text = fileName;
-                            }
-                        }
-                        else //file with the same name detected
-                        {
-                            DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
-                                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-                            if (dr == DialogResult.OK)
+                            if (!File.Exists(saveDir))
                             {
                                 SaveNECDatabase();
                                 if (NECSelected)
@@ -650,23 +634,148 @@ namespace Test1
                                     comboBoxDatabase.Text = fileName;
                                 }
                             }
-                            else
+                            else //file with the same name detected
                             {
-                                MessageBox.Show("Failed to save data!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                DialogResult dr = MessageBox.Show("File with the same name already exist, want to overwrite the file?", "Cable Sizing",
+                                    MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+                                if (dr == DialogResult.OK)
+                                {
+                                    SaveNECDatabase();
+                                    if (NECSelected)
+                                    {
+                                        LoadNECDatabase();
+                                        ResetEditView();
+                                    }
+                                    ResetStateAfterSave();
+                                    databaseEdited = true;
+                                    if (buttonEdit.Text == "Save")
+                                    {
+                                        comboBoxDatabase.Text = fileName;
+                                    }
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Failed to save data!", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
                             }
-                        }
 
+                        }
+                        else
+                        {
+                            MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Cable Database is Empty!", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
-                else
-                {
-                    MessageBox.Show("Database input invalid, some rows have incomplete data!\n\nHint: Every row of data must be filled entirely or left empty", "Database Invalid", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
+            else
+            {
+                MessageBox.Show(saveName + "\nInvalid file name", "Cable Sizing", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        internal static bool CheckFileNameValidity(string fn)
+        {
+            switch (fn)
+            {
+                case "CON":
+                    return false;
+                case "PRN":
+                    return false;
+                case "AUX":
+                    return false;
+                case "CLOCK$":
+                    return false;
+                case "NUL":
+                    return false;
+                case "COM1":
+                    return false;
+                case "COM2":
+                    return false;
+                case "COM3":
+                    return false;
+                case "COM4":
+                    return false;
+                case "COM5":
+                    return false;
+                case "COM6":
+                    return false;
+                case "COM7":
+                    return false;
+                case "COM8":
+                    return false;
+                case "COM9":
+                    return false;
+                case "LPT1":
+                    return false;
+                case "LPT2":
+                    return false;
+                case "LPT3":
+                    return false;
+                case "LPT4":
+                    return false;
+                case "LPT5":
+                    return false;
+                case "LPT6":
+                    return false;
+                case "LPT7":
+                    return false;
+                case "LPT8":
+                    return false;
+                case "LPT9":
+                    return false;
+            }
+
+            if (fn.IndexOf('/') != -1 )
+            {
+                return false;
+            }
+            if (fn.IndexOf('\\') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('?') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('%') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('*') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf(':') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('|') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('"') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('<') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('>') != -1)
+            {
+                return false;
+            }
+            if (fn.IndexOf('.') != -1)
+            {
+                return false;
+            }
+
+            //else
+            return true;
         }
 
         private void ResetEditView()
