@@ -2583,11 +2583,11 @@ namespace Test1
                 {
                     sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     Directory.CreateDirectory(sysPath + "/Cable Sizing/IEC_database");
+
                     deleteDir = Path.Combine(sysPath + "/Cable Sizing/IEC_database", fileName + ".xml");
                 }
                 else if (NECSelected)
                 {
-
                     sysPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                     Directory.CreateDirectory(sysPath + "/Cable Sizing/NEC_database");
                     deleteDir = Path.Combine(sysPath + "/Cable Sizing/NEC_database", fileName + ".xml");
@@ -2605,6 +2605,7 @@ namespace Test1
                 }
                 
                 databaseEdited = true;
+                ResetEditView();
             }
         }
         private void EnableRenameDelete()
@@ -2650,8 +2651,12 @@ namespace Test1
                     NewFile = Path.Combine(sysPath + "/Cable Sizing/NEC_database", FormRename.NewName + ".xml");
                 }
 
-
+                if (File.Exists(NewFile))
+                {
+                    File.Delete(NewFile);
+                }
                 File.Move(oldFile, NewFile);
+
                 if (IECSelected)
                 {
                     LoadIECDatabase();

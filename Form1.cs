@@ -638,6 +638,11 @@ namespace Test1
 
                 comboBox2.Items.Insert(0, "Feeder");
                 comboBox2.Items.Insert(1, "Motor");
+
+                if (!cbPower.Items.Contains("HP"))
+                {
+                    cbPower.Items.Insert(2, "HP");
+                }
             }
             else if (comboBox3.Text == "Single-Phase AC")
             {
@@ -645,12 +650,22 @@ namespace Test1
 
                 comboBox2.Items.Insert(0, "Feeder");
                 comboBox2.Items.Insert(1, "Motor");
+
+                if (!cbPower.Items.Contains("HP"))
+                {
+                    cbPower.Items.Insert(2, "HP");
+                }
             }
             else if (comboBox3.Text == "DC")
             {
                 comboBox5.Items.Insert(0, 2);
 
                 comboBox2.Items.Insert(0, "Feeder");
+
+                if (cbPower.Items.Contains("HP"))
+                {
+                    cbPower.Items.RemoveAt(2);
+                }
             }
 
             DisableUndoReset();
@@ -4396,7 +4411,7 @@ namespace Test1
 
                 //enable save and open toolstrip menu when form is no longer editing
                 ChangeSaveOpenState();
-
+                NewSave = true;
             }
         }
 
@@ -4487,6 +4502,7 @@ namespace Test1
                 button3.Text = "Save";
                 button5.Visible = false;
                 ChangeSaveOpenState();
+                NewSave = true;
             }
         }
 
@@ -7089,7 +7105,15 @@ namespace Test1
             {
                 if ((phase == "DC") && (loadtype == "Feeder"))
                 {
-                    current = power * 1000 / voltage;
+                    if (cbPower.Text == "kVA")
+                    {
+                        power = cplxpower * pf;
+                        current = power * 1000 / voltage;
+                    }
+                    else
+                    {
+                        current = power * 1000 / voltage;
+                    }
                     textBox3.Text = current.ToString("0.##");
                     textBox7.Text = "";
                 }
