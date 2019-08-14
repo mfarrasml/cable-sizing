@@ -1441,6 +1441,8 @@ namespace Test1
 
             button2.Text = "Verify Min.Size against S.C.";
 
+            f5 = new Form5(this);
+
             LoadColor();
             SaveAllColor();
 
@@ -6742,17 +6744,9 @@ namespace Test1
             }
         }
 
-        private void AddToolStripMenuItem1_Click(object sender, EventArgs e)
+        public void ChangeFormTitle()
         {
-            AddToResult();
-            if (Form5.savefile == "")
-            {
-                f5.ExportDgvToXML();
-            }
-            else //safefile == last savepath
-            {
-                f5.saveExportDgvToXML();
-            }
+            Text = Path.GetFileName(Form5.savefile);
         }
 
         private void Button9_Click(object sender, EventArgs e)

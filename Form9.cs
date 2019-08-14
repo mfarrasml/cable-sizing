@@ -856,6 +856,9 @@ namespace Test1
         {
             button2.Text = "Verify Min.Size against S.C.";
 
+            //pass form9 as variable
+            f5 = new Form5(this);
+
             Form1.OpenFromMain = false;
             Form1.FileOpened = false;
 
@@ -9827,6 +9830,11 @@ namespace Test1
             button3.Enabled = false;
             toolTip1.SetToolTip(button4, null);
             toolTip1.SetToolTip(button3, null);
+        }
+
+        public void ChangeFormTitle()
+        {
+            Text = Path.GetFileName(Form5.savefile);
         }
 
     }

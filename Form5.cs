@@ -32,10 +32,23 @@ namespace Test1
         public static bool toolbarDescShown;
         internal static int Standard; //1 = IEC, 2 = NEC
 
+        Form1 f1;
+        Form9 f9;
+
         public Form5()
         {
             InitializeComponent();
         }
+
+        public Form5(Form1 form1) : this()
+        {
+            f1 = form1;
+        }
+
+        public Form5(Form9 form9) : this()
+        {
+            f9 = form9;
+        } 
 
         private void Form5_Load(object sender, EventArgs e)
         {
@@ -358,6 +371,14 @@ namespace Test1
                     Console.WriteLine(ex);
                 }
                 dataGridView1.ClearSelection();
+                if (Standard == 1)
+                {
+                    f1.ChangeFormTitle();
+                }
+                else if (Standard == 2)
+                {
+                    f9.ChangeFormTitle();
+                }
             }
         }
 
@@ -446,15 +467,26 @@ namespace Test1
                     if (Standard == 1)
                     {
                         ds.DataSetName = "IEC_Cable_Data";
+                        f1.ChangeFormTitle();
                     }
                     else if (Standard == 2)
                     {
                         ds.DataSetName = "NEC_Cable_Data";
+                        f9.ChangeFormTitle();
                     }
 
                     ds.WriteXml(xmlSave);
                     xmlSave.Close();
                     savefile = sfd.FileName;
+
+                    if (Standard == 1)
+                    {
+                        f1.ChangeFormTitle();
+                    }
+                    else if (Standard == 2)
+                    {
+                        f9.ChangeFormTitle();
+                    }
                 }
                 catch (Exception ex)
                 {
