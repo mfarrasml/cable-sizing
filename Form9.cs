@@ -854,7 +854,7 @@ namespace Test1
 
         private void Form9_Load(object sender, EventArgs e)
         {
-            button2.Text = "Verify Min. Size";
+            button2.Text = "Verify Min.Size against S.C.";
 
             Form1.OpenFromMain = false;
             Form1.FileOpened = false;
@@ -3823,7 +3823,7 @@ namespace Test1
                 scrating = 0;
                 breakcurrent = 0;
 
-                button2.Text = "Verify Min. Size";
+                button2.Text = "Verify Min.Size against S.C.";
             }
 
             break_lte();
@@ -3919,7 +3919,7 @@ namespace Test1
                 scrating = 0;
                 breakcurrent = 0;
 
-                button2.Text = "Verify Min. Size";
+                button2.Text = "Verify Min.Size against S.C.";
             }
 
             break_lte();

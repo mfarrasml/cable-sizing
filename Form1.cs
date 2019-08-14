@@ -1439,7 +1439,7 @@ namespace Test1
         private void Form1_Load(object sender, EventArgs e)
         {
 
-            button2.Text = "Verify Min. Size";
+            button2.Text = "Verify Min.Size against S.C.";
 
             LoadColor();
             SaveAllColor();
@@ -3828,7 +3828,7 @@ namespace Test1
                 scrating = 0;
                 breakcurrent = 0;
 
-                button2.Text = "Verify Min. Size";
+                button2.Text = "Verify Min.Size against S.C.";
             }
 
             break_lte();
@@ -3889,7 +3889,7 @@ namespace Test1
                 textBox22.Enabled = false;
 
 
-                button2.Text = "Verify Min. Size";
+                button2.Text = "Verify Min.Size against S.C.";
             }
 
             break_lte();
