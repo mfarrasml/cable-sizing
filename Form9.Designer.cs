@@ -369,11 +369,11 @@
             // tbResult
             // 
             this.tbResult.BackColor = System.Drawing.Color.White;
-            this.tbResult.Location = new System.Drawing.Point(94, 606);
+            this.tbResult.Location = new System.Drawing.Point(103, 606);
             this.tbResult.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.tbResult.Name = "tbResult";
             this.tbResult.ReadOnly = true;
-            this.tbResult.Size = new System.Drawing.Size(778, 28);
+            this.tbResult.Size = new System.Drawing.Size(769, 28);
             this.tbResult.TabIndex = 27;
             this.tbResult.Text = "";
             // 
@@ -385,9 +385,9 @@
             this.label21.Location = new System.Drawing.Point(9, 614);
             this.label21.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(79, 13);
+            this.label21.Size = new System.Drawing.Size(88, 13);
             this.label21.TabIndex = 26;
-            this.label21.Text = "Selected Cable";
+            this.label21.Text = "Suggested Cable";
             // 
             // menuStrip1
             // 
@@ -510,7 +510,7 @@
             this.resetToolStripMenuItem.Image = global::Test1.Properties.Resources.Restart_16x;
             this.resetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.resetToolStripMenuItem.Name = "resetToolStripMenuItem";
-            this.resetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.resetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.resetToolStripMenuItem.Text = "Reset";
             this.resetToolStripMenuItem.Click += new System.EventHandler(this.ResetToolStripMenuItem_Click);
             // 
@@ -520,7 +520,7 @@
             this.undoResetToolStripMenuItem.Image = global::Test1.Properties.Resources.Refresh_16x;
             this.undoResetToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.undoResetToolStripMenuItem.Name = "undoResetToolStripMenuItem";
-            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.undoResetToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.undoResetToolStripMenuItem.Text = "Undo Reset";
             this.undoResetToolStripMenuItem.Click += new System.EventHandler(this.UndoResetToolStripMenuItem_Click);
             // 
@@ -530,7 +530,7 @@
             this.viewEditCableDatabaseToolStripMenuItem,
             this.addCableDatabaseToolStripMenuItem});
             this.databaseToolStripMenuItem.Name = "databaseToolStripMenuItem";
-            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.databaseToolStripMenuItem.Size = new System.Drawing.Size(134, 22);
             this.databaseToolStripMenuItem.Text = "Database";
             // 
             // viewEditCableDatabaseToolStripMenuItem
