@@ -2610,7 +2610,7 @@ namespace Test1
         }
         private void EnableRenameDelete()
         {
-            if ((comboBoxDatabase.Text != "") && (comboBoxDatabase.Text != "Sumi Indo Cable (Default)"))
+            if ((comboBoxDatabase.Text != "") && (comboBoxDatabase.Text != "Sumi Indo Cable"))
             {
                 buttonDelete.Enabled = true;
                 buttonRename.Enabled = true;
@@ -3451,7 +3451,7 @@ namespace Test1
             comboBoxDatabase.Items.Clear();
             comboBoxDatabase.ResetText();
             fileName = "";
-            comboBoxDatabase.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
+            comboBoxDatabase.Items.Insert(0, "Sumi Indo Cable"); //default, hardcoded-to-program database
             //fill all saved database created by user
             for (int z = 0; z < IECFiles; z++)
             {
@@ -3492,11 +3492,11 @@ namespace Test1
             fileName = comboBoxDatabase.Text;
             if (IECSelected)
             {
-                if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
+                if ((fileName != "Sumi Indo Cable") && (fileName != ""))
                 {
                     ReadIECDatabase();
                 }
-                else if (fileName == "Sumi Indo Cable (Default)")
+                else if (fileName == "Sumi Indo Cable")
                 {
                     DoubleArrayToDT(Form1.xlpe2core, 17, 6, dtXLPE2view);
                     DoubleArrayToDT(Form1.xlpe3core, 17, 6, dtXLPE3view);
@@ -3550,7 +3550,7 @@ namespace Test1
 
         private void EnableEdit()
         {
-            if ((fileName != "") && (fileName != "Sumi Indo Cable (Default)") && (viewconductor != "") && (viewinsulation != "") && ((IECSelected && (viewCores != 0)) ||(NECSelected)) )
+            if ((fileName != "") && (fileName != "Sumi Indo Cable") && (viewconductor != "") && (viewinsulation != "") && ((IECSelected && (viewCores != 0)) ||(NECSelected)) )
             {
                 buttonEdit.Enabled = true;
             }
@@ -3914,7 +3914,7 @@ namespace Test1
         /*
         private void FillDataTable()
         {
-            if ((fileName != "Sumi Indo Cable (Default)") && (fileName != ""))
+            if ((fileName != "Sumi Indo Cable") && (fileName != ""))
             {
 
             }

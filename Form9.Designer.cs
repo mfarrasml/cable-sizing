@@ -885,19 +885,19 @@
             // radioButtonVendor
             // 
             this.radioButtonVendor.AutoSize = true;
-            this.radioButtonVendor.Location = new System.Drawing.Point(9, 25);
+            this.radioButtonVendor.Location = new System.Drawing.Point(64, 25);
             this.radioButtonVendor.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButtonVendor.Name = "radioButtonVendor";
-            this.radioButtonVendor.Size = new System.Drawing.Size(85, 17);
+            this.radioButtonVendor.Size = new System.Drawing.Size(133, 17);
             this.radioButtonVendor.TabIndex = 131;
-            this.radioButtonVendor.Text = "Vendor Data";
+            this.radioButtonVendor.Text = "Standard/Vendor Data";
             this.radioButtonVendor.UseVisualStyleBackColor = true;
             // 
             // radioButton4
             // 
             this.radioButton4.AutoSize = true;
             this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(9, 4);
+            this.radioButton4.Location = new System.Drawing.Point(64, 4);
             this.radioButton4.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(93, 17);
@@ -910,13 +910,15 @@
             // radioButton3
             // 
             this.radioButton3.AutoSize = true;
+            this.radioButton3.Enabled = false;
             this.radioButton3.Location = new System.Drawing.Point(110, 4);
             this.radioButton3.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(87, 17);
+            this.radioButton3.Size = new System.Drawing.Size(73, 17);
             this.radioButton3.TabIndex = 130;
-            this.radioButton3.Text = "Manual Input";
+            this.radioButton3.Text = "Test Case";
             this.radioButton3.UseVisualStyleBackColor = true;
+            this.radioButton3.Visible = false;
             this.radioButton3.CheckedChanged += new System.EventHandler(this.RadioButton3_CheckedChanged);
             // 
             // panel5

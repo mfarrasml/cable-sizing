@@ -1525,7 +1525,7 @@ namespace Test1
 
             //load saved/default settings
             LoadIECDatabase();
-            comboBoxVendor.Text = "Sumi Indo Cable (Default)";
+            comboBoxVendor.Text = "Sumi Indo Cable";
             xlpe2coreLength = 17;
             xlpe3coreLength = 17;
             xlpe4coreLength = 17;
@@ -4777,22 +4777,13 @@ namespace Test1
         {
             if (radioButton4.Checked)
             {
-                if (voltageLv == "MV")
-                {
-                    MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
-                        "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    radioButton3.Checked = true;
-                }
-                else
-                {
-                    button6.Enabled = false;
-                    label78.Enabled = false;
-                    button6.Visible = false;
-                    label78.Visible = false;
+                button6.Enabled = false;
+                label78.Enabled = false;
+                button6.Visible = false;
+                label78.Visible = false;
 
-                    comboBoxVendor.Visible = true;
-                    labelVendor.Visible = true;
-                }
+                comboBoxVendor.Visible = true;
+                labelVendor.Visible = true;
             }
             else
             {
@@ -5133,12 +5124,7 @@ namespace Test1
                 panel15.BackColor = Color.Red;
                 toolTip1.SetToolTip(comboBox14, "Voltage system needs to be chosen first");
             }
-            if ((radioButton4.Checked) && (voltageLv == "MV"))
-            {
-                MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
-                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                radioButton3.Checked = true;
-            }
+
             enable_vd_btn();
             enable_result_btn();
         }
@@ -6547,11 +6533,11 @@ namespace Test1
 
             SelectedDatabase = comboBoxVendor.Text;
             //Gather cable specification of the selected database
-            if ((SelectedDatabase != "Sumi Indo Cable (Default)") && (SelectedDatabase != ""))
+            if ((SelectedDatabase != "Sumi Indo Cable") && (SelectedDatabase != ""))
             {
                 ReadIECDatabase();
             }
-            else if (SelectedDatabase == "Sumi Indo Cable (Default)")
+            else if (SelectedDatabase == "Sumi Indo Cable")
             {
                 xlpe2coreDB = new double[17,6];
                 Array.Copy(xlpe2core, xlpe2coreDB, xlpe2core.Length);
@@ -8144,7 +8130,7 @@ namespace Test1
             IECDatabaseFiles = files.Length;
             //fill vendor data from database
             comboBoxVendor.Items.Clear();
-            comboBoxVendor.Items.Insert(0, "Sumi Indo Cable (Default)"); //default, hardcoded-to-program database
+            comboBoxVendor.Items.Insert(0, "Sumi Indo Cable"); //default, hardcoded-to-program database
             comboBoxVendor.SelectedIndex = 0;
             //fill all saved database created by user
             for (int z = 0; z < IECDatabaseFiles; z++)

@@ -102,6 +102,9 @@ namespace Test1
 
         bool calculated = false;
 
+        //NEC standard radiobutton location
+        int NEClocationX, NEClocationY;
+
         int m;
 
         string voltageLv;
@@ -979,10 +982,10 @@ namespace Test1
             kttextboxY = textBox19.Location.Y;
             ktlabelX = label43.Location.X;
             ktlabelY = label43.Location.Y;
+
+            NEClocationX = radioButtonVendor.Location.X;
+            NEClocationY = radioButtonVendor.Location.Y;
         }
-
-
-
 
 
 
@@ -5064,7 +5067,7 @@ namespace Test1
                 {
                     MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
                         "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    radioButton3.Checked = true;
+                    radioButtonVendor.Checked = true;
                 }
                 else
                 {
@@ -5435,6 +5438,10 @@ namespace Test1
                 comboBox14.Items.Insert(4, "18/30kV");
 
                 toolTip1.SetToolTip(comboBox14, null);
+
+                radioButton4.Visible = false;
+                radioButton4.Enabled = false;
+                radioButtonVendor.Location = new Point(radioButton4.Location.X, radioButton4.Location.Y);
             }
             else if (comboBox13.Text == "LV")
             {
@@ -5442,17 +5449,23 @@ namespace Test1
                 comboBox14.Text = "0.6/1kV";
 
                 toolTip1.SetToolTip(comboBox14, null);
+                radioButton4.Visible = true;
+                radioButton4.Enabled = true;
+                radioButtonVendor.Location = new Point(NEClocationX, NEClocationY);
             }
             else
             {
                 panel14.BackColor = Color.Red;
                 toolTip1.SetToolTip(comboBox14, "Voltage system needs to be chosen first");
+                radioButton4.Visible = true;
+                radioButton4.Enabled = true;
+                radioButtonVendor.Location = new Point(NEClocationX, NEClocationY);
             }
             if ((radioButton4.Checked) && (voltageLv == "MV"))
             {
                 MessageBox.Show("Vendor data for Medium Voltage (MV) cable is not available, please input cable data manually.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                radioButton3.Checked = true;
+                radioButtonVendor.Checked = true;
             }
             DisableUndoReset();
             enable_vd_btn();
