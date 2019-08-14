@@ -2140,7 +2140,7 @@ namespace Test1
         //validate vd and fl current
         private void validasi_vd()
         {
-            if ((current < iderated) && (vdrun < vdrunmax))
+            if ((current * 1.25 < iderated) && (vdrun < vdrunmax))
             {
                 if ((loadtype == "Motor") && ConsiderVdStart)
                 {
@@ -3444,7 +3444,7 @@ namespace Test1
 
         private void solvableOrNPlus()
         {
-            if (breakcurrent < current)
+            if (breakcurrent < current * 1.25)
             {
                 MessageBox.Show("Failed to get a suitable cable size: Breaker current value must be greater than the full load current value!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 complete = true;
@@ -3477,8 +3477,8 @@ namespace Test1
         //validate i fl < i break < i derated, validate vd < vdmax, validate sizemin sc < selected size, validate cLTE < bLTE
         private void validasi()
         {
-            if (((current < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) && (radioButton1.Checked) && (cLTE > bLTE)) ||
-                ((radioButton2.Checked) && (current < iderated) &&
+            if (((current * 1.25 < breakcurrent) && (breakcurrent < iderated) && (vdrun < vdrunmax) && (radioButton1.Checked) && (cLTE > bLTE)) ||
+                ((radioButton2.Checked) && (current * 1.25 < iderated) &&
                 (((radioButton4.Checked) && /*(data_wirearea_metric[i] > cablesizemin))*/ (cmil > smin)) || ((radioButton3.Checked) && /*(inputCableData_nec_metric[i] > cablesizemin)*/ (cmil > smin)) ||
                 ((radioButtonVendor.Checked) && /*(nec_selected_wirearea_metric[i] > cablesizemin)*/(cmil > smin)))))
             {
@@ -5431,11 +5431,11 @@ namespace Test1
             comboBox14.Items.Clear();
             if (comboBox13.Text == "MV")
             {
-                comboBox14.Items.Insert(0, "3.6/6kV");
-                comboBox14.Items.Insert(1, "6/10kV");
-                comboBox14.Items.Insert(2, "8.7/15kV");
-                comboBox14.Items.Insert(3, "12/20kV");
-                comboBox14.Items.Insert(4, "18/30kV");
+                comboBox14.Items.Insert(0, "5kV");
+                comboBox14.Items.Insert(1, "8kV");
+                comboBox14.Items.Insert(2, "15kV");
+                comboBox14.Items.Insert(3, "25kV");
+                comboBox14.Items.Insert(4, "35kV");
 
                 toolTip1.SetToolTip(comboBox14, null);
 
@@ -5445,8 +5445,8 @@ namespace Test1
             }
             else if (comboBox13.Text == "LV")
             {
-                comboBox14.Items.Insert(0, "0.6/1kV");
-                comboBox14.Text = "0.6/1kV";
+                comboBox14.Items.Insert(0, "0.6kV");
+                comboBox14.Text = "0.6kV";
 
                 toolTip1.SetToolTip(comboBox14, null);
                 radioButton4.Visible = true;
