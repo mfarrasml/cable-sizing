@@ -1423,6 +1423,9 @@ namespace Test1
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
+            button2.Text = "Verify Min. Size";
+
             LoadColor();
             SaveAllColor();
 
@@ -3766,6 +3769,8 @@ namespace Test1
                 {
                     textBox20.ReadOnly = true;
                 }
+
+                button2.Text = "Verify Thermal Stress of Cable";
             }
             else if ((radioButton2.Checked))
             {
@@ -3807,6 +3812,8 @@ namespace Test1
                 breakertype = "";
                 scrating = 0;
                 breakcurrent = 0;
+
+                button2.Text = "Verify Min. Size";
             }
 
             break_lte();
@@ -3844,6 +3851,8 @@ namespace Test1
                 {
                     textBox20.ReadOnly = true;
                 }
+
+                button2.Text = "Verify Thermal Stress of Cable";
             }
             else if ((radioButton2.Checked))
             {
@@ -3863,6 +3872,9 @@ namespace Test1
                 label70.Enabled = false;
                 textBox20.Enabled = false;
                 textBox22.Enabled = false;
+
+
+                button2.Text = "Verify Min. Size";
             }
 
             break_lte();

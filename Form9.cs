@@ -839,6 +839,7 @@ namespace Test1
 
         private void Form9_Load(object sender, EventArgs e)
         {
+            button2.Text = "Verify Min. Size";
 
             Form1.OpenFromMain = false;
             Form1.FileOpened = false;
@@ -2818,13 +2819,13 @@ namespace Test1
                     label87.Visible = true;
                     if (radioButton1.Checked)
                     {
-                        label88.Text = "Since withstand energy level of cable is larger than the LTE of the \nprotection device," +
-                            " therefore cable size of " + wirearea_nec + " " + wirearea_unit + " is acceptable";
+                        label88.Text = "Since withstand energy level of cable is larger than\nthe LTE of the protection device," +
+                            " therefore cable size of\n" + wirearea_nec + " " + wirearea_unit + " is acceptable";
                     }
                     else if (radioButton2.Checked)
                     {
-                        label88.Text = "During Short Circuit condition, the minimum cable size is " + smin.ToString("0.##") + " cmil,\n" +
-                            "therefore cable size of " + cmil.ToString("0.##") + " cmil (" + wirearea_nec + " " + wirearea_unit + ") is acceptable";
+                        label88.Text = "During Short Circuit condition, the minimum cable size is\n" + smin.ToString("0.##") + " cmil," +
+                            "therefore cable size of " + cmil.ToString("0.##") + " cmil (" + wirearea_nec + " " + wirearea_unit + ")\nis acceptable";
                     }
 
                     label88.Visible = true;
@@ -3762,6 +3763,8 @@ namespace Test1
                 {
                     textBox20.ReadOnly = true;
                 }
+
+                button2.Text = "Verify Thermal Stress of Cable";
             }
             else if ((radioButton2.Checked))
             {
@@ -3804,6 +3807,8 @@ namespace Test1
                 breakertype = "";
                 scrating = 0;
                 breakcurrent = 0;
+
+                button2.Text = "Verify Min. Size";
             }
 
             break_lte();
@@ -3854,6 +3859,8 @@ namespace Test1
                 {
                     textBox20.ReadOnly = true;
                 }
+
+                button2.Text = "Verify Thermal Stress of Cable";
             }
             else if ((radioButton2.Checked))
             {
@@ -3896,6 +3903,8 @@ namespace Test1
                 breakertype = "";
                 scrating = 0;
                 breakcurrent = 0;
+
+                button2.Text = "Verify Min. Size";
             }
 
             break_lte();
