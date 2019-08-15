@@ -43,12 +43,13 @@
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
+    <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>
@@ -159,6 +160,12 @@
     <Compile Include="FormAddCableDatabase.Designer.cs">
       <DependentUpon>FormAddCableDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormReference.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormReference.Designer.cs">
+      <DependentUpon>FormReference.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormRename.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -226,6 +233,9 @@
     <EmbeddedResource Include="FormAddCableDatabase.resx">
       <DependentUpon>FormAddCableDatabase.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FormReference.resx">
+      <DependentUpon>FormReference.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormRename.resx">
       <DependentUpon>FormRename.cs</DependentUpon>
     </EmbeddedResource>
@@ -281,6 +291,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Iconsmind-Outline-Power-Cable.ico" />
+    <None Include="Resources\InformationSymbol_16x.png" />
+    <None Include="Resources\NEC.jpg" />
+    <None Include="Resources\IEC %281%29.jpg" />
+    <None Include="Resources\PDFtoJPG.me-12.jpg" />
+    <None Include="Resources\PDFtoJPG.me-11.jpg" />
+    <None Include="Resources\PDFtoJPG.me-1.jpg" />
+    <None Include="Resources\IEC-1.jpg" />
     <None Include="Resources\Refresh_16x.png" />
     <None Include="Resources\Exit_16x.png" />
     <None Include="Resources\Add_grey_16xMD.png" />
