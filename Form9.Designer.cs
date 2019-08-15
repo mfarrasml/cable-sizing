@@ -62,6 +62,7 @@
             this.cableDataTableToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nECStandardCableDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.referencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel2 = new Test1.GradientPanel();
             this.panel37 = new System.Windows.Forms.Panel();
@@ -576,16 +577,26 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.referencesToolStripMenuItem,
             this.toolStripMenuItem3});
             this.toolStripMenuItem1.ForeColor = System.Drawing.Color.Black;
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(44, 18);
             this.toolStripMenuItem1.Text = "Help";
             // 
+            // referencesToolStripMenuItem
+            // 
+            this.referencesToolStripMenuItem.Image = global::Test1.Properties.Resources.InformationSymbol_16x;
+            this.referencesToolStripMenuItem.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
+            this.referencesToolStripMenuItem.Name = "referencesToolStripMenuItem";
+            this.referencesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.referencesToolStripMenuItem.Text = "Information";
+            this.referencesToolStripMenuItem.Click += new System.EventHandler(this.ReferencesToolStripMenuItem_Click);
+            // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(107, 22);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem3.Text = "About";
             this.toolStripMenuItem3.Click += new System.EventHandler(this.ToolStripMenuItem3_Click);
             // 
@@ -3271,6 +3282,7 @@
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.TextBox textBox15;
         private DoubleTextBox textBox24;
+        private System.Windows.Forms.ToolStripMenuItem referencesToolStripMenuItem;
     }
 }
 

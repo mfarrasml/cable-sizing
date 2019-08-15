@@ -11,6 +11,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Diagnostics;
 
 namespace Test1
 {
@@ -87,6 +88,7 @@ namespace Test1
         Form6 f6 = new Form6();
         Form2 f2 =  new Form2();
         Form3 f3  = new Form3();
+        FormReference fReference = new FormReference();
         FormAbout fAbout = new FormAbout();
         FSettings fSettings = new FSettings();
         FormAddCableDatabase faddcable;
@@ -6974,6 +6976,13 @@ namespace Test1
         private void DisableUndoReset()
         {
             undoResetToolStripMenuItem.Enabled = false;
+        }
+
+        private void ReferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fReference = new FormReference();
+            fReference.tabControl1.SelectedIndex = 0;
+            fReference.Show();
         }
 
         private void TextBox27_TextChanged(object sender, EventArgs e)

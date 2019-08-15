@@ -178,6 +178,7 @@ namespace Test1
         Form6 f6 = new Form6();
         Form10 f10 = new Form10();
         Form8 f8;
+        FormReference fReference = new FormReference();
         FSettings fSettings = new FSettings();
         FormAbout fAbout = new FormAbout();
         FormAddCableDatabase faddcable;
@@ -8575,6 +8576,13 @@ namespace Test1
         {
             f8 = new Form8();
             f8.Show();
+        }
+
+        private void ReferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            fReference = new FormReference();
+            fReference.tabControl1.SelectedIndex = 1;
+            fReference.Show();
         }
 
         private void TextBox37_TextChanged(object sender, EventArgs e)
